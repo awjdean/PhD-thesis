@@ -1,0 +1,33 @@
+\documentclass[nobib, justified]{LaTeX/tufte-book}
+\usepackage{LaTeX/preamble}
+
+\usepackage{LaTeX/draft}
+\drafttrue
+
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{bibliography.bib}
+
+\title{Algebraic structures in representation learning}
+\author{Alex Dean}
+\date{July 2024}
+
+\begin{document}
+
+\frontmatter
+\tableofcontents
+\doublespacing
+\listoffigures
+\listoftables
+\chapter{Abstract}
+
+\mainmatter
+\input{2MathematicalFramework/main}
+
+\chapter{Test}
+
+\backmatter
+% INSERT BIBLIOGRAPHY
+\printbibliography
+% Include bibliography in the table of contents.
+\addcontentsline{toc}{chapter}{Bibliography}
+\end{document}
