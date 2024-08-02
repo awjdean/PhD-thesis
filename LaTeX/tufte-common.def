@@ -1030,7 +1030,7 @@
 }{}
 
 %%
-% An environment for paragraph-style section
+% ENVIRONMENT FOR SMALL CAPS AT START OF NEW THOUGHTS.
 \providecommand\newthought[1]{%
    \tuftebreak
    \noindent\textsc{#1}%
@@ -1127,6 +1127,7 @@
 \catcode`\Q=11
 
 %%
+% Removed.
 % Citations should go in the margin as sidenotes
 \ifthenelse{\boolean{@tufte@loadbiblatex}}{%
   \RequirePackage[
@@ -1190,10 +1191,10 @@
 \providecommand{\footnotelayout}{%
   \@tufte@sidenote@font\@tufte@sidenote@justification
 }
-% This seems redundant...
-\renewcommand{\footnotelayout}{%
-  \@tufte@sidenote@font\@tufte@sidenote@justification
-}
+% % This seems redundant...
+% \renewcommand{\footnotelayout}{%
+%   \@tufte@sidenote@font\@tufte@sidenote@justification
+% }
 
 % Override footmisc's definition to set the sidenote marks (numbers) inside the
 % sidenote's text block.
@@ -1344,7 +1345,9 @@
 % keep the float (figure and table) numbers in sequence.
 \RequirePackage{placeins}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create Figures and Tables in the margin.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Margin float environment
 \newsavebox{\@tufte@margin@floatbox}
 \newenvironment{@tufte@margin@float}[2][-1.2ex]{%
@@ -1380,6 +1383,8 @@
 }{%
   \end{@tufte@margin@float}%
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%
 % Auto-detects the proper text alignment based on the various class options
@@ -1564,6 +1569,7 @@
       }%
     \end{minipage}%
   \end{fullwidth}%
+  
   % End original LaTeX float environment
   \@tufte@orig@endfloat%
   % Output debug info
@@ -1653,40 +1659,40 @@
 }
 
 %%
-% Redefine the figure environment to place the captions in the margin space
-\renewenvironment{figure}[1][htbp]{%
-  \ifvmode\else\unskip\fi%
-  \begin{@tufte@float}[#1]{figure}{}%
-}{%
-  \end{@tufte@float}%
-}
+% % Redefine the figure environment to place the captions in the margin space
+% \renewenvironment{figure}[1][htbp]{%
+%   \ifvmode\else\unskip\fi%
+%   \begin{@tufte@float}[#1]{figure}{}%
+% }{%
+%   \end{@tufte@float}%
+% }
 
-%%
-% Redefine the table environment to place the captions in the margin space
-\renewenvironment{table}[1][htbp]{%
-  \ifvmode\else\unskip\fi%
-  \begin{@tufte@float}[#1]{table}{}%
-}{%
-  \end{@tufte@float}%
-}
+% %%
+% % Redefine the table environment to place the captions in the margin space
+% \renewenvironment{table}[1][htbp]{%
+%   \ifvmode\else\unskip\fi%
+%   \begin{@tufte@float}[#1]{table}{}%
+% }{%
+%   \end{@tufte@float}%
+% }
 
-%%
-% Full-width figure
-\renewenvironment{figure*}[1][htbp]{%
-  \ifvmode\else\unskip\fi%
-  \begin{@tufte@float}[#1]{figure}{star}%
-}{%
-  \end{@tufte@float}%
-}
+% %%
+% % Full-width figure
+% \renewenvironment{figure*}[1][htbp]{%
+%   \ifvmode\else\unskip\fi%
+%   \begin{@tufte@float}[#1]{figure}{star}%
+% }{%
+%   \end{@tufte@float}%
+% }
 
-%%
-% Full-width table
-\renewenvironment{table*}[1][htbp]{%
-  \ifvmode\else\unskip\fi%
-  \begin{@tufte@float}[#1]{table}{star}%
-}{%
-  \end{@tufte@float}%
-}
+% %%
+% % Full-width table
+% \renewenvironment{table*}[1][htbp]{%
+%   \ifvmode\else\unskip\fi%
+%   \begin{@tufte@float}[#1]{table}{star}%
+% }{%
+%   \end{@tufte@float}%
+% }
 
 %%
 % Full-page-width area
@@ -2458,13 +2464,6 @@
 % files.
 \ifthenelse{\boolean{@tufte@debug}}{%
   \PrintTufteSettings\listfiles
-}{}
-
-%%
-% If there is a `tufte-common-local.tex' file, load it up.
-\IfFileExists{tufte-common-local.tex}{%
-  \input{tufte-common-local.tex}%
-  \@tufte@info@noline{Loading tufte-common-local.tex}%
 }{}
 
 %%

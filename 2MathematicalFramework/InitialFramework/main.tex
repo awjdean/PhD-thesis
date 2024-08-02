@@ -1,30 +1,155 @@
-\section{A mathematical framework for an agent in world}\label{sec:Mathematical framework for an agent in an environment}
+\section{A mathematical treatment of worlds and their transformations}\label{sec:Mathematical framework for an agent in an environment}
 
+\newthought{We want our} framework to be as general as possible, so we consider worlds as consisting a set of world states, which are distinguishable in some way\footnote{We are building up to using our framework to consider the transformation structure of the world from the perspective of an agent. So when we say \emph{distinguishable in some way} we mean that there is some way for our agent to distinguish between the states.}, and a set of transformations between those world states; these transformation describe how the current state of the world can be changed to other states (\textit{i.e.} the \emph{dynamics of the world}).
 
+We will also make a few simplifications to the worlds we consider:
+\paragraph{Deterministic worlds.}
+In a deterministic world, every change in the current world state has a single guaranteed effect.
+A world that is not deterministic is called \emph{stochastic}; in a stochastic world, the same change to the current world state could produce different results.
+We will initially consider deterministic worlds.
 
+\paragraph{Fully observable worlds.}
+If complete knowledge of the current world state for every possible current world state is known\footnote{This does not mean knowledge of the transformations between world states. Also, it does not mean knowledge of every world state, but knowledge of the current world state, no matter which world state is the current one}, then the world is called \emph{fully observable}; if not then the world is called \emph{partially observable}.
+Partially observable worlds are common in many real-world scenarios, however, we will initially consider fully observable worlds.
+\footnote{Move this section to agents section? "When an agent sensor is capable to sense or access the complete state of an agent at each point in time, it is said to be a fully observable environment else it is partially observable."}
 
-We now introduce our general mathematical framework for formally describing the transformations of a world.
-We begin by considering a generalised discrete world consisting of a set of
-discrete states, which are distinguishable in some way\footnote{We are building up to using our framework to consider the transformation structure of the world from the perspective of an agent. So when we say \emph{distinguishable in some way} we mean that there is some way for our agent to distinguish between the states.}, and a set of transitions between those states; these transitions are the world dynamics (\textit{i.e.}, how the world can transform from one world state to another world state).
-This world can be represented by directed multigraph, where the world states are the vertices of the graph and the world dynamics are arrows between the
-vertices.
-We will use this framework to reproduce the group action structure of the dynamics of a world in an artificial agent’s representation as described by \cite{Higgins2018}, and in doing so we uncover the requirements for this group action structure to be present in a world.
+We begin with fully observable worlds because:
+\begin{itemize}
+    \item their treatment is simpler than partially observable worlds, and
+    \item the representation of an agent of a partially observable world should ideally be the same as the representation of the agent in the same world but fully observable; therefore, if we identify structures present in an agent's representation of fully observable worlds then we are also identifying structures that should be present in the agent's representation of the same world but partially observable without having to consider the complications of partial observability\footnote{???}.
+\end{itemize}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Simplifications}\label{sec:Simplifications}
-
-\paragraph{Fully observable and partially observable worlds}
-Each observation of the world could contain all the information about the state of the distribution at the instance the observation is taken - the world is \textit{fully observable} - or only some of the information about the state of the distribution at the instance the observation is taken - the world is \textit{partially observable}.
-Partially observable worlds are common in many AI problems.
-However, in this work, we explore the structure of representations of agents in fully observable worlds.
-Our focus is on fully observable worlds because (1) their treatment is simpler than partially observable worlds, making them a good starting point, and (2) the ideal end result for a world being explored through partial observability should be as close as possible to the end result for the same world being explored through full observability so in identifying structures that should be present in the representations of fully observable worlds we are also identifying structures that should ideally be present in the representations of fully observable worlds without having to consider the complications of partial observability.
-
-\paragraph{Discrete vs continuous worlds}
-For simplicity, we only consider worlds made of discrete states.
+\paragraph{Discrete worlds.}
+In a \emph{discrete} world, the number of states and the number of transformations between states are countable.
+A world that is not discrete is called \emph{continuous}.
+For simplicity, we only consider discrete worlds.
 However, we argue that it is actually more natural to consider discrete worlds.
-Consider an agent with $n$ sensors $\theta_{n}$ that can interact with a world $W$ using continuous actions $A$ to produce a sensor observation: $\theta_{i}(w) = o_{i}$ where $i \in \{1, ..., n\}$ and $w \in W$.
+Consider an agent with $n$ sensors $\theta_{n}$ that can interact with a world $\mathscr{W}$ using continuous actions $A$ to produce a sensor observation: $\theta_{i}(w) = o_{i}$ where $i \in \{1, ..., n\}$ and $w \in W$.
 We hypothesise that there will be actions $da \in A$ that cause changes in the world state that are so small that the agent's sensors will not perceive the change (\textit{i.e.}, $\theta_{i}(da * w) = o_i$).
 Therefore, there will be discrete jumps between perceptible states of the world in the agent's representation.
+
+\newthought{Before we formally} define our generalised worlds, we need to talk about how transformations are made up of smaller transformations.
+We say that the smallest transformations\footnote{Note that, in the same way as for distinguishable world states, when we use our framework to describe the representation of an agent, these smallest transformations will be the smallest transformations detectable by the agent.} in our world are called \emph{minimum transformations}.
+We denote a transformation as a minimum world state transformation or a set of transformations as a set of minimum transformations using a $\hat{ }$.
+Soon we will combine these minimum transformations to give us all the transformations for the world, but first we need to establish some properties of minimum transformations.
+
+Let the set of minimum world state transformations be $\hat{D}$ and the set of world states be $W$.
+We define two maps $\hat{s},\hat{t}: \hat{D} \to W$; $\hat{s}$ is called the \emph{source map} and $\hat{t}$ is called the \emph{target map}.
+For any minimum world state transformation $\hat{d} \in \hat{D}$ from a world state $w_{1} \in W$ to a world state $w_{2} \in W$, $\hat{s}(\hat{d}) = w_{1}$ and $\hat{t}(\hat{d}) = w_{2}$.
+
+\newthought{We can now} formally define our generalised worlds as a directed multigraph.
+A \emph{world} $\mathscr{W}$ is a directed multigraph $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ where $W$ is a set of \emph{world states}, $\hat{D}$ is a set of \emph{minimum world state transformations}, and $\hat{s},\hat{t}: \hat{D} \to W$ are the source and target maps.
+
+\newthought{We are interested} in the all the transformations of our world $\mathscr{W}$, not just the minimum transformations.
+We let the set of all paths in $\mathscr{W}$ be called the set of all transformations and denote it by $D$; we call the elements of $D$ transformations\footnote{Minimum transformations are also transformations.}.
+A transformation $d \in D$ is a sequence of minimum world state transformations $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, where $\hat{\circ}: \hat{D} \times \hat{D} \to D$ is a composition operator\footnote{This operator is the operator of concatenation of paths.} that is defined if $\hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1})$ for $i = 1, ..., n-1$.
+The composition operator $\hat{\circ}$ is associative\footnote{If an operator $\cdot$ is \emph{associative}, it means that when we perform the operation $\cdot$ on three or more elements, the way in which the elements are grouped does not affect the outcome; this is commonly defined by the condition $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.} by the definition of concatenation of paths.
+We have constructed our transformations this way because it means that each transformation in $D$ can be represented as a unique composition of minimum transformations. 
+The \emph{length} of a transformation is the number of minimum transformations in its unique composition of minimum transformations\footnote{This means minimum transformations have a length of one.}.
+
+\paragraph{Trivial transformations.}
+For each world state $w \in W$ there is an element in $\hat{D}$ that represents a path with no transformations that starts and ends at $w$ (\textit{i.e.}, $\hat{s}(1_{w}) = \hat{t}(1_{w}) = w$); this element is denoted by $1_{w}$.
+These transformations are called \emph{trivial transformations}\footnote{Trivial transformations essentially represent nothing happening; we will hear more about this when we look at the actions of agents.}.
+Trivial transformations serve as a neutral element in path concatenation; this means trivial transformations do not alter other paths when they are composed with them\footnote{This property of trivial transformations is part of the definition of path concatenation and is analogous to the identity element in algebraic structures.}: for any $\hat{d} \in \hat{D}$, $d \hat{\circ} 1_{\hat{s}(d)} = d$ and $1_{\hat{t}(d)} \hat{\circ} d = d$ \footnote{Due to this aspect of the definition of trivial transformations, transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation).
+For example, $\hat{d} \hat{\circ} 1_{\hat{s}(\hat{d})}$ is the same element in $D$ as $\hat{d}$.}.
+Due to this behaviour, trivial transformations are said to have a length of zero.
+
+\paragraph{From $\hat{D}$ to $D$.}
+We extend the minimum transformation source map $\hat{s}$ and target map $\hat{t}$ of $\hat{D}$ to a source map $s: D \to W$ and a target map $t: D \to W$ of $D$.
+$s$ is defined such that for any $d \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, $s(d) = \hat{s}(\hat{d}_{1})$.
+$t$ is defined such that for any $d \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, $t(d) = \hat{t}(\hat{d}_{n})$.
+
+We also extend the minimum transformation composition operator $\hat{\circ}: \hat{D} \times \hat{D} \to D$ to a composition operator $\circ: D \times D \to D$ that is defined for $d' \circ d$ if $t(d) = s(d')$.
+For any $d, d' \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$ and $d' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1}$, $d' \circ d = d''$ where $d'' \in D$ is defined, $d'' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1} \hat{\circ} \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$.
+$\circ$ is associative following from the associativity of $\hat{\circ}$.
+
+Since the extended source map $s$, target map $t$, and composition operator $\circ$ encompass the minimum transformation source map $\hat{s}$, target map $\hat{t}$, and composition operator $\hat{\circ}$, we will use the extended $s$, $t$, and $\circ$ in the remainder of this work.
+Additionally, it is easy to see that the neutral element properties of trivial transformations hold for any transformation in $D$\footnote{For any $d \in D$, $d \circ 1_{s(d)} = d$ and $1_{t(d)} \circ d = d$.}.
+For a transformation $d \in D$ with $s(d) = w$ and $t(d) = w'$, we will often denote such a $d$ by $d: w \to w'$.
+
+
+
+
+\newthought{We can visually} represent the structure of our directed multigraphs using \emph{world diagrams} consisting of a dots for the world states and arrows for the transformations.
+These diagrams can make it easier to understand the structure and properties of worlds.
+\footnote{test}
+
+Since our set $D$ is can be very large\footnote{
+If we have transformations $d: s(d) \to t(d)$ and $d': s(d) \to t(d)$, then we can construct sequences like $d' \circ d$, $d' \circ d \circ d' \circ d$ etc..., which means $D$ has an infinite number of elements.
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation.jpg}
+%     \caption{Caption}
+%     \label{fig:transformation}
+% \end{figure}
+}, we do not show all the transformations in $D$ in our world diagrams unless explicitly stated.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation.jpg}
+    \caption{Caption}
+    \label{fig:transformation}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation_composition.jpg}
+    \caption{Caption}
+    \label{fig:transformation_composition}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/trivial_transformations_example_all_transformations.jpg}
+    \caption{Caption}
+    \label{fig:trivial_transformations_example_all_transformations}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/right_trivial_transformation.jpg}
+    \caption{Caption}
+    \label{fig:right_trivial_transformation}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/left_trivial_transformation.jpg}
+    \caption{Caption}
+    \label{fig:left_trivial_transformation}
+\end{figure}
+
+
+
+\noindent\rule{\textwidth}{1mm}
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/D_commonly_large.jpg}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{marginfigure}
+
+\textbf{Diagrams:}
+\begin{enumerate}
+    \item Transformation.
+    \item Composition of transformations.
+    \item Trivial transformation, both rules.
+    \item No unique element in $D$ for sequence with trivial transformations.
+\end{enumerate}
+
+\begin{itemize}
+    \item Figure out how to put a figure in a side note.
+    \item Write figure captions.
+
+    \item Mention: we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
+    \item Mention: positioning of the world states and the shapes of the arrows do not matter. Give example of isomorphic world diagrams. Diagram for this?
+    \item Footnote: Composition of transformations is read from left to right; the reason for this will be explained later.
+    \item Mention: sometimes we don't include the trivial transformations for clarity.
+\end{itemize}
+
+\noindent\rule{\textwidth}{1mm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mathematical model of a world}
@@ -228,13 +353,14 @@ We consider a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that:
 \end{enumerate}
 
 \whendraft{
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{Framework/Images/l-map-for-transitions-from-and-to-w0.jpg}
-    \caption{This diagram shows how the minimum transitions $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
-    }
-    \label{fig:l-map-for-transitions-from-and-to-w0}
-\end{figure}
+\textbf{Hidden diagram (commented out):}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{Framework/Images/l-map-for-transitions-from-and-to-w0.jpg}
+%     \caption{This diagram shows how the minimum transitions $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
+%     }
+%     \label{fig:l-map-for-transitions-from-and-to-w0}
+% \end{figure}
 
 
 
