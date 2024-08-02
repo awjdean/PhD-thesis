@@ -4,16 +4,19 @@
 \ProvidesFile{tufte-common.def}
   [2023/03/20 v3.6.0 Common code for the Tufte-LaTeX styles]
 
-%%
-% The `xkeyval' package simplifies the user interface for the document class ptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The `xkeyval' package simplifies the user interface for the document class ptions.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{xkeyval}
 
-%%
-% We use the `xifthen' package to handle our package option switches
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We use the `xifthen' package to handle our package option switches.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{xifthen}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define some shortcut macros for error/warning/info logging.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{hardwrap}
 \GenerateClassLogMacros[@tufte]{\@tufte@pkgname}
 \newcommand{\@tufte@debug@info}[1]{%
@@ -24,16 +27,18 @@
   \ifthenelse{\boolean{@tufte@debug}}{\@tufte@info@noline{#1}}{}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `debug' option -- provides more information in the .log file for use in troubleshooting problems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@debug}
 \DeclareOptionX[tufte]<common>{debug}{
   \setboolean{@tufte@debug}{true}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `nofonts' option -- doesn't load any fonts
 % `fonts' option -- tries to load fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadfonts}
 \setboolean{@tufte@loadfonts}{true}
 \DeclareOptionX[tufte]<common>{fonts}{
@@ -43,9 +48,10 @@
   \setboolean{@tufte@loadfonts}{false}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `nols' option -- doesn't configure letterspacing
 % `ls' option -- configures letterspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@letterspace}
 \setboolean{@tufte@letterspace}{true}
 \DeclareOptionX[tufte]<common>{ls}{
@@ -56,23 +62,18 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `a4paper' option
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newboolean{@tufte@afourpaper}
-\DeclareOptionX[tufte]<common>{a4paper}{
-  \setboolean{@tufte@afourpaper}{true}
-}
-
-%%
 % `sfsidenotes' option -- typesets sidenotes in sans serif typeface
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newboolean{@tufte@sfsidenotes}
 \DeclareOptionX[tufte]<common>{sfsidenotes}{
   \setboolean{@tufte@sfsidenotes}{true}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `symmetric' option -- puts marginpar space to the outside edge of the page
 %  Note: this option forces the twoside option (see the .cls files)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@symmetric}
 \DeclareOptionX[tufte]<common>{symmetric}{
   \setboolean{@tufte@symmetric}{true}
@@ -80,8 +81,9 @@
   \ExecuteOptionsX[tufte]<common>{twoside}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `twoside' option -- alternates running heads
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@twoside}
 \DeclareOptionX[tufte]<common>{twoside}{
   \setboolean{@tufte@twoside}{true}
@@ -89,8 +91,9 @@
   \PassOptionsToClass{twoside}{\@tufte@class}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `notoc' option -- suppresses the Tufte-style table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@toc}
 \setboolean{@tufte@toc}{true}
 \DeclareOptionX[tufte]<common>{notoc}{
@@ -100,16 +103,17 @@
   \setboolean{@tufte@toc}{true}
 }
 
-%%
-% `justified' option -- uses fully justified text (flush left and flush
-% right) instead of ragged right.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% `justified' option -- uses fully justified text (flush left and flush right) instead of ragged right.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@justified}
 \DeclareOptionX[tufte]<common>{justified}{
   \setboolean{@tufte@justified}{true}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `bidi' option -- loads the bidi package for bi-directional text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadbidi}
 \DeclareOptionX[tufte]<common>{bidi}{
   \setboolean{@tufte@loadbidi}{true}
@@ -118,8 +122,9 @@
   \setboolean{@tufte@loadbidi}{false}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `nohyper' option -- suppresses loading of the hyperref package
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadhyper}
 \setboolean{@tufte@loadhyper}{true}
 \DeclareOptionX[tufte]<common>{hyper}{
@@ -129,9 +134,10 @@
   \setboolean{@tufte@loadhyper}{false}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `sidenote', `marginnote', `caption', `citation', `marginals' options
 % Each allows one of {justified,raggedleft,raggedright,raggedouter,auto}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*{\@tufte@sidenote@justification}{%
   \@tufte@justification@autodetect
 }
@@ -313,8 +319,9 @@
   }%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Unsupported options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\@tufte@unsupported@option}[1]{%
   \@tufte@warning@noline{%
     Option `#1' is not supported -- ignoring option
@@ -595,21 +602,8 @@
 }
 
 %%
-% Set page layout geometry
+% % Set page layout geometry
 \RequirePackage[
-  letterpaper,
-  left=1in,
-  top=1in,
-  headheight=\baselineskip,
-  headsep=2\baselineskip,
-  height=44\baselineskip,
-  textwidth=26pc,
-  marginparsep=2pc,
-  marginparwidth=12pc
-]{geometry}
-
-\ifthenelse{\boolean{@tufte@afourpaper}}{%
-  \geometry{
     a4paper,
     left=24.8mm,
     top=27.4mm,
@@ -619,8 +613,8 @@
     marginparwidth=49.4mm,
     textheight=49\baselineskip,
     headheight=\baselineskip
-  }
-}{}
+]{geometry}
+
 
 \ifthenelse{\boolean{@tufte@symmetric}}{}{%
   % Forces internal LaTeX `twoside'
@@ -832,10 +826,8 @@
 
 %%
 % Improved letterspacing of small caps and all-caps text.
-%
-% If using XeTeX or LuaTeX, use the `fontspec' package; if using
-% pdfTeX: first, try to use the `microtype'/`letterspacing' package,
-% then try to use the `soul' package, then give up.
+% If using XeTeX or LuaTeX, use the `fontspec' package;
+% if using pdfTeX: first, try to use the `microtype'/`letterspacing' package, then try to use the `soul' package, then give up.
 \DeclareTextFontCommand{\textsmallcaps}{\scshape}
 
 % Provides \MakeTextUppercase and \MakeTextLowercase
@@ -1695,7 +1687,6 @@
   \typeout{Class: \@tufte@pkgname}
   \typeout{}
   \typeout{Class options:}
-  \typeoutbool{a4paper}{@tufte@afourpaper}
   \typeoutbool{load fonts}{@tufte@loadfonts}
   \typeoutbool{fully-justified}{@tufte@justified}
   \typeoutbool{letterspacing}{@tufte@letterspace}
