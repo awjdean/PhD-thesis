@@ -55,18 +55,9 @@
   \setboolean{@tufte@letterspace}{false}
 }
 
-%%
-% `titlepage' option -- creates a full title page with \maketitle
-\newboolean{@tufte@titlepage}
-\DeclareOptionX[tufte]<common>{titlepage}{
-  \setboolean{@tufte@titlepage}{true}
-}
-\DeclareOptionX[tufte]<common>{notitlepage}{
-  \setboolean{@tufte@titlepage}{false}
-}
-
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `a4paper' option
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@afourpaper}
 \DeclareOptionX[tufte]<common>{a4paper}{
   \setboolean{@tufte@afourpaper}{true}
@@ -359,14 +350,6 @@
   \@tufte@unsupported@option{\CurrentOption}
 }
 
-%%
-% Default `book' and `handout' options
-\ifthenelse{\equal{\@tufte@pkgname}{tufte-book}}{%
-  \ExecuteOptionsX[tufte]<common>{titlepage}
-}{%
-  \ExecuteOptionsX[tufte]<common>{notitlepage}
-}
-
 \DeclareOptionX*{%
   \@tufte@info@noline{%
     Passing \CurrentOption\space to the `\@tufte@class' class.
@@ -375,20 +358,22 @@
 }
 \ProcessOptionsX*[tufte]<common>\relax
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load the appropriate base class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \@tufte@info@noline{Loading the base class `\@tufte@class'}
 \LoadClass{\@tufte@class}
 
-%%
-% Detect whether we're in two-side mode or not.  (Used to set up running
-% heads later.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Detect whether we're in two-side mode or not.  (Used to set up running heads later.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\boolean{@twoside}}{%
   \setboolean{@tufte@twoside}{true}
 }{}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detect if we're using pdfTeX, XeTeX, or LuaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@pdf}
 \newboolean{@tufte@xetex}
 \newboolean{@tufte@luatex}
@@ -1716,7 +1701,6 @@
   \typeoutbool{letterspacing}{@tufte@letterspace}
   \typeoutbool{sans-serif sidenotes}{@tufte@sfsidenotes}
   \typeoutbool{symmetric margins}{@tufte@symmetric}
-  \typeoutbool{titlepage}{@tufte@titlepage}
   \typeoutbool{twoside}{@tufte@twoside}
   \typeoutbool{debug}{@tufte@debug}
   \typeout{}
@@ -1795,16 +1779,9 @@
   \@afterindentfalse\@afterheading%
 }
 
-%%
-% Title page (if the `titlepage' option was passed to the tufte-handout
-% class.)
-\ifthenelse{\boolean{@tufte@titlepage}}{%
-  \renewcommand{\maketitle}{\maketitlepage}%
-}{}
-
-%%
-% When \cleardoublepage is called, produce a blank (empty) page -- i.e.,
-% without headers and footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% When \cleardoublepage is called, produce a blank (empty) page -- i.e., without headers and footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\cleardoublepage{%
   \clearpage%
   \if@twoside%
@@ -1827,8 +1804,9 @@
   \fi%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Make Tuftian-style section headings and TOC formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\numberedchapterformat}{
     \titleformat{\chapter}[display]
       % Format applied to label+text
@@ -1933,8 +1911,9 @@
   }
 }
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Formatting for main TOC (printed in front matter)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % {section} [left] {above} {before w/label} {before w/o label} {filler + page} [after]
 \ifthenelse{\boolean{@tufte@toc}}{%
   \titlecontents{part}% FIXME
@@ -2004,8 +1983,9 @@
     [\end{fullwidth}]
 }{}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Format lists of figures/tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand\listoffigures{%
   \ifthenelse{\equal{\@tufte@class}{book}}{%
     \chapter*{\listfigurename}%
@@ -2048,9 +2028,10 @@
 \renewcommand*\l@figure{\@tufte@lof@line}
 \let\l@table\l@figure
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A handy command to disable hyphenation for short bits of text.
 % Borrowed from Peter Wilson's `hyphenat' package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{%
   \@ifpackageloaded{hyphenat}{}{%
     % Define a language without hyphenation rules
@@ -2062,23 +2043,10 @@
   }%
 }
 
-%%
-% Redefine \bibsection to not mark the running heads.
-% (Code modified from natbib.sty.)
-% \ifthenelse{\boolean{@tufte@loadnatbib}}{%
-%   \@ifundefined{chapter}{%
-%     \renewcommand\bibsection{\section*{\refname}}%
-%   }{%
-%     \@ifundefined{NAT@sectionbib}{%
-%       \renewcommand\bibsection{\chapter{\bibname}}%
-%     }{%
-%       \renewcommand\bibsection{\section*{\bibname}}%
-%     }%
-%   }%
-% }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % An index environment to mimic Tufte's indexes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{multicol}
 \renewenvironment{theindex}{%
   \ifthenelse{\equal{\@tufte@class}{book}}{%
@@ -2106,10 +2074,10 @@
 % Swallow the letter heading in the index
 \newcommand{\lettergroup}[1]{}
 
-
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A couple commands to increase the number of floats you can use at a time.
 % Provides a total of 52 floats
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\morefloats{%
   \ifthenelse{\isundefined{\bx@S}}{%
     \@tufte@debug@info@noline{Adding 34 more float slots.}
@@ -2222,8 +2190,9 @@
 }
 
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detect if the subfigure package has been loaded
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@packages@subfigure}
 \setboolean{@tufte@packages@subfigure}{false}
 \AtBeginDocument{%
@@ -2234,9 +2203,9 @@
   }%
 }
 
-
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detect if the float package has been loaded
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{%
   \@ifpackageloaded{float}{%
     % Save the redefined float environment (instead of the LaTeX float
@@ -2310,19 +2279,19 @@
   }
 }
 
-%%
-% For compatibility with the subfig package, we'll set captions=false so that
-% it doesn't load the caption package (which modifies our own caption
-% formatting).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For compatibility with the subfig package, we'll set captions=false so that it doesn't load the caption package (which modifies our own caption ormatting).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \PassOptionsToPackage{caption=false}{subfig}
 
-%%
-% If debugging is enabled, print the Tufte-LaTeX options and the list of
-% files.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% If debugging is enabled, print the Tufte-LaTeX options and the list of files.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\boolean{@tufte@debug}}{%
   \PrintTufteSettings\listfiles
 }{}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End of file
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \endinput
