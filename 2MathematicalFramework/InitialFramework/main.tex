@@ -72,7 +72,11 @@ For a transformation $d \in D$ with $s(d) = w$ and $t(d) = w'$, we will often de
 
 \newthought{We can visually} represent the structure of our directed multigraphs using \emph{world diagrams} consisting of a dots for the world states and arrows for the transformations.
 These diagrams can make it easier to understand the structure and properties of worlds.
-\footnote{test}
+
+
+\autocite{barr1990category}\footnote{test 
+\autocite{barr1990category}
+}
 
 Since our set $D$ is can be very large\footnote{
 If we have transformations $d: s(d) \to t(d)$ and $d': s(d) \to t(d)$, then we can construct sequences like $d' \circ d$, $d' \circ d \circ d' \circ d$ etc..., which means $D$ has an infinite number of elements.
@@ -297,7 +301,7 @@ We now discuss how agents are treated in our model.
 We consider worlds containing an embodied agent, which is able to interact with the environment by performing actions.
 The end goal of the agent's learning process is to map the useful aspects of the structure of the world to the structure of its representation; the useful aspects are those that enable the agent to complete whatever task it has.
 
-We use the treatment of agents adopted by \cite{Higgins2018}.
+We use the treatment of agents adopted by \autocite{Higgins2018}.
 The agent has an unspecified number of unspecified sensory states that allow it to make observations of the state of the environment.
 Information about the world state that the agent is currently in is delivered to the internal state
 \whendraft{\footnote{It is important to note that, for the purposes of this work, the agent's internal state refers to internal in the psychological sense, not in a physical sense (\textit{i.e.,} the agent's state representation not their internal organs).}} of the agent through the sensory states.
@@ -364,7 +368,7 @@ We consider a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that:
 
 
 
-Figure \ref{fig:l-map-for-transitions-from-and-to-w0} demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure \ref{fig:2x2-cyclical-min-actions-standard}.
+Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure \ref{fig:2x2-cyclical-min-actions-standard}.
 }
 
 \whendraft{
@@ -408,6 +412,6 @@ Consider all the transitions that are labelled by a particular action $a \in A$.
 Together these transitions form a partial function $f_{a}: W \to W$ because for any $w \in W$ either $a * w$ is undefined or $a * w$ is defined and there is a unique world state $w' \in W$ for which $a * w = w'$ (due to condition 1).
 $f_{a}$ is not generally surjective because for a given $w \in W$ there is not necessarily a transition $d \in D$ with $l(d) = a$ and $t(d) = w$.
 $f_{a}$ is not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$.
-We can also reproduce these functions using the formalism given by \cite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
+We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
 If we let $f: A \times W \to W$ be the dynamics of the environment then the transition caused by an action $a \in A$ on a world state $w \in W$ (where $a * w$ is defined) is given by $(a,w) \mapsto f(a,w) = a * w$.
 Mathematically, we curry the function $f: A \times W \to W$ to give a collection $\{f_{a}\}$ of partial functions with a partial function $\hat{f}(a)=f_{a}: W \to W$ for each action $a \in A$ as $\textit{Curry}: (f: A \times W \to W) \to (f_{a}: W \to W)$.

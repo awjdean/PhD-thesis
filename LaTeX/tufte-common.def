@@ -59,14 +59,6 @@
 }
 
 %%
-% `nobib' option -- doesn't load Biblatex or adjust the \cite command
-\newboolean{@tufte@loadbiblatex}
-\setboolean{@tufte@loadbiblatex}{true}
-\DeclareOptionX[tufte]<common>{nobib}{
-  \setboolean{@tufte@loadbiblatex}{false}
-}
-
-%%
 % `titlepage' option -- creates a full title page with \maketitle
 \newboolean{@tufte@titlepage}
 \DeclareOptionX[tufte]<common>{titlepage}{
@@ -1126,62 +1118,8 @@
 \def\@tufte@trim@c#1Q#2{\afterassignment\endgroup \vfuzz\the\vfuzz#1}
 \catcode`\Q=11
 
-%%
-% Removed.
-% Citations should go in the margin as sidenotes
-\ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-  \RequirePackage[
-    bibstyle=authoryear,
-    citestyle=authoryear-icomp,
-    autocite=plain,
-    backref=true
-  ]{biblatex}%
-  % Increase separation between bibliography items
-  \setlength\bibitemsep{1.1\itemsep}%
-  \setlength\bibnamesep{1.5\itemsep}%
-  % Pre-defining this so it may be used before the \bibliography command
-  % it issued
-  \providecommand{\doi}[1]{\textsc{doi:} #1}%
-}{}
 
-\newcommand{\@tufte@cite@sidenote}[1]{%
-  \sidenote{#1\addperiod}%
-}
-
-%%
-% Normal \cite behavior
-\newcounter{@tufte@num@bibkeys}
-\newcommand{\@tufte@normal@cite}{%
-  \DeclareCiteCommand{\cite}[\@tufte@cite@sidenote]
-    {\usebibmacro{cite:init}%
-      \usebibmacro{prenote}}
-    {\usebibmacro{citeindex}%
-      \usebibmacro{cite}}
-    {}
-    {\usebibmacro{cite:postnote}}
-}
-
-%%
-% \cite behavior when executed within a sidenote
-% Uses parenthetical citing
-\newcommand{\@tufte@sidenote@citations}{}
-\newcommand{\@tufte@infootnote@cite}{%
-  \DeclareCiteCommand{\cite}[\mkbibparens]
-    {\usebibmacro{cite:init}%
-      \usebibmacro{prenote}}
-    {\usebibmacro{citeindex}%
-      \usebibmacro{cite}}
-    {}
-    {\usebibmacro{cite:postnote}}
-}
-
-%%
-% Set the default \cite style.  This is set and reset by the \sidenote command.
-\ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-  \@tufte@normal@cite
-}{}
-
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Transform existing \footnotes into \sidenotes
 % Sidenote: ``Where God meant footnotes to go.'' ---Tufte
 % For our new sidenote commands -- provides multiple optional arguments
@@ -1191,10 +1129,6 @@
 \providecommand{\footnotelayout}{%
   \@tufte@sidenote@font\@tufte@sidenote@justification
 }
-% % This seems redundant...
-% \renewcommand{\footnotelayout}{%
-%   \@tufte@sidenote@font\@tufte@sidenote@justification
-% }
 
 % Override footmisc's definition to set the sidenote marks (numbers) inside the
 % sidenote's text block.
@@ -1275,16 +1209,12 @@
 }%
 
 %%
-% Define \sidenote command.  Can handle \cite.
+% Define \sidenote command.
 \newlength{\@tufte@sidenote@vertical@offset}
 \setlength{\@tufte@sidenote@vertical@offset}{0pt}
 
 % #1 = footnote num, #2 = vertical offset, #3 = footnote text
 \long\def\@tufte@sidenote[#1][#2]#3{%
-  \ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-  % Use the in-sidenote \cite command
-    \@tufte@infootnote@cite%
-  }{}%
   \ifthenelse{\NOT\isempty{#2}}{%
     \gsetlength{\@tufte@sidenote@vertical@offset}{#2}%
   }{%
@@ -1303,10 +1233,6 @@
     \endgroup%
     \unskip\@footnotemark\@footnotetext[\@tufte@sidenote@vertical@offset]{#3}%
   }%
-  \ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-  % Go back to using normal in-text \cite command
-    \@tufte@normal@cite%
-  }{}%
   % Remove extra white space
   \unskip\ignorespaces%
   % Remove \kern left behind by sidenote
@@ -1321,10 +1247,6 @@
 %%
 % Sidenote without the footnote mark
 \newcommand\marginnote[2][0pt]{%
-  \ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-    % Use the in-sidenote \cite command
-    \@tufte@infootnote@cite%
-  }{}%
   \marginpar{%
     \hbox{}\vspace*{#1}%
     \@tufte@marginnote@font%
@@ -1333,13 +1255,9 @@
     \vspace*{-1\baselineskip}%
     \noindent #2
   }%
- \ifthenelse{\boolean{@tufte@loadbiblatex}}{%
-  % Go back to using normal in-text \cite command
-    \@tufte@normal@cite%
-  }{}%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The placeins package provides the \FloatBarrier command.  This forces
 % LaTeX to place all of the floats before proceeding.  We'll use this to
 % keep the float (figure and table) numbers in sequence.

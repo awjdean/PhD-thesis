@@ -12,6 +12,23 @@
 % \RequirePackage{caption}
 % \RequirePackage{graphicx, caption, subcaption}
 
+% CITATIONS & BIBLIOGRAPHY
+\RequirePackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=ynt,
+    autocite=plain,
+    backref=true
+]{biblatex}
+\addbibresource{bibliography.bib}
+%   % Increase separation between bibliography items
+%   \setlength\bibitemsep{1.1\itemsep}%
+%   \setlength\bibnamesep{1.5\itemsep}%
+%   % Pre-defining this so it may be used before the \bibliography command
+%   % it issued
+%   \providecommand{\doi}[1]{\textsc{doi:} #1}%
+
+
 % THEOREM ENVIRONMENTS.
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}[theorem]
