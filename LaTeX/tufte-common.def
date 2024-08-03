@@ -82,16 +82,6 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `twoside' option -- alternates running heads
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newboolean{@tufte@twoside}
-\DeclareOptionX[tufte]<common>{twoside}{
-  \setboolean{@tufte@twoside}{true}
-  \@tufte@info@noline{Passing the `twoside' option to the `\@tufte@class' class}
-  \PassOptionsToClass{twoside}{\@tufte@class}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % `notoc' option -- suppresses the Tufte-style table of contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@toc}
@@ -369,14 +359,7 @@
 % Load the appropriate base class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \@tufte@info@noline{Loading the base class `\@tufte@class'}
-\LoadClass{\@tufte@class}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Detect whether we're in two-side mode or not.  (Used to set up running heads later.)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ifthenelse{\boolean{@twoside}}{%
-  \setboolean{@tufte@twoside}{true}
-}{}
+\LoadClass[twoside]{\@tufte@class}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detect if we're using pdfTeX, XeTeX, or LuaTeX
@@ -1615,8 +1598,7 @@
 % Set the default page style to 'fancy'
 \pagestyle{fancy}
 
-% Set the header/footer width to be the body text block plus the margin
-% note area.
+% Set the header/footer width to be the body text block plus the margin note area.
 \AtBeginDocument{%
   \ifthenelse{\boolean{@tufte@symmetric}}{%
     \fancyhfoffset[LE,RO]{\@tufte@overhang}
@@ -1629,30 +1611,12 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-% % The 'fancy' page style is the default style for all pages.
-% % Clear header and footer fields
-% \fancyhf{}
-% \ifthenelse{\boolean{@tufte@twoside}}{%
-%   \fancyhead[LE]{\thepage\quad\smallcaps{\newlinetospace{\plainauthor}}}%
-%   \fancyhead[RO]{\smallcaps{\newlinetospace{\plaintitle}}\quad\thepage}
-% }{%
-%   \fancyhead[RE,RO]{\smallcaps{\newlinetospace{\plaintitle}}\quad\thepage}
-% }
-
-
-% The `plain' page style is used on chapter opening pages.
-% In Tufte's /Beautiful Evidence/ he never puts page numbers at the
-% bottom of pages -- the folios are unexpressed.
+% The `plain' page style is used on chapter opening pages. In Tufte's /Beautiful Evidence/ he never puts page numbers at the bottom of pages -- the folios are unexpressed.
 \fancypagestyle{plain}{
   % Clear header and footer fields
   \fancyhf{}
   % Centered page numbers at the bottom
   \fancyfoot[C]{\thepage}
-  % Uncomment the following five lines of code if you want the opening page
-  % of the chapter to express the folio in the lower outside corner.
-  %\ifthenelse{\boolean{@tufte@twoside}}
-  %  {\fancyfoot[LE,RO]{\thepage}}
-  %  {\fancyfoot[RE,RO]{\thepage}}
 }
 
 % The `empty' page style suppresses all headers and footers.
@@ -1692,18 +1656,17 @@
   \typeoutbool{letterspacing}{@tufte@letterspace}
   \typeoutbool{sans-serif sidenotes}{@tufte@sfsidenotes}
   \typeoutbool{symmetric margins}{@tufte@symmetric}
-  \typeoutbool{twoside}{@tufte@twoside}
   \typeoutbool{debug}{@tufte@debug}
   \typeout{}
   \typeout{Internal variables:}
-  \typeoutbool{[twoside]}{@twoside}
   \typeoutbool{pdflatex}{@tufte@pdf}
   \typeoutbool{xelatex}{@tufte@xetex}
   \typeout{----------------------------------------------------}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Amount of space to skip before \newthought or after title block
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newskip\tufteskipamount
 \tufteskipamount=1.0\baselineskip plus 0.5ex minus 0.2ex
 
@@ -1715,85 +1678,6 @@
 }
 
 \newcommand{\tufteskip}{\vspace\tufteskipamount}
-
-%%
-% Produces a full title page
-\newcommand{\maketitlepage}[0]{%
-  \cleardoublepage%
-  {%
-    \sffamily%
-    \begin{fullwidth}%
-    \fontsize{18}{20}\selectfont\par\noindent%
-      \textcolor{darkgray}{\allcaps{\thanklessauthor}}%
-    \vspace{11.5pc}%
-    \fontsize{36}{40}\selectfont\par\noindent%
-      \textcolor{darkgray}{\allcaps{\thanklesstitle}}%
-    \vfill%
-    \fontsize{14}{16}\selectfont\par\noindent%
-      \allcaps{\thanklesspublisher}%
-    \end{fullwidth}%
-  }
-  \thispagestyle{empty}%
-  \clearpage%
-}
-
-%%
-% Title block
-\renewcommand{\maketitle}{%
-  \newpage
-  %  Prevent floats from being placed at the top of the page
-  \global\@topnum\z@%
-  \begingroup
-    \setlength{\parindent}{0pt}%
-    \setlength{\parskip}{4pt}%
-    \let\@@title\@empty
-    \let\@@author\@empty
-    \let\@@date\@empty
-    \ifthenelse{\boolean{@tufte@sfsidenotes}}{%
-      \gdef\@@title{\sffamily\LARGE\allcaps{\@title}\par}%
-      \gdef\@@author{\sffamily\Large\allcaps{\@author}\par}%
-      \gdef\@@date{\sffamily\Large\allcaps{\@date}\par}%
-    }{%
-      \gdef\@@title{\LARGE\itshape\@title\par}%
-      \gdef\@@author{\Large\itshape\@author\par}%
-      \gdef\@@date{\Large\itshape\@date\par}%
-    }%
-    \@@title
-    \@@author
-    \@@date
-  \endgroup
-  %  Suppress the running head
-  \thispagestyle{plain}%
-  % Add some space before the text begins
-  \tuftebreak%
-  % Suppress indentation of the next paragraph
-  \@afterindentfalse\@afterheading%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% When \cleardoublepage is called, produce a blank (empty) page -- i.e., without headers and footers
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\cleardoublepage{%
-  \clearpage%
-  \if@twoside%
-    \ifodd%
-      \c@page%
-    \else
-      \hbox{}
-      %\vspace*{\fill}
-      %\begin{center}
-        % This page intentionally contains only this sentence.
-      %\end{center}
-      %\vspace{\fill}
-      \thispagestyle{empty}
-      \newpage
-      \if@twocolumn%
-        \hbox{}%
-        \newpage%
-      \fi%
-    \fi%
-  \fi%
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Make Tuftian-style section headings and TOC formatting

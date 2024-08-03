@@ -17,10 +17,8 @@
 % Set up any book-specific stuff now
 
 %%
-% The front matter in Tufte's /Beautiful Evidence/ contains everything up
-% to the opening page of Chapter 1.  The running heads, when they appear,
-% contain only the (arabic) page number in the outside corner.
-%\newif\if@mainmatter \@mainmattertrue
+% The front matter in Tufte's /Beautiful Evidence/ contains everything up to the opening page of Chapter 1.  The running heads, when they appear, contain only the (arabic) page number in the outside corner.
+\newif\if@mainmatter \@mainmattertrue
 \renewcommand\frontmatter{%
   \if@openright%
     \cleardoublepage%
@@ -29,21 +27,13 @@
   \fi%
   \@mainmatterfalse%
   \pagenumbering{arabic}%
-  %\pagestyle{plain}%
-  \fancyhf{}%
-  \fancyfoot[C]{\thepage} % Centered page numbers at the bottom
-  \ifthenelse{\boolean{@tufte@twoside}}{%
-    \fancyhead[LE,RO]{\thepage}
-  }{%
-    \fancyhead[RE,RO]{\thepage}
-  }%
+  \pagestyle{plain}%
   \setcounter{secnumdepth}{-1}
   \notnumberedchapterformat
 }
 
 %%
-% The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page
-% numbering---it continues where it left off in the front matter.
+% The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page numbering---it continues where it left off in the front matter.
 \renewcommand\mainmatter{%
   \if@openright%
     \cleardoublepage%
@@ -53,18 +43,12 @@
   \@mainmattertrue%
   \fancyhf{}%
   \fancyfoot[C]{\thepage} % Centered page numbers at the bottom
-  \ifthenelse{\boolean{@tufte@twoside}}{%
     % Two-side
     \renewcommand{\chaptermark}[1]{\markboth{##1}{}}%
     % LHS Book title
     \fancyhead[LE]{\smallcaps{\newlinetospace{\plaintitle}}}%
     % RHS Chapter title
     \fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}}%
-  }{%
-    % One-side
-    %  Book title
-    \fancyhead[RE,RO]{\smallcaps{\newlinetospace{\plaintitle}}\quad\thepage}%
-  }%
   \setcounter{secnumdepth}{2}
   \numberedchapterformat
 }
