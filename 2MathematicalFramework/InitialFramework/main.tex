@@ -37,7 +37,7 @@ Let the set of minimum world state transformations be $\hat{D}$ and the set of w
 We define two maps $\hat{s},\hat{t}: \hat{D} \to W$; $\hat{s}$ is called the \emph{source map} and $\hat{t}$ is called the \emph{target map}.
 For any minimum world state transformation $\hat{d} \in \hat{D}$ from a world state $w_{1} \in W$ to a world state $w_{2} \in W$, $\hat{s}(\hat{d}) = w_{1}$ and $\hat{t}(\hat{d}) = w_{2}$.
 
-\newthought{We can now} formally define our generalised worlds as a directed multigraph.
+\newthought{We can now} formally define our generalised worlds as a directed multigraph\footnote{Technically, our description of the world is \textit{isomorphic} to this directed multigraph; each world states has a corresponding vertex in the directed multigraph and each transformation has a corresponding arrow in the directed multigraph}.
 A \emph{world} $\mathscr{W}$ is a directed multigraph $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ where $W$ is a set of \emph{world states}, $\hat{D}$ is a set of \emph{minimum world state transformations}, and $\hat{s},\hat{t}: \hat{D} \to W$ are the source and target maps.
 
 \newthought{We are interested} in the all the transformations of our world $\mathscr{W}$, not just the minimum transformations.
@@ -68,157 +68,200 @@ Additionally, it is easy to see that the neutral element properties of trivial t
 For a transformation $d \in D$ with $s(d) = w$ and $t(d) = w'$, we will often denote such a $d$ by $d: w \to w'$.
 
 
-
-
 \newthought{We can visually} represent the structure of our directed multigraphs using \emph{world diagrams} consisting of a dots for the world states and arrows for the transformations.
 These diagrams can make it easier to understand the structure and properties of worlds.
-
-
-\autocite{barr1990category}\footnote{test 
-\autocite{barr1990category}
-}
 
 Since our set $D$ is can be very large\footnote{
 If we have transformations $d: s(d) \to t(d)$ and $d': s(d) \to t(d)$, then we can construct sequences like $d' \circ d$, $d' \circ d \circ d' \circ d$ etc..., which means $D$ has an infinite number of elements:
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation.jpg}
-    \captionof{figure}{Test caption.}
+    \FloatBarrier
+    \captionsetup{type=figure}
+    \includegraphics[width=1.0\linewidth]{2MathematicalFramework/InitialFramework/Images/D_commonly_large.jpg}
+    % \captionof{figure}{Test caption.}
+    \caption{A world diagram showing sequences of the transformations $d$ and $d'$ that are of the form $(d' \circ d)^{n}$.}
 \end{center}
 }, we do not show all the transformations in $D$ in our world diagrams unless explicitly stated.
 
+Let's look at some world diagrams show casing some of the properties we've already seen.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation.jpg}
+        \caption{A wold diagram showing a transformation.}
+        \label{fig:transformation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation_composition.jpg}
+        \caption{A world diagram showing the composition of two transformations $d$ followed by $d'$ to give a transformation $d' \circ d$.}
+        \label{fig:transformation_composition}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{2MathematicalFramework/InitialFramework/Images/left_trivial_transformation.jpg}
+        \caption{A world diagram showing a transformation $d: s(d) \to t(d)$ and its left identity element $1_{t(d)}$. Composing these two transformations gives the transformation $d$.}
+        \label{fig:left_trivial_transformation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{2MathematicalFramework/InitialFramework/Images/right_trivial_transformation.jpg}
+        \caption{A world diagram showing a transformation $d: s(d) \to t(d)$ and its right identity $1_{s(d)}$. Composing these two transformations gives the transformation $d$.}
+        \label{fig:right_trivial_transformation}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{2MathematicalFramework/InitialFramework/Images/trivial_transformations_example_all_transformations.jpg}
+        \caption{A world diagram showing a transformation $d: s(d) \to t(d)$, its left identity $1_{t(d)}$, and its right identity $1_{s(d)}$.}
+        \label{fig:trivial_transformations_example_all_transformations}
+    \end{subfigure}
+    \caption{Examples of world diagrams displaying some of the concepts we have already come across.}
+\end{figure}
+
+It's important to note that, in a world diagram, the positioning (relative or absolute) of the world states and the shapes and lengths of the arrows do not matter\footnote{Formally, two world diagrams are isomorphic if...}:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/isomorphic_world_diagrams.jpeg}
+    \caption{The properties of these world diagrams are the same (the world diagrams are isomorphic).}
+    \label{fig:isomorphic_world_diagrams}
+\end{figure}
+
+\paragraph{Subworlds.}
+A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subset} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if $W' \subseteq W$, $\hat{D}' \subseteq \hat{D}$, $\hat{s}' \subseteq \hat{s}$, and $\hat{t}' \subseteq \hat{t}$ \footnote{
+This definition requires $\hat{D}' \subseteq \hat{D}$ and not $D' \subseteq D$ because removal of an element of $D$ which is not an element of $\hat{D}$ to create $D'$ would lead to sequences of minimum transformations not being transformations; to avoid problems like this we always consider the minimum transformations then use them to generate the set of transformations.
+}.
+We can denote that $\mathscr{W}'$ is a subworld of $\mathscr{W}$ using $\mathscr{W}' \subseteq \mathscr{W}$.
+A subworld is a world.
+
+\paragraph{Reachable and unreachable worlds.}
+A world $\mathscr{W}'$ is \emph{reachable} from a world $\mathscr{W}$ if there exists a transition $d: w \to w'$ where $w \in W$ and $w' \in W'$ 
+\footnote{
+A sensible question is `what set of transformations contains $d$ ?'.
+If $\mathscr{W}' \subseteq \mathscr{W}$ then $d \in \mathscr{W}$.
+If $\mathscr{W}' \not\subseteq \mathscr{W}$ then we can consider a world $\mathscr{W}^{\aleph}$ containing all physically allowed world states and world state transformations; we then have that $\mathscr{W} \subseteq \mathscr{W}^{\aleph}$, $\mathscr{W}' \subseteq \mathscr{W}^{\aleph}$, and $d$ is an element of the set of transformations of $\mathscr{W}^{\aleph}$.
+}.
+If a world is not reachable, we say it is \emph{unreachable}.
+
+
+We are building towards describing the structure of transformations in an agent's representation; late we will only be interested in the perspective of the agent and so will only care about the world states and transformations that the agent can come into contact with.
+Unreachable and reachable worlds give us the language to describe and then disregard parts of worlds that agents will never explore and therefore are not relevant to the agent's representation.
+For example, if an agent is in a maze and a section of the maze is inaccessible from the position that the agent is in, then that section of the maze would be disconnected from the section of the maze that the agent is in; if we want to study how the agent’s representation evolves as it learns, it makes sense to disregard world states where the agent is in the inaccessible part of the maze since those world states can never be reached and so those world states will not affect the agent's representation.
+\footnote{
+But what about worlds that are unreachable from the current world state, but the agent has already visited?
+If we assume the representation evolution process is Markov, then all the necessary information will contained in the current representation space of the agent and so past world states which are now unreachable are irrelevant.
+Therefore, for a Markov representation evolution process, we only need to consider the world states in subworlds that are reachable from the current world state.
+
+If the representation evolution process is not Markov, we can transform the representation evolution process into a Markov process by augmenting the state space of the process to include any relevant historical information.
+}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/reachable_worlds.jpg}
+    \caption{
+    $\mathscr{W}_{C}$ is reachable from $\mathscr{W}_{A}$ and $\mathscr{W}_{B}$, but $\mathscr{W}_{A}$ is not reachable from $\mathscr{W}_{B}$ or $\mathscr{W}_{C}$.
+    }
+    \label{fig:reachable_worlds}
+\end{figure}
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{Small things:}
+\begin{compactitem}
+    \item \textbf{Mention:} we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
+    \item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
+    \item \textbf{Mention:} sometimes we don't include the trivial transformations for clarity.
+
+    \item \textbf{Diagrams:}
+        \begin{enumerate}
+            \item (?) No unique element in $D$ for sequence with trivial transformations.
+        \end{enumerate}
+\end{compactitem}
+\noindent\rule{\textwidth}{1mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introducing an agent}
+We want to study the structure of the representations of an agent that can interact with our worlds - we will now explain what this means.
+
+\subsection{What is an agent ?}
+
+An \emph{agent} is an autonomous entity\footnote{This could be a natural or artificial entity.} that can observe and interact with its environment\footnote{Our agent does not need to be embodied in the world - more on this later !}; the agents that we care about can also learn about their environments.
+
+An \emph{agent's representation} is the internal model that defines how the agent perceives and interacts with its environment.
+
+In our framework, we consider agent to be systems with internal states that interact with the world in ways that maintain a boundary between their internal states and the world.
+The agents use \emph{sensory states} to perceive the world and \emph{effector states} to act on the world, causing the world state to transform.
+
+We now have four types of state:
+\begin{enumerate}
+    \item \emph{Sensory states} represent the agent's inputs from the environment (e.g., vision, sound, touch etc...).
+    \item \emph{Effector states} represent how the agent influences the world state (i.e., the agent's external environment).
+    \item \emph{(External) world states} consist of the states of the agent's external environment, which are the world states we've looked at previously.
+    \item \emph{Agent's (internal) representation states} contain our agent's representations of the environment, memory model, knowledge models, goals, decision making processes etc... These internal states can only interact with the external world states via sensory and effector states.
+\end{enumerate}
+
+Using these four types of states we can view our agents as Markov blankets.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation.jpg}
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/markov_blanket.jpg}
     \caption{Caption}
-    \label{fig:transformation}
+    \label{fig:markov_blanket}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/transformation_composition.jpg}
-    \caption{Caption}
-    \label{fig:transformation_composition}
-\end{figure}
+The sensory and effector states form the Markov blanket with the world states being outside the blanket and the the internal state being inside the blanket.
+The Markov blanket acts as a boundary that separates the agent's internal representation states from the external world states.
+The agent can not directly access the external world states, but can infer these world states by processing sensory inputs through its sensory states and performing actions through its effector states; information about the world states crosses the Markov blanket through the agent's sensory states and the agent's affect on the world crosses the Markov blanket through the agent's effector states.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/trivial_transformations_example_all_transformations.jpg}
-    \caption{Caption}
-    \label{fig:trivial_transformations_example_all_transformations}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/right_trivial_transformation.jpg}
-    \caption{Caption}
-    \label{fig:right_trivial_transformation}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/left_trivial_transformation.jpg}
-    \caption{Caption}
-    \label{fig:left_trivial_transformation}
-\end{figure}
-
-
+Technically, given the sensory and effector states (i.e., the blanket), the internal representation states of the agent are \emph{conditionally independent} of the external world states.
+\textbf{CAR OR ROOM EXAMPLE}
 
 \noindent\rule{\textwidth}{1mm}
 
-% \begin{marginfigure}
-%     \centering
-%     \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/D_commonly_large.jpg}
-%     \caption{Caption}
-%     \label{fig:enter-label}
-% \end{marginfigure}
-
-\textbf{Diagrams:}
+\textbf{Up next:}
 \begin{enumerate}
-    \item Transformation.
-    \item Composition of transformations.
-    \item Trivial transformation, both rules.
-    \item No unique element in $D$ for sequence with trivial transformations.
+    \item Car or room example of conditional independence (CG).
+    \item What do we mean by an agent ?
+    \begin{itemize}
+        \item Sensory states etc...
+        \item Markov blanket.
+        \item What is an agent's representation?
+    \end{itemize}
+    \item Actions of an agent.
+    \item Example.
+
 \end{enumerate}
 
-\begin{itemize}
-    \item Figure out how to put a figure in a side note.
-    \item Write figure captions.
+\url{https://www.researchgate.net/figure/The-structure-of-a-Markov-blanket-A-Markov-blanket-highlights-open-systems-exchanging_fig1_343643283}
+For a system to exist (separately from the rest of the universe), it must be endowed with a degree of independence  from its embedding environment. A Markov blanket is a set of  variables  or states that we use to stipulatively individuate a system in terms of what is part of it (internal states, denoted μ), and what is not (external states, denoted η). The  Markov blanket itself is defined  as those states that mediate interactions  between  the system and its  embedding  environment (active  and  sensory states, denoted a and s). The Markov blanket is defined by the absence of certain connections: internal states do not cause sensory states, and external states do not cause active states.
 
-    \item Mention: we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
-    \item Mention: positioning of the world states and the shapes of the arrows do not matter. Give example of isomorphic world diagrams. Diagram for this?
-    \item Footnote: Composition of transformations is read from left to right; the reason for this will be explained later.
-    \item Mention: sometimes we don't include the trivial transformations for clarity.
-\end{itemize}
+The presence  of a  Markov blanket  induces a  conditional  independence  between internal and external  variables.  The  key  word  here  is  ‘conditional’:  internal  and  external  are  not  really independent  of  one another—they  just  appear to  be  so if  we discount  their  dependencies via  the blanket states. 
+
+
+
+\textbf{Small things:}
+\begin{compactitem}
+    \item Environment vs world.
+
+    \item \textbf{Diagrams:}
+        \begin{enumerate}
+            \item 
+        \end{enumerate}
+
+    \item \textbf{References:}
+    \begin{enumerate}
+        \item Agent as a Markov blanket: \url{https://www.researchgate.net/figure/The-structure-of-a-Markov-blanket-A-Markov-blanket-highlights-open-systems-exchanging_fig1_343643283}
+    \end{enumerate}
+\end{compactitem}
 
 \noindent\rule{\textwidth}{1mm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Mathematical model of a world}
-
-We consider a world as a set of discrete world states, which are distinguishable in some way, and a set of world state transitions between those states; these world state transitions are the transformations of the world. (\textit{i.e.}, how a world state can transform into another world state).
-We point out that this description of a world is isomorphic to a directed multigraph, where the world states are the vertices of the graph and the world state transitions are arrows between the vertices.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{World states and world state transitions}
-
-We believe that defining a world as a discrete set of world states with world state transitions between them is the most general definition of a world, and so take it as our starting point from which we will build towards defining the algebra of the actions of an agent.
-We are going to use these transitions to define the actions of an agent.
-
-\paragraph{Transitions}
-We consider a directed multigraph $\mathscr{W} = (W, \hat{D}, s, t)$ where $W$ is a set of \textit{world states}, $\hat{D}$ is a set of \textit{minimum world state transitions}, and $s,t: \hat{D} \to W$; $s$ is called the \textit{source map} and $t$ is called the \textit{target map}.
-For the remainder of the paper, we fix such a $(W, \hat{D}, s, t)$.
-$\mathscr{W}$ is called a \textit{world}.
-
-Minimum world state transitions are extended into a set $D$ of paths called \textit{world state transitions}: a path is a sequence of minimum world state transitions $d = \hat{d}_{n} \circ \hat{d}_{n-1} \circ ... \circ \hat{d}_{1}$ such that $t(\hat{d}_{i}) = s(\hat{d}_{i+1})$ for $i = 1, ..., n-1$.
-We extend $s, t$ to $D$ as $s(d) = s(\hat{d}_{1})$, and $t(d) = t(\hat{d}_{n})$.
-We also extend the composition operator $\circ$ to $D$ such that $d_{n} \circ d_{n-1} \circ ... \circ d_{1}$ is defined if $t({d}_{i}) = s({d}_{i+1})$ for $i = 1, ..., n-1$.
-For $d \in D$ with $s(d) = w$ and $t(d) = w'$, we will often denote $d$ by $d: w \to w'$.
-
-For the rest of the paper, we assume that, for each world state $w \in W$, there is a unique trivial world state transition $1_{w} \in \hat{D}$ with $s(1_{w}) = t(1_{w})$; the trivial transition $1_{w}$ is associated with the world being in state $w$ and then no change occurring due to the transition $1_{w}$.
-
-\paragraph{Connected and disconnected worlds}
-We now introduce connected and disconnected worlds.
-Simply, a world $A$ is connected to a world $B$ if there is a transition from a world state in world $A$ to a world state in world $B$.
-The concepts of connected and disconnected worlds are necessary for generality; we are only interested in the perspective of the agent and so only care about the world states and transitions that the agent can come into contact with.
-Connected and disconnected worlds give us the language to describe and then disregard the parts of worlds that the agent will never explore and therefore are not relevant to the agent's representation.
-For example, if an agent is in a maze and a section of the maze is inaccessible from the position that the agent is in, then that section of the maze would be disconnected from the section of the maze that the agent is in; if we want to study how the agent's representation evolves as it learns, it makes sense to disregard the disconnected section of the maze since the agent never comes into contact with it and so the disconnected section of the maze will not affect the agent's representation.
-
-Formally, we first define a \textit{sub-world} $W'$ of a world $W$ as a subset $W' \subseteq W$ along with $D' = \{d \in D \mid s(d) \in W'\text{ and }t(d) \in W'\}$.
-Note that a sub-world is a world.
-A sub-world $W$ is \textit{connected to} a sub-world $W'$ if there exists a transition $d: w \to w'$ where $w \in W$ and $w' \in W'$; if no such transition exists, then $W$ is \textit{disconnected from} $W'$.
-Similarly, a world state $w$ is \textit{connected to} a sub-world $W$ if there exists a transition $d: w \to w'$ where $w' \in W'$; if no such transition exists, then $w$ is \textit{disconnected from} $W'$.
-
-
-\whendraft{
-\textit{connected} if for every pair of world states $w, w' \in W$ there exists at least one transition in $D$ such that $d: w \to w'$ or $d: w' \to w$.
-Two sub-worlds $W_{1}, W_{2} \subseteq W$ are \textit{disconnected} from each other if there is no transition $d:w_{1} \to w_{2}$ or $d: w_{2} \to w_{1}$ for any $w_{1} \in W_{1}$ and any $w_{2} \in W_{2}$.
-Every world has a unique partition of connected sub-worlds.
-
-\textbf{Reachable and unreachable worlds.}
-A sub-world $W$ is \textit{reachable} from a state $w$ if there exists a transition $d: w \to w'$ where $w' \in W$.
-If a sub-world is not reachable from a state $w$ then it is called \textit{unreachable } from $W$.
-
-In this paper, we will only consider worlds made up of sub-worlds that are reachable from an initial world state.
-}
-
-\whendraft{\textbf{THOUGHT.} Only consider reachable worlds because the agent is Markov as previous knowledge is included in the agent's internal state?}
-
-\paragraph{Effect of transitions on world states}
-We define $*$ as a partial function $D \times W \to W$ by $d * w = w'$ where $d: w \to w'$ and undefined otherwise.
-
-\whendraft{
-We can apply the minimum transitions that make up a transition to world states individually: if $d * w$ is defined, then $d * w =(\hat{d}_{n} \circ ... \circ \hat{d}_{1}) * w = (\hat{d}_{n} \circ ... \circ \hat{d}_{2}) * (\hat{d}_{1} * w)$.
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Example}
-\whendraft{
-\textbf{Notes:}
-\begin{enumerate}
-    \item 
-\end{enumerate}
-}
+\textbf{Example - agent in cyclical world}
 
 We consider a cyclical $2\times 2$ grid world, denoted by $\mathscr{W}_{c}$, containing an agent as shown in Figure \ref{fig:2x2-cyclical-grid-world-states}.
 The transformations of $\mathscr{W}_{c}$ are due to an agent moving either up ($U$), down ($D$), left ($L$), right ($R$), or doing nothing ($1$).

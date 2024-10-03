@@ -28,7 +28,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `debug' option -- provides more information in the .log file for use in troubleshooting problems
+% `debug' option -- provides more information in the .log file for use in troubleshooting problems.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@debug}
 \DeclareOptionX[tufte]<common>{debug}{
@@ -36,8 +36,8 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `nofonts' option -- doesn't load any fonts
-% `fonts' option -- tries to load fonts
+% `nofonts' option -- doesn't load any fonts.
+% `fonts' option -- tries to load fonts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadfonts}
 \setboolean{@tufte@loadfonts}{true}
@@ -49,8 +49,8 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `nols' option -- doesn't configure letterspacing
-% `ls' option -- configures letterspacing
+% `nols' option -- doesn't configure letterspacing.
+% `ls' option -- configures letterspacing.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@letterspace}
 \setboolean{@tufte@letterspace}{true}
@@ -62,7 +62,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `sfsidenotes' option -- typesets sidenotes in sans serif typeface
+% `sfsidenotes' option -- typesets sidenotes in sans serif typeface.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newboolean{@tufte@sfsidenotes}
@@ -71,18 +71,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `symmetric' option -- puts marginpar space to the outside edge of the page
-%  Note: this option forces the twoside option (see the .cls files)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newboolean{@tufte@symmetric}
-\DeclareOptionX[tufte]<common>{symmetric}{
-  \setboolean{@tufte@symmetric}{true}
-  \@tufte@info@noline{The `symmetric' option implies `twoside'}
-  \ExecuteOptionsX[tufte]<common>{twoside}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `notoc' option -- suppresses the Tufte-style table of contents
+% `notoc' option -- suppresses the Tufte-style table of contents.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@toc}
 \setboolean{@tufte@toc}{true}
@@ -102,7 +91,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `bidi' option -- loads the bidi package for bi-directional text
+% `bidi' option -- loads the bidi package for bi-directional text.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadbidi}
 \DeclareOptionX[tufte]<common>{bidi}{
@@ -113,7 +102,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `nohyper' option -- suppresses loading of the hyperref package
+% `nohyper' option -- suppresses loading of the hyperref package.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@loadhyper}
 \setboolean{@tufte@loadhyper}{true}
@@ -125,7 +114,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% `sidenote', `marginnote', `caption', `citation', `marginals' options
+% `sidenote', `marginnote', `caption', `citation', `marginals' options.
 % Each allows one of {justified,raggedleft,raggedright,raggedouter,auto}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*{\@tufte@sidenote@justification}{%
@@ -266,8 +255,7 @@
     \@tufte@justification@autodetect}%
 }
 
-% The ``marginals'' key simultaneously sets the same justification for
-% all marginal material
+% The ``marginals'' key simultaneously sets the same justification for all marginal material
 \define@choicekey*+[tufte]{common}{marginals}[\@tufte@kvtext\@tufte@kvnum]
   {justified,raggedleft,raggedright,raggedouter,auto}[auto]{%
   \ifcase\@tufte@kvnum\relax
@@ -310,7 +298,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Unsupported options
+% Unsupported options.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\@tufte@unsupported@option}[1]{%
   \@tufte@warning@noline{%
@@ -356,13 +344,13 @@
 \ProcessOptionsX*[tufte]<common>\relax
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Load the appropriate base class
+% Load the appropriate base class.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \@tufte@info@noline{Loading the base class `\@tufte@class'}
 \LoadClass[twoside]{\@tufte@class}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Detect if we're using pdfTeX, XeTeX, or LuaTeX
+% Detect if we're using pdfTeX, XeTeX, or LuaTeX.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@pdf}
 \newboolean{@tufte@xetex}
@@ -433,33 +421,17 @@
   ]
 }{}
 
-% \ifthenelse{\boolean{@tufte@xetex} \OR \boolean{@tufte@luatex}}{%
-%   % Use fontspec version >= 2.4
-%   \RequirePackage{fontspec}[2015/03/14]
-
-%   % Set Atkinson Hyperlegible as the main font
-%   \setmainfont{Atkinson Hyperlegible}[
-%     Numbers = {Proportional,OldStyle}
-%   ]
-
-%   % You might need to specify additional fonts for sans and mono types
-%   \setsansfont{Atkinson Hyperlegible}[% 
-%     Numbers = {Proportional,OldStyle}
-%   ]
-%   \setmonofont{Atkinson Hyperlegible}[%
-%     Scale = 0.95
-%   ]
-% }{}
-
-%%
-% Globally sets the length
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Globally sets the length.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*{\gsetlength}[2]{%
   \setlength{#1}{#2}%
   \global#1=#1\relax%
 }
 
-%%
-% Globally sets a boolean (based on code from ifthen pkg)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Globally sets a boolean (based on code from ifthen pkg).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand*{\gsetboolean}[2]{%
   \lowercase{\def\@tempa{#2}}%
   \@ifundefined{@tempswa\@tempa}{%
@@ -473,14 +445,15 @@
   }%
 }
 
-%%
-% The titlesec and titletoc packages are used to change the style of the
-% section headings.  These packages should be loaded before the hyperref
-% package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The titlesec and titletoc packages are used to change the style of the section headings.
+% These packages should be loaded before the hyperref package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{titlesec, titletoc}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Loads the hyperref package and sets some default options.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\TufteLoadHyperref}{%
   \ifthenelse{\boolean{@tufte@xetex}}{%
     \RequirePackage[unicode,hyperfootnotes=false,xetex]{hyperref}
@@ -496,8 +469,9 @@
   }%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load the `hyperref' package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\boolean{@tufte@loadhyper}}{%
   \TufteLoadHyperref%
 }{% hyperfootnotes override our modifications to the \footnote* and
@@ -505,8 +479,9 @@
   \PassOptionsToPackage{hyperfootnotes=false}{hyperref}
 }
 
-%%
-% Set the font sizes and baselines to match Tufte's books
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set the font sizes and baselines to match Tufte's books.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand\normalsize{%
   \@setfontsize\normalsize\@xpt{14}%
   \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
@@ -560,7 +535,7 @@
 \setlength\labelwidth    {\leftmargini}
 \addtolength\labelwidth{-\labelsep}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \RaggedRight allows hyphenation
 \setlength{\parindent}{1.0pc}%
 \setlength{\parskip}{0pt}%
@@ -584,8 +559,9 @@
   \setlength{\parskip}{0pt}%
 }
 
-%%
-% % Set page layout geometry
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set page layout geometry.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[
     a4paper,
     left=24.8mm,
@@ -595,21 +571,18 @@
     marginparsep=8.2mm,
     marginparwidth=49.4mm,
     textheight=49\baselineskip,
-    headheight=\baselineskip
+    headheight=\baselineskip,
+    asymmetric      % TODO: check ?
 ]{geometry}
 
-
-\ifthenelse{\boolean{@tufte@symmetric}}{}{%
-  % Forces internal LaTeX `twoside'
-  \geometry{asymmetric}
-}
-
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Separation marginpars by a line's worth of space.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength\marginparpush{10pt}
 
-%%
-% Font for margin items
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font for margin items.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\boolean{@tufte@sfsidenotes}}{%
   \newcommand{\@tufte@marginfont}{\normalfont\footnotesize\sffamily}
 }{%
@@ -626,8 +599,9 @@
 \newcommand*{\setmarginnotefont}[1]{\renewcommand*{\@tufte@marginnote@font}{#1}}
 \newcommand*{\setcitationfont}[1]{\renewcommand*{\@tufte@citation@font}{#1}}
 
-%%
-% Set the justification based on the `justified' class option
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set the justification based on the `justified' class option.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\@tufte@justification}{%
   \ifthenelse{\boolean{@tufte@justified}}{%
     \justifying
@@ -636,13 +610,15 @@
   }%
 }
 
-%%
-% Tighten up space between displays (e.g., a figure or table) and make symmetric
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tighten up space between displays (e.g., a figure or table) and make symmetric.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setlength\abovedisplayskip{6pt plus 2pt minus 4pt}
 \setlength\belowdisplayskip{6pt plus 2pt minus 4pt}
 
-%%
-% To implement full-width display environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To implement full-width display environments.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newboolean{@tufte@changepage}
 \IfFileExists{changepage.sty}{%
   \@tufte@debug@info@noline{Found changepage.sty}
@@ -655,8 +631,7 @@
   \setboolean{@tufte@changepage}{false}
 }
 
-% Write our own aliases for the \checkoddpage and \ifoddpage or
-% \ifcpoddpage commands
+% Write our own aliases for the \checkoddpage and \ifoddpage or \ifcpoddpage commands
 \newboolean{@tufte@odd@page}
 \setboolean{@tufte@odd@page}{true}
 \newcommand*{\@tufte@checkoddpage}{%
@@ -676,9 +651,10 @@
   }%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Compute lengths used for full-width displays
 % (overhang used by the fullwidth environment and the running heads)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newlength{\@tufte@overhang}
 \newlength{\@tufte@fullwidth}
 \newlength{\@tufte@caption@fill}
@@ -698,9 +674,8 @@
 \AtBeginDocument{\TufteRecalculate}
 
 %%
-% Modified \title, \author, and \date commands.  These store the
-% (footnote-less) values in \plaintitle, \plainauthor, and \thedate,
-% respectively.
+% Modified \title, \author, and \date commands. 
+% These store the (footnote-less) values in \plaintitle, \plainauthor, and \thedate respectively.
 \newcommand{\plaintitle}{}% Plain-text-only title
 \newcommand{\plainauthor}{}% Plain-text-only author
 \newcommand{\plainpublisher}{}% Plain-text-only publisher
@@ -712,8 +687,7 @@
 \newcommand{\@publisher}{}% Full publisher with \thanks{}
 \newcommand{\thedate}{\today}
 
-% TODO Fix it so that \thanks is not spaced out (with `soul') and can be
-% used in \maketitle when the `sfsidenotes' option is provided.
+% TODO Fix it so that \thanks is not spaced out (with `soul') and can be used in \maketitle when the `sfsidenotes' option is provided.
 \renewcommand{\thanks}[1]{\NoCaseChange{\footnote{#1}}}
 
 \renewcommand{\title}[2][]{%
@@ -790,8 +764,9 @@
 
 % TODO: Test \hypersetup{pdfauthor,pdftitle} with DVI and XeTeX
 
-%%
-% Require paralist package for tighter lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Require paralist package for tighter lists.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{paralist}
 
 % Add rightmargin to compactenum
@@ -807,10 +782,11 @@
   }
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Improved letterspacing of small caps and all-caps text.
 % If using XeTeX or LuaTeX, use the `fontspec' package;
 % if using pdfTeX: first, try to use the `microtype'/`letterspacing' package, then try to use the `soul' package, then give up.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareTextFontCommand{\textsmallcaps}{\scshape}
 
 % Provides \MakeTextUppercase and \MakeTextLowercase
@@ -957,15 +933,17 @@
   }%
 }{}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ENVIRONMENT FOR SMALL CAPS AT START OF NEW THOUGHTS.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \providecommand\newthought[1]{%
    \tuftebreak
    \noindent\textsc{#1}%
 }
 
-%%
-% Redefine the display environments (quote, quotation, etc.)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Redefine the display environments (quote, quotation, etc.).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewenvironment{verse}{%
   \let\\\@centercr
     \list{}{\itemsep      \z@
@@ -998,23 +976,27 @@
   \endlist
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Italicize description run-in headings (instead of the default bold)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand*\descriptionlabel[1]{%
   \hspace\labelsep\normalfont\em #1%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Used for doublespacing, and other linespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{setspace}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Color (load before bidi)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[dvipsnames,svgnames]{xcolor}
 
-%%
-% Load the bidi package if instructed to do so.  This package must be loaded
-% prior to our redefining the \footnote and \cite commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Load the bidi package if instructed to do so.
+% This package must be loaded prior to our redefining the \footnote and \cite commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifthenelse{\boolean{@tufte@loadbidi}}{%
   \AtBeginDocument{%
     \RequirePackage{bidi}
@@ -1023,11 +1005,11 @@
 }{}
 
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A function that removes leading and trailing spaces from the supplied macro.
-% Based on code written by Michael Downes (See ``Around the Bend'', #15.)
-% Executing \@tufte@trim@spaces\xyzzy will result in the contents of \xyzzy
-% being trimmed of leading and trailing white space.
+% Based on code written by Michael Downes (See ``Around the Bend'', #15.).
+% Executing \@tufte@trim@spaces\xyzzy will result in the contents of \xyzzy being trimmed of leading and trailing white space.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \catcode`\Q=3
 \def\@tufte@trim@spaces#1{%
   % Use grouping to emulate a multi-token afterassignment queue
@@ -1056,10 +1038,10 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Transform existing \footnotes into \sidenotes
+% Transform existing \footnotes into \sidenotes.
 % Sidenote: ``Where God meant footnotes to go.'' ---Tufte
-% For our new sidenote commands -- provides multiple optional arguments
-% for commands
+% For our new sidenote commands -- provides multiple optional arguments for commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{optparams}
 
 \providecommand{\footnotelayout}{%
@@ -1144,8 +1126,9 @@
   }%
 }%
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define \sidenote command.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newlength{\@tufte@sidenote@vertical@offset}
 \setlength{\@tufte@sidenote@vertical@offset}{0pt}
 
@@ -1194,9 +1177,10 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The placeins package provides the \FloatBarrier command.  This forces
-% LaTeX to place all of the floats before proceeding.  We'll use this to
-% keep the float (figure and table) numbers in sequence.
+% The placeins package provides the \FloatBarrier command.
+% This forces LaTeX to place all of the floats before proceeding.
+% We'll use this to keep the float (figure and table) numbers in sequence.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{placeins}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1251,8 +1235,7 @@
 }
 
 %%
-% Forces the outer edge of the caption to be set ragged.  Therefore, on verso
-% pages it's ragged left, and on recto pages it's ragged right.
+% Forces the outer edge of the caption to be set ragged.  Therefore, on verso pages it's ragged left, and on recto pages it's ragged right.
 \newcommand*{\@tufte@justification@caption@outer}{%
   \ifthenelse{\boolean{@tufte@float@recto}}{%
     \RaggedRight
@@ -1437,11 +1420,7 @@
     \typeout{Page number: [\thepage]}%
     \def\MessageBreak{^^J}%
     \typeout{\@tufte@float@debug@info}%
-    \ifthenelse{\boolean{@tufte@symmetric}}{%
-      \typeout{Symmetric: [true]}%
-    }{%
-      \typeout{Symmetric: [false]}%
-    }%
+    \typeout{Symmetric: [false]}%
     \typeout{----------------------------------------------------^^J^^J}%
   }{}%
   % Reset commands and temp boxes and captions
@@ -1458,82 +1437,37 @@
 }
 
 \newcommand{\@tufte@float@textwidth}[3][0pt]{%
-  \ifthenelse{\NOT\boolean{@tufte@symmetric}\OR\boolean{@tufte@float@recto}}{%
-    % Asymmetric or page is odd, so caption is on the right
     \hbox{%
       \usebox{#2}%
       \hspace{\marginparsep}%
       \smash{\raisebox{#1}{\usebox{#3}}}%
     }%
     \@tufte@float@debug{Caption position: [right]}%
-  }{%
-    % Symmetric pages and page is even, so caption is on the left
-    \hbox{%
-      \smash{\raisebox{#1}{\usebox{#3}}}%
-      \hspace{\marginparsep}%
-      \usebox{#2}%
-    }%
-    \@tufte@float@debug{Caption position: [left]}%
-  }%
 }
 
 \newcommand{\@tufte@float@fullwidth}[3][0pt]{%
   \ifthenelse{\equal{\floatalignment}{b}}{%
     % Place caption above figure
-    \ifthenelse{\NOT\boolean{@tufte@symmetric}\OR\boolean{@tufte@float@recto}}{%
       \hfill%
       \smash{\raisebox{#1}{\usebox{#3}}}%
       \par\usebox{#2}%
       % Caption on the right
       \@tufte@float@debug{Caption position: [above right]}%
-    }{%
-      \smash{\raisebox{#1}{\usebox{#3}}}%
-      \hfill%
-      \par\usebox{#2}%
-      % Caption on the left
-      \@tufte@float@debug{Caption position: [above left]}%
-    }%
   }{%
-    % Place caption below figure
-    \ifthenelse{\NOT\boolean{@tufte@symmetric}\OR\boolean{@tufte@float@recto}}{%
       \usebox{#2}%
       \par\hfill%
       \smash{\raisebox{#1}{\usebox{#3}}}%
       % Caption on the right
       \@tufte@float@debug{Caption position: [below right]}%
-    }{%
-      \usebox{#2}%
-      \par%
-      \smash{\raisebox{#1}{\usebox{#3}}}%
-      \hfill%
-      % Caption on the left
-      \@tufte@float@debug{Caption position: [below left]}%
-    }%
   }%
 }
 
 %%
 % Full-page-width area
 \newenvironment{fullwidth}{%
-  \ifthenelse{\boolean{@tufte@symmetric}}{%
-    \ifthenelse{\boolean{@tufte@changepage}}{%
-      \begin{adjustwidth*}{}{-\@tufte@overhang}%
-    }{%
-      \begin{adjustwidth}[]{}{-\@tufte@overhang}%
-    }
-  }{%
     \begin{adjustwidth}{}{-\@tufte@overhang}%
-  }%
 }{%
-  \ifthenelse{\boolean{@tufte@symmetric}}{%
-    \ifthenelse{\boolean{@tufte@changepage}}{%
-      \end{adjustwidth*}%
-    }{%
-      \end{adjustwidth}%
-    }%
-  }{%
     \end{adjustwidth}%
-  }%
 }
 
 %%
@@ -1555,9 +1489,7 @@
 }
 
 %%
-% If we're NOT using XeLaTeX and the `nofonts' class option was NOT provided,
-% we should load the Palatino, Helvetica, and Bera Mono fonts (if they are
-% installed).
+% If we're NOT using XeLaTeX and the `nofonts' class option was NOT provided, we should load the Palatino, Helvetica, and Bera Mono fonts (if they are installed).
 \ifthenelse{\boolean{@tufte@loadfonts}\AND
   \NOT\boolean{@tufte@xetex}\AND
   \NOT\boolean{@tufte@luatex}}{%
@@ -1568,8 +1500,10 @@
   \RequirePackage{textcomp}
 }{}
 
-%%
-% Turns newlines into spaces.  Based on code from the `titlesec' package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Turns newlines into spaces.
+% Based on code from the `titlesec' package.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclareRobustCommand{\@tufte@newlinetospace}{%
   \@ifstar{\@tufte@newlinetospace@i}{\@tufte@newlinetospace@i}%
 }
@@ -1591,8 +1525,9 @@
   \let\\\@tufte@orig@cr%
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sets up the running heads and folios.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{fancyhdr}
 
 % Set the default page style to 'fancy'
@@ -1600,11 +1535,7 @@
 
 % Set the header/footer width to be the body text block plus the margin note area.
 \AtBeginDocument{%
-  \ifthenelse{\boolean{@tufte@symmetric}}{%
-    \fancyhfoffset[LE,RO]{\@tufte@overhang}
-  }{%
     \fancyhfoffset[RE,RO]{\@tufte@overhang}
-  }
 }
 
 % The running heads/feet don't have rules
@@ -1628,12 +1559,14 @@
   \fancyfoot[C]{\thepage}
 }
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set raggedright and paragraph indentation for document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginDocument{\@tufte@justification}
 
-%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Prints the list of class options and their states.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\typeoutbool}[2]{%
   \ifthenelse{\boolean{#2}}{%
     \typeout{\space\space#1: true}
@@ -1655,7 +1588,6 @@
   \typeoutbool{fully-justified}{@tufte@justified}
   \typeoutbool{letterspacing}{@tufte@letterspace}
   \typeoutbool{sans-serif sidenotes}{@tufte@sfsidenotes}
-  \typeoutbool{symmetric margins}{@tufte@symmetric}
   \typeoutbool{debug}{@tufte@debug}
   \typeout{}
   \typeout{Internal variables:}
@@ -1685,7 +1617,7 @@
 \newcommand{\numberedchapterformat}{
     \titleformat{\chapter}[display]
       % Format applied to label+text
-      {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}%
+      {\relax\begin{fullwidth}}%
       % Label
       {\itshape\huge}%
       % Horizontal separation between label and title body
@@ -1693,13 +1625,13 @@
       % Before the title body
       {\huge\rmfamily\itshape\thechapter\\\vspace{10pt}}%
       % After the title body
-      [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
+      [\end{fullwidth}]
 }
 
 \newcommand{\notnumberedchapterformat}{
     \titleformat{\chapter}[display]
       % Format applied to label+text
-      {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}%
+      {\relax\begin{fullwidth}}%
       % Label
       {\itshape\huge}%
       % Horizontal separation between label and title body
@@ -1707,7 +1639,7 @@
       % Before the title body
       {\huge\rmfamily\itshape}%
       % After the title body
-      [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]
+      [\end{fullwidth}]
 }
 
 \titleformat{\section}%
@@ -1868,7 +1800,7 @@
     \section*{\listfigurename}%
   }%
   % \begin{fullwidth}%
-  \@starttoc{lof}%
+      \@starttoc{lof}%
   % \end{fullwidth}%
 }
 
@@ -1879,7 +1811,7 @@
     \section*{\listtablename}%
   }%
   % \begin{fullwidth}%
-  \@starttoc{lot}%
+      \@starttoc{lot}%
   % \end{fullwidth}%
 }
 
@@ -2063,7 +1995,6 @@
     }%
   }%
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Detect if the subfigure package has been loaded

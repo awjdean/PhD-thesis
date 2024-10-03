@@ -1,7 +1,7 @@
 \documentclass[justified]{LaTeX/tufte-book}
-\usepackage{LaTeX/preamble}
 
 \usepackage{LaTeX/draft}
+
 \drafttrue
 
 % \usepackage[style=authoryear]{biblatex}
@@ -13,11 +13,19 @@
 
 \begin{document}
 
-\frontmatter
-\tableofcontents
 \doublespacing
-\listoffigures
-\listoftables
+\frontmatter
+
+\begin{fullwidth}
+    \singlespacing
+    \tableofcontents
+\end{fullwidth}
+
+\begin{fullwidth}
+    \listoffigures
+    \listoftables
+\end{fullwidth}
+
 \chapter{Abstract}
 
 \mainmatter
@@ -28,8 +36,9 @@
 
 
 \backmatter
-% INSERT BIBLIOGRAPHY
-\printbibliography
-% Include bibliography in the table of contents.
-\addcontentsline{toc}{chapter}{Bibliography}
+\begin{fullwidth}
+    \printbibliography
+\end{fullwidth}
+
+
 \end{document}

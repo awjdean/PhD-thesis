@@ -15,6 +15,7 @@
 
 %%
 % Set up any book-specific stuff now
+\input{LaTeX/preamble.def}
 
 %%
 % The front matter in Tufte's /Beautiful Evidence/ contains everything up to the opening page of Chapter 1.  The running heads, when they appear, contain only the (arabic) page number in the outside corner.
@@ -66,6 +67,8 @@
   \fancyfoot[C]{\thepage} % Centered page numbers at the bottom
   \setcounter{secnumdepth}{-1}
   \notnumberedchapterformat
+  % \newgeometry{marginparsep=0pt, marginparwidth=0pt}
+  \centering
 }
 
 %%
