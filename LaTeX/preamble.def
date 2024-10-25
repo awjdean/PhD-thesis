@@ -5,6 +5,7 @@
 % TYPESETTING
 % \RequirePackage{bm, bbold}
 \RequirePackage{setspace}  % For double spacing.
+\usepackage[normalem]{ulem} % For text strikethrough; can be used to edit \emph.
 
 % FIGURES
 \RequirePackage{subcaption}

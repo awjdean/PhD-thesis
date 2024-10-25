@@ -1,4 +1,4 @@
-\section{A mathematical treatment of worlds and their transformations}\label{sec:Mathematical framework for an agent in an environment}
+\section{A mathematical treatment of worlds and their transformations}\label{sec:A mathematical treatment of worlds and their transformations}
 
 \newthought{We want our} framework to be as general as possible, so we consider worlds as consisting a set of world states, which are distinguishable in some way\footnote{We are building up to using our framework to consider the transformation structure of the world from the perspective of an agent. So when we say \emph{distinguishable in some way} we mean that there is some way for our agent to distinguish between the states.}, and a set of transformations between those world states; these transformation describe how the current state of the world can be changed to other states (\textit{i.e.} the \emph{dynamics of the world}).
 
@@ -185,67 +185,179 @@ If the representation evolution process is not Markov, we can transform the repr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducing an agent}
-We want to study the structure of the representations of an agent that can interact with our worlds - we will now explain what this means.
+\newthought{We want to} study the structure of the representations of an agent that can interact with our worlds - we will now explain what an agent is in our framework.
 
 \subsection{What is an agent ?}
 
-An \emph{agent} is an autonomous entity\footnote{This could be a natural or artificial entity.} that can observe and interact with its environment\footnote{Our agent does not need to be embodied in the world - more on this later !}; the agents that we care about can also learn about their environments.
+\newthought{An \emph{agent} is} an autonomous entity\footnote{This could be a natural or artificial entity.} that can observe and interact with its environment\footnote{Our agent does not need to be embodied in the world - more on this later !}; the agents that we care about can also learn about their environments.
 
-An \emph{agent's representation} is the internal model that defines how the agent perceives and interacts with its environment.
+\subsection{Representations of an agent}
 
-In our framework, we consider agent to be systems with internal states that interact with the world in ways that maintain a boundary between their internal states and the world.
-The agents use \emph{sensory states} to perceive the world and \emph{effector states} to act on the world, causing the world state to transform.
+\newthought{An agent's \emph{representation states}} are the agent's internal representations of world states, through which the agent maintains its understanding of its world.
+An agent's \emph{representation model} is the agent's internal model of the world, which includes how the agent encodes and organises information about its environment (e.g., as vectors, symbols, or other data structures) as representation states as well as the dynamics of how those representation states change due to actions that affect the world\footnote{The agent's representation model does not encode the dynamics of the world states, it encodes the dynamics of the representation states; a `good' representation will provide a good approximation to the dynamics of the world states. More on this later.}.
 
-We now have four types of state:
+An agent's \emph{representation model} not only captures the current state of the world but also allows it to (attempt to) conceptualise future states by predicting the state of the world based on its observations and actions and plan actions accordingly, forming a comprehensive framework for decision-making and interaction.
+
+\newthought{Agents use \emph{sensors}} to capture data from their world, enabling the agent to perceive the world; these sensors include real-world sensors (e.g., cameras on a robot, the human eye) and virtual inputs (e.g., data streams, user commands) in a software agent.
+Sensors provide the agent with \emph{observation states}\footnote{Sometimes these are called sensory states such as in \cite{Ramstead2020}.}, which are the agent's internal representations of the information the sensors collect (e.g., data streams from the camera), and importantly are not the sensors themselves.
+An \emph{agent's perceptual model} is how the agent encodes and organises information from its sensors (e.g., vectors, symbols, or other data structures) as well as how it conceptualises the structure of the landscape of possible observation states.
+
+\newthought{Agents use \emph{effectors}} to interact with and alter their world, enabling the agent to carry out actions on the world; this can involve real-world effectors (e.g., motors and actuators on a robot) or virtual outputs (e.g., API calls or applying a transformation to a dataset the agent is manipulating) in a software agent.
+These effectors receive \emph{effector signals}\footnote{Also known as \emph{control signals} in the field of robotics.}, which are the concrete instructions sent by the agent to execute actions (e.g., a voltage spike to a motor or a command to a software interface).
+An agent also has an \emph{action model}, which is how the agent encodes and organises information about its actions (e.g., control signals, symbolic commands) as well as how it conceptualises how its actions will affect the world state.
+
+An agent's action model is intrinsically linked to its representation model since the action model describes the movement between states of the representation model due to actions\footnote{These actions do not have to be only the actions of the agent itself, it can be a grouping of world state transformations that the agent understands to be from a particular cause - more on this later.}.
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{Additions:}
 \begin{enumerate}
-    \item \emph{Sensory states} represent the agent's inputs from the environment (e.g., vision, sound, touch etc...).
+    \item \textbf{Figures:}
+    \begin{itemize}
+        \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
+        \item Diagram showing mapping from $W$ to $O$ to $Z$.
+    \end{itemize}
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+
+\subsection{Agents as Markov blankets}
+
+In our framework, we consider agents to be systems with internal states that interact with the world in ways that maintain a boundary between their internal states and the world.
+
+Agent's in our framework have four types of state:
+\begin{enumerate}
+    \item \emph{Observation states} represent the agent's inputs from the environment (e.g., vision, sound, touch etc...).
     \item \emph{Effector states} represent how the agent influences the world state (i.e., the agent's external environment).
-    \item \emph{(External) world states} consist of the states of the agent's external environment, which are the world states we've looked at previously.
-    \item \emph{Agent's (internal) representation states} contain our agent's representations of the environment, memory model, knowledge models, goals, decision making processes etc... These internal states can only interact with the external world states via sensory and effector states.
+    \item \emph{(External) world states} consist of the states of the agent's external environment, which are the world states we introduced in section \ref{sec:A mathematical treatment of worlds and their transformations}.
+    \item \emph{Agent's (internal) representation states} contain our agent's representations of the environment, memory model, knowledge models, goals, decision making processes etc...
+    These internal states can only interact with the external world states via observation states and effector states.
 \end{enumerate}
 
-Using these four types of states we can view our agents as Markov blankets.
+Using these four types of states we can view our agents as Markov blankets (see figure \ref{fig:markov_blanket}).
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/markov_blanket.jpg}
-    \caption{Caption}
+    \caption{
+    Complete caption.
+    Arrows show the flow of information.
+    }
     \label{fig:markov_blanket}
 \end{figure}
 
-The sensory and effector states form the Markov blanket with the world states being outside the blanket and the the internal state being inside the blanket.
-The Markov blanket acts as a boundary that separates the agent's internal representation states from the external world states.
-The agent can not directly access the external world states, but can infer these world states by processing sensory inputs through its sensory states and performing actions through its effector states; information about the world states crosses the Markov blanket through the agent's sensory states and the agent's affect on the world crosses the Markov blanket through the agent's effector states.
+The Markov blanket consists of the states that mediate interactions between our agent and its environment (the world) \cite{Ramstead2020}.
 
-Technically, given the sensory and effector states (i.e., the blanket), the internal representation states of the agent are \emph{conditionally independent} of the external world states.
-\textbf{CAR OR ROOM EXAMPLE}
+For our agent, the observation and effector states form the Markov blanket with the world states being outside the blanket and the the internal state being inside the blanket.
+This Markov blanket acts as a boundary that separates the agent's internal representation states from the external world states.
+The agent can not directly access the external world states, but can infer these world states by processing sensory inputs through its observation states and performing actions through its effector states; information about the world states crosses the Markov blanket through the agent's sensory states and the agent's affect on the world crosses the Markov blanket through the agent's effector states.
 
+Technically, given the observation and effector states (i.e., the blanket), the internal representation states of the agent are \emph{conditionally independent} of the external world states; conditionally independent of the external world states means that the behaviour of the agent's internal representation depends only on the states of the agent's Markov blanket (i.e., the agent's observation and effector states) and not (directly) on the world states external to the agent because all the relevant information about the external world states are filtered through the observation states and the agent only affects the world through its effector states.
+
+By framing an agent as a Markov blanket, we clearly show that the agent learns about its world only through its observation states and its actions.
+One major implication of this approach for our framework is we consider the internal representation states of the agent to be separate from the world states introduced in section \ref{sec:A mathematical treatment of worlds and their transformations}; this means that if we swap an agent embodied in a world with another agent that is identical except for having a different internal representation state (or a different representation model), then the world state would remain unchanged.
+
+Another implication is that, since an agent's only gains knowledge about the strucutre of the world through its sensors and its actions, world states with differences that are not detectable by the agent are identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world (i.e, those world states do not exist from the perspective of the agent)\footnote{More on this later !}.
+
+\subsection{Sensory perception}
+
+Our agents have an unspecified number of sensors that allows it to make observations of the world.
+Information about the agent's current world state is delivered to the internal state of the agent as an observation state; this is called the \emph{observation process}\footnote{If the world state is modelled as a distribution then is process is also referred to as the agent \emph{sampling} the world state.}.
+For example, the human eye (the sensor) converts information about the light entering the eye into
+electrical and chemical energy in the optic nerve (the observation process).
+
+Mathematically, we treat the observation process as a mapping $b: W \to O$ which produces an observation $o_{i}$.
+The structure of $o_{i}$ depends on the agent's perceptual model; commonly, each observation $o_{i}$ is a vector of length $N$, where $N$ is the number of sensors the agent has.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/observation_process_W_to_O.jpeg}
+    \caption{Caption}
+    \label{fig:observation_process_W_to_O}
+\end{figure}
+
+Initially, we will consider our agents to have \emph{perfect sensors}; for an agent with perfect sensors:
+\begin{enumerate}
+    \item information is not lost or modified during the observation process,
+    \item there is no noise in the sensors, 
+    \item a change in the world state causes a change in the observation state\whendraft{\footnote{This might be too strict? We want to allow cases where $b(w_{1})=b(w_{2})$ due to things such as occlusion? Should we discuss this separately later or should we introduce something like a world with bijective f ?}}.
+\end{enumerate}
+
+In real world situations, it is common for information about the world state to be lost, modified or not picked up during the observation process; for example, the human eye only picks up certain wavelengths of light or a camera could take in a colour spectrum then output greyscale.
+We will discuss agents with non-perfect sensors in section ???.
+
+Something else to note is that world states with differences that are not detectable by the agent's sensors or actions are effectively identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world.
+
+\subsection{Learning and inference}
+
+We consider agents that learn about their world.
+The end goal of the agent’s learning process is to map the useful aspects of the structure of the world to the structure of its representation; the useful aspects are those that enable the agent to complete whatever task the agent has.
+The observation states from our agents' sensors are used by an \emph{inference process} to produce a representation of the current state of the world; the agent
+then uses some internal mechanism to select an action to perform.
+For example, the electrical signals from the optic nerve are given to the brain for inference; mechanisms in the brain then select an action to be performed. 
+Mathematically, we consider this inference process to be a mapping $h: O \to Z$.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/inference_process_O_to_Z.jpeg}
+    \caption{Caption}
+    \label{fig:inference_process_O_to_Z}
+\end{figure}
+
+For agents without perfect sensors, there are scenarios (e.g., in partially observable environments) where two world states that are distinct for the agent produce the same observation state (i.e., $h(o_{\alpha}) = w_{1}$ and $h(o_{\alpha}) = w_{2}$).
+We will discuss these types of scenarios in section ???.
+
+For agents with perfect sensors, we can combine $b$ and $h$ to form a mapping $f = h \circ g$ from $W$ to $Z$\whendraft{\footnote{\textbf{Proof that this map always exists if agent perfect sensors ?}}}.
+We will initially focus on the structure of an agent's representation due to these types of maps $f$.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/InitialFramework/Images/W_to_Z.jpeg}
+    \caption{Caption}
+    \label{fig:W_to_Z}
+\end{figure}
+
+
+\subsection{Our approach}
+
+We propose there are two approaches for understanding the learning of an agent: (1) we can study the learning process of the agent itself (i.e., how does the agent learn at each step of the learning process) or (2) we can study what we believe the end result of the agent's learning process should be.
+We will initially focus on approach (2).
+
+We assume that the best representation of the worlds we study should exactly mirror the structure of the worlds themselves in the structure of the agent's representation, and so the end result of the agent's learning process should be
+By initially studying the structure of worlds themselves, rather than structure of an agent's representation, we simplify the problem we are tackling since we no longer have to consider each step of the learning process; this provides the opportunity to generalises our results somewhat - for example, if we prove that the structure of the world does not obey certain conditions then we might be able to show that this is true no matter the process used for learning\whendraft{\footnote{\textbf{Flesh this out a bit more - talk about learning equilibria ?}}}.
+
+Once we have this foundation, we can introduce aspects of non ideal sensors to see how they affect the agent's representation when learning the structure of the same worlds we've already studied.
+
+\whendraft{
 \noindent\rule{\textwidth}{1mm}
 
 \textbf{Up next:}
 \begin{enumerate}
-    \item Car or room example of conditional independence (CG).
-    \item What do we mean by an agent ?
-    \begin{itemize}
-        \item Sensory states etc...
-        \item Markov blanket.
-        \item What is an agent's representation?
-    \end{itemize}
+    \item Sensory perception in an agent.
+    \begin{compactitem}
+        \item Look at Higgins distribution set up.
+        \item Cones figure - cone in $W$ leading to a single observation in $O$ - put in later discussion.
+        \item If the agent's sensors are perfect (i.e., there is no noise from the sensors) the number of possible observation states is less than or equal to the number of world states (i.e., $|O| \leq |W|$) - put this should later with a proof.
+    \end{compactitem}
+
+    \item Learning.
+    \begin{compactitem}
+        \item Brief discussion about scenarios where you can have $b(w_{1}) = b(w_{2})$ but $h(b(w_{1})) \neq h(b(w_{2}))$ - say we'll discuss this in more detail later.
+        \item Proof that the structure of an agent's representation should mirror the structure of the agent's representation for an agent with ideal sensors.
+    \end{compactitem}
+    
     \item Actions of an agent.
+    \begin{compactitem}
+        \item 
+    \end{compactitem}
     \item Example.
 
 \end{enumerate}
 
-\url{https://www.researchgate.net/figure/The-structure-of-a-Markov-blanket-A-Markov-blanket-highlights-open-systems-exchanging_fig1_343643283}
-For a system to exist (separately from the rest of the universe), it must be endowed with a degree of independence  from its embedding environment. A Markov blanket is a set of  variables  or states that we use to stipulatively individuate a system in terms of what is part of it (internal states, denoted μ), and what is not (external states, denoted η). The  Markov blanket itself is defined  as those states that mediate interactions  between  the system and its  embedding  environment (active  and  sensory states, denoted a and s). The Markov blanket is defined by the absence of certain connections: internal states do not cause sensory states, and external states do not cause active states.
-
-The presence  of a  Markov blanket  induces a  conditional  independence  between internal and external  variables.  The  key  word  here  is  ‘conditional’:  internal  and  external  are  not  really independent  of  one another—they  just  appear to  be  so if  we discount  their  dependencies via  the blanket states. 
-
-
-
 \textbf{Small things:}
 \begin{compactitem}
     \item Environment vs world.
+    \item Mention at start of Agents section that we use a mix of papers for inspiration for our agent: Agent as a Markov blanker paper, Higgins, Caselles-Dupre.
+    \item World states as a distribution - see Higgins.
 
     \item \textbf{Diagrams:}
         \begin{enumerate}
@@ -258,7 +370,32 @@ The presence  of a  Markov blanket  induces a  conditional  independence  betwee
     \end{enumerate}
 \end{compactitem}
 
+
+\textbf{Implemented notes:}
+\begin{compactitem}
+    \item Do the 'sensory states' in the Markov Blanket represent different observation states in $O$ or different sensors ? They represent different observation states - need to make my formalism consistent. \textbf{Use $o$ for observation states.}
+    \item Sensors can mean real-world sensors or virtual inputs (e.g., in a software agent).
+\end{compactitem}
 \noindent\rule{\textwidth}{1mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Actions of agents}
+
+In this section, we define the actions of agents as collections of transitions that are labelled by their associated action, and then we define some relevant properties of these actions.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \textbf{Example - agent in cyclical world}
@@ -327,43 +464,6 @@ It should be noted that, since the structure of the diagram is wholly dependent 
 \subsection{Agents}
 We now define the actions of agents as collections of transitions that are labelled by their associated action.
 We then define some relevant properties of these actions.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Treatment of agents}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Notes:}
-\begin{enumerate}
-    \item Use formulation found in Higgins - agent attempts to learn the structure of the world in its representation.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
-}
-We now discuss how agents are treated in our model.
-We consider worlds containing an embodied agent, which is able to interact with the environment by performing actions.
-The end goal of the agent's learning process is to map the useful aspects of the structure of the world to the structure of its representation; the useful aspects are those that enable the agent to complete whatever task it has.
-
-We use the treatment of agents adopted by \autocite{Higgins2018}.
-The agent has an unspecified number of unspecified sensory states that allow it to make observations of the state of the environment.
-Information about the world state that the agent is currently in is delivered to the internal state
-\whendraft{\footnote{It is important to note that, for the purposes of this work, the agent's internal state refers to internal in the psychological sense, not in a physical sense (\textit{i.e.,} the agent's state representation not their internal organs).}} of the agent through the sensory states.
-Mathematically, the process of information propagating through the sensory states is a mapping $b : W \to O$ (the `observation process'), which produces a set of observations $o_1$ containing a single observation for each sensory state.
-These observations are then used by an inference process $h : O \to Z$ to produce an internal representation.
-The agent then uses some internal mechanism to select an action to perform; this action is performed through active states.
-
-The agent can be thought of as having a (non-physical) boundary between its internal state, containing its internal state representation(s) of the world, and the external world state.
-Information about the world state is accessed by the internal state through sensory states only (the observation process).
-The agent affects the world using active states\whendraft{\footnote{Mathematically, this is essentially a description of a single-layer Markov blanket.}}.
-
-It is important to note that the agent's state representation only reflects the observations the agent makes with its sensors; in other words, the agent's internal state is built using the information about aspects of the world state propagated through its sensory states, in the form that the observation process provides the information, and not directly from the world state.
-For example, the human eye (the sensor) converts information about the light entering the eye into electrical and chemical energy in the optic nerve (the observation process) and then the information from the optic nerve is given to the brain for inference.
-Information could be lost or modified during the observation process.
-For example, light sensors could only pick up certain wavelengths of light or take in a colour spectrum and output in greyscale.
-This means that world states with differences that are not detectable by the agent's sensors are effectively identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world.
-
-\whendraft{
-[?mention Markov blanket?] [?insert explanatory diagram here?]
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \textbf{Actions of an agent as labelled transitions}\label{sec:Agent actions as labelled transitions}
