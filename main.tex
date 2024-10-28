@@ -1,8 +1,9 @@
 \documentclass[justified]{LaTeX/tufte-book}
 
-\usepackage{LaTeX/draft}
+% \usepackage{LaTeX/draft}
 
-\drafttrue
+\usepackage{LaTeX/draftmode}
+\global\drafttrue
 
 % \usepackage[style=authoryear]{biblatex}
 % \addbibresource{bibliography.bib}
@@ -32,9 +33,11 @@
 \mainmatter
 \input{2MathematicalFramework/main}
 
+\whendraft{
 \chapter{Test}
-\makedraftnote{blue}{awjdean}{text}
-
+\draftnote{red}{awjdean}{A draft note.}
+\draftfootnote{blue}{awjdean}{A draft footnote}
+}
 
 \backmatter
 \begin{fullwidth}

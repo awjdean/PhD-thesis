@@ -37,13 +37,13 @@ Let the set of minimum world state transformations be $\hat{D}$ and the set of w
 We define two maps $\hat{s},\hat{t}: \hat{D} \to W$; $\hat{s}$ is called the \emph{source map} and $\hat{t}$ is called the \emph{target map}.
 For any minimum world state transformation $\hat{d} \in \hat{D}$ from a world state $w_{1} \in W$ to a world state $w_{2} \in W$, $\hat{s}(\hat{d}) = w_{1}$ and $\hat{t}(\hat{d}) = w_{2}$.
 
-\newthought{We can now} formally define our generalised worlds as a directed multigraph\footnote{Technically, our description of the world is \textit{isomorphic} to this directed multigraph; each world states has a corresponding vertex in the directed multigraph and each transformation has a corresponding arrow in the directed multigraph}.
+\newthought{We can now} formally define our generalised worlds as a directed multigraph\footnote{Technically, our description of the world is \textit{isomorphic} to this directed multigraph; each world states has a corresponding vertex in the directed multigraph and each transformation has a corresponding arrow in the directed multigraph.}.
 A \emph{world} $\mathscr{W}$ is a directed multigraph $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ where $W$ is a set of \emph{world states}, $\hat{D}$ is a set of \emph{minimum world state transformations}, and $\hat{s},\hat{t}: \hat{D} \to W$ are the source and target maps.
 
 \newthought{We are interested} in the all the transformations of our world $\mathscr{W}$, not just the minimum transformations.
-We let the set of all paths in $\mathscr{W}$ be called the set of all transformations and denote it by $D$; we call the elements of $D$ transformations\footnote{Minimum transformations are also transformations.}.
+We let the set of all paths in $\mathscr{W}$ be called the \emph{set of all transformations} and denote it by $D$; we call the elements of $D$ \emph{transformations}\footnote{Minimum transformations are also transformations.}.
 A transformation $d \in D$ is a sequence of minimum world state transformations $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, where $\hat{\circ}: \hat{D} \times \hat{D} \to D$ is a composition operator\footnote{This operator is the operator of concatenation of paths.} that is defined if $\hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1})$ for $i = 1, ..., n-1$.
-The composition operator $\hat{\circ}$ is associative\footnote{If an operator $\cdot$ is \emph{associative}, it means that when we perform the operation $\cdot$ on three or more elements, the way in which the elements are grouped does not affect the outcome; this is commonly defined by the condition $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.} by the definition of concatenation of paths.
+The composition operator $\hat{\circ}$ is associative\footnote{If an operator $\cdot$ is \emph{associative}, it means that when we perform the operation $\cdot$ on three or more elements, the way in which the elements are grouped does not affect the outcome; this is commonly shown using the condition $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.} by the definition of concatenation of paths.
 We have constructed our transformations this way because it means that each transformation in $D$ can be represented as a unique composition of minimum transformations. 
 The \emph{length} of a transformation is the number of minimum transformations in its unique composition of minimum transformations\footnote{This means minimum transformations have a length of one.}.
 
@@ -132,7 +132,7 @@ It's important to note that, in a world diagram, the positioning (relative or ab
 \end{figure}
 
 \paragraph{Subworlds.}
-A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subset} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if $W' \subseteq W$, $\hat{D}' \subseteq \hat{D}$, $\hat{s}' \subseteq \hat{s}$, and $\hat{t}' \subseteq \hat{t}$ \footnote{
+A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subworld} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if $W' \subseteq W$, $\hat{D}' \subseteq \hat{D}$, $\hat{s}' \subseteq \hat{s}$, and $\hat{t}' \subseteq \hat{t}$ \footnote{
 This definition requires $\hat{D}' \subseteq \hat{D}$ and not $D' \subseteq D$ because removal of an element of $D$ which is not an element of $\hat{D}$ to create $D'$ would lead to sequences of minimum transformations not being transformations; to avoid problems like this we always consider the minimum transformations then use them to generate the set of transformations.
 }.
 We can denote that $\mathscr{W}'$ is a subworld of $\mathscr{W}$ using $\mathscr{W}' \subseteq \mathscr{W}$.
@@ -174,6 +174,7 @@ If the representation evolution process is not Markov, we can transform the repr
     \item \textbf{Mention:} we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
     \item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
     \item \textbf{Mention:} sometimes we don't include the trivial transformations for clarity.
+    \item \textbf{Mention:} For the rest of this document, if we talk about a sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
 
     \item \textbf{Diagrams:}
         \begin{enumerate}
@@ -344,13 +345,6 @@ Once we have this foundation, we can introduce aspects of non ideal sensors to s
         \item Brief discussion about scenarios where you can have $b(w_{1}) = b(w_{2})$ but $h(b(w_{1})) \neq h(b(w_{2}))$ - say we'll discuss this in more detail later.
         \item Proof that the structure of an agent's representation should mirror the structure of the agent's representation for an agent with ideal sensors.
     \end{compactitem}
-    
-    \item Actions of an agent.
-    \begin{compactitem}
-        \item 
-    \end{compactitem}
-    \item Example.
-
 \end{enumerate}
 
 \textbf{Small things:}
@@ -382,21 +376,163 @@ Once we have this foundation, we can introduce aspects of non ideal sensors to s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Actions of agents}
 
-In this section, we define the actions of agents as collections of transitions that are labelled by their associated action, and then we define some relevant properties of these actions.
+In this section, we define the actions of agents as collections of transformations that are labelled by their associated action, and then we define some relevant properties of these actions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Actions as collections of labelled transformations}
+
+Consider a set $\hat{A}$ called the set of \emph{minimum actions} of an agent, where $\hat{A} = \{1, a_{1}, a_{2}, \dots, a_{n}\}$.
+
+We now take the Kleene star operator of $\hat{A}$ \footnote{
+$\hat{A}^{*} = \{ \epsilon \} \cup \{ (a_1, a_2, \dots, a_n) \mid a_i \in \hat{A}, \, n \in \mathbb{N} \}$.
+} to get the set of all possible finite sequences formed from elements of $\hat{A}$, including the empty sequence $\epsilon$.
+We call $\hat{A}^{*}$ the set of \emph{actions} of an agent.
+
+We define a composition operator $\circ: \hat{A}^{*} \times \hat{A}^{*} \to \hat{A}^{*}$ such that $(a_1, a_2, \dots, a_n) \in \hat{A}^{*}$ can be written as $a_1 \circ a_2 \circ \dots \circ a_n$.
+Sometimes we write compositions like $a_1 \circ a_2 \circ \dots \circ a_n$ as $a_1 a_2 \dots a_n$.
+The operator $\circ$ is closed under the definition of the Kleene star operator.
+
+\paragraph{Properties of the empty sequence $\epsilon$.}
+\begin{enumerate}
+    \item \textbf{Uniqueness:} There is only one empty sequence $\epsilon$.
+    \item \textbf{Identity element for concatenation:} the empty sequence $\epsilon$ serves as an identity element for concatenation of sequences:
+    $\epsilon \circ a = a \circ \epsilon = a$ for all $a \in \hat{A}^{*}$.
+    \item \textbf{Length:} The empty sequence $\epsilon$ has a length of zero (i.e., $|\epsilon| = 0$).
+\end{enumerate}
+
+\paragraph{Linking actions with transformations.}
+We now want to link our set of actions to the transformations of the world that would occur if an agent performed each action while in a current world state.
+We do this by first labelling transformations in the set $D$ of transformations that are caused by minimum actions with the elements of $\hat{A}$, and then using those labellings to label other transformations in $D$ with the elements of $\hat{A}^{*}$ by considering how the elements of $\hat{A}$ combine to form the elements of $\hat{A}^{*}$.
+
+Consider a set $\hat{D}_{A} \subset D$, where $1_{w} \in \hat{D}_{A}$ for all $w \in W$; we call $\hat{D}_{A}$ the set of \textit{minimum action transformations}.
+We define a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that:
+\begin{enumerate}
+    \item Any two distinct transformations leaving the same world state are labelled with different actions.
+    \begin{action_condition}\label{actcon:action_gives_single_outcome}
+        For any $d,d' \in \hat{D}_{A}$ with $s(d)=s(d')$, $\hat{l}(d) \neq \hat{l}(d')$.
+    \end{action_condition}
+
+    \item Trivial transformations, $1_{w}$ for all $w \in W$, are mapped by $\hat{l}$ to the empty sequence $\epsilon$:
+    \begin{action_condition}\label{actcon:trivial_transformations_mapped_to_empty_sequence}
+        $\hat{l}(1_{w}) = \epsilon$ for all $w \in W$.
+    \end{action_condition}
+\end{enumerate}
+
+So, for any world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$, there is a subworld $\mathscr{W}_{A} = (W, \hat{D}_{A}, \hat{s}, \hat{t})$.
+In the same way as we did in section \ref{sec:A mathematical treatment of worlds and their transformations} to get $D$ from $\mathscr{W}$, we take the set of all paths in $\mathscr{W}_{A}$ and denote it by $D_{A}$; the elements of $D_{A}$ are called \emph{transformations due to the actions of the agent}.
+As before, we extend $\hat{s}$ and $\hat{t}$ to $s$ and $t$ respectively\footnote{
+We can use $s$, $t$ instead of having to define sub maps $s_{A}$ and $t_{A}$ because $s$ and $t$ act on the elements of $D$ and $D_{A}$ is just $D$ with some elements removed.
+If we wanted to define such maps $s_{A}$ and $t_{A}$ they would be restrictions of the maps $s$ and $t$ to the set $D_{A}$.
+\whendraft{
+- Put this as a footnote for the definition of subworlds?
+does this slightly alter the definition of subworld ?
+}
+}.
+
+We extend the map $\hat{l}$ to the map $l: D_{A} \to \hat{A}^{*}$ such that:
+if $d = \hat{d}_{n} \circ ... \circ \hat{d}_{1}$ then $l(d) = \hat{l}(\hat{d}_{n}) ... \hat{l}(\hat{d}_{1})$.
+
+For $d \in D_{A}$ with $s(d) = w$, $t(d) = w'$ and $l(d) = a$, we will often denote $d$ by $d: w \xrightarrow{a} w'$.
+
+\paragraph{Effect of actions on world states.}
+Unlike transformations, which are tied to individual world states, actions can have different outcomes when applied to different world states.
+For example, it could be the case that applying the action $a$ followed by the action $b$ on a world state $w_{1}$ gives back the original world state, while applying $a$ followed by $b$ on world state $w_{2}$ could give a different world state $w_{3}$ - the action sequence $ba$ produces the original world state when applied to certain world states (e.g., $w_{1}$), but produces a world state that is not the original world state when applied to other world states (e.g., $w_{2}$).
+Due to this behaviour, we need a way to describe how actions change world states.
+We define the \emph{effect of an action $a \in A$ on world state $w \in W$} as
+
+\begin{itemize}
+    \item[] $*: \hat{A}^{*} \times W \to W$ such that
+    \begin{enumerate}[(1)]
+        \item if there exists $d \in D_{A}$ such that $s(d) = w$ and $l(d) = a$, then $a * w = t(d)$, and
+        \item if there does not exist $d \in D_{A}$ such that $s(d) = w$ and $l(d) = a$, then we say that $a * w$ is \emph{undefined}.
+    \end{enumerate}
+\end{itemize}
+From now on, unless stated otherwise, when we give something like $a * w$ we will assume that $a * w$ is defined.
+
+The effect of actions on world states is well-defined due to action condition \ref{actcon:action_gives_single_outcome}.
+
+We can apply the minimum actions that make up an action to world states individually:
+if $a = \hat{a}_{k}...\hat{a}_{1}$, then
+\begin{align*}
+    a * w &= (\hat{a}_{k} \dots \hat{a}_{1}) * w \\
+          &= (\hat{a}_{k} \dots \hat{a}_{2}) * (\hat{a}_{1} * w) \\
+          &= (\hat{a}_{k} \dots \hat{a}_{3}) * (\hat{a}_{2} * (\hat{a}_{1} * w)) \\
+          &= \dots
+\end{align*}
+
+We can also apply split actions into short sequences of actions and apply those:
+if $a = \hat{a}_{k}...\hat{a}_{1}$, then
+\begin{align*}
+    a * w &= (\hat{a}_{k} \dots \hat{a}_{3}) * (\hat{a}_{2} * (\hat{a}_{1} * w)) \\
+          &= (\hat{a}_{k} \dots \hat{a}_{3}) * ((\hat{a}_{2} \hat{a}_{1}) * w) \\
+          &= \dots
+\end{align*}
+
+\paragraph{Actions as (partial) functions.}
+
+Consider all the transformations that are labelled by a particular action $a \in \hat{A}^{*}$.
+Together these transformations form a partial function $f_{a}: W \to W$ because for any $w \in W$ either $a * w$ is undefined or $a * w$ is defined and there is a unique world state $w' \in W$ for which $a * w = w'$ (from action condition \ref{actcon:action_gives_single_outcome}).
+Each of the transformations labelled by the action $a$ is an assignment of $f_{a}$ to one of the world states in $W$.
+This function $f_{a}$:
+\begin{itemize}[-]
+    \item is not generally surjective because for a given $w \in W$ there is not necessarily a transition $d \in D$ with $l(d) = a$ and $t(d) = w$ \draftnote{blue}{awjdean}{Illustrative diagram},
+
+    \item is not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$ \draftnote{blue}{awjdean}{Illustrative diagram}.
+\end{itemize}
+
+Another way of thinking about this is we can take the action effect operator $* : \hat{A}^{*} \times W \to W$ and curry it\draftnote{blue}{awjdean}{reference} to give a collection $\{*_{a}\}$ of partial functions, where there is a partial function $\hat{*}(a)=*_{a}: W \to W$ for each action $a \in \hat{A}^{*}$:
+\begin{equation*}
+    \textit{Curry}: (*: \hat{A}^{*} \times W \to W) \to (*_{a}: W \to W)
+\end{equation*}
+\footnote{
+We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
+If we let $f: A \times W \to W$ be the dynamics of the environment then the transition caused by an action $a \in A$ on a world state $w \in W$ (where $a * w$ is defined) is given by $(a,w) \mapsto f(a,w) = a * w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
+}
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{Up next:}
+\begin{enumerate}
+    \item Example.
+    \begin{compactitem}
+        \item Diagram (l-map-for-transitions-from-and-to-w0).
+        \begin{compactitem}
+            \item This diagram shows how the minimum transitions $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
+            \item Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure \ref{fig:2x2-cyclical-min-actions-standard}.
+        \end{compactitem}
+    \end{compactitem}
+\end{enumerate}
+
+\textbf{To do:}
+\begin{enumerate}
+    \item Appendix: Why $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
+    
+    \item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ? --> endomorphism viewpoint ?
+
+    \item Talk about why we've created action condition 1.
+    \item \textbf{Footnote:} difference between the empty action and the no op action. 
+    \item Say we refer to the empty sequence as the empty action.
+
+    \item \textbf{Mention:} We can use $s$, $t$ instead of having to define sub maps $s_{A}$ and $t_{A}$ because $s$ and $t$ act on the elements of $D$ and $D_{A}$ is just $D$ with some elements removed. - Put this as a footnote for the definition of subworlds; does this slightly alter the definition of subworld ?
+
+    \item \textbf{Mention:} Minimum actions denoted by $\hat{hat}$.
+
+    \item No-op action doesn't always exist.
+    \begin{compactitem}
+        \item Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
+    \end{compactitem}
+\end{enumerate}
+
+\textbf{Questions/thoughts that have been answered:}
+\begin{compactitem}
+    \item $A$ is the set of words made from $\hat{A}$ - i.e., the set of finite sequences of elements of $A$, not infinite sequences - infinite sequences make things tricky (apparently).
+
+    \item We want the set $A$ of actions to be the Kleene star operation of $\hat{A}$ ($A = \hat{A}^{*}$). $\hat{A}^{*}$ includes an empty sequence $\epsilon$ and our no-op action $1$ as separate sequences; if the no op action is an identity action, then $1 \sim \epsilon$.
+\end{compactitem}
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+\noindent\rule{\textwidth}{1mm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \textbf{Example - agent in cyclical world}
 
@@ -461,56 +597,34 @@ It should be noted that, since the structure of the diagram is wholly dependent 
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Agents}
-We now define the actions of agents as collections of transitions that are labelled by their associated action.
-We then define some relevant properties of these actions.
+\subsection{\sout{Agents}}
+\sout{We now define the actions of agents as collections of transitions that are labelled by their associated action.
+We then define some relevant properties of these actions.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Actions of an agent as labelled transitions}\label{sec:Agent actions as labelled transitions}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Notes:}
-\begin{enumerate}
-    \item $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
-    
-    \item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ?
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
-}
+\textbf{\sout{Actions of an agent as labelled transitions}}\label{sec:Agent actions as labelled transitions}
 
-Consider a set $\hat{A}$ called the set of \textit{minimum actions}.
-Let the set $A$ be the set of all finite \whendraft{\textbf{and infinite}} sequences formed from the elements of the set $\hat{A}$; we call $A$ the set of \textit{actions}.
-Consider a set $\hat{D}_{A} \subset D$, where $1_{w} \in \hat{D}_{A}$ for all $w \in W$; we call $\hat{D}_{A}$ the set of \textit{minimum action transitions}.
-We consider a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that:
+\sout{Consider a set $\hat{A}$ called the set of \textit{minimum actions}.
+Let the set $A$ be the set of all finite \whendraft{\textbf{and infinite}} sequences formed from the elements of the set $\hat{A}$; we call $A$ the set of \textit{actions}.}
+
+\sout{Consider a set $\hat{D}_{A} \subset D$, where $1_{w} \in \hat{D}_{A}$ for all $w \in W$; we call $\hat{D}_{A}$ the set of \textit{minimum action transitions}.
+We consider a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that:}
 
 \begin{enumerate}
-    \item Any two distinct transitions leaving the same world state are labelled with different actions.
-    \begin{action_condition}\label{actcon:action-gives-single-outcome}
-        For any $d,d' \in \hat{D}_{A}$ with $s(d)=s(d')$, $\hat{l}(d) \neq \hat{l}(d')$.
+    \item \sout{Any two distinct transitions leaving the same world state are labelled with different actions.}
+    \begin{action_condition}
+        \sout{For any $d,d' \in \hat{D}_{A}$ with $s(d)=s(d')$, $\hat{l}(d) \neq \hat{l}(d')$.}
     \end{action_condition}
 
     \item There is an identity action that leaves any world state unchanged.
-    \begin{action_condition}\label{actcon:identity-action}
+    \begin{action_condition}
         There exists an action $1 \in \hat{A}$ such that $\hat{l}(1_{w})=1$ for all $w \in W$.
         We call $1$ the \textit{identity action}.
     \end{action_condition}
     
 \end{enumerate}
 
-\whendraft{
-\textbf{Hidden diagram (commented out):}
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.5\linewidth]{Framework/Images/l-map-for-transitions-from-and-to-w0.jpg}
-%     \caption{This diagram shows how the minimum transitions $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
-%     }
-%     \label{fig:l-map-for-transitions-from-and-to-w0}
-% \end{figure}
-
-
-
-Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure \ref{fig:2x2-cyclical-min-actions-standard}.
-}
+\sout{Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure \ref{fig:2x2-cyclical-min-actions-standard}.}
 
 \whendraft{
 \begin{remark}
@@ -518,16 +632,21 @@ Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l
     In other words, the transitions in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
 \end{remark}
 }
+
+
+\sout{
 Given $\hat{D}_{A}$ as defined above and satisfying  action condition \ref{actcon:action-gives-single-outcome} and  action condition \ref{actcon:identity-action}, we define $Q_{D_{A}} = (W, \hat{D}_{A}, s_{A}, t_{A})$, where $s_{A}, t_{A}$ are the restrictions of $s,t$ to the set $\hat{D}_{A}$.
 We now define a set $D_{A}$, the set of \textit{action transitions}, which is the set of all paths of $Q_{D_{A}}$.
-
 We extend the map $\hat{l}$ to a map $l: D_{A} \to A$ such that if $d = \hat{d}_{n} \circ ... \circ \hat{d}_{1}$ then $l(d) = \hat{l}(\hat{d}_{n}) ... \hat{l}(\hat{d}_{1})$.
+
 For $d \in D_{A}$ with $s(d) = w$, $t(d) = w'$ and $l(d) = a$, we will often denote $d$ by $d: w \xrightarrow{a} w'$.
 
 If an action $a \in A$ is expressed in terms of its minimum actions as $a = \hat{a}_{n} \circ ... \circ \hat{a}_{1}$, then $a = l(d) = l(\hat{d}_{n} \circ ... \circ \hat{d}_{1}) = \hat{l}(\hat{d}_{n}) \circ ... \circ \hat{l}(\hat{d}_{1}) = \hat{a}_{n} \circ ... \circ \hat{a}_{1}$, where the $\hat{a}_{i}$ are called \textit{minimum actions}.
+}
 
 
 \begin{remark}
+    \textbf{Kill this ?}
     For a given $w \in W$, we can label transitions in $D_{A}$ with an appropriate element of $A$ through the following: for each $d \in D_{A}$ with $s(d)=w$, express $d$ in terms of its minimum transitions in $D_{A}$ as $d = d_{n} \circ ... \circ d_{2} \circ d_{1}$; if $\hat{l}(d_{i}) = a_{i}$ then $d$ is labelled with $a_{n}...a_{2}a_{1} \in A$.
     We denote the map that performs this labelling by $l: D_{A} \to A$.
 \end{remark}
@@ -542,17 +661,38 @@ We only show the minimum actions for simplicity but there are actually infinite 
     \label{fig:2x2-cyclical-min-actions-standard}
 \end{figure}
 
-\paragraph{Effect of actions on world states}
+\paragraph{\sout{Effect of actions on world states}}
+\sout{
 We define the effect of the action $a \in A$ on world state $w \in W$ as the following: if there exists $d \in D_{A}$ such that $s(d)=w$ and $l(d)=a$, then $a * w = t(d)$; if there does not exist $d \in D_{A}$ such that $s(d)=w$ and $l(d)=a$, then we say that $a * w$ is \textit{undefined}.
 The effect of actions on world states is well-defined due to action condition \ref{actcon:action-gives-single-outcome}.
+}
+\sout{
 We can apply the minimum actions that make up an action to world states individually: if $a * w$ is defined and $a = \hat{a}_{k}...\hat{a}_{1}$ then $a * w = (\hat{a}_{k}...\hat{a}_{1}) * w = \hat{a}_{k}...\hat{a}_{2} * (\hat{a}_{1} * w)$.
-Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
+}
 
-\paragraph{Actions as (partial) functions}
+\sout{
+Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
+}
+
+\paragraph{\sout{Actions as (partial) functions}}
+\sout{
 Consider all the transitions that are labelled by a particular action $a \in A$.
 Together these transitions form a partial function $f_{a}: W \to W$ because for any $w \in W$ either $a * w$ is undefined or $a * w$ is defined and there is a unique world state $w' \in W$ for which $a * w = w'$ (due to condition 1).
+}
+
+\sout{
 $f_{a}$ is not generally surjective because for a given $w \in W$ there is not necessarily a transition $d \in D$ with $l(d) = a$ and $t(d) = w$.
+}
+
+\sout{
 $f_{a}$ is not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$.
+}
+
+\sout{
 We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
 If we let $f: A \times W \to W$ be the dynamics of the environment then the transition caused by an action $a \in A$ on a world state $w \in W$ (where $a * w$ is defined) is given by $(a,w) \mapsto f(a,w) = a * w$.
+}
+
+\sout{
 Mathematically, we curry the function $f: A \times W \to W$ to give a collection $\{f_{a}\}$ of partial functions with a partial function $\hat{f}(a)=f_{a}: W \to W$ for each action $a \in A$ as $\textit{Curry}: (f: A \times W \to W) \to (f_{a}: W \to W)$.
+}

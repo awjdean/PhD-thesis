@@ -1,0 +1,34 @@
+% draftmode.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{draftmode}[2024/10/27 v1.2 Draft mode content toggle with notes]
+
+% Define the draft mode conditional
+\newif\ifdraft
+\draftfalse % Default to off; enable via package option
+
+% Option to enable draft mode from the main document
+\DeclareOption{draft}{\drafttrue}
+\ProcessOptions\relax
+
+% Load the xcolor package for color support
+\RequirePackage{xcolor}
+
+% Define the \whendraft command
+\newcommand{\whendraft}[1]{\ifdraft #1\fi}
+
+% Command for draft notes
+\newcommand{\draftnote}[3]{%
+  \ifdraft
+    \textcolor{#1}{[#2: #3]} % Displays the note with color
+  \fi
+}
+
+% Command for draft footnotes
+\newcommand{\draftfootnote}[3]{%
+  \ifdraft
+    \textcolor{#1}{\footnotemark}% Colored footnote marker
+    \footnotetext{\textcolor{#1}{[#2: #3]}}% Displays footnote text
+  \fi
+}
+
+\endinput
