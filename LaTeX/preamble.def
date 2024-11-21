@@ -1,6 +1,5 @@
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
-% \RequirePackage{, amssymb, enumerate, , amsfonts}
 
 % TYPESETTING
 % \RequirePackage{bm, bbold}
@@ -13,6 +12,10 @@
 \RequirePackage{float}
 % \RequirePackage{caption}
 % \RequirePackage{graphicx, caption, subcaption}
+
+% TABLES
+\RequirePackage{multirow}
+\RequirePackage{tabularx}
 
 % CITATIONS & BIBLIOGRAPHY
 \RequirePackage[

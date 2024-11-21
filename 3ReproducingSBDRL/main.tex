@@ -1,0 +1,156 @@
+\chapter{Reproducing symmetry-based disentangled representation learning}
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{Section to do:}
+\begin{enumerate}
+    \item 
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+
+Our objective for this chapter is to validate our framework by showing it can reproduce Symmetry-based disentangled representation learning (SBDRL), a well-establish mathematical framework for disentanglement in representation learning.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+
+SBDRL is a well-established mathematical framework for disentanglement in representation learning based on group actions.
+
+\draftnote{blue}{awjdean}{Put more on the significance of SBDRL.}
+
+We will now reproduce SBDRL using our framework; we do this for the following reasons:
+\begin{enumerate}[(1)]
+    \item Showing that our framework can accommodate a known, structured representation paradigm provides a good validation step for our framework;
+    \item Reproducing SBDRL using a more fundamental framework could allow us to identify limitations with the SBDRL framework;
+    \item Reproducing SBDRL using a more fundamental framework could allow us to generalise the key concepts of SBDRL to more complicated scenarios.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Description of SBDRL}
+
+The SBDRL framework treats agents as experiencing the world through a map $f = h \circ b: W \to Z$ made from the composition of a generative process $b: W \to O$ and a $h: O \to Z$, where $W$ is a set of world states, $O$ is a set of observation states, and $Z$ is a set of agent representation states.
+The framework treats the map $f$ as bijective\footnote{\draftnote{blue}{awjdean}{Footnote: Mention how they explain away cases where $f$ is not injective and $f$ is not surjective.}.}.
+
+\paragraph{Symmetry-based representations.}
+SBDRL assumes that the set $W$ of world states has a set $G$ of symmetries that form a group.
+This group $G$ acts on the set $W$ of world states via a group action $\cdot_{W}: G \times W \to W$.
+For the agent's representation states $z \in Z$ to be symmetry-based representations, the corresponding group action $\cdot_{Z}: G \times Z \to Z$ of $G$ on $Z$ must exist.
+
+SBDRL involves the agent learning in a way that aligns the agent's representations so that they respect the group action $\cdot_{Z}$, which means the symmetries in the representations reflect the symmetries of the world states.
+
+The mathematical condition for SBDRs is:
+\begin{equation}\label{eqn: SBRs eqn}
+    f(g \cdot_{W} w) = g \cdot_{Z} f(w) \quad \text{for all $w\in W$, for all $g \in G$}
+\end{equation}
+In words, applying any action $g \cdot_{W}$ of a symmetry element $g \in G$ to any world state $w \in W$ and then applying the mapping $f$ gives the same result as first applying the mapping $f$ to $w$ to give a representation state $f(w) \in Z$ and then applying the action $g \cdot_Z$ of the same symmetry element $g \in G$ to the representation state $f(w) \in Z$.
+When equation \ref{eqn: SBRs eqn} is satisfied, then $f$ is called a \emph{group-equivariant map}.
+
+\paragraph{Symmetry-based disentangled representations.}
+The SBDRL framework now assumes the group $G$ of symmetries of the world states in $W$ decomposes as a direct product $G = G_1 \times \hdots \times G_i \times \hdots \times G_n$.
+They say that the group action $\cdot_Z : G \times Z \to Z$ and the set $Z$ are \emph{disentangled with respect to the decomposition of $G$}, if there is a decomposition $Z = Z_1 \times \hdots \times Z_i \times \hdots \times Z_n$ and actions $\cdot_{Z_i}: G_i \times Z_i \to Z_i, i \in \{1, \hdots, n\}$ such that $(g_{G_1}, g_{G_2},...) \cdot_Z (z_{Z_1}, z_{Z_2},...) = (g_{G_1} \cdot_{Z_1} z_{Z_1}, g_{G_2} \cdot_{Z_2} z_{Z_2},...)$, where $g_{G_i} \in G_i$ and $z_{Z_i} \in Z_i$.
+In other words, each subspace $Z_i$ is invariant to the action of all the $G_{j \neq i}$ and only affected by $G_i$.
+
+\paragraph{Summary.}
+There is a bijective map $f: W \to Z$.
+The representation states in $Z$ are symmetry-based disentangled with respect to the decomposition $G = G_1 \times \hdots \times G_i \times \hdots \times G_n$ if:
+\begin{enumerate}[(1)]
+    \item There exists a group action $\cdot_{W}: G \times W \to W$ and a corresponding group action $\cdot_{Z}: G \times Z \to Z$;
+    \item The map $f : W \to Z$ is group-equivariant between the group actions on $W$ and $Z$: $g \cdot_{Z} f(w) = f(g \cdot_{W} w)$.
+    
+    In other words, the diagram
+    \input{3ReproducingSBDRL/Old/tikzcd-diagrams/group-equivariance-commuting-diagram}
+    commutes.    
+
+    \item There exists a decomposition of the representation $Z = Z_1 \times \hdots \times Z_n$ such that each subspace $Z_i$ is only affected by the action $G_i$ and is unaffected by the actions $G_{j \neq i}$.
+\end{enumerate}
+
+If $W$, $Z$, and $f$ satisfy conditions (1) and (2), then the agent's representation is a symmetry-based.
+If $W$, $Z$, and $f$ satisfy conditions (1), (2), and (3) then the agent's representation is a symmetry-based disentangled.
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{To do:}
+\begin{enumerate}
+    \item Reproduce figure showing map $f: W \to Z$.
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SBDRL in our framework}
+
+\subsection{Set up}
+\draftnote{blue}{awjdean}{Make improvements here!}
+
+The agent in the SBDRL framework is equivalent in our framework to a Markov blanket agent embodied in the world with ideal sensors.
+For simplicity we will initially only consider worlds where all the transformations of the world are due to the actions of an agent\footnote{We will discuss worlds where the transformations are not due to the actions of an agent later.}.
+
+In the SBDRL framework, the group actions $G \times W \to W$ acts as functions $\cdot_{W}: W \to W$ that move the world from one world state to another.
+In other words, the effect of applying each group element $g \in G$ is made up of a collection of transformations of the world between different world states, and so the action of each group element is a function $g \cdot_{W}: W \to W$; when considering group actions only due to the actions of an agent, these functions $g \cdot_{W}: W \to W$ are the functions $*_{a}: W \to W$ in our framework\footnote{\autocite{caselles2019symmetry} also makes this connection between the symmetry transformations of SBDRL and the actions of an agent; however, they stop at actions that cannot form a group (e.g., irreversible actions), while we will use our framework to explore the algebra of worlds that cannot form a group.}.
+
+The SBDRL formalism implicitly considers transformations that 
+start and end in the same world state as the same.
+In our framework, this is analogous to applying the equivalence relation $\sim$ to construct the quotient set $\hat{A}^{*}/\sim$.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+         & Our framework    & SBDRL     & Caselles-Dupre \\
+         \hline
+         States of the world & $W$ & $W$ & $W$ \\
+         Actions causing dynamics of world & $a* = *_{a}: W \to W$ & $g \cdot_{W}: W \to W$ & $f(\_, a_{t}): W \to W$ \\
+         Agent & Embodied agent with ideal sensors & Map $f: W \to Z$ is bijective & Embodied agent, map $W \to Z$ is bijective
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+We want to answer the question:
+\begin{center}
+    In a world where transformations occur solely due to the actions of an embodied agent, what structure must the world possess for the transformations of the world to form a group?
+\end{center}
+
+
+Essentially, we want $(\hat{A}^{*}/\sim) \times W \to W$ to be a (global) group action.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example: $\mathscr{W}_{(2,2)C}$}
+
+We will now show that the example world $\mathscr{W}_{(2,2)C}$ that we used in section \ref{sec:A mathematical treatment of worlds and their transformations} produces a group action $(\hat{A}^{*}/\sim \times W \to W$ is a group action (i.e., $(\hat{A}^{*}/\sim, \circ_{\sim})$ a group).
+
+
+
+
+
+
+
+
+
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textbf{Up next:}
+\begin{enumerate}
+    \item \sout{Agent stuff.}
+    \item \sout{Higgins --> equivalence relation.}
+    \item Mention that SBDRL requires a global group action.
+\end{enumerate}
+
+\textbf{To do:}
+\begin{enumerate}
+    \item Mention: we want to initially consider worlds where the entire action transformation structure forms a group.
+    Later we will consider worlds where $\hat{A}^{*}$ contains a (global) group through colimits.
+    \item State that $\mathscr{W}_{(2,2)C}$ can give SB representations.
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\input{3ReproducingSBDRL/Old/main}
+}

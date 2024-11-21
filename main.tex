@@ -4,6 +4,7 @@
 
 \usepackage{LaTeX/draftmode}
 \global\drafttrue
+% \global\draftfalse
 
 % \usepackage[style=authoryear]{biblatex}
 % \addbibresource{bibliography.bib}
@@ -13,6 +14,7 @@
 \date{\today}
 
 \begin{document}
+\whendraft{
 \maketitle
 
 \doublespacing
@@ -29,9 +31,12 @@
 \end{fullwidth}
 
 \chapter{Abstract}
+}
 
 \mainmatter
 \input{2MathematicalFramework/main}
+\input{3ReproducingSBDRL/main}
+
 
 \whendraft{
 \chapter{Test}

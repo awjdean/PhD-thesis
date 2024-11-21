@@ -1,21 +1,12 @@
+
+
+
+
+
+
+\noindent\rule{\textwidth}{1mm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Reproducing SBDRL}\label{sec:Reproducing SBDRL}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Notes:}
-\begin{enumerate}
-    \item (DONE) Motivate and define equivalence relation for transitions.
-    \item (DONE) Multigraph as a category.
-    \item (DONE) Equivalence relation for actions.
-    \begin{enumerate}
-        \item Local vs global equivalence relations. - here or in Beyond SBDRL section?
-    \end{enumerate}
-    \item (DONE) Conditions for group action.
-    \item Example - use one of the examples given in Higgins.
-
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
-}
 
 We will now use the framework set out in the previous section to reproduce the SBDRs of \cite{Higgins2018}.
 We illustrate our ideas using the worlds that are similar to those given by \cite{Higgins2018} and \cite{caselles2019symmetry}.
@@ -26,15 +17,8 @@ Section \textbf{sec:Algorithmic exploration of world structures} provides inform
 Section \textbf{sec:Example} goes through a worked example.
 Finally, Section \textbf{sec:World conditions} shows the conditions of the world that are required for the actions of an agent to be fully described by SBDRs.
 
-
-\whendraft{
-\textbf{INTRODUCE THE CYCLICAL EXAMPLE HERE - STATES.}
-
-Have the walled example in the previous section.
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{2MathematicalFramework/ReproducingSBDR/SBDRL-description}
+\input{3ReproducingSBDRL/Old/SBDRL-description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{SBDRL through equivalence}\label{sec:SBDRL through equivalence}
@@ -53,60 +37,77 @@ Have the walled example in the previous section.
 \noindent\rule{\textwidth}{1mm}
 }
 
+\draftnote{blue}{awjdean}{Use this in section on reproducing SBDRL}
 For the algebra of the actions of our agent to form a group, we need some sense of actions being the same so that the algebra can satisfy the group properties (\textit{e.g.}, for the identity property we need an element $1$ in the algebra $A$ such that $1a = a1 = a$ for any $a \in A$).
+
 We define an equivalence relation on the elements of $A$ that says two actions are equivalent (our sense of the actions being the same) if they lead to the same end world state when performed in any initial world state.
+
 This equivalence relation is based on our mathematical interpretation of the implication given by \cite{Higgins2018} that transformations of the world are the same if they have the same effect, which is used to achieve the group structure for SBDRL.
-Our use of an equivalence relation was inspired by \cite{caselles2020sensory}, which uses a similar equivalence relation to equate action sequences that cause the same final observation state after each action sequence is performed from an initial observation state.
+
+
+
+\sout{
 We then derive some properties of the equivalence classes created by $\sim$ that will be used to show that the actions of an agent form the group action described by \cite{Higgins2018} under the equivalence relations we define and for worlds satisfying certain conditions.
+}
 
-
-\begin{definition}[Equivalence of actions under $\sim$]
-    Given two actions $a, a' \in A$, we denote $a \sim a'$ if $a * w = a' * w$ for all $w \in W$.
+\begin{definition}[\sout{Equivalence of actions under $\sim$}]
+    \sout{Given two actions $a, a' \in A$, we denote $a \sim a'$ if $a * w = a' * w$ for all $w \in W$.
     \whendraft{
     [Does this work if $a * w$ and $a' * w$ are both undefined?]
-    }
+    }}
 \end{definition}
 
 \begin{remark}
-    If $a \sim a'$, then either for each $w \in W$ (1) there exists transitions $d: w \xrightarrow{a} t(d)$ and $d': w \xrightarrow{a} t(d)$ or (2) there exists no transitions $d: w \xrightarrow{a} t(d)$ or $d': w \xrightarrow{a} t(d)$.
+    If $a \sim a'$, then either for each $w \in W$: (1) there exists transitions $d: w \xrightarrow{a} t(d)$ and $d': w \xrightarrow{a} t(d)$ or (2) there exists no transitions $d: w \xrightarrow{a} t(d)$ or $d': w \xrightarrow{a} t(d)$.
 \end{remark}
 
 \begin{proposition}
-    $\sim$ is an equivalence relation.
+    \sout{$\sim$ is an equivalence relation.}
 \end{proposition}
 \begin{proof}
+    \sout{
     \textbf{Reflexive.}
-    If $a \sim a'$ then $a * w = a * w'$ for all $w \in W$, and so $a \sim a$.
+    If $a \sim a'$ then $a * w = a' * w$ for all $w \in W$, and so $a \sim a$.
 
     \textbf{Transitive.}
     If $a \sim a'$ and $a' \sim a''$, then $a * w = a' * w$ for all $w \in W$ and $a' * w = a'' * w$ for all $w \in W$.
-    Therefore, $a * w \sim a'' * w$ for all $w \in W$ and so $a \sim a''$.
+    Therefore, $a * w = a'' * w$ for all $w \in W$ and so $a \sim a''$.
 
     \textbf{Symmetric.}
     If $a \sim a'$, then $a * w = a' * w$ for all $w \in W$.
     Therefore $a' * w = a * w$ for all $w \in W$, and so $a' \sim a$.
+    }
 \end{proof}
 
+\sout{
 Figure ref[fig:2x2-cyclical-min-act-equivalence] shows the effect of applying the equivalence relations to our $2 \times 2$ cyclical example world $\mathscr{W}_{c}$.
+}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/ReproducingSBDR/Images/2x2-cyclical-min-actions-equivalence.png}
-    \caption{Action equivalence classes in $A/\sim$ for the actions show in Figure \ref{fig:2x2-cyclical-min-actions-standard}.}
+    \includegraphics[width=0.5\linewidth]{3ReproducingSBDRL/Old/Images/2x2-cyclical-min-actions-equivalence.png}
+    \caption{\sout{Action equivalence classes in $A/\sim$ for the actions show in Figure \ref{fig:2x2-cyclical-min-actions-standard}.}}
     \label{fig:2x2-cyclical-min-act-equivalence}
 \end{figure}
 
+\sout{
 We define the canonical projection map $\pi_{A}: A \to A/\sim$ that sends actions in $A$ to their equivalence classes under $\sim$ in the set $A/\sim$.
 We denote the equivalence class of $a$ by $[a]_{\sim}$.
 Sometimes we will drop the $[a]_{\sim}$ in favour of $a \in A/\sim$ for ease.
+}
 
-\paragraph{Composition of actions}
+\paragraph{\sout{Composition of actions}}
+\sout{
 We define the composition of elements in $A/\sim$ as $\circ: (A/\sim) \times (A/\sim) \to (A/\sim)$ such that $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ for $a,a' \in A$.
+}
 
 \begin{proposition}
+    \sout{
     $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ is well-defined for all $a, a' \in A$.
+    }
 \end{proposition}
 \begin{proof}
+    \sout{
     We need to show that the choice of $a,a'$ doesn't matter: if $a_{1} \sim a_{2}$ and $a_{3} \sim a_{4}$ for $a_{1}, a_{2}, a_{3}, a_{4} \in A$, then $[a_{3} \circ a_{1}]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
     $a_{1} \sim a_{2}$ means there exists $d_{i}: s(d_{1}) \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
     Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state that is labelled by that action.
@@ -115,21 +116,28 @@ We define the composition of elements in $A/\sim$ as $\circ: (A/\sim) \times (A/
     $\implies$ $s(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$ and $t(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$.
     $\implies$ $(a_{3} \circ a_{1}) \sim (a_{4} \circ a_{2})$.
     $\implies$ $[a_{3} \circ a_{1})]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
+    }
 \end{proof}
 
-\paragraph{Effect of equivalent actions on world states}
+\paragraph{\sout{Effect of equivalent actions on world states}}
+\sout{
 We define the effect of an element of  $A/\sim$ on world states as $*: (A/\sim) \times W \to W$ such that $[a]_{\sim} * w = a * w$.
 Note that this is only defined if there exists $d: w \xrightarrow{a} t(d)$ for $d \in D_{A}$.; if not, then $[a]_{\sim} * w$ is called $\textit{undefined}$.
+}
 
 \begin{proposition}
+    \sout{
     $[a]_{\sim} * w$ is well-defined for all $a \in A$ and for all $w \in W$.
+    }
 \end{proposition}
 \begin{proof}
+    \sout{
     We need to show that $a_{1} * w = a_{2} * w$ if $[a_{1}]_{\sim} = [a_{2}]_{\sim}$ for $a_{1},a_{2} \in A$ and $w \in W$.
     If $[a_{1}]_{\sim} = [a_{2}]_{\sim}$, then $a_{1} \sim a_{2}$.
     Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state is are labelled by that action.
     $\implies$ there exists $d_{i}: w \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
     $\implies$ $a_{1} * w = d_{1} * w = t(d_{1})$ and $a_{2} * w = d_{2} * w = t(d_{1})$.
+    }
 \end{proof}
 
 \paragraph{Reversible actions}
