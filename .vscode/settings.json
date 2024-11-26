@@ -25,8 +25,8 @@
     }
   ],
   "latex-workshop.view.pdf.viewer": "tab",
-  "latex-workshop.latexindent.path": "/opt/homebrew/bin/latexindent", // Path to latexindent
-  "latex-workshop.latexindent.args": [
+  "latex-workshop.formatting.latexindent.path": "/opt/homebrew/bin/latexindent", // Path to latexindent
+  "latex-workshop.formatting.latexindent.args": [
     "-c",
     "%DIR%/",
     "%TMPFILE%",
@@ -34,11 +34,11 @@
     "-y=defaultIndent: 'newLineAfterSentence: true'",
     "-y=modifyLineBreaks: 'oneSentencePerLine'"
   ],
-  "latex-workshop.latexindent.modifyLineBreaks": true,
   "latex-workshop.formatting.latex": "latexindent", // Ensure latexindent is set as the formatting tool
   "editor.defaultFormatter": "James-Yu.latex-workshop", // Ensure LaTeX Workshop is used as the formatter
   "[latex]": {
     "editor.defaultFormatter": "James-Yu.latex-workshop"
   },
-  "editor.formatOnSave": true // Automatically formats the document on save
+  "editor.formatOnSave": true, // Automatically formats the document on save
+  "latex-workshop.bibtex-format.sort.enabled": true
 }
