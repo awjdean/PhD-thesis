@@ -1,12 +1,12 @@
 \chapter{Reproducing symmetry-based disentangled representation learning}
 
 \whendraft{
-    \noindent\rule{\textwidth}{1mm}
-    \textbf{Section to do:}
-    \begin{enumerate}
-        \item
-    \end{enumerate}
-    \noindent\rule{\textwidth}{1mm}
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{Section to do:}
+	\begin{enumerate}
+		\item
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }
 
 
@@ -21,9 +21,9 @@ SBDRL is a well-established mathematical framework for disentanglement in repres
 
 We will now reproduce SBDRL using our framework; we do this for the following reasons:
 \begin{enumerate}[(1)]
-    \item Showing that our framework can accommodate a known, structured representation paradigm provides a good validation step for our framework;
-    \item Reproducing SBDRL using a more fundamental framework could allow us to identify limitations with the SBDRL framework;
-    \item Reproducing SBDRL using a more fundamental framework could allow us to generalise the key concepts of SBDRL to more complicated scenarios.
+	\item Showing that our framework can accommodate a known, structured representation paradigm provides a good validation step for our framework;
+	\item Reproducing SBDRL using a more fundamental framework could allow us to identify limitations with the SBDRL framework;
+	\item Reproducing SBDRL using a more fundamental framework could allow us to generalise the key concepts of SBDRL to more complicated scenarios.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,7 +41,7 @@ SBDRL involves the agent learning in a way that aligns the agent's representatio
 
 The mathematical condition for SBDRs is:
 \begin{equation}\label{eqn: SBRs eqn}
-    f(g \cdot_{W} w) = g \cdot_{Z} f(w) \quad \text{for all $w\in W$, for all $g \in G$}
+	f(g \cdot_{W} w) = g \cdot_{Z} f(w) \quad \text{for all $w\in W$, for all $g \in G$}
 \end{equation}
 In words, applying any action $g \cdot_{W}$ of a symmetry element $g \in G$ to any world state $w \in W$ and then applying the mapping $f$ gives the same result as first applying the mapping $f$ to $w$ to give a representation state $f(w) \in Z$ and then applying the action $g \cdot_Z$ of the same symmetry element $g \in G$ to the representation state $f(w) \in Z$.
 When equation \ref{eqn: SBRs eqn} is satisfied, then $f$ is called a \emph{group-equivariant map}.
@@ -55,26 +55,26 @@ In other words, each subspace $Z_i$ is invariant to the action of all the $G_{j 
 There is a bijective map $f: W \to Z$.
 The representation states in $Z$ are symmetry-based disentangled with respect to the decomposition $G = G_1 \times \hdots \times G_i \times \hdots \times G_n$ if:
 \begin{enumerate}[(1)]
-    \item There exists a group action $\cdot_{W}: G \times W \to W$ and a corresponding group action $\cdot_{Z}: G \times Z \to Z$;
-    \item The map $f : W \to Z$ is group-equivariant between the group actions on $W$ and $Z$: $g \cdot_{Z} f(w) = f(g \cdot_{W} w)$.
+	\item There exists a group action $\cdot_{W}: G \times W \to W$ and a corresponding group action $\cdot_{Z}: G \times Z \to Z$;
+	\item The map $f : W \to Z$ is group-equivariant between the group actions on $W$ and $Z$: $g \cdot_{Z} f(w) = f(g \cdot_{W} w)$.
 
-          In other words, the diagram
-          \input{3ReproducingSBDRL/Old/tikzcd-diagrams/group-equivariance-commuting-diagram}
-          commutes.
+	      In other words, the diagram
+	      \input{3ReproducingSBDRL/Old/tikzcd-diagrams/group-equivariance-commuting-diagram}
+	      commutes.
 
-    \item There exists a decomposition of the representation $Z = Z_1 \times \hdots \times Z_n$ such that each subspace $Z_i$ is only affected by the action $G_i$ and is unaffected by the actions $G_{j \neq i}$.
+	\item There exists a decomposition of the representation $Z = Z_1 \times \hdots \times Z_n$ such that each subspace $Z_i$ is only affected by the action $G_i$ and is unaffected by the actions $G_{j \neq i}$.
 \end{enumerate}
 
 If $W$, $Z$, and $f$ satisfy conditions (1) and (2), then the agent's representation is a symmetry-based.
 If $W$, $Z$, and $f$ satisfy conditions (1), (2), and (3) then the agent's representation is a symmetry-based disentangled.
 
 \whendraft{
-    \noindent\rule{\textwidth}{1mm}
-    \textbf{To do:}
-    \begin{enumerate}
-        \item Reproduce figure showing map $f: W \to Z$.
-    \end{enumerate}
-    \noindent\rule{\textwidth}{1mm}
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{To do:}
+	\begin{enumerate}
+		\item Reproduce figure showing map $f: W \to Z$.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,21 +94,21 @@ start and end in the same world state as the same.
 In our framework, this is analogous to applying the equivalence relation $\sim$ to construct the quotient set $\hat{A}^{*}/\sim$.
 
 \begin{table}[H]
-    \centering
-    \begin{tabular}{|c|c|c|c|}
-                                          & Our framework                     & SBDRL                         & Caselles-Dupre                             \\
-        \hline
-        States of the world               & $W$                               & $W$                           & $W$                                        \\
-        Actions causing dynamics of world & $a* = *_{a}: W \to W$             & $g \cdot_{W}: W \to W$        & $f(\_, a_{t}): W \to W$                    \\
-        Agent                             & Embodied agent with ideal sensors & Map $f: W \to Z$ is bijective & Embodied agent, map $W \to Z$ is bijective
-    \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		                                  & Our framework                     & SBDRL                         & Caselles-Dupre                             \\
+		\hline
+		States of the world               & $W$                               & $W$                           & $W$                                        \\
+		Actions causing dynamics of world & $a* = *_{a}: W \to W$             & $g \cdot_{W}: W \to W$        & $f(\_, a_{t}): W \to W$                    \\
+		Agent                             & Embodied agent with ideal sensors & Map $f: W \to Z$ is bijective & Embodied agent, map $W \to Z$ is bijective
+	\end{tabular}
+	\caption{Caption}
+	\label{tab:my_label}
 \end{table}
 
 We want to answer the question:
 \begin{center}
-    In a world where transformations occur solely due to the actions of an embodied agent, what structure must the world possess for the transformations of the world to form a group?
+	In a world where transformations occur solely due to the actions of an embodied agent, what structure must the world possess for the transformations of the world to form a group?
 \end{center}
 
 
@@ -130,27 +130,27 @@ We will now show that the example world $\mathscr{W}_{(2,2)C}$ that we used in s
 
 
 \whendraft{
-    \noindent\rule{\textwidth}{1mm}
-    \textbf{Up next:}
-    \begin{enumerate}
-        \item \sout{Agent stuff.}
-        \item \sout{Higgins --> equivalence relation.}
-        \item Mention that SBDRL requires a global group action.
-    \end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{Up next:}
+	\begin{enumerate}
+		\item \sout{Agent stuff.}
+		\item \sout{Higgins --> equivalence relation.}
+		\item Mention that SBDRL requires a global group action.
+	\end{enumerate}
 
-    \textbf{To do:}
-    \begin{enumerate}
-        \item Mention: we want to initially consider worlds where the entire action transformation structure forms a group.
-              Later we will consider worlds where $\hat{A}^{*}$ contains a (global) group through colimits.
-        \item State that $\mathscr{W}_{(2,2)C}$ can give SB representations.
-    \end{enumerate}
-    \noindent\rule{\textwidth}{1mm}
+	\textbf{To do:}
+	\begin{enumerate}
+		\item Mention: we want to initially consider worlds where the entire action transformation structure forms a group.
+		      Later we will consider worlds where $\hat{A}^{*}$ contains a (global) group through colimits.
+		\item State that $\mathscr{W}_{(2,2)C}$ can give SB representations.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \whendraft{
-    \noindent\rule{\textwidth}{1mm}
-    \input{3ReproducingSBDRL/Old/main}
+	\noindent\rule{\textwidth}{1mm}
+	\input{3ReproducingSBDRL/Old/main}
 }

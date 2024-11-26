@@ -24,17 +24,17 @@ Finally, Section \textbf{sec:World conditions} shows the conditions of the world
 \subsection{SBDRL through equivalence}\label{sec:SBDRL through equivalence}
 
 \whendraft{\noindent\rule{\textwidth}{1mm}
-\textbf{Notes:}
-\begin{enumerate}
-    \item Change global equivalence in world $W$ from $\sim$ to $\sim_{W}$ ?
-    
-    \item Proposition about how if $a \circ a' \sim 1_{w} \sim a' \circ a$ (\textit{i.e.}, if $a$ and $a'$ are inverses), then for any world state $w$ there exists transitions $d_{1}: w \xrightarrow{a} t(d_{1})$, $d'_{1}: t(d_{1}) \xrightarrow{a'} w$, $d'_{2}: w \xrightarrow{a'} t(d'_{2})$, and $d_{2}: t(d'_{2}) \xrightarrow{a} w$.
-    
-    \item Update proofs for the Definition of the effect of equivalent actions on world states being well-defined.
-    
-    \item Update proofs for the Definition of the composition of actions in $A/\sim$ being well defined.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+	\textbf{Notes:}
+	\begin{enumerate}
+		\item Change global equivalence in world $W$ from $\sim$ to $\sim_{W}$ ?
+
+		\item Proposition about how if $a \circ a' \sim 1_{w} \sim a' \circ a$ (\textit{i.e.}, if $a$ and $a'$ are inverses), then for any world state $w$ there exists transitions $d_{1}: w \xrightarrow{a} t(d_{1})$, $d'_{1}: t(d_{1}) \xrightarrow{a'} w$, $d'_{2}: w \xrightarrow{a'} t(d'_{2})$, and $d_{2}: t(d'_{2}) \xrightarrow{a} w$.
+
+		\item Update proofs for the Definition of the effect of equivalent actions on world states being well-defined.
+
+		\item Update proofs for the Definition of the composition of actions in $A/\sim$ being well defined.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }
 
 \draftnote{blue}{awjdean}{Use this in section on reproducing SBDRL}
@@ -47,276 +47,276 @@ This equivalence relation is based on our mathematical interpretation of the imp
 
 
 \sout{
-We then derive some properties of the equivalence classes created by $\sim$ that will be used to show that the actions of an agent form the group action described by \cite{Higgins2018} under the equivalence relations we define and for worlds satisfying certain conditions.
+	We then derive some properties of the equivalence classes created by $\sim$ that will be used to show that the actions of an agent form the group action described by \cite{Higgins2018} under the equivalence relations we define and for worlds satisfying certain conditions.
 }
 
 \begin{definition}[\sout{Equivalence of actions under $\sim$}]
-    \sout{Given two actions $a, a' \in A$, we denote $a \sim a'$ if $a * w = a' * w$ for all $w \in W$.
-    \whendraft{
-    [Does this work if $a * w$ and $a' * w$ are both undefined?]
-    }}
+	\sout{Given two actions $a, a' \in A$, we denote $a \sim a'$ if $a * w = a' * w$ for all $w \in W$.
+		\whendraft{
+			[Does this work if $a * w$ and $a' * w$ are both undefined?]
+		}}
 \end{definition}
 
 \begin{remark}
-    If $a \sim a'$, then either for each $w \in W$: (1) there exists transitions $d: w \xrightarrow{a} t(d)$ and $d': w \xrightarrow{a} t(d)$ or (2) there exists no transitions $d: w \xrightarrow{a} t(d)$ or $d': w \xrightarrow{a} t(d)$.
+	If $a \sim a'$, then either for each $w \in W$: (1) there exists transitions $d: w \xrightarrow{a} t(d)$ and $d': w \xrightarrow{a} t(d)$ or (2) there exists no transitions $d: w \xrightarrow{a} t(d)$ or $d': w \xrightarrow{a} t(d)$.
 \end{remark}
 
 \begin{proposition}
-    \sout{$\sim$ is an equivalence relation.}
+	\sout{$\sim$ is an equivalence relation.}
 \end{proposition}
 \begin{proof}
-    \sout{
-    \textbf{Reflexive.}
-    If $a \sim a'$ then $a * w = a' * w$ for all $w \in W$, and so $a \sim a$.
+	\sout{
+		\textbf{Reflexive.}
+		If $a \sim a'$ then $a * w = a' * w$ for all $w \in W$, and so $a \sim a$.
 
-    \textbf{Transitive.}
-    If $a \sim a'$ and $a' \sim a''$, then $a * w = a' * w$ for all $w \in W$ and $a' * w = a'' * w$ for all $w \in W$.
-    Therefore, $a * w = a'' * w$ for all $w \in W$ and so $a \sim a''$.
+		\textbf{Transitive.}
+		If $a \sim a'$ and $a' \sim a''$, then $a * w = a' * w$ for all $w \in W$ and $a' * w = a'' * w$ for all $w \in W$.
+		Therefore, $a * w = a'' * w$ for all $w \in W$ and so $a \sim a''$.
 
-    \textbf{Symmetric.}
-    If $a \sim a'$, then $a * w = a' * w$ for all $w \in W$.
-    Therefore $a' * w = a * w$ for all $w \in W$, and so $a' \sim a$.
-    }
+		\textbf{Symmetric.}
+		If $a \sim a'$, then $a * w = a' * w$ for all $w \in W$.
+		Therefore $a' * w = a * w$ for all $w \in W$, and so $a' \sim a$.
+	}
 \end{proof}
 
 \sout{
-Figure ref[fig:2x2-cyclical-min-act-equivalence] shows the effect of applying the equivalence relations to our $2 \times 2$ cyclical example world $\mathscr{W}_{c}$.
+	Figure ref[fig:2x2-cyclical-min-act-equivalence] shows the effect of applying the equivalence relations to our $2 \times 2$ cyclical example world $\mathscr{W}_{c}$.
 }
 
 \begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{3ReproducingSBDRL/Old/Images/2x2-cyclical-min-actions-equivalence.png}
-    \caption{\sout{Action equivalence classes in $A/\sim$ for the actions show in Figure \ref{fig:2x2-cyclical-min-actions-standard}.}}
-    \label{fig:2x2-cyclical-min-act-equivalence}
+	\centering
+	\includegraphics[width=0.5\linewidth]{3ReproducingSBDRL/Old/Images/2x2-cyclical-min-actions-equivalence.png}
+	\caption{\sout{Action equivalence classes in $A/\sim$ for the actions show in Figure \ref{fig:2x2-cyclical-min-actions-standard}.}}
+	\label{fig:2x2-cyclical-min-act-equivalence}
 \end{figure}
 
 \sout{
-We define the canonical projection map $\pi_{A}: A \to A/\sim$ that sends actions in $A$ to their equivalence classes under $\sim$ in the set $A/\sim$.
-We denote the equivalence class of $a$ by $[a]_{\sim}$.
-Sometimes we will drop the $[a]_{\sim}$ in favour of $a \in A/\sim$ for ease.
+	We define the canonical projection map $\pi_{A}: A \to A/\sim$ that sends actions in $A$ to their equivalence classes under $\sim$ in the set $A/\sim$.
+	We denote the equivalence class of $a$ by $[a]_{\sim}$.
+	Sometimes we will drop the $[a]_{\sim}$ in favour of $a \in A/\sim$ for ease.
 }
 
 \paragraph{\sout{Composition of actions}}
 \sout{
 We define the composition of elements in $A/\sim$ as $\circ: (A/\sim) \times (A/\sim) \to (A/\sim)$ such that $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ for $a,a' \in A$.
-}
+		}
 
-\begin{proposition}
-    \sout{
-    $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ is well-defined for all $a, a' \in A$.
-    }
-\end{proposition}
-\begin{proof}
-    \sout{
-    We need to show that the choice of $a,a'$ doesn't matter: if $a_{1} \sim a_{2}$ and $a_{3} \sim a_{4}$ for $a_{1}, a_{2}, a_{3}, a_{4} \in A$, then $[a_{3} \circ a_{1}]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
-    $a_{1} \sim a_{2}$ means there exists $d_{i}: s(d_{1}) \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
-    Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state that is labelled by that action.
-    $a_{3} \sim a_{4}$ means there exists $d_{j}: s(d_{3}) \xrightarrow{a_{j}} t(d_{3})$ for $j=3,4$, and so there exists $d_{j}: t(d_{1}) \xrightarrow{a_{j}} t(d_{3})$ for $j=3,4$.
-    $\implies$ there exists $(d_{3} \circ d_{1}): s(d_{1}) \xrightarrow{a_{3} \circ a_{1}} t(d_{3})$ and $(d_{4} \circ d_{2}): s(d_{1}) \xrightarrow{a_{4} \circ a_{2}} t(d_{3})$.
-    $\implies$ $s(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$ and $t(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$.
-    $\implies$ $(a_{3} \circ a_{1}) \sim (a_{4} \circ a_{2})$.
-    $\implies$ $[a_{3} \circ a_{1})]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
-    }
-\end{proof}
+	\begin{proposition}
+		\sout{
+		$[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ is well-defined for all $a, a' \in A$.
+			}
+	\end{proposition}
+	\begin{proof}
+		\sout{
+		We need to show that the choice of $a,a'$ doesn't matter: if $a_{1} \sim a_{2}$ and $a_{3} \sim a_{4}$ for $a_{1}, a_{2}, a_{3}, a_{4} \in A$, then $[a_{3} \circ a_{1}]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
+		$a_{1} \sim a_{2}$ means there exists $d_{i}: s(d_{1}) \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
+		Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state that is labelled by that action.
+		$a_{3} \sim a_{4}$ means there exists $d_{j}: s(d_{3}) \xrightarrow{a_{j}} t(d_{3})$ for $j=3,4$, and so there exists $d_{j}: t(d_{1}) \xrightarrow{a_{j}} t(d_{3})$ for $j=3,4$.
+		$\implies$ there exists $(d_{3} \circ d_{1}): s(d_{1}) \xrightarrow{a_{3} \circ a_{1}} t(d_{3})$ and $(d_{4} \circ d_{2}): s(d_{1}) \xrightarrow{a_{4} \circ a_{2}} t(d_{3})$.
+		$\implies$ $s(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$ and $t(d_{3} \circ d_{1}) = s(d_{4} \circ d_{2})$.
+		$\implies$ $(a_{3} \circ a_{1}) \sim (a_{4} \circ a_{2})$.
+		$\implies$ $[a_{3} \circ a_{1})]_{\sim} = [a_{4} \circ a_{2}]_{\sim}$.
+			}
+	\end{proof}
 
-\paragraph{\sout{Effect of equivalent actions on world states}}
-\sout{
-We define the effect of an element of  $A/\sim$ on world states as $*: (A/\sim) \times W \to W$ such that $[a]_{\sim} * w = a * w$.
-Note that this is only defined if there exists $d: w \xrightarrow{a} t(d)$ for $d \in D_{A}$.; if not, then $[a]_{\sim} * w$ is called $\textit{undefined}$.
-}
+	\paragraph{\sout{Effect of equivalent actions on world states}}
+	\sout{
+		We define the effect of an element of  $A/\sim$ on world states as $*: (A/\sim) \times W \to W$ such that $[a]_{\sim} * w = a * w$.
+		Note that this is only defined if there exists $d: w \xrightarrow{a} t(d)$ for $d \in D_{A}$.; if not, then $[a]_{\sim} * w$ is called $\textit{undefined}$.
+	}
 
-\begin{proposition}
-    \sout{
-    $[a]_{\sim} * w$ is well-defined for all $a \in A$ and for all $w \in W$.
-    }
-\end{proposition}
-\begin{proof}
-    \sout{
-    We need to show that $a_{1} * w = a_{2} * w$ if $[a_{1}]_{\sim} = [a_{2}]_{\sim}$ for $a_{1},a_{2} \in A$ and $w \in W$.
-    If $[a_{1}]_{\sim} = [a_{2}]_{\sim}$, then $a_{1} \sim a_{2}$.
-    Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state is are labelled by that action.
-    $\implies$ there exists $d_{i}: w \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
-    $\implies$ $a_{1} * w = d_{1} * w = t(d_{1})$ and $a_{2} * w = d_{2} * w = t(d_{1})$.
-    }
-\end{proof}
+	\begin{proposition}
+		\sout{
+			$[a]_{\sim} * w$ is well-defined for all $a \in A$ and for all $w \in W$.
+		}
+	\end{proposition}
+	\begin{proof}
+		\sout{
+		We need to show that $a_{1} * w = a_{2} * w$ if $[a_{1}]_{\sim} = [a_{2}]_{\sim}$ for $a_{1},a_{2} \in A$ and $w \in W$.
+		If $[a_{1}]_{\sim} = [a_{2}]_{\sim}$, then $a_{1} \sim a_{2}$.
+					Since actions are unrestricted in $W$, for any world state and any action there is a transition with a source at that world state is are labelled by that action.
+				$\implies$ there exists $d_{i}: w \xrightarrow{a_{i}} t(d_{1})$ for $i=1,2$.
+				$\implies$ $a_{1} * w = d_{1} * w = t(d_{1})$ and $a_{2} * w = d_{2} * w = t(d_{1})$.
+			}
+	\end{proof}
 
-\paragraph{Reversible actions}
-An action $a \in A$ is called \textit{reversible} in a given state $w \in W$ if $a \in A_{R w}$ where $A_{Rw} = \{a \in A \mid\textit{ there exists }a' \in A\textit{ such that }a' \circ a * w = w \}$.
-An action $a \in A$ is called \textit{reversible} if it is reversible in every $w \in W$.
-An action that is not reversible is called \textit{irreversible}.
+	\paragraph{Reversible actions}
+	An action $a \in A$ is called \textit{reversible} in a given state $w \in W$ if $a \in A_{R w}$ where $A_{Rw} = \{a \in A \mid\textit{ there exists }a' \in A\textit{ such that }a' \circ a * w = w \}$.
+	An action $a \in A$ is called \textit{reversible} if it is reversible in every $w \in W$.
+	An action that is not reversible is called \textit{irreversible}.
 
-\paragraph{Properties of the quotient set $A/\sim$}
+	\paragraph{Properties of the quotient set $A/\sim$}
 
-\begin{proposition}\label{prp:Asim-identity}
-    $(A/\sim, \circ)$ has an identity element.
-\end{proposition}
-\begin{proof}
-    To show that $(A/\sim, \circ)$ has an identity element we can show that there is an element $e \in A$ which satisfies (a) $[a]_{\sim} \circ [e]_{\sim} = [a]_{\sim}$ and (b) $[e]_{\sim} \circ [a]_{\sim} = [a]_{\sim}$ for all $a \in A$.
-    We will prove that the identity action $1 \in A$ satisfies the above condition.
-    Consider any transition $d: s(d) \xrightarrow{a} t(d)$ labelled by any action $a \in A$.
-    
-    (a) There exists a transition $1_{s(d)}: s(d) \xrightarrow{1} s(d)$ due to action condition \ref{actcon:identity-action}.
-    $t(1_{s(d)})=s(d)$ $\implies$ $a \circ 1$ is defined for $d$.
-    $s(a \circ 1) = s(1) = s(d) = s(a)$ and $t(a \circ 1) = t(a)$.
-    $\implies$ $a \circ 1 \sim a$.
-    $\implies$ $[a \circ 1]_{\sim} = [a]_{\sim}$.
-    $\implies$ $[a]_{\sim} \circ [1]_{\sim} = [a]_{\sim}$.
-    
-    (b) There exists a transition $1_{t(d)}: t(d) \xrightarrow{1} t(d)$ due to action condition \ref{actcon:identity-action}.
-    $t(1_{t(d)})=t(d)$ $\implies$ $1 \circ a$ is defined for $d$.
-    $s(1 \circ a)=s(a)$ and $t(1 \circ a) = t(1) = t(a)$.
-    $\implies$ $1 \circ a \sim a$.
-    $\implies$ $[1 \circ a]_{\sim} = [a]_{\sim}$.
-    $\implies$ $[1]_{\sim} \circ [a]_{\sim} = [a]_{\sim}$.
-    Therefore $1 \in A$ satisfies the conditions for $[1]_{\sim}$ being an identity element in $(A/\sim, \circ)$.
-\end{proof}
+	\begin{proposition}\label{prp:Asim-identity}
+		$(A/\sim, \circ)$ has an identity element.
+	\end{proposition}
+	\begin{proof}
+		To show that $(A/\sim, \circ)$ has an identity element we can show that there is an element $e \in A$ which satisfies (a) $[a]_{\sim} \circ [e]_{\sim} = [a]_{\sim}$ and (b) $[e]_{\sim} \circ [a]_{\sim} = [a]_{\sim}$ for all $a \in A$.
+		We will prove that the identity action $1 \in A$ satisfies the above condition.
+		Consider any transition $d: s(d) \xrightarrow{a} t(d)$ labelled by any action $a \in A$.
 
-\begin{proposition}\label{prp:Asim-associative}
-    $\circ$ is associative with respect to $(A/\sim, \circ)$.
-\end{proposition}
-\begin{proof}
-    For $\circ$ to be associative we need $[a_{1}]_{\sim} \circ ([a_{2}]_{\sim} \circ [a_{3}]_{\sim}) = ([a_{1}]_{\sim} \circ [a_{2}]_{\sim}) \circ [a_{3}]_{\sim}$ for any $a_{1},a_{2},a_{3} \in A$.
-    We have $a_{1} \circ (a_{2} \circ a_{3}) = (a_{1} \circ a_{2}) \circ a_{3}$ from the associativity of $\circ$ with respect to $(A, \circ)$, and $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ for any $a,a' \in A$ by definition of $\circ$ on $A/\sim$.
-    $\implies$ $[a_{1}]_{\sim} \circ ([a_{2}]_{\sim} \circ [a_{3}]_{\sim}) = [a_{1} \circ (a_{2} \circ a_{3})]_{\sim} = [(a_{1} \circ a_{2}) \circ a_{3}]_{\sim} = [(a_{1} \circ a_{2})]_{\sim} \circ [a_{3}]_{\sim} = ([a_{1}]_{\sim} \circ [a_{2}]_{\sim}) \circ [a_{3}]_{\sim}$.
-\end{proof}
+		(a) There exists a transition $1_{s(d)}: s(d) \xrightarrow{1} s(d)$ due to action condition \ref{actcon:identity-action}.
+		$t(1_{s(d)})=s(d)$ $\implies$ $a \circ 1$ is defined for $d$.
+		$s(a \circ 1) = s(1) = s(d) = s(a)$ and $t(a \circ 1) = t(a)$.
+		$\implies$ $a \circ 1 \sim a$.
+		$\implies$ $[a \circ 1]_{\sim} = [a]_{\sim}$.
+		$\implies$ $[a]_{\sim} \circ [1]_{\sim} = [a]_{\sim}$.
 
-In summary, we have $(A, \circ, *)$, which is a set $A$ along with two operators $\circ: A \times A \to A$ and $*: A \times W \to W$, and we have $(A/\sim, \circ, *)$, which is a set $A/\sim$ along with two operators $\circ: (A/\sim) \times (A/\sim) \to (A/\sim)$ and $*: (A/\sim) \times W \to W$.
-We have shown that $\circ$ is associative with respect to $(A/\sim, \circ)$, and that $(A/\sim, \circ)$ has an identity element by action condition \ref{actcon:identity-action}.
+		(b) There exists a transition $1_{t(d)}: t(d) \xrightarrow{1} t(d)$ due to action condition \ref{actcon:identity-action}.
+		$t(1_{t(d)})=t(d)$ $\implies$ $1 \circ a$ is defined for $d$.
+		$s(1 \circ a)=s(a)$ and $t(1 \circ a) = t(1) = t(a)$.
+		$\implies$ $1 \circ a \sim a$.
+		$\implies$ $[1 \circ a]_{\sim} = [a]_{\sim}$.
+		$\implies$ $[1]_{\sim} \circ [a]_{\sim} = [a]_{\sim}$.
+		Therefore $1 \in A$ satisfies the conditions for $[1]_{\sim}$ being an identity element in $(A/\sim, \circ)$.
+	\end{proof}
 
+	\begin{proposition}\label{prp:Asim-associative}
+		$\circ$ is associative with respect to $(A/\sim, \circ)$.
+	\end{proposition}
+	\begin{proof}
+		For $\circ$ to be associative we need $[a_{1}]_{\sim} \circ ([a_{2}]_{\sim} \circ [a_{3}]_{\sim}) = ([a_{1}]_{\sim} \circ [a_{2}]_{\sim}) \circ [a_{3}]_{\sim}$ for any $a_{1},a_{2},a_{3} \in A$.
+		We have $a_{1} \circ (a_{2} \circ a_{3}) = (a_{1} \circ a_{2}) \circ a_{3}$ from the associativity of $\circ$ with respect to $(A, \circ)$, and $[a']_{\sim} \circ [a]_{\sim} = [a' \circ a]_{\sim}$ for any $a,a' \in A$ by definition of $\circ$ on $A/\sim$.
+		$\implies$ $[a_{1}]_{\sim} \circ ([a_{2}]_{\sim} \circ [a_{3}]_{\sim}) = [a_{1} \circ (a_{2} \circ a_{3})]_{\sim} = [(a_{1} \circ a_{2}) \circ a_{3}]_{\sim} = [(a_{1} \circ a_{2})]_{\sim} \circ [a_{3}]_{\sim} = ([a_{1}]_{\sim} \circ [a_{2}]_{\sim}) \circ [a_{3}]_{\sim}$.
+	\end{proof}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Conditions for SBDRL to apply}\label{sec:World conditions}
-
-To simplify the problem, we only consider worlds where the transformations of the world are only due to the actions of an agent for the remainder of this paper unless otherwise stated; this means we do not have to take into consideration how the agent would deal with transformations of the world, not due to its actions.
-Therefore, we will only consider worlds with $D = D_{A}$.
-
-To be a group, $A/\sim$ must satisfy the properties of (1) identity, (2) associativity, (3) closure, and (4) inverse.
-(1) The identity property and (2) the associativity property are satisfied by Proposition \ref{prp:Asim-identity} and Proposition \ref{prp:Asim-associative} respectively.
-(3) For the closure property to be satisfied, the following condition is sufficient:
-\begin{world_condition}[Unrestricted actions]\label{wldcon:unrestricted-actions}
-    For any action $a \in A$ and for any world state $w \in W$, there exists a transition $d \in D_{A}$ with $d: w \xrightarrow{a} t(d)$.
-    In other words, $a * w$ is defined for all $a \in A$ and all $w \in W$.
-
-    \whendraft{
-    \textit{Mathematically:} For any $w_{i} \in W$, there exists $a \in A$ and $w_{j} \in W$ such that $a * w_{i} = w_{j}$.
-    }
-\end{world_condition}
-
-The inverse property of a group is more strict than our current definition of the reversibility of an action.
-For the structure $A/\sim$ to have the inverse property, each element (action) in $A/\sim$ must not only be reversible from each starting state, but additionally, the inverse of a given element in $A/\sim$ must be the same for each starting state; for example, if $a'$ is the inverse of $a$ from a state $w \in W$ ($a' \circ a * w = w$), then $a'$ must be the inverse of $a$ from all states in $W$.
-
-\begin{world_condition}[Inverse actions]\label{wldcon:inverse-actions}
-    For each $a \in A/\sim$, there exists an $a' \in A/\sim$ such that $a' \circ a * w = w$ and $a \circ a' * w = w$ for all $w \in W$.
-\end{world_condition}
+	In summary, we have $(A, \circ, *)$, which is a set $A$ along with two operators $\circ: A \times A \to A$ and $*: A \times W \to W$, and we have $(A/\sim, \circ, *)$, which is a set $A/\sim$ along with two operators $\circ: (A/\sim) \times (A/\sim) \to (A/\sim)$ and $*: (A/\sim) \times W \to W$.
+	We have shown that $\circ$ is associative with respect to $(A/\sim, \circ)$, and that $(A/\sim, \circ)$ has an identity element by action condition \ref{actcon:identity-action}.
 
 
-\begin{proposition}\label{prp:Asim-group}
-    If the world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} then $(A/\sim, \circ)$ is a group.
-\end{proposition}
-\begin{proof}
-    \whendraft{
-    [\textbf{Update this proof}]
-    }
-    Totality is given by world condition \ref{wldcon:unrestricted-actions}.
-    Associativity is given by proposition \ref{prp:Asim-associative}.
-    Identity element given by proposition \ref{prp:Asim-identity}.
-    Inverse element is given by world condition \ref{wldcon:inverse-actions}.
-\end{proof}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Conditions for SBDRL to apply}\label{sec:World conditions}
 
-\begin{proposition}\label{prp:world-conditions-sufficient}
-    If the world obeys world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, then $*: (A/\sim) \times W \to W$ is a left group action.
-\end{proposition}
-\begin{proof}
-    \whendraft{
-    [\textbf{Update this proof}]
-    }
-    We have already established that $(A/\sim, \circ)$ is a group (proposition \ref{prp:Asim-group}).
-    Therefore, to show that $*$ is a left group action we only have to prove the group action conditions of (a) identity and (b) compatibility.
-    Consider an arbitrary world state $w \in W$.
-    
-    (a) $[1]_{\sim} * w = 1 * w = 1_{w} * w = w$.
-    
-    (b) We need to show that $a' * (a * w) = (a' \circ a) * w$.
-    Because actions are unrestricted in $W$, for any $w \in W$, there exists the transitions $d_{1}: w \xrightarrow{a} t(d_{1})$ and $d_{2}: t(d_{1}) \xrightarrow{a} t(d_{2})$.
-    $\implies$ there exists the transition $(d_{2} \circ d_{1}): w \xrightarrow{a' \circ a} t(d_{2})$.
-    Therefore, $(a' \circ a) * w = t(d_{2})$.
-    Using the transitions $d_{1}$ and $ d_{2}$ for the LHS of the condition, $a' * ( a * w) = a' * t(d_{1}) = t(d_{2})$.
-\end{proof}
+	To simplify the problem, we only consider worlds where the transformations of the world are only due to the actions of an agent for the remainder of this paper unless otherwise stated; this means we do not have to take into consideration how the agent would deal with transformations of the world, not due to its actions.
+	Therefore, we will only consider worlds with $D = D_{A}$.
 
-From Proposition \ref{prp:world-conditions-sufficient}, if a world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, then the transformations of that world can be fully described using SBDRL (\textit{i.e.}, $*: (A/\sim) \times W \to W$ is a group action).
+	To be a group, $A/\sim$ must satisfy the properties of (1) identity, (2) associativity, (3) closure, and (4) inverse.
+	(1) The identity property and (2) the associativity property are satisfied by Proposition \ref{prp:Asim-identity} and Proposition \ref{prp:Asim-associative} respectively.
+	(3) For the closure property to be satisfied, the following condition is sufficient:
+	\begin{world_condition}[Unrestricted actions]\label{wldcon:unrestricted-actions}
+		For any action $a \in A$ and for any world state $w \in W$, there exists a transition $d \in D_{A}$ with $d: w \xrightarrow{a} t(d)$.
+		In other words, $a * w$ is defined for all $a \in A$ and all $w \in W$.
 
-\begin{proposition}\label{prp:unrestricted-actions-necessary}
-    If $*: (A/\sim) \times W \to W$ is a group action, then world condition \ref{wldcon:unrestricted-actions} is satisfied.
-\end{proposition}
-\begin{proof}
-    Since a group action is a full operation by definition,  world condition \ref{wldcon:inverse-actions} is satisfied.
-\end{proof}
+		\whendraft{
+			\textit{Mathematically:} For any $w_{i} \in W$, there exists $a \in A$ and $w_{j} \in W$ such that $a * w_{i} = w_{j}$.
+		}
+	\end{world_condition}
 
-\begin{proposition}\label{prp:inverse-actions-sufficient}
-    If $*: (A/\sim) \times W \to W$ is a group action, then world condition \ref{wldcon:inverse-actions} is satisfied.
-\end{proposition}
-\begin{proof}
-    If $*$ is a group action, 
-    then $A/\sim$ is a group.
-    If $A/\sim$ is a group, then for each $a \in A/\sim$ there is an inverse element $a^{-1}$ such that (1) $a^{-1} \circ a = 1$ and (2) $a \circ a^{-1} = 1$.
+	The inverse property of a group is more strict than our current definition of the reversibility of an action.
+	For the structure $A/\sim$ to have the inverse property, each element (action) in $A/\sim$ must not only be reversible from each starting state, but additionally, the inverse of a given element in $A/\sim$ must be the same for each starting state; for example, if $a'$ is the inverse of $a$ from a state $w \in W$ ($a' \circ a * w = w$), then $a'$ must be the inverse of $a$ from all states in $W$.
 
-    For an arbitrary state $w \in W$, $a^{-1} \circ (a * w) = a^{-1} \circ (a * w)$, therefore $a^{-1} \circ (a * w) = (a^{-1} \circ a) * w$ from the group action compatibility condition, therefore  $a^{-1} \circ (a * w) = 1 * w$ from (1), therefore (3) $a^{-1} \circ (a * w) = w$ from the group action identity condition.
-
-    Similarly, for an arbitrary state $w \in W$, $a \circ (a^{-1} * w) = a \circ (a^{-1} * w)$, therefore $a \circ (a^{-1} * w) = (a \circ a^{-1}) * w$ from the group action compatibility condition, therefore $a \circ (a^{-1} * w) = 1 * w$ from (2), therefore (4) $a \circ (a^{-1} * w) = w$ from the group action identity condition.
-
-    (3) and (4) together are world condition \ref{wldcon:inverse-actions}.
-\end{proof}
+	\begin{world_condition}[Inverse actions]\label{wldcon:inverse-actions}
+		For each $a \in A/\sim$, there exists an $a' \in A/\sim$ such that $a' \circ a * w = w$ and $a \circ a' * w = w$ for all $w \in W$.
+	\end{world_condition}
 
 
-\begin{proposition}\label{prp:WC-unrestricted-actions-necessary}
-    If a world does not satisfy world condition \ref{wldcon:unrestricted-actions}, then $*$ is not a group action.
-\end{proposition}
-\begin{proof}
-    If a world does not satisfy world condition \ref{wldcon:unrestricted-actions}, then there exists some world state $w \in W$ and some action $a \in A$ such that $a * w$ is undefined.
-    Therefore, for $[a] \in A/\sim$, $[a] * w$ is undefined, and so $*: (A/\sim) \times W \to W$ is a partial operation and so not a group action.
-\end{proof}
+	\begin{proposition}\label{prp:Asim-group}
+		If the world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} then $(A/\sim, \circ)$ is a group.
+	\end{proposition}
+	\begin{proof}
+		\whendraft{
+			[\textbf{Update this proof}]
+		}
+		Totality is given by world condition \ref{wldcon:unrestricted-actions}.
+		Associativity is given by proposition \ref{prp:Asim-associative}.
+		Identity element given by proposition \ref{prp:Asim-identity}.
+		Inverse element is given by world condition \ref{wldcon:inverse-actions}.
+	\end{proof}
+
+	\begin{proposition}\label{prp:world-conditions-sufficient}
+		If the world obeys world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, then $*: (A/\sim) \times W \to W$ is a left group action.
+	\end{proposition}
+	\begin{proof}
+		\whendraft{
+			[\textbf{Update this proof}]
+		}
+		We have already established that $(A/\sim, \circ)$ is a group (proposition \ref{prp:Asim-group}).
+		Therefore, to show that $*$ is a left group action we only have to prove the group action conditions of (a) identity and (b) compatibility.
+		Consider an arbitrary world state $w \in W$.
+
+		(a) $[1]_{\sim} * w = 1 * w = 1_{w} * w = w$.
+
+		(b) We need to show that $a' * (a * w) = (a' \circ a) * w$.
+		Because actions are unrestricted in $W$, for any $w \in W$, there exists the transitions $d_{1}: w \xrightarrow{a} t(d_{1})$ and $d_{2}: t(d_{1}) \xrightarrow{a} t(d_{2})$.
+		$\implies$ there exists the transition $(d_{2} \circ d_{1}): w \xrightarrow{a' \circ a} t(d_{2})$.
+		Therefore, $(a' \circ a) * w = t(d_{2})$.
+		Using the transitions $d_{1}$ and $ d_{2}$ for the LHS of the condition, $a' * ( a * w) = a' * t(d_{1}) = t(d_{2})$.
+	\end{proof}
+
+	From Proposition \ref{prp:world-conditions-sufficient}, if a world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, then the transformations of that world can be fully described using SBDRL (\textit{i.e.}, $*: (A/\sim) \times W \to W$ is a group action).
+
+	\begin{proposition}\label{prp:unrestricted-actions-necessary}
+		If $*: (A/\sim) \times W \to W$ is a group action, then world condition \ref{wldcon:unrestricted-actions} is satisfied.
+	\end{proposition}
+	\begin{proof}
+		Since a group action is a full operation by definition,  world condition \ref{wldcon:inverse-actions} is satisfied.
+	\end{proof}
+
+	\begin{proposition}\label{prp:inverse-actions-sufficient}
+		If $*: (A/\sim) \times W \to W$ is a group action, then world condition \ref{wldcon:inverse-actions} is satisfied.
+	\end{proposition}
+	\begin{proof}
+		If $*$ is a group action,
+		then $A/\sim$ is a group.
+		If $A/\sim$ is a group, then for each $a \in A/\sim$ there is an inverse element $a^{-1}$ such that (1) $a^{-1} \circ a = 1$ and (2) $a \circ a^{-1} = 1$.
+
+		For an arbitrary state $w \in W$, $a^{-1} \circ (a * w) = a^{-1} \circ (a * w)$, therefore $a^{-1} \circ (a * w) = (a^{-1} \circ a) * w$ from the group action compatibility condition, therefore  $a^{-1} \circ (a * w) = 1 * w$ from (1), therefore (3) $a^{-1} \circ (a * w) = w$ from the group action identity condition.
+
+		Similarly, for an arbitrary state $w \in W$, $a \circ (a^{-1} * w) = a \circ (a^{-1} * w)$, therefore $a \circ (a^{-1} * w) = (a \circ a^{-1}) * w$ from the group action compatibility condition, therefore $a \circ (a^{-1} * w) = 1 * w$ from (2), therefore (4) $a \circ (a^{-1} * w) = w$ from the group action identity condition.
+
+		(3) and (4) together are world condition \ref{wldcon:inverse-actions}.
+	\end{proof}
 
 
-\begin{proposition}\label{prp:WC-inverse-actions-necessary}
-    If a world does not satisfy world condition \ref{wldcon:inverse-actions}, then $A/\sim$ is not a group and so $*$ is not a group action.
-\end{proposition}
-\begin{proof}
-    If a world does not satisfy world condition \ref{wldcon:inverse-actions}, then there exists an $a \in A/\sim$ such that there is no $a' \in A/\sim$ for which $a' \circ a * w = w$ or $a \circ a' * w = w$ for all $w \in W$.
-    \textbf{Proof by contradiction.}
-    Assume $a$ has an inverse $a'' \in A/\sim$.
-    Therefore, $a'' \circ a \sim 1$ and $a \circ a'' \sim 1$.
-    Since $1 * w = w$ for all $w \in W$, $a'' \circ a * w = w$ and $a \circ a'' * w = w$ for all $w \in W$, which is a contradiction.
-\end{proof}
+	\begin{proposition}\label{prp:WC-unrestricted-actions-necessary}
+		If a world does not satisfy world condition \ref{wldcon:unrestricted-actions}, then $*$ is not a group action.
+	\end{proposition}
+	\begin{proof}
+		If a world does not satisfy world condition \ref{wldcon:unrestricted-actions}, then there exists some world state $w \in W$ and some action $a \in A$ such that $a * w$ is undefined.
+		Therefore, for $[a] \in A/\sim$, $[a] * w$ is undefined, and so $*: (A/\sim) \times W \to W$ is a partial operation and so not a group action.
+	\end{proof}
 
 
-Proposition \ref{prp:world-conditions-sufficient} shows that world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are sufficient conditions for $*$ to be a group action, while propositions \ref{prp:WC-unrestricted-actions-necessary} and \ref{prp:WC-inverse-actions-necessary} show that world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are necessary conditions for $*$ to be a group action.
-Since world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are sufficient and necessary conditions for $*$ to be a group action and therefore $A/\sim$ to be a group, these conditions give a characterisation of the worlds with transformations (due to the actions of an agent) that can be fully described using SBDRL; in other words, if the transformations of a world can be fully described using SBDRL then that world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, and if a world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} then the transformations of that world can be fully described using SBDRL.
+	\begin{proposition}\label{prp:WC-inverse-actions-necessary}
+		If a world does not satisfy world condition \ref{wldcon:inverse-actions}, then $A/\sim$ is not a group and so $*$ is not a group action.
+	\end{proposition}
+	\begin{proof}
+		If a world does not satisfy world condition \ref{wldcon:inverse-actions}, then there exists an $a \in A/\sim$ such that there is no $a' \in A/\sim$ for which $a' \circ a * w = w$ or $a \circ a' * w = w$ for all $w \in W$.
+		\textbf{Proof by contradiction.}
+		Assume $a$ has an inverse $a'' \in A/\sim$.
+		Therefore, $a'' \circ a \sim 1$ and $a \circ a'' \sim 1$.
+		Since $1 * w = w$ for all $w \in W$, $a'' \circ a * w = w$ and $a \circ a'' * w = w$ for all $w \in W$, which is a contradiction.
+	\end{proof}
+
+
+	Proposition \ref{prp:world-conditions-sufficient} shows that world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are sufficient conditions for $*$ to be a group action, while propositions \ref{prp:WC-unrestricted-actions-necessary} and \ref{prp:WC-inverse-actions-necessary} show that world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are necessary conditions for $*$ to be a group action.
+	Since world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} are sufficient and necessary conditions for $*$ to be a group action and therefore $A/\sim$ to be a group, these conditions give a characterisation of the worlds with transformations (due to the actions of an agent) that can be fully described using SBDRL; in other words, if the transformations of a world can be fully described using SBDRL then that world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions}, and if a world satisfies world conditions \ref{wldcon:unrestricted-actions} and \ref{wldcon:inverse-actions} then the transformations of that world can be fully described using SBDRL.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Action-homogeneous worlds\whendraft{ and generalisation potential}}
 
 \whendraft{
-\begin{proposition}
-    If $A/\sim$ is a group, then $a' \circ a * w = w$ ($w \in W$, $a, a' \in A/\sim$) does not mean that $a' \circ a * w' = w'$ for all $w' \in W$.
-\end{proposition}
-\begin{proof}
-    Proof by counter example.
-    Consider the world given in Figure ?
-    [insert figure here]
-    The algebra of the actions of an agent with minimum actions $\{1, a, b\}$ is given by the following action Cayley table:
-    [insert action Cayley table]
-\end{proof}
+	\begin{proposition}
+		If $A/\sim$ is a group, then $a' \circ a * w = w$ ($w \in W$, $a, a' \in A/\sim$) does not mean that $a' \circ a * w' = w'$ for all $w' \in W$.
+	\end{proposition}
+	\begin{proof}
+		Proof by counter example.
+		Consider the world given in Figure ?
+		[insert figure here]
+		The algebra of the actions of an agent with minimum actions $\{1, a, b\}$ is given by the following action Cayley table:
+		[insert action Cayley table]
+	\end{proof}
 }
 
 \begin{world_condition}[Action homogeneity]\label{wldcon:action-homogeneity}
-    For every pair $(w_{1}, w_{2}) \in W^{2}$, there exists a bijective map $\sigma_{(w_{1},w_{2})}: W \to W$ such that $\sigma_{(w_{1},w_{2})}(w_{1})=w_{2}$ and such that:
-    
-    \begin{enumerate}
-        \item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma_{(w_{1}, w_{2})}(t(d))$;
-        
-        % Is this part needed --> implied by first condition due to $\sigma$ being a bijection ?
-        \item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma^{-1}_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma^{-1}_{(w_{1}, w_{2})}(t(d))$.
-    \end{enumerate}
+	For every pair $(w_{1}, w_{2}) \in W^{2}$, there exists a bijective map $\sigma_{(w_{1},w_{2})}: W \to W$ such that $\sigma_{(w_{1},w_{2})}(w_{1})=w_{2}$ and such that:
+
+	\begin{enumerate}
+		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma_{(w_{1}, w_{2})}(t(d))$;
+
+		      % Is this part needed --> implied by first condition due to $\sigma$ being a bijection ?
+		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma^{-1}_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma^{-1}_{(w_{1}, w_{2})}(t(d))$.
+	\end{enumerate}
 \end{world_condition}
 
 World condition \ref{wldcon:action-homogeneity} means that action sequences have the same result for any initial world state.
@@ -324,51 +324,51 @@ Essentially, this means that the world looks the same from any world state with 
 We call worlds with world condition \ref{wldcon:action-homogeneity} \textit{action-homogeneous worlds}.
 
 \begin{definition}[Weak equivalence $\sim_{w}$]\label{def:weak action equivalence}
-    For $a,a' \in A$ and $w \in W$, $a \sim_{w} a$ if $a * w = a' * w$ or $a$ and $a'$ are both restricted actions with respect to $w$.
+	For $a,a' \in A$ and $w \in W$, $a \sim_{w} a$ if $a * w = a' * w$ or $a$ and $a'$ are both restricted actions with respect to $w$.
 \end{definition}
 
 \begin{remark}
-    In definition \ref{def:weak action equivalence}, for the case where $a, a'$ are both restricted actions, then we say $a * w = a' * w$.
-    The meaning of $a * w$ where $a$ is restricted on $w$ will be defined later.
+	In definition \ref{def:weak action equivalence}, for the case where $a, a'$ are both restricted actions, then we say $a * w = a' * w$.
+	The meaning of $a * w$ where $a$ is restricted on $w$ will be defined later.
 \end{remark}
 
 \begin{proposition}
-    $\sim_{w}$ is an equivalence relation.
+	$\sim_{w}$ is an equivalence relation.
 \end{proposition}
 \begin{proof}
-    To show that $\sim_{w}$ is an equivalence relation, we need to show that the relation is (a) reflexive, (b) transitive, and (c) symmetric.
-    (a) For a binary relation $R$ over a set $X$ to be reflexive: $x R x$ for every $x \in X$.
-    For $w \in W$, if $a * w$ is defined then $a * w = a * w$ from the properties of $=$ for any $a \in A$.
-    Therefore, $a \sim_{w} a$.
-    (b) For a binary relation $R$ over a set $X$ to be transitive: if $a R b$ and $b R c$ then $a R c$ for all $a,b,c \in X$.
-    If $a \sim_{w} a'$ and $a' \sim_{w} a''$, then $a * w = a' * w$, $a' * w = a'' * w$ for all $w \in W$.
-    Combining these two equations gives $a * w = a'' * w$.
-    (c) For a binary relation $R$ over a set $X$ to be reflexive: if $a R b$, then $b R a$ for all $a,b \in X$.
-    If $a \sim_{w} a'$, then $a * w = a' * w$. Therefore $a' * w = a * w$, and so $a' \sim_{W} a$.
+	To show that $\sim_{w}$ is an equivalence relation, we need to show that the relation is (a) reflexive, (b) transitive, and (c) symmetric.
+	(a) For a binary relation $R$ over a set $X$ to be reflexive: $x R x$ for every $x \in X$.
+	For $w \in W$, if $a * w$ is defined then $a * w = a * w$ from the properties of $=$ for any $a \in A$.
+	Therefore, $a \sim_{w} a$.
+	(b) For a binary relation $R$ over a set $X$ to be transitive: if $a R b$ and $b R c$ then $a R c$ for all $a,b,c \in X$.
+	If $a \sim_{w} a'$ and $a' \sim_{w} a''$, then $a * w = a' * w$, $a' * w = a'' * w$ for all $w \in W$.
+	Combining these two equations gives $a * w = a'' * w$.
+	(c) For a binary relation $R$ over a set $X$ to be reflexive: if $a R b$, then $b R a$ for all $a,b \in X$.
+	If $a \sim_{w} a'$, then $a * w = a' * w$. Therefore $a' * w = a * w$, and so $a' \sim_{W} a$.
 \end{proof}
 
 
 For action-homogeneous worlds, the following properties hold:
 \begin{enumerate}
-    \item If a world is action-homogeneous, then $a \sim_{w} a'$ means $a \sim a'$ - this makes it much easier to learn the algebra of action-homogeneous worlds;
-    
-    \item The number of elements in $A/\sim$ is always equal to the number of states in the world since for any state $w \in W$, there is exactly one action $a \in A/\sim$ for which $a * w = w'$ where $w'$ is any state in $W$; therefore the number of elements in the action algebra is equal to the number of states in $W$;
-    
-    \item If $a * w_{i} = w_{j}$, then there exists a world state $w_{k} \in W$ such that $a * w_{k} = w_{i}$.
-    In other words, if $a$ is defined from one world state it is defined from all world states;
+	\item If a world is action-homogeneous, then $a \sim_{w} a'$ means $a \sim a'$ - this makes it much easier to learn the algebra of action-homogeneous worlds;
 
-    \item If $a' * (a * w) = a * (a' * w) = w$ for any $w \in W$, then $a' * (a * w) = a * (a' * w) = w$ for all $w \in W$.
-    In other words, reversible actions imply inverse actions.
+	\item The number of elements in $A/\sim$ is always equal to the number of states in the world since for any state $w \in W$, there is exactly one action $a \in A/\sim$ for which $a * w = w'$ where $w'$ is any state in $W$; therefore the number of elements in the action algebra is equal to the number of states in $W$;
+
+	\item If $a * w_{i} = w_{j}$, then there exists a world state $w_{k} \in W$ such that $a * w_{k} = w_{i}$.
+	      In other words, if $a$ is defined from one world state it is defined from all world states;
+
+	\item If $a' * (a * w) = a * (a' * w) = w$ for any $w \in W$, then $a' * (a * w) = a * (a' * w) = w$ for all $w \in W$.
+	      In other words, reversible actions imply inverse actions.
 \end{enumerate}
 
 \whendraft{
-\textbf{[Insert info about generalisation.]}
-\begin{itemize}
-    \item If we know that, from a particular initial state, a particular sequence of actions has a particular outcome and we know that a different sequence of actions from the same initial state has the same outcome then we know that those two action sequences will have the same outcome in from every initial state (and therefore will be equivalent?!).
-    \begin{itemize}
-        \item Illustrate this using the counter-example - see PhD Notebook 1 notes.
-    \end{itemize}
-\end{itemize}
+	\textbf{[Insert info about generalisation.]}
+	\begin{itemize}
+		\item If we know that, from a particular initial state, a particular sequence of actions has a particular outcome and we know that a different sequence of actions from the same initial state has the same outcome then we know that those two action sequences will have the same outcome in from every initial state (and therefore will be equivalent?!).
+		      \begin{itemize}
+			      \item Illustrate this using the counter-example - see PhD Notebook 1 notes.
+		      \end{itemize}
+	\end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

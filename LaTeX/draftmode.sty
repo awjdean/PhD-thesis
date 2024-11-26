@@ -18,17 +18,17 @@
 
 % Command for draft notes
 \newcommand{\draftnote}[3]{%
-  \ifdraft
-    \textcolor{#1}{[#2: #3]} % Displays the note with color
-  \fi
+	\ifdraft
+		\textcolor{#1}{[#2: #3]} % Displays the note with color
+	\fi
 }
 
 % Command for draft footnotes
 \newcommand{\draftfootnote}[3]{%
-  \ifdraft
-    \textcolor{#1}{\footnotemark}% Colored footnote marker
-    \footnotetext{\textcolor{#1}{[#2: #3]}}% Displays footnote text
-  \fi
+	\ifdraft
+		\textcolor{#1}{\footnotemark}% Colored footnote marker
+		\footnotetext{\textcolor{#1}{[#2: #3]}}% Displays footnote text
+	\fi
 }
 
 \endinput
