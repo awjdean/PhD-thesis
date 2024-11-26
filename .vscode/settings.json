@@ -1,0 +1,44 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=build", // Change "build" to your preferred folder name
+        "%DOC%"
+      ],
+      "env": {
+        "PATH": "/Library/TeX/texbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      }
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": [
+        "latexmk"
+      ]
+    }
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latexindent.path": "/opt/homebrew/bin/latexindent", // Path to latexindent
+  "latex-workshop.latexindent.args": [
+    "-c",
+    "%DIR%/",
+    "%TMPFILE%",
+    "-y=defaultIndent: '%INDENT%'",
+    "-y=defaultIndent: 'newLineAfterSentence: true'",
+    "-y=modifyLineBreaks: 'oneSentencePerLine'"
+  ],
+  "latex-workshop.latexindent.modifyLineBreaks": true,
+  "latex-workshop.formatting.latex": "latexindent", // Ensure latexindent is set as the formatting tool
+  "editor.defaultFormatter": "James-Yu.latex-workshop", // Ensure LaTeX Workshop is used as the formatter
+  "[latex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  },
+  "editor.formatOnSave": true // Automatically formats the document on save
+}

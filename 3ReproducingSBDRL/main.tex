@@ -1,12 +1,12 @@
 \chapter{Reproducing symmetry-based disentangled representation learning}
 
 \whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Section to do:}
-\begin{enumerate}
-    \item 
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+    \noindent\rule{\textwidth}{1mm}
+    \textbf{Section to do:}
+    \begin{enumerate}
+        \item
+    \end{enumerate}
+    \noindent\rule{\textwidth}{1mm}
 }
 
 
@@ -57,10 +57,10 @@ The representation states in $Z$ are symmetry-based disentangled with respect to
 \begin{enumerate}[(1)]
     \item There exists a group action $\cdot_{W}: G \times W \to W$ and a corresponding group action $\cdot_{Z}: G \times Z \to Z$;
     \item The map $f : W \to Z$ is group-equivariant between the group actions on $W$ and $Z$: $g \cdot_{Z} f(w) = f(g \cdot_{W} w)$.
-    
-    In other words, the diagram
-    \input{3ReproducingSBDRL/Old/tikzcd-diagrams/group-equivariance-commuting-diagram}
-    commutes.    
+
+          In other words, the diagram
+          \input{3ReproducingSBDRL/Old/tikzcd-diagrams/group-equivariance-commuting-diagram}
+          commutes.
 
     \item There exists a decomposition of the representation $Z = Z_1 \times \hdots \times Z_n$ such that each subspace $Z_i$ is only affected by the action $G_i$ and is unaffected by the actions $G_{j \neq i}$.
 \end{enumerate}
@@ -69,12 +69,12 @@ If $W$, $Z$, and $f$ satisfy conditions (1) and (2), then the agent's representa
 If $W$, $Z$, and $f$ satisfy conditions (1), (2), and (3) then the agent's representation is a symmetry-based disentangled.
 
 \whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{To do:}
-\begin{enumerate}
-    \item Reproduce figure showing map $f: W \to Z$.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+    \noindent\rule{\textwidth}{1mm}
+    \textbf{To do:}
+    \begin{enumerate}
+        \item Reproduce figure showing map $f: W \to Z$.
+    \end{enumerate}
+    \noindent\rule{\textwidth}{1mm}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -89,18 +89,18 @@ For simplicity we will initially only consider worlds where all the transformati
 In the SBDRL framework, the group actions $G \times W \to W$ acts as functions $\cdot_{W}: W \to W$ that move the world from one world state to another.
 In other words, the effect of applying each group element $g \in G$ is made up of a collection of transformations of the world between different world states, and so the action of each group element is a function $g \cdot_{W}: W \to W$; when considering group actions only due to the actions of an agent, these functions $g \cdot_{W}: W \to W$ are the functions $*_{a}: W \to W$ in our framework\footnote{\autocite{caselles2019symmetry} also makes this connection between the symmetry transformations of SBDRL and the actions of an agent; however, they stop at actions that cannot form a group (e.g., irreversible actions), while we will use our framework to explore the algebra of worlds that cannot form a group.}.
 
-The SBDRL formalism implicitly considers transformations that 
+The SBDRL formalism implicitly considers transformations that
 start and end in the same world state as the same.
 In our framework, this is analogous to applying the equivalence relation $\sim$ to construct the quotient set $\hat{A}^{*}/\sim$.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|}
-         & Our framework    & SBDRL     & Caselles-Dupre \\
-         \hline
-         States of the world & $W$ & $W$ & $W$ \\
-         Actions causing dynamics of world & $a* = *_{a}: W \to W$ & $g \cdot_{W}: W \to W$ & $f(\_, a_{t}): W \to W$ \\
-         Agent & Embodied agent with ideal sensors & Map $f: W \to Z$ is bijective & Embodied agent, map $W \to Z$ is bijective
+                                          & Our framework                     & SBDRL                         & Caselles-Dupre                             \\
+        \hline
+        States of the world               & $W$                               & $W$                           & $W$                                        \\
+        Actions causing dynamics of world & $a* = *_{a}: W \to W$             & $g \cdot_{W}: W \to W$        & $f(\_, a_{t}): W \to W$                    \\
+        Agent                             & Embodied agent with ideal sensors & Map $f: W \to Z$ is bijective & Embodied agent, map $W \to Z$ is bijective
     \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
@@ -130,27 +130,27 @@ We will now show that the example world $\mathscr{W}_{(2,2)C}$ that we used in s
 
 
 \whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Up next:}
-\begin{enumerate}
-    \item \sout{Agent stuff.}
-    \item \sout{Higgins --> equivalence relation.}
-    \item Mention that SBDRL requires a global group action.
-\end{enumerate}
+    \noindent\rule{\textwidth}{1mm}
+    \textbf{Up next:}
+    \begin{enumerate}
+        \item \sout{Agent stuff.}
+        \item \sout{Higgins --> equivalence relation.}
+        \item Mention that SBDRL requires a global group action.
+    \end{enumerate}
 
-\textbf{To do:}
-\begin{enumerate}
-    \item Mention: we want to initially consider worlds where the entire action transformation structure forms a group.
-    Later we will consider worlds where $\hat{A}^{*}$ contains a (global) group through colimits.
-    \item State that $\mathscr{W}_{(2,2)C}$ can give SB representations.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+    \textbf{To do:}
+    \begin{enumerate}
+        \item Mention: we want to initially consider worlds where the entire action transformation structure forms a group.
+              Later we will consider worlds where $\hat{A}^{*}$ contains a (global) group through colimits.
+        \item State that $\mathscr{W}_{(2,2)C}$ can give SB representations.
+    \end{enumerate}
+    \noindent\rule{\textwidth}{1mm}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \whendraft{
-\noindent\rule{\textwidth}{1mm}
-\input{3ReproducingSBDRL/Old/main}
+    \noindent\rule{\textwidth}{1mm}
+    \input{3ReproducingSBDRL/Old/main}
 }
