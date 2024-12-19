@@ -1,3 +1,7 @@
+% MISC PACKAGES
+\usepackage{etoolbox} % For \AtBeginEnvironment
+\usepackage{ifthen}
+
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
 
@@ -16,6 +20,24 @@
 % TABLES
 \RequirePackage{multirow}
 \RequirePackage{tabularx}
+\RequirePackage{booktabs}
+
+% PSEUDOCODE
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocodex}
+
+% APPENDICIES
+\RequirePackage[toc]{appendix}
+% Define appendix chapter format
+\newcommand{\setappendixformat}{
+    \renewcommand{\chaptername}{Appendix}
+    \renewcommand{\thechapter}{\chaptername~\Alph{chapter}}
+    \fancyhead[RO]{\smallcaps{\thechapter: \leftmark}}
+}
+\newcommand{\resetchapterformat}{
+    \renewcommand{\chaptername}{Chapter}
+    \renewcommand{\thechapter}{\arabic{chapter}}
+}
 
 % CITATIONS & BIBLIOGRAPHY
 \RequirePackage[
@@ -30,7 +52,6 @@
 \AtBeginBibliography{%
   \addcontentsline{toc}{chapter}{Bibliography}%
 }
-
 
 %   % Increase separation between bibliography items
 %   \setlength\bibitemsep{1.1\itemsep}%

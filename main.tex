@@ -9,33 +9,34 @@
 % \usepackage[style=authoryear]{biblatex}
 % \addbibresource{bibliography.bib}
 
-\title{Algebraic structures in representation learning Test2}
+\title{Algebraic structures in representation learning}
 \author{Alex Dean}
 \date{\today}
 
 \begin{document}
-\whendraft{
-	\maketitle
+% \whendraft{
+% 	\maketitle
 
-	\doublespacing
-	\frontmatter
+% 	\doublespacing
+% 	\frontmatter
 
-	\begin{fullwidth}
-		\singlespacing
-		\tableofcontents
-	\end{fullwidth}
+% 	\begin{fullwidth}
+% 		\singlespacing
+% 		\tableofcontents
+% 	\end{fullwidth}
 
-	\begin{fullwidth}
-		\listoffigures
-		\listoftables
-	\end{fullwidth}
+% 	\begin{fullwidth}
+% 		\listoffigures
+% 		\listoftables
+% 	\end{fullwidth}
 
-	\chapter{Abstract}
-}
+% 	\chapter{Abstract}
+% }
 
 \mainmatter
-\input{2MathematicalFramework/main}
-\input{3ReproducingSBDRL/main}
+% \input{2MathematicalFramework/main}
+% \input{3ReproducingSBDRL/main}
+\input{4Algorithm/main}
 
 
 \whendraft{
@@ -44,10 +45,16 @@
 	\draftfootnote{blue}{awjdean}{A draft footnote}
 }
 
+
+
+\begin{appendices}
+\setappendixformat
+\input{Appendices/main}
+\end{appendices}
+
 \backmatter
 \begin{fullwidth}
-	\printbibliography
+\printbibliography
 \end{fullwidth}
-
 
 \end{document}
