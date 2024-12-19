@@ -1,25 +1,25 @@
 \chapter{Algorithm (change name)}
 \begin{table}[H]
-\centering
-\begin{tabularx}{\textwidth}{@{}lX@{}}
-\toprule
-\textbf{Symbol} & \textbf{Description} \\
-\midrule
-    $T_{S}$ & The states Cayley table. \\
-    $\mathcal{E}$ = ($L$, \; $E$, \; $\pi$) & The equivalence classes. \\
-    $L$ & The set of equivalence class labels. \\
-    $E$ & The set of processed elements. These elements have been assigned to a equivalence class labelled by $L$. \\
-    $\pi: E \to L$ & A map $E \to L$ that sends each processed element to its equivalence class. \\
-    $w^{*}$ & Initial world state. \\
-    $\hat{A}$ & The set of minimum actions of the agent. Elements of $\hat{A}$ are given a $\; \hat{ } \;$. \\
-    $\hat{*}$ & The effect operator for minimum actions. \\
-    $\operatorname{Combine}$ & The combine operator that combines two sequences of minimum actions. \\
-    $A_{C}$ & The set of elements that are candidates for new equivalence classes labelling elements in $L$. \\
-    $T_{A}$ & The actions Cayley table. \\
-\bottomrule
-\end{tabularx}
-\caption{Key for pseudocode.}
-\label{tab:pseudocode_key}
+	\centering
+	\begin{tabularx}{\textwidth}{@{}lX@{}}
+		\toprule
+		\textbf{Symbol}                         & \textbf{Description}                                                                                     \\
+		\midrule
+		$T_{S}$                                 & The states Cayley table.                                                                                 \\
+		$\mathcal{E}$ = ($L$, \; $E$, \; $\pi$) & The equivalence classes.                                                                                 \\
+		$L$                                     & The set of equivalence class labels.                                                                     \\
+		$E$                                     & The set of processed elements. These elements have been assigned to a equivalence class labelled by $L$. \\
+		$\pi: E \to L$                          & A map $E \to L$ that sends each processed element to its equivalence class.                              \\
+		$w^{*}$                                 & Initial world state.                                                                                     \\
+		$\hat{A}$                               & The set of minimum actions of the agent. Elements of $\hat{A}$ are given a $\; \hat{ } \;$.              \\
+		$\hat{*}$                               & The effect operator for minimum actions.                                                                 \\
+		$\operatorname{Combine}$                & The combine operator that combines two sequences of minimum actions.                                     \\
+		$A_{C}$                                 & The set of elements that are candidates for new equivalence classes labelling elements in $L$.           \\
+		$T_{A}$                                 & The actions Cayley table.                                                                                \\
+		\bottomrule
+	\end{tabularx}
+	\caption{Key for pseudocode.}
+	\label{tab:pseudocode_key}
 \end{table}
 
 
@@ -27,39 +27,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
 \whendraft{
-\begin{enumerate}
-    \item Why create the algorithm ?
-    \begin{itemize}
-        \item We wanted a way to explore structures.
-    \end{itemize}
-    
-\end{enumerate}
+	\begin{enumerate}
+		\item Why create the algorithm ?
+		      \begin{itemize}
+			      \item We wanted a way to explore structures.
+		      \end{itemize}
+
+	\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Description [/preliminaries?]}
 \whendraft{
-\textbf{Include in algorithm description:}
-\begin{enumerate}
-    \item Make up of $\mathcal{E}$.
-    \item We store actions as their unique sequences of minimum actions.
-    \item All we need from $\mathscr{W}$ is the set $W$ of world states and the map $\hat{*}: \hat{A} \times W \to W$.
-    We treat $\hat{*}$ as a part of $\mathscr{W}$.
-    \item How we use the $\operatorname{Combine}$ operator to evaluate $\circ$.
-    \item What each of elements of $\mathcal{E}$ are at the termination of the algorithm.
-    \item $\operatorname{Seq} : \hat{A}^* \to (\hat{A})^n, \quad \operatorname{Seq}(a) = (\hat{a}_{n}, \hat{a}_{n-1}, \dots, \hat{a}_{1})$
-    \item Explain how assignment to $\mathcal{E}$ works - assignment occurs for each of the constituents of $\mathcal{E}$.
-    \item What is states Cayley table?
-    \item What is actions Cayley table?
-    \item Mention that the only bit of information needed from $\mathscr{W}$ is the mapping: $\hat{*}: \hat{A} \times W \to W$ that takes a minimum action and applies it to a world state.
-\end{enumerate}
+	\textbf{Include in algorithm description:}
+	\begin{enumerate}
+		\item Make up of $\mathcal{E}$.
+		\item We store actions as their unique sequences of minimum actions.
+		\item All we need from $\mathscr{W}$ is the set $W$ of world states and the map $\hat{*}: \hat{A} \times W \to W$.
+		      We treat $\hat{*}$ as a part of $\mathscr{W}$.
+		\item How we use the $\operatorname{Combine}$ operator to evaluate $\circ$.
+		\item What each of elements of $\mathcal{E}$ are at the termination of the algorithm.
+		\item $\operatorname{Seq} : \hat{A}^* \to (\hat{A})^n, \quad \operatorname{Seq}(a) = (\hat{a}_{n}, \hat{a}_{n-1}, \dots, \hat{a}_{1})$
+		\item Explain how assignment to $\mathcal{E}$ works - assignment occurs for each of the constituents of $\mathcal{E}$.
+		\item What is states Cayley table?
+		\item What is actions Cayley table?
+		\item Mention that the only bit of information needed from $\mathscr{W}$ is the mapping: $\hat{*}: \hat{A} \times W \to W$ that takes a minimum action and applies it to a world state.
+	\end{enumerate}
 
-\begin{enumerate}
-    \item Change name of `states Cayley table' and `actions Cayley table` ?
-    \begin{itemize}
-        \item Cayley table is already a thing.
-    \end{itemize}
-\end{enumerate}
+	\begin{enumerate}
+		\item Change name of `states Cayley table' and `actions Cayley table` ?
+		      \begin{itemize}
+			      \item Cayley table is already a thing.
+		      \end{itemize}
+	\end{enumerate}
 }
 
 
@@ -76,9 +76,9 @@ The definition of $\sim$ is ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mathematical preliminaries}
 \whendraft{
-\begin{enumerate}
-    \item Definition of Cayley table. - put this in motivation section ?
-\end{enumerate}
+	\begin{enumerate}
+		\item Definition of Cayley table. - put this in motivation section ?
+	\end{enumerate}
 }
 
 
@@ -98,7 +98,7 @@ Assessing equality between two actions.
 \\\textit{Solution:}
 When assessing equality between two actions, we use the fact that every action can be expressed as a unique composition of minimum actions.
 When we store actions in $E$ or $L$ we store them as a tuple of their minimum actions: if $a = \hat{a}_{n} \circ \hat{a}_{n-1} \circ \dots \circ \hat{a}_{1}$ then we store action $a$ as $(\hat{a}_{n}, \; \hat{a}_{n-1}, \; \dots, \; \hat{a}_{1})$ when $a$ is stored in $E$ and $L$.
-Then, when we need to assess if two actions are the same, we can compare their minimum action tuples. 
+Then, when we need to assess if two actions are the same, we can compare their minimum action tuples.
 
 \paragraph{Problem:}
 Calculating the result of the $\circ$ operator.
@@ -106,21 +106,21 @@ Calculating the result of the $\circ$ operator.
 The $\circ$ operator finds the result of composing two actions.
 We define an operator $\operatorname{Combine}$ which combines two minimum action tuples into a single minimum action tuple as:
 \begin{equation}
-\begin{aligned}
-    & \operatorname{Combine}: \hat{A}^{k} \times \hat{A}^{p} \to \hat{A}^{k+p}, \text{ such that} \\
-    & \operatorname{Combine}((\hat{a}_{k}, \; \dots, \; \hat{a}_{1}), \; (\hat{b}_{p}, \; \dots, \; \hat{b}_{1})) = (\hat{a}_{k}, \; \dots, \; \hat{a}_{1}, \; \hat{b}_{p}, \; \dots, \; \hat{b}_{1})
-\end{aligned}
+	\begin{aligned}
+		 & \operatorname{Combine}: \hat{A}^{k} \times \hat{A}^{p} \to \hat{A}^{k+p}, \text{ such that}                                                                                                     \\
+		 & \operatorname{Combine}((\hat{a}_{k}, \; \dots, \; \hat{a}_{1}), \; (\hat{b}_{p}, \; \dots, \; \hat{b}_{1})) = (\hat{a}_{k}, \; \dots, \; \hat{a}_{1}, \; \hat{b}_{p}, \; \dots, \; \hat{b}_{1})
+	\end{aligned}
 \end{equation}
 Due to the associativity of $\circ$
 \begin{equation}
-      a \circ a' = \operatorname{Seq}^{-1}(\;\operatorname{Combine}(\;\operatorname{Seq}(a), \; \operatorname{Seq}(a')\;)\;)
+	a \circ a' = \operatorname{Seq}^{-1}(\;\operatorname{Combine}(\;\operatorname{Seq}(a), \; \operatorname{Seq}(a')\;)\;)
 \end{equation}
 \footnote{
-Recall $\operatorname{Seq}: \hat{A}^{*} \to (\hat{A}^{*})^{n}$ such that $\operatorname{Seq}(a) = (\hat{a}_{n}, \; \dots, \; \hat{a}_{1})$ if $a = \hat{a}_{n} \circ \dots \circ \hat{a}_{1}$.
+	Recall $\operatorname{Seq}: \hat{A}^{*} \to (\hat{A}^{*})^{n}$ such that $\operatorname{Seq}(a) = (\hat{a}_{n}, \; \dots, \; \hat{a}_{1})$ if $a = \hat{a}_{n} \circ \dots \circ \hat{a}_{1}$.
 }
 But since we're representing the elements of $\hat{A}^{*}$ that we come across as minimum action tuples, in our algorithm
 \begin{equation}
-    a \circ a' = \operatorname{Combine}(a, \; a')
+	a \circ a' = \operatorname{Combine}(a, \; a')
 \end{equation}
 
 \paragraph{Problem:}
@@ -131,10 +131,10 @@ But how can we do this without programming the (indefinitely many) labelled tran
 Once again, we can use that any action $a$ can be represented by a minimum action tuple.
 We apply each minimum action in order (moving from the RHS to the LHS of the tuple) to get the resulting world state of applying $a$ directly to the world state:
 \begin{equation}
-\begin{aligned}
-    a * w = & (\hat{a}_{n} \circ \dots \circ \hat{a}_{2} \circ \hat{a}_{1}) * w \\
-          = & \hat{a}_{n} * ( \dots (\hat{a}_{2} * (\hat{a}_{1} * w)) \dots)
-\end{aligned}
+	\begin{aligned}
+		a * w = & (\hat{a}_{n} \circ \dots \circ \hat{a}_{2} \circ \hat{a}_{1}) * w \\
+		=       & \hat{a}_{n} * ( \dots (\hat{a}_{2} * (\hat{a}_{1} * w)) \dots)
+	\end{aligned}
 \end{equation}
 
 
@@ -148,7 +148,7 @@ We apply each minimum action in order (moving from the RHS to the LHS of the tup
 How do we know if the algebra produced is complete?
 \\\textit{Solution:}
 \begin{itemize}
-    \item 
+	\item
 \end{itemize}
 
 
@@ -156,7 +156,7 @@ How do we know if the algebra produced is complete?
 Dealing with undefined actions.
 \\\textit{Solution:}
 \begin{itemize}
-    \item Describe how we implemented the undefined state.
+	\item Describe how we implemented the undefined state.
 \end{itemize}
 
 \paragraph{Problem:}
@@ -164,315 +164,315 @@ Dealing with undefined actions.
 What if two actions appeared to be equivalent under $\sim$ at one point in the algorithm but are not actually equivalent under $\sim$ ?
 \\\textit{Solution:}
 \begin{itemize}
-    \item 
+	\item
 \end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pseudocode}
 \whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{To do:}
-\begin{enumerate}
-    \item [visual] Span algorithms across entire page.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{To do:}
+	\begin{enumerate}
+		\item [visual] Span algorithms across entire page.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generating states Cayley table and equivalence classes}
 
 \begin{algorithm}[H]
-\caption{Generate states Cayley table $T_{S}$ and equivalence classes $\mathcal{E} = (L, \; E, \; \pi: E \to L)$.}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{GenerateStatesCayley}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \Statex \Comment{Step 1: Initialise structures.}
-    \State $\mathcal{E} \gets$ \Call{InitialiseEquivClasses}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $T_{S} \gets$ \Call{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $A_{C} \gets$ \Call{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    
-    \Statex \Comment{Step 2: Iteratively find and process candidates for states Cayley table row-column / equivalence class labelling elements.}
-    \While{$A_{C} \neq \emptyset$}
-    \For{\textbf{each} $a_{C} \in A_{C}$}
-        \State $l \gets$ \Call{FindEquivElement}{$a_{C}$, \; $T_{S}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-        
-        \If{$l$}
-        \Statex \Comment{$a_{c}$ is a member of the equivalence class $[l]_{\sim}$, so add it to that class.}
-            \State $\mathcal{E} \gets (\; L, \; E \cup \{a_{C}\}, \; \pi \cup \pi' \;)$, where $\pi': \{a_{C}\} \to L$ such that $\pi'(a_{C}) = l$.
-            
-        \Else
-        \Statex \Comment{Check if $a_{C}$ breaks any existing equivalence classes.}
-            \State $\mathcal{E}_{B} \gets ( \; L_{B}, \; E_{B}, \; \pi_{B}: E_{B} \to L_{B} \; ) \gets$ \Call{FindBrokenEquivClasses}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+	\caption{Generate states Cayley table $T_{S}$ and equivalence classes $\mathcal{E} = (L, \; E, \; \pi: E \to L)$.}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{GenerateStatesCayley}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\Statex \Comment{Step 1: Initialise structures.}
+		\State $\mathcal{E} \gets$ \Call{InitialiseEquivClasses}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $T_{S} \gets$ \Call{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $A_{C} \gets$ \Call{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
 
-            \If{$L_{B} \neq \emptyset$}
-            \Comment{Equivalence class(es) broken.}
-                \State $\mathcal{E} \gets (\; L, \; E \setminus E_{B}, \; \pi|_{E \setminus E_{B}} \;)$
-                \State $\mathcal{E} \gets (\; L \cup{ }L_{B}, \; E \cup E_{B}, \; \pi \cup \pi_{B} \;)$
-            \EndIf
+		\Statex \Comment{Step 2: Iteratively find and process candidates for states Cayley table row-column / equivalence class labelling elements.}
+		\While{$A_{C} \neq \emptyset$}
+		\For{\textbf{each} $a_{C} \in A_{C}$}
+		\State $l \gets$ \Call{FindEquivElement}{$a_{C}$, \; $T_{S}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
 
-            \Statex \Comment{Create equivalence class for $a_{C}$.}
-            \State $\mathcal{E} \gets (\; L \cup \{a_{C}\}, \; E \cup \{a_{C}\}, \; \pi \cup \pi' \;)$, where $\pi': \{a_{C}\} \to \{a_{C}\}$ such that $\pi'(a_{C}) = a_{C}$.
-            \State Add elements of $\{ a_{C} \} \cup L_{B}$ as row-column labels in $T_{S}$.
-            \State $T_{S} \gets$ \Call{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
-        \EndIf
-    \EndFor
-    \State $A_{C} \gets$ \Call{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \EndWhile
-    \State \Return $T_{S}, \; \mathcal{E}$
-\EndProcedure
-\end{algorithmic}
+		\If{$l$}
+		\Statex \Comment{$a_{c}$ is a member of the equivalence class $[l]_{\sim}$, so add it to that class.}
+		\State $\mathcal{E} \gets (\; L, \; E \cup \{a_{C}\}, \; \pi \cup \pi' \;)$, where $\pi': \{a_{C}\} \to L$ such that $\pi'(a_{C}) = l$.
+
+		\Else
+		\Statex \Comment{Check if $a_{C}$ breaks any existing equivalence classes.}
+		\State $\mathcal{E}_{B} \gets ( \; L_{B}, \; E_{B}, \; \pi_{B}: E_{B} \to L_{B} \; ) \gets$ \Call{FindBrokenEquivClasses}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+
+		\If{$L_{B} \neq \emptyset$}
+		\Comment{Equivalence class(es) broken.}
+		\State $\mathcal{E} \gets (\; L, \; E \setminus E_{B}, \; \pi|_{E \setminus E_{B}} \;)$
+		\State $\mathcal{E} \gets (\; L \cup{ }L_{B}, \; E \cup E_{B}, \; \pi \cup \pi_{B} \;)$
+		\EndIf
+
+		\Statex \Comment{Create equivalence class for $a_{C}$.}
+		\State $\mathcal{E} \gets (\; L \cup \{a_{C}\}, \; E \cup \{a_{C}\}, \; \pi \cup \pi' \;)$, where $\pi': \{a_{C}\} \to \{a_{C}\}$ such that $\pi'(a_{C}) = a_{C}$.
+		\State Add elements of $\{ a_{C} \} \cup L_{B}$ as row-column labels in $T_{S}$.
+		\State $T_{S} \gets$ \Call{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
+		\EndIf
+		\EndFor
+		\State $A_{C} \gets$ \Call{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\EndWhile
+		\State \Return $T_{S}, \; \mathcal{E}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{Initialise equivalence classes.}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{InitialiseEquivClasses}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $L \gets \emptyset$
-    \State $E \gets \emptyset$
-    \State $\pi \gets (\emptyset \to \emptyset)$
-    \State $\mathcal{E} \gets (L, \; E, \; \pi)$.
-    \For{\textbf{each} $\hat{a} \in \hat{A}$}
-        \State $\mathcal{E} \gets$ \Call{AddToEquivClassesInitial}{$(\hat{a}, \;)$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathcal{W}$}
-    \EndFor
-    \State \Return $\mathcal{E}$
-\EndProcedure
-\end{algorithmic}
+	\caption{Initialise equivalence classes.}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{InitialiseEquivClasses}{$\hat{A}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $L \gets \emptyset$
+		\State $E \gets \emptyset$
+		\State $\pi \gets (\emptyset \to \emptyset)$
+		\State $\mathcal{E} \gets (L, \; E, \; \pi)$.
+		\For{\textbf{each} $\hat{a} \in \hat{A}$}
+		\State $\mathcal{E} \gets$ \Call{AddToEquivClassesInitial}{$(\hat{a}, \;)$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathcal{W}$}
+		\EndFor
+		\State \Return $\mathcal{E}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{
- Check if an element belongs to any of the equivalence classes in $\mathcal{E}$.
- If it does, then add the element to the relevant equivalence class.
- If it doesn't, then create a new equivalence class in $\mathcal{E}$ with $a$ as the class labelling element.
-}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{AddToEquivClassesInitial}{$a$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $\texttt{class$\_$found} \gets \texttt{False}$
+	\caption{
+		Check if an element belongs to any of the equivalence classes in $\mathcal{E}$.
+		If it does, then add the element to the relevant equivalence class.
+		If it doesn't, then create a new equivalence class in $\mathcal{E}$ with $a$ as the class labelling element.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{AddToEquivClassesInitial}{$a$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $\texttt{class$\_$found} \gets \texttt{False}$
 
-    \For{\textbf{each} $l \in L$}
-            \State $w_{l} \gets$ \Call{GenerateActionOutcome}{$l$, \; $w^{*}$, \; $\mathscr{W}$}
-            \If{$w_{a} = w_{l}$}
-                \Statex \Comment{Add $a$ to $l$ equivalence class in $\mathcal{E}$.}
-                \State $\mathcal{E} \gets (\; L, \; E \cup \{a\}, \; \pi \cup \pi' \;)$, where $\pi': \{a\} \to L$ such that $\pi'(a) = l$.
-                \State $\texttt{class$\_$found} \gets \texttt{True}$
-                \State \textbf{break}
-            \EndIf
-        \EndFor
-        
-        \If{\textbf{not} \texttt{class$\_$found}}
-            \Statex \Comment{Create new equivalence class in $\mathcal{E}$ labelled by $a$.}
-            \State $\mathcal{E} \gets (\; L \cup \{a\}, \; E \cup \{a\}, \; \pi \cup \pi' \;)$, where $\pi': \{a\} \to \{a\}$ such that $\pi'(a) = a$.
-        \EndIf
-        
-    \State \Return $\mathcal{E}$
-\EndProcedure
-\end{algorithmic}
+		\For{\textbf{each} $l \in L$}
+		\State $w_{l} \gets$ \Call{GenerateActionOutcome}{$l$, \; $w^{*}$, \; $\mathscr{W}$}
+		\If{$w_{a} = w_{l}$}
+		\Statex \Comment{Add $a$ to $l$ equivalence class in $\mathcal{E}$.}
+		\State $\mathcal{E} \gets (\; L, \; E \cup \{a\}, \; \pi \cup \pi' \;)$, where $\pi': \{a\} \to L$ such that $\pi'(a) = l$.
+		\State $\texttt{class$\_$found} \gets \texttt{True}$
+		\State \textbf{break}
+		\EndIf
+		\EndFor
+
+		\If{\textbf{not} \texttt{class$\_$found}}
+		\Statex \Comment{Create new equivalence class in $\mathcal{E}$ labelled by $a$.}
+		\State $\mathcal{E} \gets (\; L \cup \{a\}, \; E \cup \{a\}, \; \pi \cup \pi' \;)$, where $\pi': \{a\} \to \{a\}$ such that $\pi'(a) = a$.
+		\EndIf
+
+		\State \Return $\mathcal{E}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{
-Generate the outcome state of a world $\mathscr{W}$ when an action sequence $a$ is applied to the world in an initial state $w$.
-}
-\label{alg:GenerateActionOutcome2}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{GenerateActionOutcome}{$a$, \; $w$, \; $\mathscr{W}$}
-    \State $w_{a} \gets w$
-    \For{$i \gets 1, \dots, n$}
-        \State $w_{a} \gets \hat{a}_{i} \; \hat{\ast} \; w_{a}$ where $a = (\hat{a}_n, \; \hat{a}_{n-1}, \; \dots, \; \hat{a}_1)$ and $\hat{\ast} \in \mathscr{W}$.
-    \EndFor
-    \State \Return $w_{a}$
-\EndProcedure
-\end{algorithmic}
+	\caption{
+		Generate the outcome state of a world $\mathscr{W}$ when an action sequence $a$ is applied to the world in an initial state $w$.
+	}
+	\label{alg:GenerateActionOutcome2}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{GenerateActionOutcome}{$a$, \; $w$, \; $\mathscr{W}$}
+		\State $w_{a} \gets w$
+		\For{$i \gets 1, \dots, n$}
+		\State $w_{a} \gets \hat{a}_{i} \; \hat{\ast} \; w_{a}$ where $a = (\hat{a}_n, \; \hat{a}_{n-1}, \; \dots, \; \hat{a}_1)$ and $\hat{\ast} \in \mathscr{W}$.
+		\EndFor
+		\State \Return $w_{a}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{
-Fill the entries of the states Cayley table.
-}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $T_{S} \gets$ Empty $|L| \times |L|$ table with rows and columns labelled by the elements of $L$.
+	\caption{
+		Fill the entries of the states Cayley table.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{FillStateCayley}{$L$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $T_{S} \gets$ Empty $|L| \times |L|$ table with rows and columns labelled by the elements of $L$.
 
-    \For{\textbf{each} $l_{row} \in L$}
-    \For{\textbf{each} $l_{col} \in L$}
-        \State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
-        \State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
-        \State $T_{S}[l_{row}][l_{col}] \gets w_{a}$
-    \EndFor
-    \EndFor
-    \State \Return $T_{S}$
-\EndProcedure
-\end{algorithmic}
+		\For{\textbf{each} $l_{row} \in L$}
+		\For{\textbf{each} $l_{col} \in L$}
+		\State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $T_{S}[l_{row}][l_{col}] \gets w_{a}$
+		\EndFor
+		\EndFor
+		\State \Return $T_{S}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{Search for elements that are candidates for new Cayley table row-column elements / equivalence class labelling elements.}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $A_{C} \gets \emptyset$
-    \For{\textbf{each} $l_{row} \in L$}
-    \For{\textbf{each} $l_{col} \in L$}
-        \State $a_{C} \gets \operatorname{Combine}(l_{col}, \; l_{row})$
-        \Statex \Comment{Check if $a_{C}$ has already been processed as a candidate element.}
-        \If{$a_{C} \not\in E$}
-            \State $A_{C} \gets A_{C} \cup \{a_{C}\}$
-        \EndIf
-    \EndFor
-    \EndFor
-    \State \Return $A_{C}$
-\EndProcedure
-\end{algorithmic}
+	\caption{Search for elements that are candidates for new Cayley table row-column elements / equivalence class labelling elements.}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{FindCandidates}{$\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $A_{C} \gets \emptyset$
+		\For{\textbf{each} $l_{row} \in L$}
+		\For{\textbf{each} $l_{col} \in L$}
+		\State $a_{C} \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\Statex \Comment{Check if $a_{C}$ has already been processed as a candidate element.}
+		\If{$a_{C} \not\in E$}
+		\State $A_{C} \gets A_{C} \cup \{a_{C}\}$
+		\EndIf
+		\EndFor
+		\EndFor
+		\State \Return $A_{C}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{
-Search for an element in $T_{S}$ that is equivalent to $a_{C}$.
-If it exists, there should only be one such element.
-}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{FindEquivElement}{$a_{C}$, \; $T_{S}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \Statex \Comment{If $a_{C}$ in sorted elements, then return equiv class immediately}
-    \State $(a_{C})_{row} \gets$ \Call{GenerateElementRow}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $(a_{C})_{col} \gets$ \Call{GenerateElementColumn}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+	\caption{
+		Search for an element in $T_{S}$ that is equivalent to $a_{C}$.
+		If it exists, there should only be one such element.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{FindEquivElement}{$a_{C}$, \; $T_{S}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\Statex \Comment{If $a_{C}$ in sorted elements, then return equiv class immediately}
+		\State $(a_{C})_{row} \gets$ \Call{GenerateElementRow}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $(a_{C})_{col} \gets$ \Call{GenerateElementColumn}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
 
-    \For{$l \in L$}
-        \Statex \Comment{Retrieve the row labelled by $l$ from $T_{S}$.}
-        \State $l_{row} \gets$ \Call{GetCayleyRow}{$l$, \; $T_{S}$}
-        \Statex \Comment{Retrieve the column labelled by $l$ from $T_{S}$.}
-        \State $l_{col} \gets$ \Call{GetCayleyColumn}{$l$, \; $T_{S}$}
-        
-        \If{$(a_{C})_{row} = l_{row}$ \textbf{and} $(a_{C})_{col} = l_{col}$}
-            \State \Return $l$
-        \EndIf
-    \EndFor
-\EndProcedure
+		\For{$l \in L$}
+		\Statex \Comment{Retrieve the row labelled by $l$ from $T_{S}$.}
+		\State $l_{row} \gets$ \Call{GetCayleyRow}{$l$, \; $T_{S}$}
+		\Statex \Comment{Retrieve the column labelled by $l$ from $T_{S}$.}
+		\State $l_{col} \gets$ \Call{GetCayleyColumn}{$l$, \; $T_{S}$}
 
-\Statex
-\Procedure{GenerateElementRow}{$a_{C}$, \; $L$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $a_{row} \gets \{ \; \}$
-    \For{\textbf{each} $l_{col} \in L$}
-        \State $a \gets \operatorname{Combine}(l_{col}, \; a_{C})$
-        \State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
-        \State $a_{row}[l_{col}] \gets w_{a}$
-    \EndFor
-    \State \Return $a_{row}$
-\EndProcedure
+		\If{$(a_{C})_{row} = l_{row}$ \textbf{and} $(a_{C})_{col} = l_{col}$}
+		\State \Return $l$
+		\EndIf
+		\EndFor
+		\EndProcedure
 
-\Statex
-\Procedure{GenerateElementColumn}{$a_{C}$, \; $L$, \; $w^{*}$, \; $\mathscr{W}$}
-\hrulefill
-    \State $a_{col} \gets \{ \; \}$
-    \For{\textbf{each} $l_{row} \in L$}
-        \State $a \gets \operatorname{Combine}(a_{C}, \; l_{row})$
-        \State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
-        \State $a_{col}[l_{row}] \gets w_{a}$
-    \EndFor
-    \State \Return $a_{col}$
-\EndProcedure
-\end{algorithmic}
+		\Statex
+		\Procedure{GenerateElementRow}{$a_{C}$, \; $L$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $a_{row} \gets \{ \; \}$
+		\For{\textbf{each} $l_{col} \in L$}
+		\State $a \gets \operatorname{Combine}(l_{col}, \; a_{C})$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $a_{row}[l_{col}] \gets w_{a}$
+		\EndFor
+		\State \Return $a_{row}$
+		\EndProcedure
+
+		\Statex
+		\Procedure{GenerateElementColumn}{$a_{C}$, \; $L$, \; $w^{*}$, \; $\mathscr{W}$}
+		\hrulefill
+		\State $a_{col} \gets \{ \; \}$
+		\For{\textbf{each} $l_{row} \in L$}
+		\State $a \gets \operatorname{Combine}(a_{C}, \; l_{row})$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $a_{col}[l_{row}] \gets w_{a}$
+		\EndFor
+		\State \Return $a_{col}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]
-\caption{
-Find equivalence classes in $\mathcal{E} = (L, \; E, \; \pi: E \to L)$ that are broken by $a_{C}$.
-}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{FindBrokenEquivClasses}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
-    \State $L_{B} \gets \emptyset$
-    \State $E_{B} \gets \emptyset$
-    \State $\pi_{B} \gets (\emptyset \to \emptyset)$
-    \State $\mathcal{E}_{B} \gets (L_{B}, \; E, \; \pi)$
-    \For{\textbf{each} $l \in L$}
-        \State $a \gets \operatorname{Combine}(l, \; a_{C})$
-        \State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
-        \For{\textbf{each} $b \in E$ where $\pi(b) = l$}
-            \State $a' = \operatorname{Combine}(b, \; a_{C})$
-            \State $w_{a'} \gets$ \Call{GenerateActionOutcome}{$a'$, \; $w^{*}$, \; $\mathscr{W}$}
-            
-            \If{$w_{a} \neq w_{a'}$}
-                \Statex \Comment{Equivalence class $[l]_{\sim}$ broken by $a_{C}$ so add $b$ to $\mathcal{E}_{B}$.}
-                \State \texttt{class$\_$found} $\gets$ \texttt{False}
-                
-                \For{\textbf{each} $l_{B} \in L_{B}$}
-                    \State $a'' \gets \operatorname{Combine}(l_{B}, \; a_{C})$
-                    \State $w_{a''} \gets$ \Call{GenerateActionOutcome}{$a''$, \; $w^{*}$, \; $\mathscr{W}$}
+	\caption{
+		Find equivalence classes in $\mathcal{E} = (L, \; E, \; \pi: E \to L)$ that are broken by $a_{C}$.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{FindBrokenEquivClasses}{$a_{C}$, \; $\mathcal{E}$, \; $w^{*}$, \; $\mathscr{W}$}
+		\State $L_{B} \gets \emptyset$
+		\State $E_{B} \gets \emptyset$
+		\State $\pi_{B} \gets (\emptyset \to \emptyset)$
+		\State $\mathcal{E}_{B} \gets (L_{B}, \; E, \; \pi)$
+		\For{\textbf{each} $l \in L$}
+		\State $a \gets \operatorname{Combine}(l, \; a_{C})$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
+		\For{\textbf{each} $b \in E$ where $\pi(b) = l$}
+		\State $a' = \operatorname{Combine}(b, \; a_{C})$
+		\State $w_{a'} \gets$ \Call{GenerateActionOutcome}{$a'$, \; $w^{*}$, \; $\mathscr{W}$}
 
-                    \If{$w_{a'} = w_{a''}$}
-                        \Statex \Comment{Add $b$ to $l_{B}$ equivalence class in $\mathcal{E}_{B}$ labelled by $l_{B}$.}
-                        \State $\mathcal{E}_{B} \gets ( \; L_{B}, \; E_{B} \cup \{b\}, \; \pi \cup \pi' \; )$, where $\pi': \{b\} \to L$ such that $\pi'(b) = l_{B}$.
-                        \State \texttt{class$\_$found} $\gets$ \texttt{True}
-                        \State \textbf{break}
-                    \EndIf
-                \EndFor
-                \If{\textbf{not} \texttt{class$\_$found}}
-                    \Statex \Comment{Create new equivalence class in $\mathcal{E}_{B}$ labelled by $a$.}
-                    \State $\mathcal{E}_{B} \gets (\; L \cup \{b\}, \; E \cup \{b\}, \; \pi \cup \pi' \;)$, where $\pi': \{b\} \to \{b\}$ such that $\pi'(b) = b$.
-                \EndIf
-            \EndIf
-        \EndFor
-    \EndFor
+		\If{$w_{a} \neq w_{a'}$}
+		\Statex \Comment{Equivalence class $[l]_{\sim}$ broken by $a_{C}$ so add $b$ to $\mathcal{E}_{B}$.}
+		\State \texttt{class$\_$found} $\gets$ \texttt{False}
 
-    \State \Return $( \; L_{B}, \; E_{B}, \; \pi_{B}: E_{B} \to L_{B} \; )$
-\EndProcedure
-\end{algorithmic}
+		\For{\textbf{each} $l_{B} \in L_{B}$}
+		\State $a'' \gets \operatorname{Combine}(l_{B}, \; a_{C})$
+		\State $w_{a''} \gets$ \Call{GenerateActionOutcome}{$a''$, \; $w^{*}$, \; $\mathscr{W}$}
+
+		\If{$w_{a'} = w_{a''}$}
+		\Statex \Comment{Add $b$ to $l_{B}$ equivalence class in $\mathcal{E}_{B}$ labelled by $l_{B}$.}
+		\State $\mathcal{E}_{B} \gets ( \; L_{B}, \; E_{B} \cup \{b\}, \; \pi \cup \pi' \; )$, where $\pi': \{b\} \to L$ such that $\pi'(b) = l_{B}$.
+		\State \texttt{class$\_$found} $\gets$ \texttt{True}
+		\State \textbf{break}
+		\EndIf
+		\EndFor
+		\If{\textbf{not} \texttt{class$\_$found}}
+		\Statex \Comment{Create new equivalence class in $\mathcal{E}_{B}$ labelled by $a$.}
+		\State $\mathcal{E}_{B} \gets (\; L \cup \{b\}, \; E \cup \{b\}, \; \pi \cup \pi' \;)$, where $\pi': \{b\} \to \{b\}$ such that $\pi'(b) = b$.
+		\EndIf
+		\EndIf
+		\EndFor
+		\EndFor
+
+		\State \Return $( \; L_{B}, \; E_{B}, \; \pi_{B}: E_{B} \to L_{B} \; )$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generating actions Cayley table}
 
 \begin{algorithm}[H]
-\caption{
-Generate actions Cayley table $T_{A}$.
-}
-\hrulefill
-\begin{algorithmic}[1]
-\Procedure{GenerateActionsCayley}{$T_{S}$, \; $\mathcal{E}$}
-    \State $T_{A} \gets$ Empty $|L| \times |L|$ table with rows and columns labelled by the elements of $L$.
-    \Statex \Comment{Fill actions Cayley table.}
-    \For{\textbf{each} $l_{row} \in L$}
-        \For{\textbf{each} $l_{col} \in L$}
-            \Statex \Comment{Find class labelling equivalent to $l_{col} \circ l_{row}$ by finding the equivalence class of $\operatorname{Combine}(l_{col}, \; l_{row})$ and getting the class label.}
-            \State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
-            \State $T_{A}[l_{row}][l_{col}] \gets \pi(a)$
-        \EndFor
-    \EndFor
+	\caption{
+		Generate actions Cayley table $T_{A}$.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{GenerateActionsCayley}{$T_{S}$, \; $\mathcal{E}$}
+		\State $T_{A} \gets$ Empty $|L| \times |L|$ table with rows and columns labelled by the elements of $L$.
+		\Statex \Comment{Fill actions Cayley table.}
+		\For{\textbf{each} $l_{row} \in L$}
+		\For{\textbf{each} $l_{col} \in L$}
+		\Statex \Comment{Find class labelling equivalent to $l_{col} \circ l_{row}$ by finding the equivalence class of $\operatorname{Combine}(l_{col}, \; l_{row})$ and getting the class label.}
+		\State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\State $T_{A}[l_{row}][l_{col}] \gets \pi(a)$
+		\EndFor
+		\EndFor
 
-    \State \Return $T_{A}$
-\EndProcedure
-\end{algorithmic}
+		\State \Return $T_{A}$
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \whendraft{
-\section{Example [\textbf{To do}]}
-\begin{enumerate}
-    \item Go through code step-by-step.
-\end{enumerate}
+	\section{Example [\textbf{To do}]}
+	\begin{enumerate}
+		\item Go through code step-by-step.
+	\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \whendraft{
-\section{Mathematical justification}
-\noindent\rule{\textwidth}{1mm}
-\textbf{To do:}
-\begin{enumerate}
-    \item Proof that algorithm halts when it has all necessary elements and not before.
-\end{enumerate}
-\noindent\rule{\textwidth}{1mm}
+	\section{Mathematical justification}
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{To do:}
+	\begin{enumerate}
+		\item Proof that algorithm halts when it has all necessary elements and not before.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
 }

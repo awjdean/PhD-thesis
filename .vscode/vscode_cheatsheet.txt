@@ -1,2 +1,5 @@
-Jump to section in PDF from code: CMD + OPT + J.
-Jump to section in code from PDF: CMD + click.
+Jump to section in PDF from code: `CMD + OPT + J`.
+Jump to section in code from PDF: `CMD + click`.
+Compile: `CMD + OPT + B` (use `CMD + SHIFT + B` for Cursor).
+View PDF: `CMD + OPT + V` (use `CMD + SHIFT + V` for Cursor).
+Clean auxiliary files (can help with compilation issues): `CMD + OPT + C`
