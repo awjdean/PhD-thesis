@@ -11,7 +11,7 @@
 
 %%
 % Load the common style elements
-\input{LaTeX/tufte-common.def}
+\input{LaTeX/tufte-common2.def}
 
 %%
 % Set up any book-specific stuff now

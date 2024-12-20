@@ -1462,13 +1462,42 @@
   }%
 }
 
+% %%
+% % Full-page-width area
+% \newenvironment{fullwidth}{%
+%     \begin{adjustwidth}{}{-\@tufte@overhang}%
+% }{%
+%     \end{adjustwidth}%
+% }
+
+%%
+% Full-width figure
+
+\renewenvironment{figure*}[1][htbp]%
+  {\ifvmode\else\unskip\fi\begin{@tufte@float}[#1]{figure}{star}}
+  {\end{@tufte@float}}
+
+
+%%
+% Full-width table
+
+\renewenvironment{table*}[1][htbp]%
+  {\ifvmode\else\unskip\fi\begin{@tufte@float}[#1]{table}{star}}
+  {\end{@tufte@float}}
+
+
 %%
 % Full-page-width area
-\newenvironment{fullwidth}{%
-    \begin{adjustwidth}{}{-\@tufte@overhang}%
-}{%
-    \end{adjustwidth}%
-}
+
+\newenvironment{fullwidth}
+  {\ifthenelse{\boolean{@tufte@symmetric}}%
+     {\ifthenelse{\boolean{@tufte@changepage}}{\begin{adjustwidth*}{}{-\@tufte@overhang}}{\begin{adjustwidth}[]{}{-\@tufte@overhang}}}%
+     {\begin{adjustwidth}{}{-\@tufte@overhang}}%
+  }%
+  {\ifthenelse{\boolean{@tufte@symmetric}}%
+    {\ifthenelse{\boolean{@tufte@changepage}}{\end{adjustwidth*}}{\end{adjustwidth}}}%
+    {\end{adjustwidth}}%
+  }
 
 %%
 % Format the captions in a style similar to the sidenotes
