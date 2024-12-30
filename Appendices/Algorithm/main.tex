@@ -1,5 +1,5 @@
 \chapter{Algorithm (change name)}
-\begin{table}[H]
+\begin{table*}
 	\centering
 	\begin{tabularx}{\textwidth}{@{}lX@{}}
 		\toprule
@@ -20,7 +20,7 @@
 	\end{tabularx}
 	\caption{Key for pseudocode.}
 	\label{tab:pseudocode_key}
-\end{table}
+\end{table*}
 
 
 
@@ -52,14 +52,23 @@
 		\item What is states Cayley table?
 		\item What is actions Cayley table?
 		\item Mention that the only bit of information needed from $\mathscr{W}$ is the mapping: $\hat{*}: \hat{A} \times W \to W$ that takes a minimum action and applies it to a world state.
-	\end{enumerate}
 
-	\begin{enumerate}
 		\item Change name of `states Cayley table' and `actions Cayley table` ?
-		      \begin{itemize}
-			      \item Cayley table is already a thing.
-		      \end{itemize}
-	\end{enumerate}
+          \begin{itemize}
+              \item Cayley table is already a thing.
+          \end{itemize}
+
+    \item Reasons for developing this algorithm
+    \begin{compactitem}
+        \item It's common for algorithms to be built around a single starting world states (give examples).
+        \item A method that does this might make more sense for an agent since it starts at a known state and iterates out rather than having to know all states at once (which might not even be possible if $W$ is infinite.
+        Can we derive a way that the algorithm can work without the agent returning to its initial world state $w^{*}$ ?
+        \item This algorithm attempts to build the algebra as it goes, and so better reflect the experience of an agent.
+    \end{compactitem}
+
+    \item Naming issue with $l_{row}$ and $l_{col}$ - used (in different functions) for row labels and states Cayley table row.
+    
+\end{enumerate}
 }
 
 
@@ -132,8 +141,8 @@ Once again, we can use that any action $a$ can be represented by a minimum actio
 We apply each minimum action in order (moving from the RHS to the LHS of the tuple) to get the resulting world state of applying $a$ directly to the world state:
 \begin{equation}
 	\begin{aligned}
-		a * w = & (\hat{a}_{n} \circ \dots \circ \hat{a}_{2} \circ \hat{a}_{1}) * w \\
-		=       & \hat{a}_{n} * ( \dots (\hat{a}_{2} * (\hat{a}_{1} * w)) \dots)
+		a * w = & \; (\hat{a}_{n} \circ \dots \circ \hat{a}_{2} \circ \hat{a}_{1}) * w \\
+		= & \; \hat{a}_{n} * ( \dots (\hat{a}_{2} * (\hat{a}_{1} * w)) \dots)
 	\end{aligned}
 \end{equation}
 
@@ -305,7 +314,7 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 
 		\For{\textbf{each} $l_{row} \in L$}
 		\For{\textbf{each} $l_{col} \in L$}
-		\State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\State $a \gets \operatorname{Combine}(l_{row}, \; l_{col})$
 		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
 		\State $T_{S}[l_{row}][l_{col}] \gets w_{a}$
 		\EndFor
@@ -324,7 +333,7 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 		\State $A_{C} \gets \emptyset$
 		\For{\textbf{each} $l_{row} \in L$}
 		\For{\textbf{each} $l_{col} \in L$}
-		\State $a_{C} \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\State $a_{C} \gets \operatorname{Combine}(l_{row}, \; l_{col})$
 		\Statex \Comment{Check if $a_{C}$ has already been processed as a candidate element.}
 		\If{$a_{C} \not\in E$}
 		\State $A_{C} \gets A_{C} \cup \{a_{C}\}$
@@ -365,7 +374,7 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 		\Procedure{GenerateElementRow}{$a_{C}$, \; $L$, \; $w^{*}$, \; $\mathscr{W}$}
 		\State $a_{row} \gets \{ \; \}$
 		\For{\textbf{each} $l_{col} \in L$}
-		\State $a \gets \operatorname{Combine}(l_{col}, \; a_{C})$
+		\State $a \gets \operatorname{Combine}(a_{C}, \; l_{col})$
 		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
 		\State $a_{row}[l_{col}] \gets w_{a}$
 		\EndFor
@@ -377,7 +386,7 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 		\hrulefill
 		\State $a_{col} \gets \{ \; \}$
 		\For{\textbf{each} $l_{row} \in L$}
-		\State $a \gets \operatorname{Combine}(a_{C}, \; l_{row})$
+		\State $a \gets \operatorname{Combine}(l_{row}, \; a_{C})$
 		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\mathscr{W}$}
 		\State $a_{col}[l_{row}] \gets w_{a}$
 		\EndFor
@@ -447,8 +456,8 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 		\Statex \Comment{Fill actions Cayley table.}
 		\For{\textbf{each} $l_{row} \in L$}
 		\For{\textbf{each} $l_{col} \in L$}
-		\Statex \Comment{Find class labelling equivalent to $l_{col} \circ l_{row}$ by finding the equivalence class of $\operatorname{Combine}(l_{col}, \; l_{row})$ and getting the class label.}
-		\State $a \gets \operatorname{Combine}(l_{col}, \; l_{row})$
+		\Statex \Comment{Find class labelling equivalent to $l_{row} \circ l_{col}$ by finding the equivalence class of $\operatorname{Combine}(l_{row}, \; l_{col})$ and getting the class label.}
+		\State $a \gets \operatorname{Combine}(l_{row}, \; l_{col})$
 		\State $T_{A}[l_{row}][l_{col}] \gets \pi(a)$
 		\EndFor
 		\EndFor

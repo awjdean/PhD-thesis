@@ -44,16 +44,24 @@ A \emph{world} $\mathscr{W}$ is a directed multigraph $\mathscr{W} = (W, \hat{D}
 
 \newthought{We are interested} in the all the transformations of our world $\mathscr{W}$, not just the minimum transformations.
 We let the set of all finite directed walks in $\mathscr{W}$ be called the \emph{set of all transformations} and denote it by $D$; we call the elements of $D$ \emph{transformations}\footnote{Minimum transformations are also transformations.}.
-A transformation $d \in D$ is a sequence of minimum world state transformations $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, where $\hat{\circ}: \hat{D} \times \hat{D} \to D$ is a composition operator\footnote{This operator is the operator of concatenation of walks.} that is defined if $\hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1})$ for $i = 1, ..., n-1$.
+A transformation $d \in D$ is a sequence of minimum world state transformations $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, where $\hat{\circ}: \hat{D} \times \hat{D} \to D$ is a composition operator\footnote{This operator is the operator of concatenation of walks.} that is defined if \draftnote{blue}{awjdean}{Put full definition of $\hat{\circ}$ in equation env.}
+\begin{equation}
+    \hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1}) \quad \text{for $i = 1, ..., n-1$.}
+\end{equation}
+
 The composition operator $\hat{\circ}$ is associative\footnote{If an operator $\cdot$ is \emph{associative}, it means that when we perform the operation $\cdot$ on three or more elements, the way in which the elements are grouped does not affect the outcome; this is commonly shown using the condition $a \cdot (b \cdot c) = (a \cdot b) \cdot c$.} by the definition of concatenation of walks.
-We have constructed our transformations this way because it means that each transformation in $D$ can be represented as a unique composition of minimum transformations.
+We have constructed our transformations this way because it means that each transformation in $D$ can be represented as a unique composition of minimum transformations \draftnote{blue}{awjdean}{Reword this sentence.}.
 The \emph{length} of a transformation is the number of minimum transformations in its unique composition of minimum transformations\footnote{This means minimum transformations have a length of one.}.
 
 \paragraph{Trivial transformations.}
 For each world state $w \in W$, there is an element in $\hat{D}$ that represents a walk with no transformations that starts and ends at $w$ (\textit{i.e.}, $\hat{s}(1_{w}) = \hat{t}(1_{w}) = w$); this element is denoted by $1_{w}$.
-We denote the set of trivial transformations by $D_{\epsilon}$.
+We denote the set of trivial transformations by $D_{\epsilon}$ \draftnote{blue}{awjdean}{Equation environment defining $D_{\epsilon}$.}.
 These transformations are called \emph{trivial transformations}\footnote{Trivial transformations essentially represent nothing happening; we will hear more about this when we look at the actions of agents.}.
-Trivial transformations serve as a neutral element in walk concatenation; this means trivial transformations do not alter other walks when they are composed with them\footnote{This property of trivial transformations is part of the definition of path concatenation and is analogous to the identity element in algebraic structures.}: for any $\hat{d} \in \hat{D}$, $d \hat{\circ} 1_{\hat{s}(d)} = d$ and $1_{\hat{t}(d)} \hat{\circ} d = d$ \footnote{Due to this aspect of the definition of trivial transformations, transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation).
+Trivial transformations serve as a neutral element in walk concatenation; this means trivial transformations do not alter other walks when they are composed with them\footnote{This property of trivial transformations is part of the definition of path concatenation and is analogous to the identity element in algebraic structures.}
+\begin{equation}
+    d \hat{\circ} 1_{\hat{s}(d)} = d \text{ and } 1_{\hat{t}(d)} \hat{\circ} d = d \quad \text{for any $\hat{d} \in \hat{D}$}
+\end{equation}
+ \footnote{Due to this aspect of the definition of trivial transformations, transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation).
 	For example, $\hat{d} \hat{\circ} 1_{\hat{s}(\hat{d})}$ is the same element in $D$ as $\hat{d}$.}.
 Due to this behaviour, trivial transformations are said to have a length of zero.
 
@@ -63,7 +71,7 @@ $s$ is defined such that for any $d \in D$ with $d = \hat{d}_{n} \hat{\circ} \ha
 $t$ is defined such that for any $d \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$, $t(d) = \hat{t}(\hat{d}_{n})$.
 
 We also extend the minimum transformation composition operator $\hat{\circ}: \hat{D} \times \hat{D} \to D$ to a composition operator $\circ: D \times D \to D$ that is defined for $d' \circ d$ if $t(d) = s(d')$.
-For any $d, d' \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$ and $d' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1}$, $d' \circ d = d''$ where $d'' \in D$ is defined, $d'' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1} \hat{\circ} \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$.
+For any $d, d' \in D$ with $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$ and $d' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1}$, $d' \circ d = d''$ where $d'' \in D$ is defined, $d'' = \hat{d'}_{n} \hat{\circ} \hat{d'}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d'}_{1} \hat{\circ} \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}$ \draftnote{blue}{awjdean}{Put definition of $\circ$ in equation env.}.
 $\circ$ is associative following from the associativity of $\hat{\circ}$.
 
 Since the extended source map $s$, target map $t$, and composition operator $\circ$ encompass the minimum transformation source map $\hat{s}$, target map $\hat{t}$, and composition operator $\hat{\circ}$, we will use the extended $s$, $t$, and $\circ$ in the remainder of this work.
@@ -221,7 +229,12 @@ An agent's action model is intrinsically linked to its representation model sinc
 		\item \textbf{Figures:}
 		      \begin{itemize}
 			      \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
-			      \item Diagram showing mapping from $W$ to $O$ to $Z$.
+			      \item Diagram showing mapping from $W$ to $O$ to $Z$. Also have diagram showing $W$ to $O$ to $Z$ for agent with ideal sensors.
+                  \begin{figure}[H]
+            	\centering
+            	\includegraphics[scale = 0.35]{2MathematicalFramework/InitialFramework/Images/W_to_O_to_Z_mapping.png}
+            	\caption{The composite mapping from the set $W$ of world states to the set $Z$ of state representations via the set $O$ of observations.}
+            \end{figure}
 		      \end{itemize}
 	\end{enumerate}
 	\noindent\rule{\textwidth}{1mm}
@@ -489,6 +502,7 @@ A summary of the procedure we've taken to label the transformations of a world $
 
 
 \paragraph{Effect of actions on world states.}
+\draftnote{blue}{awjdean}{Define $\hat{\ast}$ first then extend to $\ast$ - we need $\hat{\ast}$ for Cayley algorithms.}
 Unlike transformations, which are tied to individual world states, actions can have different outcomes when applied to different world states.
 For example, it could be the case that applying the action $a$ followed by the action $b$ on a world state $w_{1}$ gives back the original world state, while applying $a$ followed by $b$ on world state $w_{2}$ could give a different world state $w_{3}$ - the action sequence $ba$ produces the original world state when applied to certain world states (e.g., $w_{1}$), but produces a world state that is not the original world state when applied to other world states (e.g., $w_{2}$).
 Due to this behaviour, we need a way to describe how actions change world states.
@@ -501,11 +515,23 @@ We define the \emph{effect of an action $a \in \hat{A}^{\ast}$ on a world state 
 		      \item if there does not exist a $d: w \xrightarrow{a} t(d)$, then we say that $a \ast w$ is \emph{undefined}.
 	      \end{enumerate}
 \end{itemize}
-From now on, unless stated otherwise, when we give something like $a \ast w$ we will assume that $a \ast w$ is defined.
+From now on, unless stated otherwise, when we give something like $a \ast w$ we will assume that $a \ast w$ is defined \draftnote{blue}{awjdean}{Remove this ? - have introduced $\bot$ state.}.
 
-The effect of actions on world states is well-defined due to action condition \ref{actcon:action_gives_single_outcome}.
 
-We can apply the minimum actions that make up an action to world states individually:
+The effect of actions on world states is well-defined due to action condition \ref{actcon:action_gives_single_outcome} \draftnote{blue}{awjdean}{Prove this explicitly?}.
+
+The compatibility of $\ast$ and $\circ$ is given by:
+\begin{equation}\label{eqn:circ_ast_compatibility}
+    (a' \circ a) \ast w = a' \ast (a \ast w) \quad \text{for any $a, a' \in \hat{A}^{\ast}$ and $w \in W$}
+\end{equation}
+\footnote{
+This follows naturally from the composition consistency property on the labelling map $l$:
+If $d_{1}: w \xrightarrow{a} w'$ and $d_{2}: w' \xrightarrow{a'} w''$, then $d_{2} \circ d_{1}: w \xrightarrow{a' \circ a} w''$.
+By the definition of $\ast$, $a * w = t(d_{1})$, $a' \ast (a \ast w) = t(d_{2})$, and $(a' \circ a) \ast w = t(d_{2} \circ d_{1})$.
+Therefore, since $d_{2} \circ d_{1}$ has the label $a' \circ a$, we see that $(a' \circ a) \ast w = a' \ast (a \ast w)$.
+}
+
+This means we can apply the minimum actions that make up an action to world states individually:
 
 if $a = \hat{a}_{k}...\hat{a}_{1}$, then
 \begin{align}
@@ -515,14 +541,20 @@ if $a = \hat{a}_{k}...\hat{a}_{1}$, then
 	         & = \dots
 \end{align}
 
-We can also apply split actions into short sequences of actions and apply those:
+We can also split actions into short sequences of actions and apply those:
 
 if $a = \hat{a}_{k}...\hat{a}_{1}$, then
 \begin{align}
 	a \ast w & = (\hat{a}_{k} \dots \hat{a}_{3}) \ast (\hat{a}_{2} \ast (\hat{a}_{1} \ast w)) \\
-	         & = (\hat{a}_{k} \dots \hat{a}_{3}) \ast ((\hat{a}_{2} \hat{a}_{1}) \ast w)      \\
+	         & = (\hat{a}_{k} \dots \hat{a}_{3}) \ast ((\hat{a}_{2} \circ \hat{a}_{1}) \ast w)      \\
 	         & = \dots
 \end{align}
+
+Equation \ref{eqn:circ_ast_compatibility} means that $\ast$ is an \emph{action} of the algebra $(\hat{A}^{\ast}, \circ)$ on the set $W$ \footnote{
+The action of an algebra is different to the actions of an agent.
+Yes, it's confusing!
+}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Actions as (partial) functions.}
@@ -764,7 +796,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 \whendraft{
 	\noindent\rule{\textwidth}{1mm}
 	\textbf{To do:}
-	\begin{compactitem}
+	\begin{enumerate}
 		\item Appendix: Why $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
 
 		\item Have I said that $\hat{D}_{A}$ contains $D_{\epsilon}$ by definition ?
@@ -786,7 +818,12 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 
 		\item Action condition \ref*{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
 		In other words, the transitions in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
-	\end{compactitem}
+        \item Summary
+        \begin{compactitem}
+            \item $a \sim a' \Leftrightarrow f_{a} = f_{a'} \Leftrightarrow \textit{for all } w \in W^{\bot}, \; a \ast w = a' \ast w$.
+            \item $\hat{A}^{\ast}/\sim \; \Leftrightarrow \mathcal{T}$ (set of distinct transformations $W^{\bot} \to W^{\bot}$.
+        \end{compactitem}
+	\end{enumerate}
 
 	\textbf{Questions/thoughts that have been answered:}
 	\begin{compactitem}
@@ -1090,31 +1127,56 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motivation}
 
-We now have:
+We now have \draftnote{blue}{awjdean}{Improve this - include stuff like the set $\mathcal{T}$.}
 \begin{enumerate}[(1)]
-	\item an infinite set $D$ of transformations, which are walks in the directed multigraph $\mathscr{W}=(W, \hat{D}, s, t)$,
+	\item an infinite set $D$ of transformations, which are walks in the directed multigraph $\mathscr{W}=(W, \hat{D}, s, t)$;
 
-	\item an infinite set $D_{A}$ of action transformations, which are walks in the directed multigraph $\mathscr{W}_{A}=(W, \hat{D}_{A}, s, t)$,
+	\item an infinite set $D_{A}$ of action transformations, which are walks in the directed multigraph $\mathscr{W}_{A}=(W, \hat{D}_{A}, s, t)$;
 
-	\item an infinite, but less dense, set $\hat{A}^{\ast}$ of actions, and
+	\item an infinite, but less dense, set $\hat{A}^{\ast}$ of actions;
 
-	\item a labelling map $l: D_{A} \to \hat{A}^{\ast}$ that allows us to construct an infinite number of functions $f_{a}$ that describe the effect of the actions in $\hat{A}^{\ast}$.
+	\item a labelling map $l: D_{A} \to \hat{A}^{\ast}$ that allows us to construct an infinite number of functions $f_{a}$ that describe the effect of the actions in $\hat{A}^{\ast}$; and
+
+    \item a free monoid algebra $(\hat{A}^{\ast}, \; \circ)$.
 \end{enumerate}
 
-As it stands, our agent would need to learn an infinite number of transformations (the elements of $D$) or the effect of an infinite number of actions to learn the structure of the world (the structure of $(\hat{A}^{\ast}, \circ, \ast)$).
-To simplify this learning problem, we will define an equivalence relation $\sim$ to enforce additional structure on $\hat{A}^{\ast}$ to create a new algebra which should be easier for an agent to learn than learning every element in an infinite set.
-We also believe agents can gain a better understanding of the structure of the world though learning the structure of the algebras we will construct \draftnote{blue}{awjdean}{
+
+Our basic algebra of actions $(\hat{A}^{\ast}, \; \circ)$ is a (countably infinite) free monoid; this is the same for any world.
+However, we expect that there must be more structure we can tease out of our $(\hat{A}^{\ast}, \; \circ)$ since it appears that different worlds have different transformation structures.
+But how do we produce those structures from $(\hat{A}^{\ast}, \; \circ)$ ?
+If we want to form other recognisable algebraic structures (e.g., groups, semigroups etc...), we need some way of saying collections of transformations (i.e., the actions that are elements of $\hat{A}^{\ast}$) are the same in some way, otherwise, there is no way to satisfy the requirements of these algebras (\textit{e.g.}, for the inverse property we need an element $a'$ in $\hat{A}^{\ast}$ for each $a \in \hat{A}^{\ast}$ such that $a' \circ a = \epsilon$ and $a \circ a' = \epsilon$).
+
+To solve this issue and to enforce the structure of the world on the algebra $(\hat{A}^{\ast}, \; \circ)$, we will define an equivalence relation $\sim$ on the elements of $\hat{A}^{\ast}$.
+This equivalence relation will enforce aspects of the structure of the world onto the free monoid $(\hat{A}^{\ast}, \; \circ)$ to give us a new algebra $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$ \draftnote{blue}{awjdean}{Do we actually need congruences?}, where it is now possible to satisfy properties like the inverse condition.
+
+Additionally, considering the learning problem of the agent, as it stands, our agent would need to learn an infinite number of transformations (the elements of $D$) each of which is specific to individual world states or the effect of an infinite number of actions to learn the structure of the world (the structure of $(\hat{A}^{\ast}, \circ, \ast)$).
+The structure of the new algebra $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$ should be easier for an agent to learn than learning every element in an infinite set.
+We also believe agents can gain a better understanding of the structure of the world though learning the structure of the algebras we will construct using equivalence relations \draftnote{blue}{awjdean}{
 	We actually think this is what agent's do when they learn the structure of the world
 }.
 
-We can also describe the effect $\ast: \hat{A}^{\ast} \times W \to W$ of the actions of the agent on the world $\mathscr{W} = (W, \hat{D}, s, t)$ as the partial action of the (global) algebra $(\hat{A}^{\ast}, \circ)$ on the set $W$.
+\footnote{
+When we define an equivalence $\sim$ on $\hat{A}^{\ast}$ to get the set $\hat{A}^{\ast}/\sim$, we can think of our set $\hat{A}^{\ast}$ `folding over' on itself to make elements of $\hat{A}^{\ast}$ that are equivalent stick together.
+}
+
+
+
+\whendraft{
+\draftnote{red}{DIVIDER}{}
+\draftnote{blue}{awjdean}{Do something with this - something about how extracting the global algebra provides generalisation potential.
+}
+We can also describe the effect $\ast: \hat{A}^{\ast} \times W \to W$ of the actions of the agent on the world $\mathscr{W} = (W, \hat{D}, s, t)$ as the action of the (global) algebra $(\hat{A}^{\ast}, \circ)$ on the set $W$.
 If such a global algebra exists, then it is possible for our agent to learn the structure of $(\hat{A}^{\ast}, \circ)$ and so understand the transformation structure of its actions without considering its current world state; this could have powerful generalisation capabilities.
 \draftnote{blue}{awjdean}{
 	I currently think that a global algebra does always exist, but that sometimes it's horrible and doesn't really abstract away the effect of the actions from the world states since it requires a map that connects to the world states to tell the algebra on which world states things are and aren't defined.
 }
+\draftnote{red}{DIVIDER}{}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{An equivalence relation: $\sim$}
+
+We define an equivalence relation on the elements of $\hat{A}^{\ast}$ that says two actions are equivalent (our sense of the actions being the same) if they lead to the same end world state when performed in any initial world state. \draftnote{blue}{awjdean}{Footnote about how this was inspired by \autocite{caselles2020sensory} is our mathematical interpretation of equality in \autocite{Higgins2018}.}
 
 \begin{definition}[Equivalence of actions under $\sim$]
 	Given two actions $a, a' \in \hat{A}^{\ast}$,
@@ -1123,11 +1185,13 @@ If such a global algebra exists, then it is possible for our agent to learn the 
 	\end{equation}
 \end{definition}
 
+\draftnote{blue}{awjdean}{Footnote about this being true for actions leading to the undefined state (and why).}
+
 \begin{proposition}
 	$\sim$ is an equivalence relation on $\hat{A}^{\ast}$.
 \end{proposition}
 \begin{proof}
-	\draftnote{blue}{awjdean}{Check this.}
+	\draftnote{blue}{awjdean}{Check/improve this.}
 	\textbf{Reflexive.}
 	If $a \sim a'$ then $a \ast w = a' \ast w$ for all $w \in W$, and so $a \sim a$.
 
@@ -1226,7 +1290,7 @@ We need to show that the operation $\circ_{\sim}$ on the equivariance classes do
 \end{proof}
 
 \begin{proposition}\label{prp:circ_sim_closed}
-	$\circ_{\sim}: \hat{A}^{\ast}/\sim \times \hat{A}^{\ast}/\sim \to \hat{A}^{\ast}/\sim$ is closed.
+	$\circ_{\sim}: (\hat{A}^{\ast}/\sim) \times (\hat{A}^{\ast}/\sim) \to \hat{A}^{\ast}/\sim$ is closed.
 \end{proposition}
 \begin{proof}
 	$\circ_{\sim}$ is closed $\circ_{\sim}$ is the images under $\pi_{A}$ of the concatenation operation $\circ$ in $\hat{A}^{\ast}$, and all elements of $\hat{A}^{\ast}$ have equivalence classes in $\hat{A}^{\ast}/\sim$.
@@ -1306,14 +1370,39 @@ Applying our projection map $\pi_{A}$ to the structures $(\hat{A}^{\ast}, \circ)
 We will prove this soon.}
 
 
-\draftnote{red}{awjdean}{
-Write subsections for $(\hat{A}^{\ast}/\sim, \circ_{\sim})$, $(\hat{A}^{\ast}/\sim, \circ_{\sim}, \ast_{\sim})$, and $\mathcal{T}_{\hat{A}^{\ast}/\sim}$ separately then combine.
-}
-
 \subsection{$(\hat{A}^{\ast}/\sim, \circ_{\sim})$.}
 Applying the equivalence relation $\sim$ using the projection $\pi_{A}$ to the free monoid $(\hat{A}^{\ast}, \circ)$ gives the quotient monoid $(\hat{A}^{\ast}/\sim, \circ_{\sim})$\footnote{
 	$(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is the homomorphic image of $(\hat{A}^{\ast}, \circ)$ through the projection $\pi_{A}$.
 }, whose elements are the equivalence classes $[a]_{\sim}$ for all $a \in \hat{A}^{\ast}$.
+
+\begin{proposition}\label{prp:circ_sim_associative}
+    $\circ_{\sim}$ is associative on $\hat{A}^{\ast}/\sim$.
+\end{proposition}
+\begin{proof}
+Associativity of $\circ_{\sim}$ comes from the associativity of $\circ$.
+\begin{align}
+          & ([a'']_{\sim} \circ_{\sim} [a']_{\sim}) \circ_{\sim} [a]_{\sim} \\
+      = \; & [a'' \circ a']_{\sim} \circ_{\sim} [a]_{\sim}                 \\
+      = \; & [ (a'' \circ a') \circ a ]_{\sim}                               \\
+      = \; & [ a'' \circ (a' \circ a) ]_{\sim}                               \\
+      = \; & [a'']_{\sim} \circ_{\sim} [a' \circ a]_{\sim}                   \\
+      = \; & [a'']_{\sim} \circ_{\sim} ([a']_{\sim} \circ_{\sim} [a]_{\sim})
+  \end{align}
+\end{proof}
+
+
+\begin{proposition}\label{prp:A_sim_identity}
+    $[\epsilon]_{\sim}$ is the identity element of $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$.
+\end{proposition}
+\begin{proof}
+For any $[a]_{\sim} \in \hat{A}^{\ast}/\sim$, we have
+\begin{align}
+   & [\epsilon]_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon \circ a]_{\sim} = [a]_{\sim}
+   & [a]_{\sim} \circ_{\sim} [\epsilon]_{\sim} = [a \circ \epsilon]_{\sim} = [a]_{\sim}
+\end{align}
+Therefore, $[\epsilon]_{\sim}$, where $\epsilon$ is the empty action, acts as the identity.
+\end{proof}
+
 
 \begin{proposition}
 	$(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is a monoid.
@@ -1325,23 +1414,10 @@ Applying the equivalence relation $\sim$ using the projection $\pi_{A}$ to the f
 		      $\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$ from proposition \ref{prp:circ_sim_well_defined} and closed from proposition \ref{prp:circ_sim_closed}.
 
 		\item \textbf{Associativity.}
-		      Associativity of $\circ_{\sim}$ comes from the associativity of $\circ$.
-		      \begin{align}
-			          & ([a'']_{\sim} \circ_{\sim} [a']_{\sim}) \circ_{\sim} [a]_{\sim} \\
-			      ={} & ([a'' \circ a']_{\sim}) \circ_{\sim} [a]_{\sim}                 \\
-			      ={} & [ (a'' \circ a') \circ a ]_{\sim}                               \\
-			      ={} & [ a'' \circ (a' \circ a) ]_{\sim}                               \\
-			      ={} & [a'']_{\sim} \circ_{\sim} [a' \circ a]_{\sim}                   \\
-			      ={} & [a'']_{\sim} \circ_{\sim} ([a']_{\sim} \circ_{\sim} [a]_{\sim})
-		      \end{align}
+            Given by proposition \ref{prp:circ_sim_associative}.
 
 		\item \textbf{Identity Element.}
-		      For any $[a]_{\sim} \in \hat{A}^{\ast}/\sim$, we have
-		      \begin{align}
-			       & [\epsilon]_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon \circ a]_{\sim} = [a]_{\sim}
-			       & [a]_{\sim} \circ_{\sim} [\epsilon]_{\sim} = [a \circ \epsilon]_{\sim} = [a]_{\sim}
-		      \end{align}
-		      Therefore, $[\epsilon]_{\sim}$, where $\epsilon$ is the empty action, acts as the identity.
+		Given by proposition \ref{prp:A_sim_identity}.
 
 		\item \textbf{Conclusion.}
 		      The structure $(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is a monoid.

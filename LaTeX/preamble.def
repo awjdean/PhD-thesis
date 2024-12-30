@@ -1,6 +1,6 @@
 % MISC PACKAGES
-\usepackage{etoolbox} % For \AtBeginEnvironment
-\usepackage{ifthen}
+\RequirePackage{etoolbox} % For \AtBeginEnvironment
+\RequirePackage{ifthen}
 
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
@@ -8,7 +8,7 @@
 % TYPESETTING
 % \RequirePackage{bm, bbold}
 \RequirePackage{setspace}  % For double spacing.
-\usepackage[normalem]{ulem} % For text strikethrough; can be used to edit \emph.
+\RequirePackage[normalem]{ulem} % For text strikethrough; can be used to edit \emph.
 
 % FIGURES
 \RequirePackage{subcaption}
@@ -22,7 +22,7 @@
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
 
-% PSEUDOCODE
+% ALGORITHMS
 \RequirePackage{algorithm}
 \RequirePackage{algpseudocodex}
 
@@ -60,6 +60,8 @@
 %   % it issued
 %   \providecommand{\doi}[1]{\textsc{doi:} #1}%
 
+% REFERENCING
+\RequirePackage{cleveref}
 
 % THEOREM ENVIRONMENTS.
 \newtheorem{theorem}{Theorem}
@@ -74,4 +76,14 @@
 
 % TABLE OF CONTENTS
 \RequirePackage{tocbibind}
-
+% \RequirePackage{minitoc}
+% \dominitoc
+% \setcounter{minitocdepth}{2} % Show up to subsections
+% \newcommand{\insertminitoc}{%
+%     \minitoc
+% }
+% \let\originalchapter\chapter
+% \renewcommand{\chapter}[1]{%
+%     \originalchapter{#1}%
+%     \insertminitoc%
+% }
