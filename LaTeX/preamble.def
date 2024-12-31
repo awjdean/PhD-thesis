@@ -21,6 +21,7 @@
 \RequirePackage{multirow}
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
+\RequirePackage{colortbl}
 
 % ALGORITHMS
 \RequirePackage{algorithm}

@@ -1,4 +1,7 @@
-\chapter{Beyond SBDRL}
+\chapter{
+Beyond SBDRL
+ \draftnote{blue}{V0}{}
+}
 
 \whendraft{
 \noindent\rule{\textwidth}{1mm}
@@ -14,3 +17,73 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Local algebra algorithm}
+\whendraft{
+	\noindent\rule{\textwidth}{1mm}
+	\textbf{To do:}
+	\begin{enumerate}
+		\item Proof that the algorithm halts.
+            \item Proof that when the algorithm halts it contains the complete algebra.
+            \item Put the full algorithm in the appendices.
+	\end{enumerate}
+	\noindent\rule{\textwidth}{1mm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generating the equivalence classes}
+
+To generate the local algebra, we altered algorithm \ref{alg:GenerateEquivClasses} to use a different $\Call{ComputeActionFunction}$ function.
+Since our $\Call{LocalComputeActionFunction}$ requires an additional initial state parameter $w^{*}$, we must also feed that parameter into $\Call{GenerateEquivClasses}$ and $\Call{ProcessCandidate}$.
+Other than those changes, the algorithm for generating the equivalence classes for the local algebra is the same as for the global algebra.
+
+\begin{algorithm}[H]
+	\caption{
+		Compute the part of the action function $f_{a}: W \to W$ that sends $w^{*} \mapsto a \ast w^{*}$.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{LocalComputeActionFunction}{$a$, \; $\mathscr{W}$, \; $w^{*}$}
+		\State $f_{a} \gets (\emptyset \to \emptyset)$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\hat{\ast}$}
+		\State $f_{a} \gets f_{a} \cup f_{a}'$ where $f_{a}': \{w^{*}\} \to \{w_{a}\}$ such that $f_{a}'(w^{*}) = w_{a}$
+		\State \Return $f_{a}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generating the Cayley table}
+
+To generate the local Cayley table, we use algorithm \ref{alg:GenerateCayley} with a different $\Call{ComputeCompositionActionFunction}$ function.
+
+\begin{algorithm}[H]
+	\caption{
+		Compute the action function for the combination $l_{L} \circ l_{R}$ using \Call{LocalComputeActionFunction}.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{ComputeCompositionActionFunction}{$l_{L}$, \; $l_{R}$, \; $\mathcal{T}$, \; $\rho$, \; $\mathscr{W}$, \; $w^{*}$}
+		      \State $a \gets \operatorname{Combine}(l_{L}, \; l_{R})$
+                \State $f_{a} \gets$ \Call{LocalComputeActionFunction}{$a$, \; $\mathscr{W}$, \; $w^{*}$}
+                \State \Return $f_{a}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{5BeyondSBDRL/Old/main}

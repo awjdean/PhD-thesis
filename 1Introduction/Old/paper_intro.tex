@@ -1,0 +1,145 @@
+\chapter{(OLD) Paper introduction (to be converted over)}
+
+Artificial intelligence (AI) has progressed significantly in recent years due to massive increases in available computational power allowing the development and training of new deep learning algorithms \autocite{Amodei2018,thompson2020computational}.
+However, the best-performing learning algorithms often suffer from poor data efficiency and lack the levels of robustness and generalisation that are characteristic of nature-based intelligence.
+The brain appears to solve complex tasks by learning efficient, low-dimensional representations through the simplification of the tasks by focusing on the aspects of the environment that are important to the performance of each task \autocite{Niv2019,mack2020ventromedial,jha2023extracting,op2001inferotemporal,shepard1987toward,edelman1997learning}.
+Furthermore, there is evidence that representations in nature and in artificial intelligence networks support generalisation and robustness \autocite{flesch2022orthogonal, Bernardi2020,ito2022compositional,momennejad2020learning,lehnert2020reward,alonso2013associative,kokkola2019double}.
+
+In its most general form, a \textit{representation} is an encoding of data.
+The encoded form of the data is usually more useful than the original data in some way.
+For example, the representation of the data could be easier to transfer than the original data, it could improve the efficiency or performance of an algorithm or biological system that uses the representation \autocite{Lesort2018StateRL, Bengio2013}, or the representation could be a recreation of a partially observable data distribution through the combination of many samples of the distribution \autocite{Boutilier1996, Zhang2019}.
+
+In machine learning the use of representations has been shown to improve generalisation capabilities and task performance across a range of areas such as computer vision, natural language processing, and reinforcement learning \autocite{Bengio2013,botteghi2022unsupervised,mohamed2022self,voulodimos2018deep}.
+Representation learning algorithms can be thought of as seeking to remove the need for human-curated, task-specific feature engineering by performing useful feature engineering automatically.
+Representations even emerge naturally in neural networks trained to perform multiple tasks \autocite{Johnston2023}.
+\textit{Representation learning} is the process of devising a method to transform the input data into its encoded form.
+\whendraft{[!This sentence is currently drafted out! - needs reference] The input data to the representation learning process can be received in full at the same time or over many samples, which can be dependent or independent.}
+
+An \textit{agent} can interact with its world.
+In this work, we consider an artificial agent interacting with a world to learn a representation of that world.
+In particular, we are interested in the representation that the agent should ideally have learnt by the end of the representation learning process.
+Some properties of the world can only be learnt in the representation of the agent if the agent interacts with its environment \autocite{caselles2019symmetry,thomas2018disentangling}.
+Agents have an internal state (the agent's representation), which can be viewed as the agent's understanding of the world, and an external state, which is made up of everything in the world, not in the agent's internal state.
+The agent accesses information about its external state through \textit{sensory states} (or \textit{sensors}) and affects the world through \textit{action states} (or \textit{actions}).
+This boundary between the external and internal states is known as a Markov blanket \autocite{Palacios2020, Kirchhoff2018}.
+The world can be treated as a data distribution, which the agent samples using its sensors and interacts with using its action states.
+The agent continually updates its internal state using information gained from its sensors as it learns more about the world (representation learning).
+The agent is attempting to create a representation of this data distribution by applying various operations to the distribution and observing the outcome of these operations.
+The operations that the agent applies to the distribution are the \textit{actions} of the agent, and each sample that the agent takes of the distribution using its sensors is an \textit{observation} of the world.
+For our purposes, it is important to note that the agent does not have to be embodied within the world it is interacting with; it only needs to be able to sample observations of the world using its sensors and to be able to interact with the world using its actions.
+
+The area of representation learning that deals with representations of worlds that are influenced by the actions of agents is called \textit{state representation learning}.
+State representation learning is a particular case of representation learning where features are low-dimensional, evolve over time, and are influenced by agents' actions \autocite{Lesort2018StateRL}.
+More formally, an agent uses sensors to form observations of the states of the world (the observation process); these observations can then be used to create representations of the world (the inference process).
+State representation learning has been combined with reinforcement learning to enable algorithms to learn more efficiently and with an improved ability to transfer learning to other tasks (improved generalisation) \autocite{munk2016learning}.
+It has been hypothesised that the success of state representation learning is due to the way that the learnt abstract representations describe general priors about the world in a way that is easier to interpret and utilise while not being task-specific; this makes the representations useful for solving a range of tasks \autocite{Bengio2013}.
+
+Reinforcement learning is a decision-making algorithm that involves an agent interacting with its environment to maximise the total amount of some reward signal it receives \autocite{sutton2018reinforcement,li2017deep,arulkumaran2017deep,nian2020review}.
+We choose to explore the structure of worlds containing features found in common reinforcement learning scenarios because representations of a world from an agent interacting with that world, as found in our work, are often given to reinforcement learning algorithms to improve the performance of these reinforcement learning algorithms.
+
+The question of what makes a `good' representation is vital to representation learning.
+\autocite{Higgins2018} argues that the symmetries of a world are important structures that should be present in the representation of that world.
+The study of symmetries takes us away from studying objects directly to studying the transformations of those objects and using information about these transformations of objects to discover properties about the objects themselves \autocite{Higgins2022}.
+The field of Physics experienced such a paradigm shift due to the work of Emmy Noether, who proved that conservation laws correspond to continuous symmetry transformations \autocite{Noether1918}, and the field of AI is undergoing a similar shift.
+
+The exploitation of symmetries has led to many successful deep-learning architectures.
+Examples include convolutional layers \autocite{LeCun1995}, which use transitional symmetries to outperform humans in image recognition tasks \autocite{Dai2021}, and graph neural networks \autocite{Battaglia2018}, which use permutation groups.
+Symmetries not only can provide a useful indicator of what an agent has learnt but incorporating symmetries into learning algorithms regularly reduces the size of the problem space, leading to greater learning efficiency and improved generalisation \autocite{Higgins2022}.
+In fact, a large majority of neural network architectures have been shown to be described as stacking layers that deal with different symmetries \autocite{Bronstein2021}.
+The main methods used to integrate symmetries into a representation are to build symmetries into the architecture of learning algorithms \autocite{Baek2021, Batzner2022}, use data-augmentation that encourages the model to learn symmetries \autocite{Chen2020, Kohler2020}, or to adjust the model's learning objective to encourage the representation to exhibit certain symmetries \autocite{burgess2018understanding, Jaderberg2016}.
+The mathematical concept of symmetries can be abstracted to algebraic structures called \textit{groups}.
+
+Two main types of symmetries are used in AI: \textit{invariant} symmetries, where a representation does not change when certain transformations are applied to it, and \textit{equivariant} symmetries, where the representation reflects the symmetries of the world.
+Historically, learning of representations that are invariant to certain transformations has been a successful line of research \autocite{Krizhevsky2012, Hu2018, Silver2016, Espeholt2018}.
+In building these invariant representations, the agent effectively learns to ignore the invariant transformation since the representation is unaffected by the transformation.
+It has been suggested that this approach can lead to a more narrow intelligence, where an agent becomes good at solving a small set of tasks but struggles with data efficiency and generalisation when tasked with new learning problems \autocite{marcus2018deep, Cobbe2019}.
+Instead of ignoring certain transformations, the equivariant approach attempts to preserve symmetry transformations in the agent's representation in such a  way that the symmetry transformations of the representation match the symmetry transformations of the world.
+It has been hypothesised that the equivariant approach is likely to produce representations that can be reused to solve a more diverse range of tasks since no transformations are discarded \autocite{Higgins2022}.
+Equivariant symmetry approaches are commonly linked with \textit{disentangling representations} \autocite{Bengio2013}, in which the agent's representation is separated into subspaces that are invariant to different transformations.
+Disentangled representation learning, which aims to produce representations that separate the underlying structure of the world into disjoint parts, has been shown to improve the data efficiency of learning \autocite{raffin2019decoupling,wang2022disentangled}.
+
+Inspired by their use in physics, symmetry-based disentangled representations (SBDRs) were proposed by \autocite{Higgins2018} as a formal mathematical definition of disentangled representations.
+SBDRs are built on the assumption that the symmetries of the world state are important aspects of that world state that need to be preserved in an agent's internal representation (\textit{i.e.,} the symmetries that are present in the world state should also be present in the agent's internal representation state).
+They describe symmetries of the world state as ``transformations that change only some properties of the underlying world state while leaving all other properties invariant'' 
+\cite[page 1]{Higgins2018}.
+For example, the $y$-coordinate of an agent moving parallel to the $x$-axis on a 2D Euclidean plane does not change.
+SBDRL has gained traction in AI in recent years \autocite{Park2022learning,Quessard2020learning,Miyato2022unsupervised,Wang2022surprising,Keurti2023homomorphism,Zhu2021commutative,Wang2021self,Pfau2020disentangling,caselles2019symmetry,Mercatali2022,Marchetti2023}.
+However, symmetry-based disentangled representation learning (SBDRL) only considers actions that form groups and so cannot take into account, for example, irreversible actions \autocite{Higgins2018}.
+\autocite{caselles2019symmetry} showed that a symmetry-based representation cannot be learned using only a training set composed of the observations of world states; instead, a training set composed of transitions between world states, as well as the observations of the world states, is required.
+In other words, SBDRL requires the agent to interact with the world.
+This is in agreement with the empirically proven idea that active sensing of a world can be used to make non-invertible mappings from the world state to the representation state into invertible mappings \autocite{soatto2011steps}, and gives mathematical credence to SBDRL.
+
+We agree with \autocite{Higgins2018} that symmetry transformations are important structures to include in an agent's representation, but want to take their work one step further: \textit{we posit that the relationships of transformations of the world due to the actions of the agent should be included in the agent's representation of the world}.
+We will show that only including transformations of the actions of an agent that form groups in an agent's representation of a world would lose important information about the world since we demonstrate that features of many worlds cause transformations due to the actions of an agent that do not form group structures.
+We generalise some important results, which have been put forward for worlds with transformations of the actions of an agent that form groups, to worlds with transformations of the actions of an agent that do not form groups.
+We believe that including the relationships of these transformations in the agent's representation has the potential for powerful learning generalisation properties:
+(a) Take the following thought experiment: Consider an agent that has learned the structure of the transformations due to its actions of a world $W$. Now consider a world $W'$, which is identical to world $W$ in every way except observations of the state of the world from a collection of the agent's sensors are shifted by a constant amount $\epsilon$ (if the sensors were light sensors, then $W$ and $W'$ would only be different in colour).
+So the observations of $W'$ in state $s'$ would be given by $o_{s'} = o_{s} + \epsilon$, where $o_{s'}$ is the observation of $W'$ in state $s'$, and $o_{s}$ is the observation of $W$ in the state $s$.
+The relationship between the transformations of the world due to the agent's actions is the same in both worlds, but the observations are different.
+Therefore, the agent only needs to learn to adjust for the shift $\epsilon$ in the data from some of its sensors to be able to learn a good representation of $W'$.
+In fact, the agent might have already learned that the transformations of the world due to particular actions cause relative changes to certain sensor values rather than depending on the raw sensor values.
+(b) \whendraft{[Have this as a proof later in the paper - does it work for irreversible actions]} If the agent completely learns the structure of the world from one state $s$ then it knows it from all states of the world.
+By taking any sequence of actions that go from $s$ to some new state and then applying that sequence of actions to the relations that the agent possesses for state $s$, the agent can produce the relationship between actions from the new state
+(the relationship between the actions is dependent on the current state, similar to how local symmetries in physics are dependent on space-time coordinates).
+\whendraft{[?tree pruning diagram - cutting off unreachable states?]}
+(c) Another form of generalisation could be due to the action algebra being independent of the starting state; in other words, the relationship between transformations due to the agent's actions from one state is the same as from any other state in the world - the relationships between actions have been generalised to every state in the world.
+This would allow the agent to learn the effect of its actions faster since the relationship between actions is the same in any state.
+(d) In a partially observable world, previously explored relationships between actions could be extrapolated to unexplored areas.
+If these areas have the same or similar structure to the relationships between actions, then the agent could generalise what it has learnt previously to unexplored parts of the world.
+
+We also believe that a general framework for exploring the algebra of the transformations of worlds containing an agent, as proposed in this paper, has the potential to be used as a tool in the field of explainable AI.
+With such a framework, we are able to predict which algebraic structures should appear in the agent's representation at the end of the learning process.
+Being able to predict the structures that should be present in an agent's representation in certain worlds and using certain learning algorithms would be a powerful explanatory tool.
+For example, if there is a sharp improvement in an agent's performance at a task at a certain point of learning, it could be the case that certain algebraic structures are present in the agent's representation after the sharp improvement in performance that were not present before the sharp improvement; if so, then it could be argued that the sharp increase in performance is due to the 'discovery' of the algebraic structure in the agent's representation.
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+
+\textbf{MOVE THIS TO INTRO.}
+The first two points of the definition define a symmetry-based representation, while the third point provides the disentanglement property \autocite{caselles2019symmetry}.
+\noindent\rule{\linewidth}{1pt}
+}
+
+We aim to help answer the question of which features should be present in a `good' representation by, as suggested by \autocite{Higgins2018}, looking at the transformation properties of worlds.
+However, while \autocite{Higgins2018} only considered symmetry transformations, we aim to go further and consider the full algebra of various worlds.
+We propose a mathematical framework to describe the transformations of the world and, therefore, describe the features we expect to find in the representation of an artificial agent.
+We derive \autocite{Higgins2018}'s SBDRs using our framework; we then use category theory to generalise elements of their work, namely their equivariance condition and their definition of disentangling, to worlds where the transformations of the world cannot be described using \autocite{Higgins2018}'s framework.
+This paper aims to make theoretical contributions to representation learning and does not propose new learning algorithms.
+More specifically, our contributions are the following:
+\begin{enumerate}
+    \item We propose a general mathematical framework for describing the transformation of worlds due to the actions of an agent that can interact with the world.
+    
+    \item We derive the SBDRs proposed by \autocite{Higgins2018} from our framework and in doing so identify the limitations of SBDRs in their current form.
+    
+    \item We use our framework to explore the structure of the transformations of worlds for classes of worlds containing features found in common reinforcement learning scenarios.
+    Our contributions are to the field of representation learning and not the field of reinforcement learning.
+    We also present the code used to work out the algebra of the transformations of worlds due to the actions of an agent.
+    
+    \item We generalise the equivariance condition and the definition of disentangling given by \autocite{Higgins2018} to worlds that do not satisfy the conditions for SBDRs.
+    This generalisation is performed using category theory.
+\end{enumerate}
+
+
+This paper is structured as follows:
+In Section ref[sec:Mathematical framework for an agent in an environment] we define our framework and then describe how it deals with generalised worlds, which consist of distinct world states connected by transitions that describe the dynamics of the world.
+We define transitions and some of their relevant properties.
+Then we define the actions of an agent in our framework.
+In Section ref[sec:Reproducing SBDRL] our framework is used to reproduce the SBDRL framework given by \autocite{Higgins2018}.
+This is achieved by defining an equivalence relation that makes the actions of an agent equivalent if the actions produce the same outcome if performed while the world is in any state.
+In Section ref[sec:Beyond SBDRs], we apply our framework to worlds exhibiting common reinforcement learning scenarios that cannot be described fully using SBDRs and study the algebraic structures exhibited by the dynamics of these worlds.
+In Section ref[sec:Generalising SBDRL], we generalise two important results of \autocite{Higgins2018} - the equivariance condition and the disentangling definition - to worlds with transformations with algebras that do not fit into the SBDRL paradigm.
+We finish with a discussion in Section ref[sec:discussion and conclusion].
+
+\whendraft{
+\noindent\rule{\linewidth}{1pt}
+\begin{proposition}
+    The structure of the representation of an embodied agent depends on the actions it has available.
+\end{proposition}
+\begin{proof}
+    Show algebra table for NSEW agent, then show algebra table for rotating + forwards agent, then prove that the algebraic structure is not isomorphic.
+    \begin{itemize}
+        \item Do combinations of actions correspond? For example, Rotate clockwise once, then move forwards == move east?
+    \end{itemize}
+\end{proof}
+\noindent\rule{\linewidth}{1pt}
+}

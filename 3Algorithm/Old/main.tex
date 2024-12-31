@@ -1,0 +1,124 @@
+\chapter{(OLD) Algorithm (to be converted over)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+To gain an intuition for the structure of different worlds and to illustrate our theoretical work with examples, we developed an algorithm that uses an agent’s minimum actions to generate the algebraic structure of the transformations of a world due to the agent's actions.
+We display this structure as a generalised Cayley table (a multiplication table for the distinct elements of the algebra).
+Implementation of this algorithm can be found at \url{github.com/awjdean/CayleyTableGeneration}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Displaying the algebra}
+We display the algebra in two ways:
+(1) a \textit{$w$-state Cayley table}, which shows the resulting state of applying the row element to $w$ followed by the column element (\textit{i.e.,} $w\textit{-state Cayley table value} = \textit{column label} * (\textit{row label} * w$)), and (2) an \textit{action Cayley table}, which shows the resulting element of the algebra when the column element is applied to the left of the row element (\textit{i.e.}, $\textit{action Cayley table value} = \textit{column element} \circ \textit{row element}$).
+
+\paragraph{Algebra properties}
+We also check the following properties of the algebra algorithmically: (1) the presence of identity, including the presence of left and right identity elements separately, (2) the presence of inverses, including the presence of left and right inverses for each element, (3) associativity, (4) commutativity, and (5) the order of each element in the algebra.
+For our algorithm to successfully generate the algebra of a world, the world must contain a finite number of states, the agent must have a finite number of minimum actions, and all the transformations of the world must be due to the actions of the agent.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example}\label{sec:Example}
+
+For our example world $\mathscr{W}_{c}$, the equivalence classes shown in Figure ref[fig:2x2-cyclical-min-act-equivalence] - those labelled by $1$, $R$, and $U$ - are the only equivalence classes in $A/\sim$.
+The $w$-state Cayley table in Table \ref{tab:2x2-gridworld-no-walls-state-cayley} shows the final world state reached after the following operation: $\text{table entry} = \text{column element} * (\text{row element} * w)$.
+
+The $w$-action Cayley table in Table \ref{tab:2x2-gridworld-no-walls-action-cayley} shows the equivalent action in $A/\sim$ for the same operation as the $w$-state Cayley table: $[\text{table entry}] * w = \text{column element} * (\text{row element} * w)$ for all $w \in W$.
+
+The choice of the equivalence class label in Table \ref{tab:2x2-gridworld-no-walls-equivalence-classes} is arbitrary; it is better to think of each equivalence class as a distinct element as shown in the Cayley table in Table \ref{tab:2x2-gridworld-no-walls-action-cayley-abstract}.
+
+There are four elements in the action algebra, therefore, if the agent learns the relations between these four elements, and then it has complete knowledge of the transformations of our example world.
+
+
+\draftnote{blue}{awjdean}{Show the relations that describe the algebra in the $a^{n} = 1$ form ?
+Does the $a^{n} = 1$ form fully describe non-group algebras?
+What about when an action $a$ hits a cycle that doesn't include $1$ ?
+}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|c c c c c}
+        $A/\sim$    &  $1$      & $D$       & $L$       & $RU$\\
+         \hline
+        $1$         & $w_{0}$   & $w_{2}$   & $w_{1}$   & $w_{3}$\\
+        $D$         & $w_{2}$   & $w_{0}$   & $w_{3}$   & $w_{1}$\\
+        $L$         & $w_{1}$   & $w_{3}$   & $w_{0}$   & $w_{2}$\\
+        $RU$        & $w_{3}$   & $w_{1}$   & $w_{2}$   & $w_{0}$\\
+    \end{tabular}
+    \caption{$w_{0}$ state Cayley table for $A/\sim$.}
+    \label{tab:2x2-gridworld-no-walls-state-cayley}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|c c c c c}
+        $A/\sim$    &  $1$      & $D$       & $L$       & $RU$\\
+        \hline
+        $1$         & $1$       & $D$       & $L$       & $RU$\\
+        $D$         & $D$       & $1$       & $RU$      & $L$\\
+        $L$         & $L$       & $RU$      & $1$       & $D$\\
+        $RU$        & $RU$      & $L$       & $D$       & $1$\\
+    \end{tabular}
+    \caption{Action Cayley table for $A/\sim$.}
+    \label{tab:2x2-gridworld-no-walls-action-cayley}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|l}
+        $\sim$ equivalence class label & $\sim$ equivalence class elements\\
+        \hline
+        $1$         & $1, 11, DD, LL, RURU, ...$\\
+        $D$         & $D, D1, 1D, RUL, LRU, ...$\\
+        $L$         & $L, L1, RUD, 1L, DRU, ...$\\
+        $RU$        & $RU, RU1, LD, DL, 1RU, ...$
+    \end{tabular}
+    \caption{Action Cayley table equivalence classes.}
+    \label{tab:2x2-gridworld-no-walls-equivalence-classes}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+        $A/\sim$    &  $1$      & $2$       & $3$       & $4$\\
+        \hline
+        $1$         & $1$       & $2$       & $3$       & $4$\\
+        $2$         & $2$       & $1$       & $4$      & $3$\\
+        $3$         & $3$       & $4$      & $1$       & $2$\\
+        $4$        & $4$      & $3$       & $2$       & $1$\\
+    \end{tabular}
+    \caption{Abstract action Cayley table for $A/\sim$.}
+    \label{tab:2x2-gridworld-no-walls-action-cayley-abstract}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Properties of $A/\sim$ algebra}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|c}
+        \textbf{Property}   & \textbf{Present?} \\
+        \hline
+        Totality            & Y\\
+        Identity            & Y\\
+        Inverse             & Y\\
+        Associative         & Y\\
+        Commutative         & Y
+    \end{tabular}
+    \caption{Properties of the $A/\sim$ algebra.}
+    \label{tab:2x2-gridworld-no-walls-algebra-properties}
+\end{table}
+
+The properties of the $A/\sim$ algebra are displayed in Table \ref{tab:2x2-gridworld-no-walls-algebra-properties} and show that $A/\sim$ is a commutative group, where the no-op action is the identity, and all elements are their own inverses.
+Since the action algebra of our example world is a group, it can be described by SBDRL.
+The order of each element is given by Table \ref{tab:2x2-gridworld-no-walls-element orders}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|c}
+        \textbf{Element}   & \textbf{Order} \\
+        \hline
+        $1$     & 1\\
+        $D$     & 2\\
+        $L$     & 2\\
+        $RU$    & 2
+    \end{tabular}
+    \caption{Order of elements in $A/\sim$.}
+    \label{tab:2x2-gridworld-no-walls-element orders}
+\end{table}

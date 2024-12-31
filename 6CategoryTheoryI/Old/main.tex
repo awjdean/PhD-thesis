@@ -1,0 +1,403 @@
+\chapter{
+(OLD) Generalising SBDRL (to be converted over)
+}
+
+A fundamental result in category theory is the Yoneda lemma, which produces the result that the properties of mathematical objects are completely determined by their relationships to other objects \autocite{riehl2017category,barr1990category}.
+This result is similar to the shift in perspective in AI representations from studying objects to gaining insight into the structure of an object by studying the transformations of that object.
+Due to the Yoneda Lemma, category theory already has this approach of considering the transformation properties of objects built in; this makes category theory appear to be the natural choice to describe the transformations of an agent's representation.
+
+In this section, we generalise the equivariance condition and disentangling definition, given by \autocite{Higgins2018}, to worlds with transformations that cannot be described using groups.
+To do this, we use category theory, which allows us to easily generalise the equivalence condition and the disentangling definition to worlds with transformations that form any algebra; first, we convert our derivation of SBDRs into the language category theory, then we generalise.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Preliminaries}
+
+Category theory studies the structure of mathematical objects and their relationships; it provides methods to study the structure of objects in a category using the interactions of that object with the other objects in the category.
+
+A category consists of objects connected by arrows, which represent structure-preserving maps called \textit{morphisms} between the objects.
+One of the most important concepts in category theory is the \textit{functor}.
+A functor is a structure-preserving mapping between categories; functors are ways to transform a category to another category while preserving relationships between the objects and arrows of the original category.
+\textit{Natural transforms} are ways to transform one functor into another while preserving the structure of the categories involved in the functor.
+
+Simply, category theory provides a way of organising mathematical objects and the relationships between them as categories, which can be transformed into other categories using functions and compared to other categories using natural transforms.
+
+We will now introduce relevant category theory concepts.
+
+\begin{definition}[Category]\label{def:category}
+    A category $\mathcal{C}$ consists of a class of objects, denoted $\textbf{Ob}(\mathcal{C})$, and, for each pair $x$, $y$ of objects, a class of morphisms $\alpha : x \to y$, denoted $C(x,y)$, satisfying the following:
+
+    \begin{itemize}
+        \item \textbf{Composition law.} Given two morphisms $\alpha \in \mathcal{C}(x,y)$ and $\beta \in \mathcal{C}(y,z)$ there exists a morphism $\beta \circ \alpha \in \mathcal{C}(x,z)$ called the composition of $\alpha$ and $\beta$.
+        
+        \item \textbf{Existence of units.} Given an object $x$, there exists a morphism denoted by $1_{x} \in \mathcal{C}(x,x)$ such that for any morphism $\alpha \in \mathcal{C}(x,a)$, $\alpha \circ 1_{x} = \alpha$ and for any morphism $\beta \in \mathcal{C}(b,x)$, $1_{x} \circ \beta = \beta$.
+        
+        \item \textbf{Associativity.} Given three morphisms $\alpha \in C(x,y)$, $\beta \in C(y,z)$, $\gamma \in C(z,u)$, then the following associative law is satisfied: $\gamma \circ ( \beta \circ \alpha) = (\gamma \circ \beta) \circ \alpha$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Isomorphism]\label{def:isomorphism}
+    A morphism $\alpha : x \to y$ in a category \textbf{C} is an isomorphism if there exists another morphism $\beta : y \to x$ in \textbf{C} such that $\beta \circ \alpha = 1_{x}$ and $\alpha \circ \beta = 1_{y}$.
+    This can be denoted by $x \overset{\alpha}{\cong} y$.
+\end{definition}
+
+\begin{definition}[Group]
+    A group is a category that has a single object and in which every morphism is an isomorphism (\textit{i.e.,} every morphism has an inverse).
+\end{definition}
+
+\begin{definition}[Small category]
+    A category $\mathcal{C}$ is a \textit{small category} if its collection of objects $\textbf{Ob}(\mathcal{C})$ is a set, and the collection of morphisms $Hom_{\mathcal{C}}(X, Y)$, where $X,Y \in \textbf{Ob}(\mathcal{C})$ is also a set.
+\end{definition}
+
+\begin{definition}[Hom-set]
+    Given objects $x$ and $y$ in a small category $\mathcal{C}$, the hom-set $Hom_{\mathcal{C}}(x,y)$  is the collection of all morphisms from $x$ to $y$.
+    A category is said to be \textit{small} if each of its hom-sets is a set instead of a proper class.
+\end{definition}
+
+\begin{definition}[(covariant) Functor]
+    A \textit{functor} is a structure-preserving map between two categories.
+    For two categories $\mathcal{A}$ and $\mathcal{B}$, a functor $F: \mathcal{A} \to \mathcal{B}$ from $\mathcal{A}$ to $\mathcal{B}$ assigns to each object in $\mathcal{A}$ an object in $\mathcal{B}$ and to each morphism in $\mathcal{A}$ a morphism in $\mathcal{B}$ such that the composition of morphisms and the identity morphisms are preserved.
+    A functor transforms objects and morphism from one category to another in a way that preserves the structure of the original category.
+
+    More precisely, a functor $F: \mathcal{A} \to \mathcal{B}$ consists of two maps:
+    \begin{enumerate}
+        \item A map that assigns an object $F(A)$ in $\mathcal{B}$ to each object $A$ in $\mathcal{A}$.
+
+        \item A map that assigns a morphism $F(f)$ in $\mathcal{B}$ to each morphism $f$ in $\mathcal{A}$ such that:
+        \begin{enumerate}
+            \item $F$ respects composition for any two composable morphisms $f,g \in \mathcal{A}$, $F(fg) = F(f) F(g)$.
+
+            \item $F$ preserves identities: for any object $A$ in $\mathcal{A}$, $F(id_{A}) = id_{F(A)}$.
+        \end{enumerate}
+    \end{enumerate}
+\end{definition}
+    
+    \begin{definition}[Functor category]
+        For categories $\mathcal{C}$ and $\mathcal{D}$, the functor category denoted $D^{\mathcal{C}}$ or $[\mathcal{C}, \mathcal{D}]$ is the category whose: (1) objects are functors $F: \mathcal{C} \to \mathcal{D}$, and (2) morphisms are natural transforms between these functors.
+\end{definition}
+
+\begin{definition}[Natural transform]
+    For categories $\mathcal{C}$ and $\mathcal{D}$ and functors $F,G: \mathcal{C} \to \mathcal{D}$, a \textit{natural transform} $\alpha: F \Rightarrow G$ between $F$ and $G$ is an assignment to every object $x$ in $\mathcal{C}$ of a morphism $\alpha_{x}: F(x) \to G(x)$ in $\mathcal{D}$ such that for any morphism $f: x \to y$ in $\mathcal{C}$, the following diagram commutes:
+    \input{6CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-definition}
+ \end{definition}
+
+\begin{definition}[Delooped category]
+    Given an algebraic structure $A$, we can construct the \textit{delooped category} $\textbf{B}A$ whose morphisms correspond to the elements of $A$ with the relevant composition: $A \xrightarrow{deloop} \textbf{B}A$.
+    $\textbf{B}$ id called the \textit{base} of the category and contains the objects.
+    The number of objects in $\textbf{B}$ is the number of objects necessary for the morphisms of $\textbf{B}A$ to correspond to the elements of $A$.
+\end{definition}
+
+\begin{definition}[Monoid]\label{def:monoid}
+    A monoid is a category with a single object.
+\end{definition}
+
+
+\begin{definition}[Categorical product]
+    The \textit{categorical product} of two categories $C_{1}$ and $C_{2}$ is the category $C_{1} \times C_{2}$.
+    The objects of $C_{1} \times C_{2}$ are the pairs of objects $(B_{1}, B_{2})$, where $B_{1}$ is an object in $C_{1}$ and $B_{2}$ is an object in $C_{2}$.
+    The morphisms in $C_{1} \times C_{2}$ are the pairs of morphisms $(f_{1}, f_{2})$, where $f_{1}$ is a morphism in $C_{1}$ and $f_{2}$ is a morphism in $C_{2}$.
+    The composition of morphisms is defined component-wise.
+\end{definition}
+
+\begin{definition}[Sub-functors of sub-categories]
+    We can define a functor $F: C_{1} \times C_{2} \to C$ as follows:
+    \begin{enumerate}
+        \item For each object $(B_{1}, B_{2})$ in $C_{1} \times C_{2}$, $F(B_{1}, B_{2})$ is the object in $C$ that corresponds to the pair $(B_{1}, B_{2})$.
+    
+        \item For each morphism $(f_{1}, f_{2}): (B_{1}, B_{2}) \to (B'_{1}, B'_{2})$ in $G_{1} \times G_{2}$, $F(f_{1}, f_{2})$ is the morphism in $G$ that corresponds to the pair $(f_{1}, f_{2})$.
+    \end{enumerate}
+    
+    We can now define sub-functors $F_{1}$ of $G_{1}$ and $F_{2}$ of $G_{2}$ on an object $B$ of $G$ as follows:
+    \begin{enumerate}
+        \item $F_{1}(g_{1}, B) = F(g_{1}, 1_{G_{2}})(B)$ for all $g_{1} \in G_{1}$.
+        \item $F_{2}(g_{2}, B) = F(1_{G_{1}}, g_{2})(B)$ for all $g_{1} \in G_{1}$.
+    \end{enumerate}
+    
+    We can decompose $F$ into the sub-functors $F_{1}$ and $F_{2}$ as $F = F_{1} \times F_{2}$, if there is a decomposition $B = B_{1} \times B_{2}$ of $B$ into two sub-objects $B_{1}$ and $B_{2}$ such that:
+    \begin{enumerate}
+        \item For all $g_{1} \in G_{1}$ and $B_{2} \in G_{2}$, we have $F_{1}(g_{1}, B_{1} \times B_{2}) = F_{1}(g_{1}, B_{1} \times B_{2}$.
+    
+        \item For all $g_{2} \in G_{2}$ and $B_{1} \in G_{1}$, we have $F_{2}(g_{2}, B_{1} \times B_{2}) = B_{1} \times F_{2}(g_{2}, B_{2})$.
+    \end{enumerate}
+\end{definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The equivariance condition}
+
+In this section, we use category theory to generalise \autocite{Higgins2018}'s equivariance condition.
+In doing so, we show that the equivariance condition can apply to worlds where the actions of an agent cannot be fully described by groups.
+
+\subsection{Group equivariance in category theory}\label{sec:Group equivariance in category theory}
+
+We will now convert \autocite{Higgins2018}'s group equivariance condition into the language of category theory.
+
+A left group action $G \times S \to S$ is a homomorphism from a group $G$ to the group of bijections of a set $S$ upon which $G$ is acting.
+Since $S$ is itself an object in the category $\textbf{Set}$ of sets, and the bijections from $S$ to itself are the invertible morphisms in $hom_{\textbf{Set}}(S, S)$, the left group action $G \times S \to S$ is an object of the category $\textbf{Set}^{G}$ of covariant functors from $G$ to $\textbf{Set}$; this functor category $\textbf{Set}^{G}$ is a small category because $G$ is a set of morphisms.
+
+Since the objects of the category $\textbf{Set}^{G}$ are the functors from $G$ to $\textbf{Set}$\footnote{The objects of the category $\textbf{Set}^{G}$ are the maps from the morphisms in $G$ to the morphisms in $\textbf{Set}$.}, then the morphisms of $\textbf{Set}^{G}$ are natural transforms between these functors.
+For the left action $A_1: G \to \textbf{Set}$ that maps the single object $b$ of $G$ to a set $S_1$ and the left action $A_2: G \to \textbf{Set}$ that maps the single object $b$ of $G$ to a set $S_2$, the natural transform $\eta : A_1 \to A_2$ has a single component $\eta_{b} : S_1 \to S_2$ because there is a single object $b$ in $G$.
+Every morphism, which is a group element $g \in G$, must satisfy the naturality condition $\eta_{b}(g \cdot_{S_1} s) = g \cdot_{S_2} \eta_{b}(s)$ for all $s \in S_1$, where $\cdot_{S_1}$ denotes the action of $G$ on set $S_1$ and $\cdot_{S_2}$ denotes the action of $G$ on set $S_2$.
+
+Now consider an agent with a set $A$ of actions and a set $Z$ of representation states in a world $\mathscr{W}_{0}$ that has a set $W$ of world states and that satisfies world conditions ref[wldcon:unrestricted-actions] and ref[wldcon:inverse-actions].
+For $\mathscr{W}_{0}$, $A/\sim$ is a group.
+Since the set of world states $W$ and the set of representation states $Z$ are both acted on by the same group $A/\sim$, there are two group actions $*_{W}: (A/\sim) \times W \to W$ and $*_{Z}: (A/\sim) \times Z \to Z$, and both group actions give functors from $A/\sim$ to objects ($W$ and $Z$) in the category $\textbf{Set}$.
+A structure-preserving map between these functors is a natural transform with the single component $\eta_{b}: W \to Z$ that satisfies $\eta_{b}(a *_{W} w) = a *_{Z} \eta_{b}(w)$ for all $w \in W$ and for all $a \in A/\sim$, where $*_{W}$ denotes the action of $A/\sim$ on set $W$ and $*_{Z}$ denotes the action of $A/\sim$ on set $Z$.
+This component $\eta_{b}$ is \autocite{Higgins2018}'s equivariance condition ($g \cdot_{Z} f(w) = f(g \cdot_{W} w)$) in the language of category theory.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivariance for single-object categories}
+
+We will now take the category theory argument we used to derive the group equivariance condition for worlds where $*_{W}: (A/\sim) \times W \to W$ is a group action (reproducing \autocite{Higgins2018}'s equivariant condition) and generalise our argument to worlds where $*_{W}: (A/\sim) \times W \to W$ is the (full) action of any algebraic structure $A/\sim$ that can be delooped to form a single-object category $\textbf{B}(A/\sim)$\footnote{Formally, in section \ref{sec:Group equivariance in category theory} we follow the argument in this section and deloop the group $A/\sim$ to form the associated category $\textbf{B}(A/\sim)$.}.
+Any single-object category is a monoid (definition \ref{def:monoid}), therefore an equivariance condition for single-object categories will hold for any world where $A/\sim$ is a monoid.
+The derivation of this condition is trivially the same argument as given for the group action case since we did not require that the morphisms in the single-object category with morphisms giving $A/\sim$ be isomorphisms.
+
+\paragraph{1. Setup}
+Now consider an agent with a set $A$ of actions and a set $Z$ of representation states in a world $\mathscr{W}_{1}$ that has a set $W$ of world states and where $A/\sim$ is a monoid (see Table \ref{tab:group-like-algebraic-structures}) with elements $a_{1}, a_{2}, ..., a_{n}$.
+
+\paragraph{2. Category of actions}
+Let $\textbf{B}(A/\sim)$ be the delooped category of $A/\sim$ and let $\textbf{B} = \{b\}$ be the set of objects of $\textbf{B}(A/\sim)$.
+The set of morphisms of $\textbf{B}(A/\sim)$ is $A/\sim$.
+
+\paragraph{3. Functors for actions on sets}
+The action $*_{W}: (A/\sim) \times W \to W$ of $A/\sim$ on the set $W$ gives a functor $\rho: \textbf{B}(A/\sim) \to W$, where $\rho$ encodes the properties of the algebraic structure of $(A/\sim)$.
+Similarly, the action $*_{Z}: (A/\sim) \times Z \to Z$ of $A/\sim$ on the set $Z$ gives a functor $\tau: \textbf{B}(A/\sim) \to Z$, where $\tau$ encodes the properties of the algebraic structure of $(A/\sim)$.
+
+\paragraph{4. Structure-preserving morphism (natural transform)}
+We want the property that $A/\sim$ acts on $W$ and $Z$ in the same way, so we want to preserve the structure between the functors $\rho$ and $\tau$.
+The objects of the functor category $\textbf{Set}^{\textbf{B}(A/\sim)}$ are the functors, including $\rho$ and $\tau$, from $\textbf{B}(A/\sim)$ to $\textbf{Set}$; the morphisms (structure-preserving maps) between the objects of $\textbf{Set}^{\textbf{B}(A/\sim)}$ are natural transforms.
+The structure-preserving map between $\rho$ and $\tau$ is the natural transform $\eta: W \to Z$ with the single component $\eta_{b}: W \to Z$ that satisfies $\eta_{b}(a *_{W} w) = a *_{Z} \eta_{b}(w)$ for all $w \in W$ and for all $a \in A/\sim$, where $*_{W}$ denotes the action of $A/\sim$ on set $W$ and $*_{Z}$ denotes the action of $A/\sim$ on set $Z$.
+
+\paragraph{5. Generalised equivariance condition}
+The generalised equivariance condition for the single-object case is:
+\begin{center}
+    $\eta_{b}(a *_{W} w) = a *_{Z} \eta_{b}(w)$ for all $w \in W$ and for all $a \in A/\sim$.
+\end{center}
+In other words, the diagram
+\input{6CategoryTheoryI/Old/tikzcd-diagrams/single-object-general-equivalence-commuting.tex}
+commutes.
+
+\paragraph{Summary}
+We have now generalised \autocite{Higgins2018}'s group equivariance condition to worlds where $*_{W}: (A/\sim) \times W \to W$ is a (full) monoid action.
+We have shown that the equivariance condition depends only on the number of objects in the delooped category of $A/\sim$, and so the equivariance condition for monoid action $*$ is structurally the same as for group action $*$.
+Our derived equivariance condition is valid in some worlds where agents can perform irreversible actions since monoids can have elements with no inverse; the inability of \autocite{Higgins2018}'s original formalism to deal with irreversible actions has been explicitly stated \cite[page 4]{caselles2019symmetry}.
+In fact, from proposition \ref{prp:wc1_gives_monoid_action}, this equivariance condition for the single-object category case is valid for any world that satisfies world condition ref[wldcon:unrestricted-actions].
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equivariance for multi-object categories}
+% https://ncatlab.org/nlab/show/action+of+a+category+on+a+set --> THIS ONE.
+% https://ncatlab.org/nlab/show/action#actions_of_a_monoid
+
+We will now generalise our argument to derive equivariance conditions for worlds where $*_{W}: (A/\sim) \times W \to W$ is the action of any algebraic structure $A/\sim$ that can be delooped to form any small category $\textbf{B}(A/\sim)$.
+Let us adapt our argument for single-object categories from the previous section step-by-step to the multi-object category case:
+
+\paragraph{1. Setup}
+Consider an agent with a set $A$ of actions and a set $Z$ of representation states in a world $\mathscr{W}_{2}$ that has a set $W$ of world states and where $A/\sim$ is a small category (see Table \ref{tab:group-like-algebraic-structures}) with elements $a_{1}, a_{2}, ..., a_{n}$.
+
+\paragraph{2. Category of actions}
+Let $\textbf{B}(A/\sim)$ be the delooped category of $A/\sim$ and let $\textbf{B} = \{b_{1}, b_{2}, ..., b_{m}\}$ be the set of objects of $\textbf{B}(A/\sim)$.
+For the multi-object category case, the set of morphisms $f: b_{i} \to b_{j}$ of $\textbf{B}(A/\sim)$ is not the elements $a_{1}, a_{2}, ..., a_{n}$ of $A/\sim$ - the elements from the algebraic structure $A/\sim$ do not appear directly as components of morphisms; instead they inform how the objects and morphisms within the category interact.
+The morphisms $f: b_{i} \to b_{j}$ of $\textbf{B}(A/\sim)$ can be thought of as arrows connecting object $b_{i}$ to object $b_{j}$.
+Each morphism is then labelled by an element of $A/\sim$; this labelling indicates how the element from $A/\sim$ maps $b_{i}$ to $b_{j}$ within the categorical framework\footnote{In the single-object category case ($\textbf{B} = b$), all morphisms are between the same object (they are \textit{endomorphisms}) and so there is a one-to-one correspondence between these endomorphisms $f: b \to b$ and the elements of $A/\sim$; this means we can treat the elements of $A/\sim$ as the morphisms of $\textbf{B}(A/\sim)$.}.
+This is analogous to the treatment of transitions (analogous to morphisms) and actions (analogous to elements of $A/\sim$) given in Section ref[sec:Agent actions as labelled transitions].
+
+\paragraph{3. Functors for actions on sets}
+As before, the action $*_{W}: (A/\sim) \times W \to W$ of $A/\sim$ on the set $W$ gives a functor $\rho: \textbf{B}(A/\sim) \to W$, where $\rho$ encodes the properties of the algebraic structure of $(A/\sim)$.
+Similarly, the action $*_{Z}: (A/\sim) \times Z \to Z$ of $A/\sim$ on the set $Z$ gives a functor $\tau: \textbf{B}(A/\sim) \to Z$, where $\tau$ encodes the properties of the algebraic structure of $(A/\sim)$.
+The functors $\rho$ and $\tau$ now have components, $\rho(b_{i})$ and $\tau(b_{i})$, for each object $b_{i} \in \textbf{B}$ as well as components, $\rho(f)$ and $\tau(f)$, for each morphism $f \in \textbf{B}(A/\sim)$.
+
+\paragraph{4. Structure preserving morphisms (natural transform)}
+We again want the property that $A/\sim$ acts on $W$ and $Z$ in the same way, so we want to preserve the structure between the functors $\rho$ and $\tau$.
+The objects of the functor category $\textbf{Set}^{\textbf{B}(A/\sim)}$ are the functors, including $\rho$ and $\tau$, from $\textbf{B}(A/\sim)$ to $\textbf{Set}$; the morphisms between the objects of $\textbf{Set}^{\textbf{B}(A/\sim)}$ are natural transforms.
+So we again want to preserve the structure between the functors $\rho$ and $\tau$ using a natural transform $\eta: W \to Z$.
+However, since there are multiple objects in $\textbf{B}(A/\sim)$, our natural transform $\eta$ has a component for each object in $\textbf{B}$.
+For each object $b_{i} \in \textbf{B}$, there is a component $\eta_{b_{i}}: W \to Z$ such that it satisfies $\eta_{b_{i}}(a *_{W} w) = a *_{Z} \eta_{b_{i}}(w)$ for all $w \in W$ and for all $a \in A/\sim$, where $*_{W}$ denotes the action of $A/\sim$ on set $W$ and $*_{Z}$ denotes the action of $A/\sim$ on set $Z$.
+
+\begin{remark}
+   There is a different $\eta_{b_{i}}$ for each object $b_{i} \in \textbf{B}$.
+\end{remark}
+
+\paragraph{5. Generalised equivariance condition}
+ The generalised equivariance condition for the multi-object category case is a collection of equivariance conditions, one for each object $b_{i} \in \textbf{B}$, with the corresponding natural transformation components $\eta_{b_i}$ satisfying the condition:
+ \begin{center}
+      $\eta_{b_i}(a *_{W} w) = a *_{Z} \eta_{b_i}(w)$ for all $w \in W$ and for all $a \in A/\sim$.
+ \end{center}
+
+In other words, the diagram 
+ \input{6CategoryTheoryI/Old/tikzcd-diagrams/multi-object-general-equivalence-commuting}
+ commutes.
+
+This generalised equivariance condition ensures that the action of $A/\sim$ on $W$ and $Z$ is preserved consistently across all objects of $\textbf{B}(A/\sim)$.
+
+\begin{remark}
+    For each object $b_i$, we have an associated natural transformation component $\eta_{b_i}: W \to Z$.
+    This component represents how the action of $A/\sim$ on the set $W$ relates to the set $Z$ for the specific object $b_i$.
+    In other words, $\eta_{b_i}$ encodes how the algebraic structure $A/\sim$ interacts with that particular object $b_i$.
+\end{remark}
+
+\whendraft{
+\paragraph{Equivariance condition for morphisms}
+
+To check that this defines a natural transformation, we need to show that for each morphism $f: b_i \to b_j$ in $\textbf{B}A$, the diagram
+
+\input{6CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-commuting-diagram}
+ 
+commutes, i.e., $\tau(f)(\eta_{b_i}(w)) = \eta_{b_j}(\rho(f)(w))$ for all $w \in W$.
+This follows from the fact that the actions of $A$ on $W$ and $Z$ are the same, and therefore, applying the algebraic structure of $a_j$ to the element $\eta_{b_j}(\rho(b_j)(w))$ gives the same result as applying the algebraic structure of $a_i$ to the element $\eta_{b_i}(\rho(b_i)(w))$ and then applying the morphism $f$ in $A$.
+}
+
+\paragraph{Summary}
+We have generalised \autocite{Higgins2018}'s group equivariance condition to worlds where $*_{W}: (A/\sim) \times W \to W$ is a (full) small category action or, equivalently, a partial monoid action.
+Our derived equivariance condition is valid in some worlds where agents have actions that are not defined by some world states.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Disentangling}
+\whendraft{\noindent\rule{\textwidth}{1mm}
+\textbf{Notes:}
+\begin{enumerate}
+    \item 
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+We will now generalise the definition of disentanglement given by \autocite{Higgins2018} to give a definition that works for worlds with transformations that cannot be described by groups.
+We prove that the equivalence condition can be disentangled.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\whendraft{
+\subsection{Recap of disentangling in \autocite{Higgins2018}}
+
+Consider a group action $\cdot: G \times X \to X$, and that group $G$ decomposes as the direct product: $G = G_{1} \times G_{2}$.
+We are going to refer to the action of the full group $G$ as $\cdot$ and the action of each subgroup as $\cdot_{i}$.
+We say the group action is \textit{disentangled} with respect to the decomposition of $G$ if there is a decomposition $X = X_{1} \times X_{2}$ and actions $\cdot_{i}: G_{i} \times X_{i} \to X_{i}$, $i \in \{1,2\}$ such that $(g_{1}, g_{2}) \cdot (x_{1}, x_{2}) = (g_{1} \cdot_{1} x_{1}, g_{2} \cdot_{2} x_{2})$.
+In particular, this says that an element of $G_{1}$ acts on $X_{1}$ but leaves $X_{2}$ fixed and vice versa.
+versa.
+If $X$ is a space with additional structure, such as a vector space or a topological space,
+then we may be interested in actions that preserve that structure (linear or continuous
+actions). We remark that in that case the subspace actions also preserve this structure.
+For example, if $X$ is a vector space, and the action is linear, then the subspace actions
+are linear too.
+
+Our definition extends to group decompositions $G = G_{1} \times...\times G_{n}$.
+In that case, we say that the action is disentangled (with respect to the decomposition of $G$) if there is a decomposition $X = X_{1} \times ... \times X_{n}$ such that each $X_{i}$ is fixed by (is invariant to) the action of all the $G_{j}$, $j \neq i$ and is affected only by $G_{i}$.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Disentangling of group actions in Category Theory terms}
+
+\whendraft{\noindent\rule{\textwidth}{1mm}
+\textbf{Notes:}
+\begin{enumerate}
+    \item Are these functors defined correctly?
+\end{enumerate}
+\noindent\rule{\textwidth}{1mm}
+}
+
+In Category Theory, the group action $\cdot: G \times X \to X$, where $G$ is a group and $X$ is a set, gives a functor $\alpha: \textbf{B}G \times \textbf{Set} \to \textbf{Set}$, where $\textbf{B}G$ is the (single-object) delooped category of $G$ and $\textbf{Set}$ the category of sets.
+$\alpha$ satifies:
+\begin{enumerate}
+    \item $\alpha_{1} = \text{id}_{X}$, where $1$ is the identity element of $G$.
+    \item $\alpha_{g_{1}} \circ \alpha_{g_{2}} = \alpha_{g_{1}g_{2}}$ for all $g_{1}, g_{2} \in G$.
+\end{enumerate}
+The set $X$ is an object in the category $\textbf{Set}$.
+
+If $G$ decomposes into the direct product of subgroups $G = G_{1} \times ... \times G_{n}$, then $\textbf{B}G$ decomposes into a categorical product of the relevant delooped categories $\textbf{B}_{i}G_{i}$ as $\textbf{B}G = \textbf{B}_{1}G_{1} \times ... \times \textbf{B}_{n}G_{n}$.
+The object of $\textbf{B}_{1}G_{1} \times ... \times \textbf{B}_{n}G_{n}$ is the $n$-tuple of objects $(b_{1},...,b_{n})$ where each $b_{i}$ is the (single) object in $\textbf{B}_{i}$.
+The morphisms of $\textbf{B}_{1}G_{1} \times ... \times \textbf{B}_{n}G_{n}$ are the $n$-tuples of morphisms $(f_{1}, ..., f_{n})$ where $f_{i}$ is a morphism $f_{i}: \textbf{B}_{i}G_{i} \to \textbf{B}_{i}G_{i}$.
+The composition of morphisms is defined component-wise.
+
+    % Define disentangling of $\textbf{B}G$
+We say the functor $\alpha: G \times X \to X$ is \textit{disentangled} with respect to a decomposition $G = G_{1} \times ... G_{n}$ of $G$ if:
+\begin{enumerate}
+    \item There exists a decomposition $X_{1} \times ... X_{n}$ and an isomorphism $X \cong X_{1} \times ... X_{n}$.
+    \whendraft{
+    \footnote{$X$ might be an object of $X$?}
+    }
+
+    \item $\alpha$ can be decomposed into sub-functors $\alpha = \alpha_{1} \times \alpha_{2} \times ... \times \alpha_{n}$, where each sub-functor $\alpha_{i}: (\textbf{B}_{i}G_{i}) \times X_{i} \to X_{i}$ corresponds to the action of the subgroup $G_{i}$ on the subspace $X_{i}$ that is invariant under all other subgroups: $\alpha(g, x) = \alpha(g_{1} \times ... \times g_{n}, x_{1} \times ... \times x_{n}) = \alpha_{1}(g_{1}, x_{1}) \times ... \times \alpha_{n}(g_{n}, x_{n})$.
+\end{enumerate}
+
+If $G$ has additional structure such as a vector space or a topological space, then we can consider a subcategory  consisting of objects with that structure, and require the functors $\alpha$ and $\alpha_{i}$ to preserve that structure.
+
+\whendraft{
+\noindent\rule{\textwidth}{1mm}
+\textit{I THINK:} the category $\mathcal{C}$ has its own structure, which is independent of the group $G$. The functor $\alpha$ is a mapping from the product category $G \times \mathcal{C}$ to $\mathcal{C}$, which assigns to each pair $(g,x)$ an object $\alpha(g,x)$ in $\mathcal{C}$, such that certain conditions are satisfied.
+
+The objects in $\mathcal{C}$ can be thought of as vertices or nodes in a multidigraph, and the morphisms in $\mathcal{C}$ as directed edges between these vertices. Then, the functor $\alpha$ labels each directed edge in the multidigraph with an element of $G$, representing how that element of the group acts on the corresponding object in $\mathcal{C}$.
+
+For example, if $X$ is a set and $G$ is a group acting on $X$, then the functor $\alpha: G \times \mathbf{Set} \rightarrow \mathbf{Set}$ assigns to each pair $(g,x) \in G \times X$ the object $\alpha(g,x) = g \cdot x \in X$, where $\cdot$ denotes the action of $g$ on $x$. In this case, the vertices in the multidigraph correspond to the elements of $X$, and the directed edges correspond to the action of elements of $G$ on those elements of $X$.
+\noindent\rule{\textwidth}{1mm}
+}
+
+We will now extend the definition of disentangling given by \autocite{Higgins2018} to worlds with transition algebras that are described by multi-object categories.
+First, we convert \autocite{Higgins2018}'s definition of disentangling into category theory terms.
+We then extend this to any single-object category, and finally to any multi-object category.
+
+The definition of a disentangled functor given previously extends to the case of any algebra, including those expressed as multi-object categories, by letting $G$ be the algebra $A/\sim$ and letting $\textbf{B}$ contain one or more objects.
+These changes do not change the definition of a disentangled functor given previously.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Disentangling and the equivariance condition}
+
+We now want to see how disentangling affects the equivariance condition. Specifically, we want to see if the natural transform $\eta$ disentangles.
+
+Let $\rho: \textbf{B}(A/\sim) \to W$ and $\tau: \textbf{B}(A/\sim) \to Z$ be disentangled functors of the actions $*_{W}: (A/\sim) \times W \to W$ and $*_{Z}: (A/\sim) \times Z \to Z$ respectively.
+
+
+By definition, there are decompositions $W = \prod_{i=1}^{n} W_{i}$ and $Z = \prod_{i=1}^{n} Z_{i}$ where each $W_{i}$ (respectively $Z_{i}$) is fixed by the sub-functor $\rho_{j\neq i}$ (respectively $\tau_{j\neq i}$) and is only affected by the functor $\rho_{i}$ (respectively $\tau_{i}$).
+Now let $\eta: W \to Z$ be a natural transform between $\rho$ and $\tau$ (\textit{i.e.}, for each $a, w \in (A/\sim) \times W$, we have $\eta(\rho(a, w)) = \tau(a, \eta(w))$).
+We want to show that $\eta$ is itself disentangled with respect to the decomposition of $\textbf{B}(A/\sim)$.
+
+Let $w = (w_{1},..., w_{n}) \in W$ be a point in the decomposition of $W$, let $a = (a_{1},...,a_{n}) \in A/\sim$ be a point of decomposition of $\textbf{B}(A/\sim)$, and let $a_{i} \in (A/\sim)_{i}$ be an element in the $i$th factor of $A/\sim$.
+Say we have a decomposition of $\eta$ such that $\eta = (\eta_{1}, ..., \eta_{n})$ where $\eta_{i}$ is the $i$th component of $\eta$.
+Therefore, we have $\eta(w) = (\eta_{1}(w_{1}), ..., \eta_{n}(w_{n}))$ where $\eta_{i}(w) \in Z_{i}$.
+Consider
+
+\begin{align*}
+    \eta(\rho(a_{i}, w)) &= \eta((\rho_{1}(a_{i}, w_{1}),..., \rho_{i}(a_{i}, w_{i}), ..., \rho_{n}(a_{i}, w_{n}))) \\
+    &= (\eta_{1}(\rho_{1}(a_{i}, w_{1})), ..., \eta_{i}(\rho_{i}(a_{i}, w_{i})), ... \eta_{n}(\rho_{n}(a_{i}, w_{n})))
+\end{align*}
+
+Since $W_{i}$ is fixed by the action of $(A/\sim)_{j \neq i}$, we have $\rho_{j}(a_{i}, w_{j}) = w_{j}$ for $i \neq j$, and so:
+\begin{align}
+    \eta(\rho(a_{i}, w)) = (\eta_{1}(w_{1}), ..., \eta(\rho_{i}(a_{i}, w_{i})), ..., \eta_{n}(w_{n}))
+    \label{eqn:disentangling-equivalence-W}
+\end{align}
+
+Now consider
+\begin{align*}
+    \tau(a_{i}, \eta(w)) &= (\tau_{1}(a_{i}, \eta_{1}(w_{1})),..., \tau_{i}(a_{i}, \eta_{i}(w_{i})), ..., \tau_{n}(a_{i}, \eta_{n}(w_{n})))
+\end{align*}
+
+Since $Z_{i}$ is fixed by the action of $(A/\sim)_{j \neq i}$, we have $\tau_{j}(a_{i}, \eta(w_{j})) = \eta(w_{j})$ for $i \neq j$, and so:
+\begin{align}
+    \tau(a_{i}, \eta(w)) = (\eta_{1}(w_{1}),..., \tau_{i}(a_{i}, \eta_{i}(w_{i})), ..., \eta_{n}(w_{n}))
+    \label{eqn:disentangling-equivalence-Z}
+\end{align}
+
+We can see from combining equations \ref{eqn:disentangling-equivalence-W} and \ref{eqn:disentangling-equivalence-Z} that if $\eta_{i}(\rho_{i}(a_{i}, w_{i})) = \tau_{i}(a_{i}, \eta_{i}(w_{i}))$ (\textit{i.e.}, the relevant diagrams commute for each component $\eta_{i}$ of $\eta$), then $\eta_{i}$ is disentangled with respect to the action of $(A/\sim)_{i}$ on $W_{i}$ and $Z_{i}$, and therefore $\eta$ is itself disentangled with respect to the decomposition of $A/\sim$.
+
+We have shown that $\eta$ can be decomposed into sub-natural transforms $\eta_{1}, ..., \eta_{n}$, where each $\eta_{i}$ is a natural transform between sub-functions $\rho_{i}$ and $\tau_{i}$.
+Each $\eta_{i}: W_{i} \to Z_{i}$ preserves the structure of the corresponding subcategory of $W$ and $Z$; therefore, if $W_{i}$ and $Z_{i}$ have additional structure, then the sub-natural transform $\eta_{i}$ must preserve that structure.
+This opens up the possibility of a decomposition of $A/\sim$ and therefore $W$, $Z$, $\rho$, $\tau$, and $\eta$ such that some additional structure is confined to a single set of components $(A/\sim)_{i}$, $W_{i}$, $Z_{i}$, $\rho_{i}$, $\tau_{i}$, and $\eta_{i}$.
+
+\paragraph{Components of $\eta$ when $\textbf{B}(A/\sim)$ is a multi-object category}
+
+If $\textbf{B}(A/\sim)$ is a multi-object category, then the components of the sub-natural transform $\eta_{i}$ between functors $\rho_{i}$ and $\tau_{i}$ are ${\eta_{i}}_{b_{j}}: \rho_{i}(b_{j}) \to \tau_{i}(b_{j})$ for each object $b_{j} \in \textbf{B}$.
+
+
+\whendraft{
+Paragraph summarising key results of this subsubsection and converting the results in algebraic form - use examples if necessary.
+}
+
+\paragraph{Summary}
+In summary, we first generalised \autocite{Higgins2018}'s equivariance condition using category theory; to do this we first converted our symmetry-based representation argument into category theory - this gave us insight into the relationship between the algebraic form and the category theory form.
+Category theory naturally generalises the group-equivariance condition given by \autocite{Higgins2018} to any algebraic structure that has a categorical interpretation.
+We then showed that a form of the equivariance condition exists for a world with transformations that form \textit{any} algebra.
+We also showed that the equivariance condition is in fact a fundamental feature of category theory: the natural transform.
+
+Next, we converted \autocite{Higgins2018}'s definition of disentangling into category theory terms; category theory then provided a natural generalisation of the definition of disentangling to worlds with transformations that form any algebra.
+Finally, we explored the interplay between the generalised equivariance condition and the generalised definition of disentangling.
+We concluded that disentangled sub-algebras can each have their own individual equivariance sub-conditions, and so the learning of these sub-algebras, as well as their applications, can be treated independently.
+This result has important implications for learning algorithms; for example, since each disentangled subspace has its own individual equivariance condition the learning of each subspace is also independent and so different learning algorithms could be used on each disentangled subspace.
+

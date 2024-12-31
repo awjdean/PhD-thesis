@@ -1,86 +1,45 @@
-\chapter{To include}
+\chapter{(OLD) Paper discussion \& conclusion (to be converted over)}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Action-homogeneous worlds\whendraft{ and generalisation potential}}
+The question of what features of the world should be present in a `good' representation that improves the performance of an artificial agent for a variety of tasks is one of the key questions in representation learning.
+The other key question in representation learning: `How do we build algorithms that produce representations with these features?' is beyond the scope of this work.
 
-\draftnote{blue}{awjdean}{
-Hypothesis: action-homogeneous worlds are easier to learn.
-Can we design a method that an agent could use to work out the algebra for these worlds ?
-Could use the (old) algorithm we developed because each time we move to a new state it's as if we're returning to where we began (kinda - states are still distinct).
-}
+\autocite{Higgins2018} proposes that the symmetries of the world are important structures that should be present in an agent's representation of the world.
+They formalise this proposal using group theory as SBDRL, which is made up of a disentangling condition that defines the disentangling of transformations as commutative subgroups and a group equivariant condition.
+We take the proposal that the symmetries of the world are important structures that should be present in an agent's representation of the world one step further and propose that the relationships of transformations of the world due to the actions of the agent should be included in the agent's representation of the world and not just the actions of the agent that are symmetries.
+To show that the relationships of transformations of the world due to the actions of the agent are important we set out a mathematical framework, in a similar vein to what \autocite{Higgins2018} does with SBDRL.
+We then used this framework to derive and identify limitations in the SBDRL framework.
+This has two benefits, (1) it shows that the framework we lay out encompasses the previous work (SBDRL) and how our framework encompasses it, and (2) it identifies worlds where the previous work cannot describe the relationships between the transformations of a world due to the actions of an agent.
+We use algorithmic methods, newly designed by us for this work, to extract the algebras of the actions of an agent of some example worlds with transformations that cannot be fully described by SBDRL.
+We decided to use worlds that exhibit features commonly found in reinforcement learning scenarios because representation learning methods are commonly used in reinforcement learning as representation learning has been shown to improve the learning efficiency, robustness, and generalisation ability of reinforcement learning algorithms, and so it is likely that this work will aid the construction of representation learning algorithms that will be used in the field of reinforcement learning.
 
+Finally, we use category theory to generalise core ideas of SBDRs, specifically the equivariance condition and the disentangling definition, to a much larger class of worlds than previously with more complex action algebras, including those with irreversible actions.
+In doing this we have managed to use our framework to derive and then generalise the core idea of SBDRL: the relationships between transformations due to the actions of the agent are important aspects of the world that should be included in the agent’s representation of the world.
+We also propose that category theory appears to be a natural choice for the study of transformations of a world because category theory focuses on the transformation properties of objects and the perspective that the properties of objects are completely determined by their relationship to other objects is a key result of category theory (the Yoneda Lemma).
+
+The framework we have set out and its results have much room for expansion in future work, including the following:
+(1) How would we deal with transformations of the world that are not due to the actions of an agent?
+Is it possible to decouple these transformations from the actions of the agent? Could the result of the agent's actions be estimated by taking some sort of average of the effect of performing each action across a diverse range of states or by working out external causal factors?
+(2) How would partial observability affect the agent's representation?
+(3) What effect would the use of continuous actions have?
+The inclusion of continuous actions would not affect the generalisation of the equivariance condition or disentangling definition given in Section ref[sec:Generalising SBDRL]; there would just be additional conditions on the equivariance conditions to preserve continuity.
+A potentially interesting line of research would be the following: if the reality is, as we have argued, that the agent’s representation is actually discrete due to the precision of the agent’s sensors, would this have any effect on the structure of the agent’s representation or the agent’s learning - similar to how the quantisation of particles has knock-on effects in quantum physics?
+(4) What algebraic structures would be given by different equivalence relations?
+For example, instead of an equivalence relation that equates two actions if they always produce the same result when acting on a world state, how about an equivalence relation that also requires that the number of minimum actions taken is the same up to $\textit{(number of minimum actions)} \text{mod} (2)$ for actions to be considered equivalent.
+(5) Under what conditions can we disentangle reversible and irreversible actions?
+(6) Could our category theory generalisation of the SBDRL equivariance condition also be used to describe other uses of equivariance conditions in AI, such as unifying the different equivariance conditions given by \autocite{Bronstein2021} through natural transforms?
+(7) How can our framework be used to develop better representation learning algorithms?
+
+While a focus on symmetries is becoming more prominent in representation learning, in this work we have sought to take some key results of mathematical frameworks based on symmetries and generalise them to encompass all transformations of the world due to the actions of an agent.
+We hope the work presented here will stimulate further work in this direction, especially in the use of category theory as a natural tool to describe the transformations of a world.
 
 \whendraft{
-	\begin{proposition}
-		If $A/\sim$ is a group, then $a' \circ a * w = w$ ($w \in W$, $a, a' \in A/\sim$) does not mean that $a' \circ a * w' = w'$ for all $w' \in W$.
-	\end{proposition}
-	\begin{proof}
-		Proof by counter example.
-		Consider the world given in Figure ?
-		[insert figure here]
-		The algebra of the actions of an agent with minimum actions $\{1, a, b\}$ is given by the following action Cayley table:
-		[insert action Cayley table]
-	\end{proof}
-}
-
-\begin{world_condition}[Action homogeneity]\label{wldcon:action-homogeneity}
-	For every pair $(w_{1}, w_{2}) \in W^{2}$, there exists a bijective map $\sigma_{(w_{1},w_{2})}: W \to W$ such that $\sigma_{(w_{1},w_{2})}(w_{1})=w_{2}$ and such that:
-
-	\begin{enumerate}
-		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma_{(w_{1}, w_{2})}(t(d))$;
-
-		      % Is this part needed --> implied by first condition due to $\sigma$ being a bijection ?
-		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma^{-1}_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma^{-1}_{(w_{1}, w_{2})}(t(d))$.
-	\end{enumerate}
-\end{world_condition}
-
-World condition \ref{wldcon:action-homogeneity} means that action sequences have the same result for any initial world state.
-Essentially, this means that the world looks the same from any world state with respect to the relationships of actions.
-We call worlds with world condition \ref{wldcon:action-homogeneity} \textit{action-homogeneous worlds}.
-
-\begin{definition}[Weak equivalence $\sim_{w}$]\label{def:weak action equivalence}
-	For $a,a' \in A$ and $w \in W$, $a \sim_{w} a$ if $a * w = a' * w$ or $a$ and $a'$ are both restricted actions with respect to $w$.
-\end{definition}
-
-\begin{remark}
-	In definition \ref{def:weak action equivalence}, for the case where $a, a'$ are both restricted actions, then we say $a * w = a' * w$.
-	The meaning of $a * w$ where $a$ is restricted on $w$ will be defined later.
-\end{remark}
-
-\begin{proposition}
-	$\sim_{w}$ is an equivalence relation.
-\end{proposition}
-\begin{proof}
-	To show that $\sim_{w}$ is an equivalence relation, we need to show that the relation is (a) reflexive, (b) transitive, and (c) symmetric.
-	(a) For a binary relation $R$ over a set $X$ to be reflexive: $x R x$ for every $x \in X$.
-	For $w \in W$, if $a * w$ is defined then $a * w = a * w$ from the properties of $=$ for any $a \in A$.
-	Therefore, $a \sim_{w} a$.
-	(b) For a binary relation $R$ over a set $X$ to be transitive: if $a R b$ and $b R c$ then $a R c$ for all $a,b,c \in X$.
-	If $a \sim_{w} a'$ and $a' \sim_{w} a''$, then $a * w = a' * w$, $a' * w = a'' * w$ for all $w \in W$.
-	Combining these two equations gives $a * w = a'' * w$.
-	(c) For a binary relation $R$ over a set $X$ to be reflexive: if $a R b$, then $b R a$ for all $a,b \in X$.
-	If $a \sim_{w} a'$, then $a * w = a' * w$. Therefore $a' * w = a * w$, and so $a' \sim_{W} a$.
-\end{proof}
-
-For action-homogeneous worlds, the following properties hold:
+\noindent\rule{\textwidth}{1mm}
 \begin{enumerate}
-	\item If a world is action-homogeneous, then $a \sim_{w} a'$ means $a \sim a'$ - this makes it much easier to learn the algebra of action-homogeneous worlds;
-
-	\item The number of elements in $A/\sim$ is always equal to the number of states in the world since for any state $w \in W$, there is exactly one action $a \in A/\sim$ for which $a * w = w'$ where $w'$ is any state in $W$; therefore the number of elements in the action algebra is equal to the number of states in $W$;
-
-	\item If $a * w_{i} = w_{j}$, then there exists a world state $w_{k} \in W$ such that $a * w_{k} = w_{i}$.
-	      In other words, if $a$ is defined from one world state it is defined from all world states;
-
-	\item If $a' * (a * w) = a * (a' * w) = w$ for any $w \in W$, then $a' * (a * w) = a * (a' * w) = w$ for all $w \in W$.
-	      In other words, reversible actions imply inverse actions.
+    \item Agent perception is always discrete because, even in a continuous world, there is always a limit to what an agent can perceive there exists two world states are indistinguishable to agent (\textit{e.g.}, the agent's sensors are not precise enough to distinguish between the two world states).
+    
+    \item Does treating the world as `effectively continuous' make a difference?
 \end{enumerate}
-
-\whendraft{
-	\textbf{[Insert info about generalisation.]}
-	\begin{itemize}
-		\item If we know that, from a particular initial state, a particular sequence of actions has a particular outcome and we know that a different sequence of actions from the same initial state has the same outcome then we know that those two action sequences will have the same outcome in from every initial state (and therefore will be equivalent?!).
-		      \begin{itemize}
-			      \item Illustrate this using the counter-example - see PhD Notebook 1 notes.
-		      \end{itemize}
-	\end{itemize}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \input{ToUse/Paper discards/main}
