@@ -17,42 +17,74 @@
 % Set up any book-specific stuff now
 \input{LaTeX/preamble.def}
 
-%%
-% The front matter in Tufte's /Beautiful Evidence/ contains everything up to the opening page of Chapter 1.  The running heads, when they appear, contain only the (arabic) page number in the outside corner.
-\newif\if@mainmatter \@mainmattertrue
+% %%
+% % The front matter in Tufte's /Beautiful Evidence/ contains everything up to the opening page of Chapter 1.  The running heads, when they appear, contain only the (arabic) page number in the outside corner.
+% \newif\if@mainmatter \@mainmattertrue
+% \renewcommand\frontmatter{%
+% 	\if@openright%
+% 		\cleardoublepage%
+% 	\else%
+% 		\clearpage%
+% 	\fi%
+% 	\@mainmatterfalse%
+% 	\pagenumbering{arabic}%
+% 	\pagestyle{plain}%
+% 	\setcounter{secnumdepth}{-1}
+% 	\notnumberedchapterformat
+% }
+
+% %%
+% % The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page numbering---it continues where it left off in the front matter.
+% \renewcommand\mainmatter{%
+% 	\if@openright%
+% 		\cleardoublepage%
+% 	\else%
+% 		\clearpage%
+% 	\fi%
+% 	\@mainmattertrue%
+% 	\fancyhf{}%
+% 	\fancyfoot[C]{\thepage} % Centered page numbers at the bottom
+% 	% Two-side
+% 	\renewcommand{\chaptermark}[1]{\markboth{##1}{}}%
+% 	% LHS Book title
+% 	\fancyhead[LE]{\smallcaps{\newlinetospace{\plaintitle}}}%
+% 	% RHS Chapter title
+% 	\fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}}%
+% 	\setcounter{secnumdepth}{2}
+% 	\numberedchapterformat
+% }
+
 \renewcommand\frontmatter{%
-	\if@openright%
-		\cleardoublepage%
-	\else%
-		\clearpage%
-	\fi%
-	\@mainmatterfalse%
-	\pagenumbering{arabic}%
-	\pagestyle{plain}%
-	\setcounter{secnumdepth}{-1}
-	\notnumberedchapterformat
+    % \if@openright%
+    %   \cleardoublepage%
+    % \else%
+    %   \clearpage%
+    % \fi%
+    \@mainmatterfalse%
+    \pagenumbering{arabic}%
+    \pagestyle{plain}%
+    \setcounter{secnumdepth}{-1}
+    \notnumberedchapterformat
+    \begin{fullwidth}
 }
 
-%%
-% The main matter in Tufte's /Beautiful Evidence/ doesn't restart the page numbering---it continues where it left off in the front matter.
 \renewcommand\mainmatter{%
-	\if@openright%
-		\cleardoublepage%
-	\else%
-		\clearpage%
-	\fi%
-	\@mainmattertrue%
-	\fancyhf{}%
-	\fancyfoot[C]{\thepage} % Centered page numbers at the bottom
-	% Two-side
-	\renewcommand{\chaptermark}[1]{\markboth{##1}{}}%
-	% LHS Book title
-	\fancyhead[LE]{\smallcaps{\newlinetospace{\plaintitle}}}%
-	% RHS Chapter title
-	\fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}}%
-	\setcounter{secnumdepth}{2}
-	\numberedchapterformat
+    \end{fullwidth}%  <--- close fullwidth from frontmatter
+    \if@openright%
+      \cleardoublepage%
+    \else%
+      \clearpage%
+    \fi%
+    \@mainmattertrue%
+    \fancyhf{}%
+    \fancyfoot[C]{\thepage} 
+    \renewcommand{\chaptermark}[1]{\markboth{##1}{}}
+    \fancyhead[LE]{\smallcaps{\newlinetospace{\plaintitle}}}
+    \fancyhead[RO]{\smallcaps{\newlinetospace{\leftmark}}}
+    \setcounter{secnumdepth}{2}
+    \numberedchapterformat
 }
+
 
 %%
 % The back matter contains appendices, indices, glossaries, endnotes,

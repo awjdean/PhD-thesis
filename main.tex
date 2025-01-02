@@ -1,32 +1,21 @@
 \documentclass[justified]{LaTeX/tufte-book}
 
 \usepackage{LaTeX/draftmode}
-\global\drafttrue
-% \global\draftfalse
-
-\title{Algebraic structures in representation learning}
-\author{Alex Dean}
-\date{\today}
+% \global\drafttrue
+\global\draftfalse
 
 \begin{document}
 
-\maketitle
+\include{Frontmatter/title_page}
+\frontmatter
+\singlespacing
+\tableofcontents
 
 \doublespacing
-\frontmatter
+\listoffigures
+\listoftables
 
-\begin{fullwidth}
-    % \singlespacing
-    \tableofcontents
-\end{fullwidth}
-
-\begin{fullwidth}
-    \listoffigures
-    \listoftables
-\end{fullwidth}
-
-\chapter{Abstract}
-
+\input{Frontmatter/abstract}
 
 \mainmatter
 \input{1Introduction/main}
@@ -36,13 +25,6 @@
 \input{5BeyondSBDRL/main}
 \input{6CategoryTheoryI/main}
 \input{7ExtendingTheFramework/main}
-
-% \whendraft{
-% 	\chapter{Test}
-% 	\draftnote{red}{awjdean}{A draft note.}
-% 	\draftfootnote{blue}{awjdean}{A draft footnote}
-% }
-
 
 \begin{appendices}
     \setappendixformat
