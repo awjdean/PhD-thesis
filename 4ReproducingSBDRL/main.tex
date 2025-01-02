@@ -1,6 +1,6 @@
 \chapter{
 Reproducing symmetry-based disentangled representation learning
-(V1.1)
+(V1.2)
 }
 
 
@@ -719,18 +719,8 @@ Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{
+\section{
 An example world\texorpdfstring{: $\mathscr{W}_{(2,2)C}$}{}
-}
-
-\draftnote{blue}{To do}{
-\textbf{For $\mathscr{W}_{(2,2)C}$:}
-\begin{enumerate}
-    \item Properties table.
-    \item Include other info (e.g., equivalence classes, element orders - see (OLD) Algorithm chapter.
-    \item Algorithm that finds disentangled subgroups?
-    \item Talk about how, due to the elements being equivalent under $\sim$, actions like $W$ and $E$ are not really in the same disentangled subspace (as \autocite{Higgins2018} claims) because $W$ and $E$ are both in the same equivalence class.
-\end{enumerate}
 }
 
 We will now show for the world $\mathscr{W}_{(2,2)C}$, which we described in \cref{sec:an_example_world, sec:the_equivalence_condition_on_example_world}, that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group.
@@ -738,26 +728,98 @@ We have used \cref{alg:GenerateEquivClasses,alg:GenerateCayley} to generate the 
 
 \begin{table}[H]
 \centering
-\begin{tabularx}{\linewidth}{X| XXXX}
-    $(\hat{A}^{*}/\sim, \circ_{\sim})$ & $1$ & $W$  & $N$  & $NW$ \\
+\begin{tabular}{l| llll}
+     & $1$ & $W$  & $N$  & $NW$ \\
     \hline
     $1$ & $1$ & $W$  & $N$  & $NW$ \\
     $W$ & $W$ & $1$  & $NW$ & $N$  \\
     $N$ & $N$ & $NW$ & $1$  & $W$  \\
     $NW$ & $NW$ & $N$ & $W$  & $1$  \\
-\end{tabularx}
+\end{tabular}
 \caption{
 Cayley table for $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
 }
 \end{table}
 
-By checking for group properties, we can confirm that $(\hat{A}^{*}/\sim, \circ_{\sim})$ forms a group.
+\begin{table}[H]
+\centering
+\begin{tabular}{l|c}
+\textbf{Property} & \textbf{Present?} \\
+\hline
+Associative & Y \\
+Identity & Y \\
+Inverses & Y \\
+Commutative & Y \\
+\end{tabular}
+\caption{
+Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
+\draftnote{blue}{To do}{Sort table formatting.}
+\draftnote{blue}{Consider}{Include Totality property ?}
+}
+\label{tab:example_1_group_properties}
+\end{table}
 
-\draftnote{blue}{awjdean}{
-Example of world with cyclical 2x2 grid colours with colours in Higgins
+By checking the group properties (\cref{tab:example_1_group_properties}), we can confirm that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is an Abelian group.
+Since the action transformation algebra of $\mathscr{W}_{(2,2)C}$ for our agent is a group, the action transinformation structure of $\mathscr{W}_{(2,2)C}$ for our agent can be described fully using the SBDRL formalism \draftnote{blue}{Consider}{"SB formalism" instead of "SBDRL formalism" ?}.
+
+
+There are four elements in the $(\hat{A}^{*}/\sim, \circ_{\sim})$ algebra, therefore, if the agent learns the relations between these four elements, and then it has complete knowledge of the transformations of our example world \draftnote{blue}{To do}{rewrite this.}.
+The order of each element is given by Table \ref{tab:example_1_element_orders}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{l|c}
+        \textbf{Element}   & \textbf{Order} \\
+        \hline
+        $1$     & 1\\
+        $W$     & 2\\
+        $N$     & 2\\
+        $NW$    & 2
+    \end{tabular}
+    \caption{
+    Orders of elements in $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
+    }
+    \label{tab:example_1_element_orders}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|l}
+        $\sim$ equivalence class label & $\sim$ equivalence class elements\\
+        \hline
+        $1$         & $1, 11, WW, NN, \cdots$\\
+        $W$         & $W, E, 1W, W1, NNW, \cdots$\\
+        $N$         & $N, S, 1N, N1, WNW, \cdots$\\
+        $NW$        & $NW, WN, 1NW, \cdots$
+    \end{tabular}
+    \caption{Equivalence classes of $\hat{A}^{*}/\sim$ under $\sim$.}
+\end{table}
+
+\draftnote{blue}{To do}{
+\textbf{For $\mathscr{W}_{(2,2)C}$:}
+\begin{enumerate}
+    \item Algorithm that finds disentangled subgroups?
+    \item Talk about how, due to the elements being equivalent under $\sim$, actions like $W$ and $E$ are not really in the same disentangled subspace (as \autocite{Higgins2018} claims) because $W$ and $E$ are both in the same equivalence class.
+    \item (?) Show states Cayley table - mention that each row-column is different.
+    \item (?) Show abstract Cayley table ?
+    \begin{itemize}
+        \item ``The choice of the equivalence class label in Table \ref{tab:2x2-gridworld-no-walls-equivalence-classes} is arbitrary; it is better to think of each equivalence class as a distinct element as shown in the Cayley table in Table \ref{tab:2x2-gridworld-no-walls-action-cayley-abstract}.''
+    \end{itemize}
+\end{enumerate}
 }
 
+\draftnote{blue}{awjdean}{Show the relations that describe the algebra in the $a^{n} = 1$ form ?
+Does the $a^{n} = 1$ form fully describe non-group algebras?
+What about when an action $a$ hits a cycle that doesn't include $1$ ?
+}
+
+
+
+
+
+
 \draftnote{green}{Include}{
+Example of world with cyclical 2x2 grid colours with colours in Higgins
 \textbf{For Higgins world:}
 \begin{enumerate}
     \item Minimum action transformation world graph.
@@ -770,3 +832,5 @@ Example of world with cyclical 2x2 grid colours with colours in Higgins
 \draftnote{blue}{Mention earlier}{
 For the remainder of this chapter we will focus on symmetry-based representations.
 }
+
+

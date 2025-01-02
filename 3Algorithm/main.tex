@@ -1,6 +1,6 @@
 \chapter{
 Algorithm \draftnote{blue}{(change name)}{}
-(V1.0)
+(V1.1)
 }
 
 The latest version of the code for this chapter can be found at
@@ -10,18 +10,22 @@ The latest version of the code for this chapter can be found at
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
-\whendraft{
+\draftnote{blue}{To do}{
 	\begin{enumerate}
 		\item Why create the algorithm ?
 		      \begin{itemize}
 			      \item We wanted a way to explore structures.
 		      \end{itemize}
-
 	\end{enumerate}
 }
 
+To gain an intuition for the structure of different worlds and to illustrate our theoretical work with examples, we developed an algorithm that uses an agent’s minimum actions to generate the algebraic structure of the transformations of a world due to the agent's actions.
+We display this structure as a generalised Cayley table (a multiplication table for the distinct elements of the algebra).
+
+After generating the algorithm, we also check the following properties of the algebra algorithmically: (1) the presence of identity, including the presence of left and right identity elements separately, (2) the presence of inverses, including the presence of left and right inverses separately for each element, (3) associativity, (4) commutativity, and (5) the order of each element in the algebra.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Description [/preliminaries?]}
+\section{The algorithm}
 \whendraft{
 	\textbf{Include in algorithm description:}
 	\begin{enumerate}
@@ -53,29 +57,32 @@ The latest version of the code for this chapter can be found at
 \end{enumerate}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Description}
+Algorithm \ref{alg:GenerateEquivClasses} can be split into three parts: (1) the initialisation step, (2) the expansion step, and (3) the termination condition.
+
+\textbf{Initialisation.}
+We start by finding the distinct minimum actions in $\hat{A}$ by calculating their actions functions $f_{\hat{a}}: w \mapsto \hat{a} \ast w$ and checking if they are unique in $\mathcal{T}$.
+We can then initialise our set $L$ of actions whose induced action functions (stored in $\mathcal{T}$) are unique as $L \gets \hat{A}/\sim$ of distinct minimum actions, we can initialise our set $\mathcal{T}$ of unique action functions as $\mathcal{T}\gets \{f_{\hat{a}}\}$ for all $\hat{a} \in \hat{A}/\sim$, and we can initialise our map $\rho$ that stores the correspondence between distinct actions in $L$ and their unique action functions in $\mathcal{T}$ as $\rho \gets (\hat{a} \mapsto f_{\hat{a}})$ for all $\hat{a} \in \hat{A}/\sim$.
+
+\textbf{Expansion.}
+In each iteration of the expansion step we attempt to expand the set $L$ of distinct actions by left composing minimum actions onto the distinct actions we've previously discovered to get new candidates for distinct actions: $a_{C} = \hat{a} \circ l$ for every $\hat{a} \in \hat{A}/\sim$ and for every $l \in L$.
+These candidate are then checked for distinctness using the same process as for minimum actions: find the action function $f_{a_{C}}$ for the candidate $a_{C}$ and check if it is already in $\mathcal{T}$; if it's not, then store $a_{C}$, $f_{a_{C}}$ and the correspondence between them in $L$, $\mathcal{T}$, and $\rho$.
+In reality, in every iteration of the expansion step we only need to create candidates using the actions in $L$ with the greatest length when expressed in terms of their unique sequence of minimum actions rather than creating candidates using every action in $L$; this is because if the largest actions in $L$ at the start of an expansion iteration have a length of $n$, then all elements with a length of less than $n$ have already been checked for distinctness due to the creation of candidates at each expansion iteration using a single minimum action and so increasing the length of candidates by one at each iteration.
+
+\textbf{Termination.}
+The algorithm halts when an expansion iteration produces no new distinct action functions.
+
+For our algorithm to successfully generate the complete transformation algebra of a world, the world must contain a finite number of states, the agent must have a finite number of minimum actions, and all the transformations of the world must be due to the actions of the agent.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The initial}
-
-
-The definition of $\sim$ is ...
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Mathematical preliminaries}
-\whendraft{
-	\begin{enumerate}
-		\item Definition of Cayley table. - put this in motivation section ?
-	\end{enumerate}
+\subsection{Preliminaries}
+\draftnote{blue}{To do}{
+\begin{enumerate}
+    \item Definition of Cayley table. - put this in motivation section ?
+    \item Something about how the Cayley table containing all the necessary information for the algebra.
+\end{enumerate}
 }
-
-
-\paragraph{What is an actions Cayley table?}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -396,35 +403,6 @@ Dealing with undefined actions.
 }
 
 
-
-
-\paragraph{Algorithm description.}
-Algorithm \ref{alg:GenerateEquivClasses} can be split into three parts: (1) the initialisation step, (2) the expansion step, and (3) the termination condition.
-
-\textbf{Initialisation.}
-We start by finding the distinct minimum actions in $\hat{A}$ by calculating their actions functions $f_{\hat{a}}: w \mapsto \hat{a} \ast w$ and checking if they are unique in $\mathcal{T}$.
-We can then initialise our set $L$ of actions whose induced action functions (stored in $\mathcal{T}$) are unique as $L \gets \hat{A}/\sim$ of distinct minimum actions, we can initialise our set $\mathcal{T}$ of unique action functions as $\mathcal{T}\gets \{f_{\hat{a}}\}$ for all $\hat{a} \in \hat{A}/\sim$, and we can initialise our map $\rho$ that stores the correspondence between distinct actions in $L$ and their unique action functions in $\mathcal{T}$ as $\rho \gets (\hat{a} \mapsto f_{\hat{a}})$ for all $\hat{a} \in \hat{A}/\sim$.
-
-\textbf{Expansion.}
-In each iteration of the expansion step we attempt to expand the set $L$ of distinct actions by left composing minimum actions onto the distinct actions we've previously discovered to get new candidates for distinct actions: $a_{C} = \hat{a} \circ l$ for every $\hat{a} \in \hat{A}/\sim$ and for every $l \in L$.
-These candidate are then checked for distinctness using the same process as for minimum actions: find the action function $f_{a_{C}}$ for the candidate $a_{C}$ and check if it is already in $\mathcal{T}$; if it's not, then store $a_{C}$, $f_{a_{C}}$ and the correspondence between them in $L$, $\mathcal{T}$, and $\rho$.
-In reality, in every iteration of the expansion step we only need to create candidates using the actions in $L$ with the greatest length when expressed in terms of their unique sequence of minimum actions rather than creating candidates using every action in $L$; this is because if the largest actions in $L$ at the start of an expansion iteration have a length of $n$, then all elements with a length of less than $n$ have already been checked for distinctness due to the creation of candidates at each expansion iteration using a single minimum action and so increasing the length of candidates by one at each iteration.
-
-\textbf{Termination.}
-The algorithm halts when an expansion iteration produces no new distinct action functions.
-
-\begin{algorithm}[H]
-	\caption{
-		Compute the action function for the combination $l_{L} \circ l_{R}$ of two actions by combining their action functions.
-	}
-	\hrulefill
-	\begin{algorithmic}[1]
-		\Procedure{ComputeCombinedActionFunction}{$l_{R}$, \; $l_{L}$, \; }
-		\EndProcedure
-	\end{algorithmic}
-\end{algorithm}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Algorithm \ref{alg:GenerateEquivClasses} halts}
 
@@ -489,6 +467,3 @@ Therefore, an estimate for the upper bound on the complexity of algorithm \ref{a
 		\item Have a world $\mathscr{W}$ with loads of transformations, then have different agent actions (different labelling map).
 	\end{enumerate}
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{3Algorithm/Old/main}
