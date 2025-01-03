@@ -720,11 +720,11 @@ Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{
-An example world\texorpdfstring{: $\mathscr{W}_{(2,2)C}$}{}
+An example world\texorpdfstring{: $\mathscr{W}_{\alpha}$}{}
 }
 
-We will now show for the world $\mathscr{W}_{(2,2)C}$, which we described in \cref{sec:an_example_world, sec:the_equivalence_condition_on_example_world}, that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group.
-We have used \cref{alg:GenerateEquivClasses,alg:GenerateCayley} to generate the Cayley table of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for our agent in the world $\mathscr{W}_{(2,2)C}$ as described in \cref{sec:an_example_world}.
+We will now show for the world $\mathscr{W}_{\alpha}$, which we described in \cref{sec:an_example_world, sec:the_equivalence_condition_on_example_world}, that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group.
+We have used \cref{alg:GenerateEquivClasses,alg:GenerateCayley} to generate the Cayley table of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for our agent in the world $\mathscr{W}_{\alpha}$ as described in \cref{sec:an_example_world}.
 
 \begin{table}[H]
 \centering
@@ -737,7 +737,7 @@ We have used \cref{alg:GenerateEquivClasses,alg:GenerateCayley} to generate the 
     $NW$ & $NW$ & $N$ & $W$  & $1$  \\
 \end{tabular}
 \caption{
-Cayley table for $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
+Cayley table for $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\alpha}$.
 }
 \end{table}
 
@@ -752,7 +752,7 @@ Inverses & Y \\
 Commutative & Y \\
 \end{tabular}
 \caption{
-Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
+Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\alpha}$.
 \draftnote{blue}{To do}{Sort table formatting.}
 \draftnote{blue}{Consider}{Include Totality property ?}
 }
@@ -760,7 +760,7 @@ Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A
 \end{table}
 
 By checking the group properties (\cref{tab:example_1_group_properties}), we can confirm that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is an Abelian group.
-Since the action transformation algebra of $\mathscr{W}_{(2,2)C}$ for our agent is a group, the action transinformation structure of $\mathscr{W}_{(2,2)C}$ for our agent can be described fully using the SBDRL formalism \draftnote{blue}{Consider}{"SB formalism" instead of "SBDRL formalism" ?}.
+Since the action transformation algebra of $\mathscr{W}_{\alpha}$ for our agent is a group, the action transinformation structure of $\mathscr{W}_{\alpha}$ for our agent can be described fully using the SBDRL formalism \draftnote{blue}{Consider}{"SB formalism" instead of "SBDRL formalism" ?}.
 
 
 There are four elements in the $(\hat{A}^{*}/\sim, \circ_{\sim})$ algebra, therefore, if the agent learns the relations between these four elements, and then it has complete knowledge of the transformations of our example world \draftnote{blue}{To do}{rewrite this.}.
@@ -777,7 +777,7 @@ The order of each element is given by Table \ref{tab:example_1_element_orders}.
         $NW$    & 2
     \end{tabular}
     \caption{
-    Orders of elements in $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{(2,2)C}$.
+    Orders of elements in $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\alpha}$.
     }
     \label{tab:example_1_element_orders}
 \end{table}
@@ -796,7 +796,7 @@ The order of each element is given by Table \ref{tab:example_1_element_orders}.
 \end{table}
 
 \draftnote{blue}{To do}{
-\textbf{For $\mathscr{W}_{(2,2)C}$:}
+\textbf{For $\mathscr{W}_{\alpha}$:}
 \begin{enumerate}
     \item Algorithm that finds disentangled subgroups?
     \item Talk about how, due to the elements being equivalent under $\sim$, actions like $W$ and $E$ are not really in the same disentangled subspace (as \autocite{Higgins2018} claims) because $W$ and $E$ are both in the same equivalence class.

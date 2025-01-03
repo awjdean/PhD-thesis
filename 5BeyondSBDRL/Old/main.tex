@@ -1,131 +1,6 @@
 \chapter{(OLD) Beyond SBDRL (to be converted over)}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Action-homogeneous worlds\whendraft{ and generalisation potential}}
-
-\draftnote{blue}{awjdean}{
-Hypothesis: action-homogeneous worlds are easier to learn.
-Can we design a method that an agent could use to work out the algebra for these worlds ?
-Could use the (old) algorithm we developed because each time we move to a new state it's as if we're returning to where we began (kinda - states are still distinct).
-}
-
-
-\whendraft{
-	\begin{proposition}
-		If $A/\sim$ is a group, then $a' \circ a * w = w$ ($w \in W$, $a, a' \in A/\sim$) does not mean that $a' \circ a * w' = w'$ for all $w' \in W$.
-	\end{proposition}
-	\begin{proof}
-		Proof by counter example.
-		Consider the world given in Figure ?
-		[insert figure here]
-		The algebra of the actions of an agent with minimum actions $\{1, a, b\}$ is given by the following action Cayley table:
-		[insert action Cayley table]
-	\end{proof}
-}
-
-\begin{world_condition}[Action homogeneity]\label{wldcon:action-homogeneity}
-	For every pair $(w_{1}, w_{2}) \in W^{2}$, there exists a bijective map $\sigma_{(w_{1},w_{2})}: W \to W$ such that $\sigma_{(w_{1},w_{2})}(w_{1})=w_{2}$ and such that:
-
-	\begin{enumerate}
-		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma_{(w_{1}, w_{2})}(t(d))$;
-
-		      % Is this part needed --> implied by first condition due to $\sigma$ being a bijection ?
-		\item for every $d \in D_{A}$ with $d: s(d) \xrightarrow{a} t(d)$, there exists a $d' \in D_{A}$ with $d': \sigma^{-1}_{(w_{1}, w_{2})}(s(d)) \xrightarrow{a} \sigma^{-1}_{(w_{1}, w_{2})}(t(d))$.
-	\end{enumerate}
-\end{world_condition}
-
-World condition ref[wldcon:action-homogeneity] means that action sequences have the same result for any initial world state.
-Essentially, this means that the world looks the same from any world state with respect to the relationships of actions.
-We call worlds with world condition ref[wldcon:action-homogeneity] \textit{action-homogeneous worlds}.
-
-\begin{definition}[Weak equivalence $\sim_{w}$]\label{def:weak action equivalence}
-	For $a,a' \in A$ and $w \in W$, $a \sim_{w} a$ if $a * w = a' * w$ or $a$ and $a'$ are both restricted actions with respect to $w$.
-\end{definition}
-
-\begin{remark}
-	In definition \ref{def:weak action equivalence}, for the case where $a, a'$ are both restricted actions, then we say $a * w = a' * w$.
-	The meaning of $a * w$ where $a$ is restricted on $w$ will be defined later.
-\end{remark}
-
-\begin{proposition}
-	$\sim_{w}$ is an equivalence relation.
-\end{proposition}
-\begin{proof}
-	To show that $\sim_{w}$ is an equivalence relation, we need to show that the relation is (a) reflexive, (b) transitive, and (c) symmetric.
-	(a) For a binary relation $R$ over a set $X$ to be reflexive: $x R x$ for every $x \in X$.
-	For $w \in W$, if $a * w$ is defined then $a * w = a * w$ from the properties of $=$ for any $a \in A$.
-	Therefore, $a \sim_{w} a$.
-	(b) For a binary relation $R$ over a set $X$ to be transitive: if $a R b$ and $b R c$ then $a R c$ for all $a,b,c \in X$.
-	If $a \sim_{w} a'$ and $a' \sim_{w} a''$, then $a * w = a' * w$, $a' * w = a'' * w$ for all $w \in W$.
-	Combining these two equations gives $a * w = a'' * w$.
-	(c) For a binary relation $R$ over a set $X$ to be reflexive: if $a R b$, then $b R a$ for all $a,b \in X$.
-	If $a \sim_{w} a'$, then $a * w = a' * w$. Therefore $a' * w = a * w$, and so $a' \sim_{W} a$.
-\end{proof}
-
-For action-homogeneous worlds, the following properties hold:
-\begin{enumerate}
-	\item If a world is action-homogeneous, then $a \sim_{w} a'$ means $a \sim a'$ - this makes it much easier to learn the algebra of action-homogeneous worlds;
-
-	\item The number of elements in $A/\sim$ is always equal to the number of states in the world since for any state $w \in W$, there is exactly one action $a \in A/\sim$ for which $a * w = w'$ where $w'$ is any state in $W$; therefore the number of elements in the action algebra is equal to the number of states in $W$;
-
-	\item If $a * w_{i} = w_{j}$, then there exists a world state $w_{k} \in W$ such that $a * w_{k} = w_{i}$.
-	      In other words, if $a$ is defined from one world state it is defined from all world states;
-
-	\item If $a' * (a * w) = a * (a' * w) = w$ for any $w \in W$, then $a' * (a * w) = a * (a' * w) = w$ for all $w \in W$.
-	      In other words, reversible actions imply inverse actions.
-\end{enumerate}
-
-\whendraft{
-	\textbf{[Insert info about generalisation.]}
-	\begin{itemize}
-		\item If we know that, from a particular initial state, a particular sequence of actions has a particular outcome and we know that a different sequence of actions from the same initial state has the same outcome then we know that those two action sequences will have the same outcome in from every initial state (and therefore will be equivalent?!).
-		      \begin{itemize}
-			      \item Illustrate this using the counter-example - see PhD Notebook 1 notes.
-		      \end{itemize}
-	\end{itemize}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Beyond SBDRs}\label{sec:Beyond SBDRs}
-
-We will now consider worlds that do not satisfy either world condition ref[wldcon:unrestricted-actions] or world condition ref[wldcon:inverse-actions] and so have transformations that do not form a group action.
-We have selected examples with features that are common in simple reinforcement learning scenarios.
-
-We also consider two methods of treating actions that are not allowed to be used in certain world states (\textit{e.g.}, the agent trying to move through a wall or eat a consumable in a state where the agent is not in the same location as a consumable).
-Method 1 (Sections ref[sec:identity reversible action-inhomogeneous world] and ref[sec:identity irreversible inhomogeneous actions]) lets the agent select the actions but any actions that would have been undefined in a state $w$ have the same effect in $w$ as the agent performing the identity action $1$.
-Method 2 (Sections ref[sec:masked reversible action-inhomogeneous world] and ref[sec:masked irreversible action-inhomogeneous world]) does not let the agent select these actions and so considers them as undefined; this violates world condition ref[wldcon:unrestricted-actions].
-These two treatments of actions are commonly used in reinforcement learning.
-We use the computational methods outlined in Section ref[sec:Algorithmic exploration of world structures] to generate the action algebras of the agent in these worlds and provide evidence for our statements.
-
-We also prove that the treatment of actions affects the algebra of the world (Proposition ref[prp:algebra$\_$depends$\_$on$\_$action$\_$treatment]).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Beyond groups}
-
-If we relax one or more of the properties of a group, then we get more general algebraic structures.
-The relevant algebraic structures and their properties are shown in Table \ref{tab:group-like-algebraic-structures}.
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{c|c|c|c|c}
-                        & Closure   & Identity & Inverse  & Associativity \\
-                        \hline
-                        &           &          &          & \\
-        Group           & Y         & Y        & Y        & Y \\
-                        &           &          &          & \\
-        Monoid          & Y         & Y        & N        & Y \\
-                        &           &          &          & \\
-        Small category  & N         & Y        & N        & Y \\
-                        &           &          &          & \\
-    \end{tabular}
-    \caption{The group properties of relevant group-like algebraic structures.}
-    \label{tab:group-like-algebraic-structures}
-\end{table}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Worlds without inverse actions}
+\section{Worlds without inverse actions}
 
 In this section, we consider worlds that do not necessarily satisfy world condition ref[wldcon:inverse-actions] but do satisfy world condition ref[wldcon:unrestricted-actions].
 
@@ -150,68 +25,6 @@ In this section, we consider worlds that do not necessarily satisfy world condit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Example 1: reversible action-inhomogeneous world}\label{sec:identity reversible action-inhomogeneous world}
 
-To turn the $2 \times 2$ cyclical grid world $\mathscr{W}_{c}$ used previously from a reversible action-homogeneous world to a reversible action-inhomogeneous world we add a wall to the world as shown in Figure \ref{fig:2x2-cyclical-grid-world-wall-states} to give world $\mathscr{W}_{wall}$.
-
-\begin{figure}[H]
-  \centering
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/2x2_with_wall_world_states/w0.png}
-        \caption{$w_{0}$}
-        \vspace{0.25cm}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/2x2_with_wall_world_states/w1.png}
-        \caption{$w_{1}$}
-        \vspace{0.25cm}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/2x2_with_wall_world_states/w2.png}
-        \caption{$w_{2}$}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\linewidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/2x2_with_wall_world_states/w3.png}
-        \caption{$w_{3}$}
-    \end{subfigure}
-  \caption{
-  The world states of a cyclical $2\times 2$ grid world $\mathscr{W}_{wall}$ with a wall, where changes to the world are due to an agent moving either up, down, left, or right.
-  The position of the agent in the world is represented by the position of the circled A.
-  The treatment of the wall is explained when needed.
-  }
-  \label{fig:2x2-cyclical-grid-world-wall-states}
-\end{figure}
-
-This wall is said to \textit{restrict} the actions of the agent.
-We say that actions restricted by the wall affect the world in the same way as the identity action; for example, if the agent is directly to the left of a wall and performs the `move to the right' action, then this action is treated like the identity action and so the state of the world does not change (see Table \ref{tab:2x2-gridworld-minimum-transitions-wall-identity} and Figure \ref{fig:2x2-cyclical-min-actions-wall-identity}).
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{c|c c c c c}
-                &  $1$      & $U$       & $D$       & $L$               & $R$\\
-         \hline
-        $w_{0}$ & $w_{0}$   & $w_{2}$   & $w_{2}$   & $w_{1}$           & \textbf{$w_{0}$}\\
-        $w_{1}$ & $w_{1}$   & $w_{3}$   & $w_{3}$   & \textbf{$w_{1}$}  & $w_{0}$\\
-        $w_{2}$ & $w_{2}$   & $w_{0}$   & $w_{0}$   & $w_{3}$           & $w_{3}$\\
-        $w_{3}$ & $w_{3}$   & $w_{1}$   & $w_{1}$   & $w_{2}$           & $w_{2}$\\
-    \end{tabular}
-    \caption{
-    Each entry in this table shows the outcome state of the agent performing the action given in the column label when in the world state given by the row label.
-    }
-    \label{tab:2x2-gridworld-minimum-transitions-wall-identity}
-\end{table}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/identity-walls-2x2-cyclical-min-actions.drawio.png}
-    \caption{
-    A transition diagram of the labelled transitions in Table \ref{tab:2x2-gridworld-minimum-transitions-wall-identity}.
-    }
-    \label{fig:2x2-cyclical-min-actions-wall-identity}
-\end{figure}
-
 \paragraph{Properties and structure of $A/\sim$}
 The action Cayley table for this world with the identity treatment of the walls contains 26 elements.
 As shown in Table \ref{tab:identity-walls-properties}, $A/\sim$ is a monoid.
@@ -231,10 +44,7 @@ As shown in Table \ref{tab:identity-walls-properties}, $A/\sim$ is a monoid.
     \label{tab:identity-walls-properties}
 \end{table}
 
-Adding a single wall to the world has massively increased the complexity of the transition algebra of the world.
-While the transition algebra of $\mathscr{W}_{c}$ has four elements, the transition algebra of $\mathscr{W}_{wall}$ with restricted actions treated as identity actions contains 26 elements.
 
-The restrictiveness of the group inverse condition should be noted.
 For $\mathscr{W}_{wall}$ with restricted actions treated as identity actions, every action is reversible from a particular state $w \in W$.
 However, the action that takes $a$ back to its starting state is not necessarily the same any starting state $w \in W$.
 For the inverse property to be present, the inverse for each element must be the same from any starting state (\textit{i.e.}, the inverse must be independent of the starting state).
@@ -484,7 +294,7 @@ As shown in Table \ref{tab:identity-consumable-properties}, $A/\sim$ is a monoid
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Worlds without inverse actions or unrestricted actions}\label{sec:Worlds without inverse actions or unrestricted actions}
+\section{Worlds without inverse actions or unrestricted actions}\label{sec:Worlds without inverse actions or unrestricted actions}
 
 In this section, we consider worlds that do not necessarily satisfy world condition ref[wldcon:inverse-actions] or world condition ref[wldcon:unrestricted-actions].
 
@@ -513,28 +323,9 @@ In this section, we consider worlds that do not necessarily satisfy world condit
 We once again consider the world $\mathscr{W}_{wall}$ (see Figure \ref{fig:2x2-cyclical-grid-world-wall-states} for world states); however, now instead of treating restricted actions like the identity action, we \textit{mask} the restricted actions.
 Masking restricted actions involves not allowing the agent to perform the restricted actions - the restricted actions are hidden (masked) from the agent - and so, mathematically, we treat the restricted actions as \textit{undefined}; for example, if $\mathscr{W}_{wall}$ is in state $w_{0}$, then the agent cannot perform the $R$ action because $R * w_{0}$ is undefined.
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{c|c c c c c}
-                &  $1$      & $U$       & $D$       & $L$               & $R$\\
-         \hline
-        $w_{0}$ & $w_{0}$   & $w_{2}$   & $w_{2}$   & $w_{1}$           & undefined\\
-        $w_{1}$ & $w_{1}$   & $w_{3}$   & $w_{3}$   & undefined         & $w_{0}$\\
-        $w_{2}$ & $w_{2}$   & $w_{0}$   & $w_{0}$   & $w_{3}$           & $w_{3}$\\
-        $w_{3}$ & $w_{3}$   & $w_{1}$   & $w_{1}$   & $w_{2}$           & $w_{2}$\\
-    \end{tabular}
-    \caption{Each entry in this table shows the outcome state of the agent performing the action given in the column label when in the world state given by the row label.}
-    \label{tab:2x2-gridworld-minimum-transition-wall-masked}
-\end{table}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/Old/Images/restricted-walls-2x2-cyclical-min-actions.drawio.png}
-    \caption{
-    A diagram of the labelled transitions in Table \ref{tab:2x2-gridworld-minimum-transition-wall-masked}.
-    }
-    \label{fig:2x2-cyclical-min-actions-wall-masked}
-\end{figure}
+
+
 
 The action Cayley table for $\mathscr{W}_{wall}$ with the masked treatment of the walls contains 59 elements.
 As shown in Table \ref{tab:masked-walls}, $A/\sim$ is a small category.
@@ -584,19 +375,26 @@ As shown in Table \ref{tab:masked-consumable-properties}, $A/\sim$ is a small ca
     \label{tab:masked-consumable-properties}
 \end{table}
 
+
+
+
+
+
+
+
+-------------
+
 \begin{remark}
+    \draftnote{blue}{Consider}{
+    Make this about state Cayley tables ?
+    }
     For any world, once the agent has the action Cayley table for any initial world state it can produce the action Cayley table for any other initial world state by applying an action that transitions from the old initial world state to the new initial world state to every element of the action Cayley table.
 \end{remark}
 
-\begin{proposition}\label{prp:algebra_depends_on_action_treatment}
-    The algebra $A/\sim$ of the actions of an agent depends on the treatment of the actions of the agent (\textit{e.g.}, masked treatment vs identity treatment) even if the world states remain the same.
-\end{proposition}
-\begin{proof}
-    $A/\sim$ for the identity treatment of $\mathscr{W}_{wall}$ contains 26 elements, while $A/\sim$ for the masked treatment of $\mathscr{W}_{wall}$ contains 59 elements.
-
-    Additionally, $A/\sim$ for the identity treatment of $\mathscr{W}_{consumable}$ contains 64 elements, while $A/\sim$ for the masked treatment of $\mathscr{W}_{consumable}$ contains 20 elements.
-\end{proof}
-
+\draftnote{blue}{To do}{
+Can we prove something about this?
+e.g., 
+}
 We have also demonstrated that neither the identity treatment nor the masked treatment produces the more simple algebra in every world.
 For $\mathscr{W}_{wall}$, the identity treatment contains fewer elements than the masked treatment (26 elements vs 59 elements), while for $\mathscr{W}_{consumable}$ the masked treatment contains fewer elements than the identity treatment (20 elements vs 64 elements).
 
