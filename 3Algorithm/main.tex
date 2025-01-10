@@ -410,7 +410,7 @@ Dealing with undefined actions.
     Algorithm \ref{alg:GenerateEquivClasses} always halts for finite $W$.
 \end{proposition}
 \begin{proof}
-    \textbf{$|L|$ increases monotonically.}
+    \textbf{$|L|$ increases monotonically until its final iteration.}
     During each expansion iteration, the set $L$ either grows or remains the same.
     So at each expansion iteration, with a new distinct action is discovered and added to $L$ or no new distinct actions are discovered and the algorithm halts.
 
@@ -444,7 +444,9 @@ Dealing with undefined actions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Analysis of complexity}
+\subsection{
+Complexity analysis
+}
 
 Let $|W| = n$ (so $|W^{\bot}| = n+1$) and let $|\hat{A}/\sim| = m$.
 

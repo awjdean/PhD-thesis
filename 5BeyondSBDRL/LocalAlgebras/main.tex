@@ -1,0 +1,123 @@
+\section{
+A local equivalence
+}
+\draftnote{blue}{Consider}{
+Put into own chapter?
+Beyond SBDRL II: local algebras
+}
+\draftnote{green}{Include}{
+\begin{enumerate}
+    \item Define $\sim_{w}$.
+    \item Proof: If $a \sim_{w} a'$ for all $w \in W$, then $a \sim a'$.
+    \item Properties of $\circ_{\sim_{w}}$.
+    \item General properties of $(\hat{A}^{*}, \circ_{\sim_{w}})$.
+\end{enumerate}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Local algebra algorithm}
+\draftnote{green}{Include}{
+\begin{enumerate}
+    \item Proof that the algorithm halts.
+        \item Proof that when the algorithm halts it contains the complete algebra.
+        \item (?) Put the full algorithm in the appendices.
+\end{enumerate}
+}
+
+The latest version of the code for this section can be found at
+\begin{center}
+\url{https://github.com/awjdean/CayleyTableGeneration}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generating the equivalence classes}
+
+To generate the local algebra, we altered algorithm \ref{alg:GenerateEquivClasses} to use a different $\Call{ComputeActionFunction}$ function.
+Since our $\Call{LocalComputeActionFunction}$ requires an additional initial state parameter $w^{*}$, we must also feed that parameter into $\Call{GenerateEquivClasses}$ and $\Call{ProcessCandidate}$.
+Other than those changes, the algorithm for generating the equivalence classes for the local algebra is the same as for the global algebra.
+
+\begin{algorithm}[H]
+	\caption{
+		Compute the part of the action function $f_{a}: W \to W$ that sends $w^{*} \mapsto a \ast w^{*}$.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{LocalComputeActionFunction}{$a$, \; $\mathscr{W}$, \; $w^{*}$}
+		\State $f_{a} \gets (\emptyset \to \emptyset)$
+		\State $w_{a} \gets$ \Call{GenerateActionOutcome}{$a$, \; $w^{*}$, \; $\hat{\ast}$}
+		\State $f_{a} \gets f_{a} \cup f_{a}'$ where $f_{a}': \{w^{*}\} \to \{w_{a}\}$ such that $f_{a}'(w^{*}) = w_{a}$
+		\State \Return $f_{a}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Generating the Cayley table}
+
+To generate the local Cayley table, we use algorithm \ref{alg:GenerateCayley} with a different $\Call{ComputeCompositionActionFunction}$ function.
+
+\begin{algorithm}[H]
+	\caption{
+		Compute the action function for the combination $l_{L} \circ l_{R}$ using \Call{LocalComputeActionFunction}.
+	}
+	\hrulefill
+	\begin{algorithmic}[1]
+		\Procedure{ComputeCompositionActionFunction}{$l_{L}$, \; $l_{R}$, \; $\mathcal{T}$, \; $\rho$, \; $\mathscr{W}$, \; $w^{*}$}
+		      \State $a \gets \operatorname{Combine}(l_{L}, \; l_{R})$
+                \State $f_{a} \gets$ \Call{LocalComputeActionFunction}{$a$, \; $\mathscr{W}$, \; $w^{*}$}
+                \State \Return $f_{a}$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{
+Action homogeneity
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+A motivating example
+}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Look at $\mathscr{W}_{\alpha}$ vs $\mathscr{W}_{\beta}$ with identity treatment.
+    \item $\mathscr{W}_{\alpha}$: Cayley tables + properties for $(\hat{A}^{*}/\sim_{w}, \circ_{\sim_{w}})$ for all four $w \in W$.
+    \item $\mathscr{W}_{\beta}$ with identity treatment: Cayley tables + properties for $(\hat{A}^{*}/\sim_{w}, \circ_{\sim_{w}})$ for all four $w \in W$.
+    \item Talk about differences.
+\end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+Homogenous vs inhomogeneous actions
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+Action homogeneous vs action inhomogeneous worlds.
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+An easy mistake: \autocite{caselles2020sensory}
+}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Explain mistake in \autocite{caselles2020sensory}.
+    \item Globally reversible vs consistently globally reversible vs having a consistent global inverse (which is the group property).
+    \item Made more difficult to spot because the world without objects in is action homogeneous and so (assuming finite) globally reversible $\implies$ having a consistent global inverse (see done proposition earlier).
+    \item Check the PhD thesis that \autocite{caselles2020sensory} cited.
+\end{enumerate}
+}
+
+
+

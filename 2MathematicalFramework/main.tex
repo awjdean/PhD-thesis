@@ -1,6 +1,6 @@
 \chapter{
 A mathematical framework
-(V1.0)
+(V1.1)
 }
 
 \whendraft{
@@ -82,7 +82,7 @@ We denote the set of trivial transformations by $D_{\epsilon}$ \draftnote{blue}{
 These transformations are called \emph{trivial transformations}\footnote{Trivial transformations essentially represent nothing happening; we will hear more about this when we look at the actions of agents.}.
 Trivial transformations serve as a neutral element in walk concatenation; this means trivial transformations do not alter other walks when they are composed with them\footnote{This property of trivial transformations is part of the definition of path concatenation and is analogous to the identity element in algebraic structures.}
 \begin{equation}
-    d \hat{\circ} 1_{\hat{s}(d)} = d \text{ and } 1_{\hat{t}(d)} \hat{\circ} d = d \quad \text{for any $\hat{d} \in \hat{D}$}
+    d \hat{\circ} 1_{\hat{s}(d)} = d \text{ and } 1_{\hat{t}(d)} \hat{\circ} d = d \quad \text{for all $\hat{d} \in \hat{D}$}
 \end{equation}
  \footnote{Due to this aspect of the definition of trivial transformations, transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation).
 	For example, $\hat{d} \hat{\circ} 1_{\hat{s}(\hat{d})}$ is the same element in $D$ as $\hat{d}$.}.
@@ -166,23 +166,76 @@ It's important to note that, in a world diagram, the positioning (relative or ab
 \end{figure}
 
 \paragraph{Subworlds.}
-A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subworld} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if $W' \subseteq W$, $\hat{D}' \subseteq \hat{D}$, $\hat{s}' \subseteq \hat{s}$, and $\hat{t}' \subseteq \hat{t}$ \footnote{
-	This definition requires $\hat{D}' \subseteq \hat{D}$ and not $D' \subseteq D$ because removal of an element of $D$ which is not an element of $\hat{D}$ to create $D'$ would lead to sequences of minimum transformations not being transformations; to avoid problems like this we always consider the minimum transformations then use them to generate the set of transformations.
+A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subworld} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if
+\begin{align}
+    & W' \subseteq W \\
+    & \hat{D}' \subseteq \hat{D} \quad \text{such that $s(\hat{d}), t(\hat{d}) \in W'$ for all $\hat{d} \in \hat{D}'$} \\
+    & \hat{s}' = \hat{s} \big|_{\hat{D}'} \\
+    & \hat{t}' = \hat{t} \big|_{\hat{D}'}
+\end{align}
+\footnote{
+	This definition requires $\hat{D}' \subseteq \hat{D}$ and not $D' \subseteq D$ because removal of an element of $D$ which is not an element of $\hat{D}$ to create $D'$ would lead to sequences of minimum transformations not being transformations
+    \draftnote{blue}{Include}{Wouldn't it also work the other way: removal of a non-minimum transformation but removing one of its constituent minimum transformations would break compositionality}
+    ; to avoid problems like this we always consider the minimum transformations then use them to generate the set of transformations.
+
+    However, I think we could remove minimum transformations while keeping non-minimum transformations if composition still works (i.e., removing some minimum transformations would turn some non-minimum transformations into minimum transformations (size $|\hat{D}|$ would need to decrease or stay the same due to the removal of the minimum transformations.
+    This could be a way of removing minimum transformations that can't be sensed by the agent - can we make this work for infinitely small minimum transformations ?
 }.
+\draftnote{blue}{To do}{
+Note that $1_{w} \in D$ are also in $D'$ because $D_{\epsilon}$ is separate.
+What about the $1_{w}$ for 
+}
 We can denote that $\mathscr{W}'$ is a subworld of $\mathscr{W}$ using $\mathscr{W}' \subseteq \mathscr{W}$.
 A subworld is a world.
+\draftnote{blue}{Consider}{
+I think we might also not be able to remove an arbitrary element of $D_{A}$ ?
+Or do we need a proof that all types of actions produce subworlds that obey compositionality ?
+Or we say that a subworld is a sub-multi-digraph that obeys compositionality ?
+}
 
-\paragraph{Reachable and unreachable worlds.}
-A world $\mathscr{W}'$ is \emph{reachable} from a world $\mathscr{W}$ if there exists a transition $d: w \to w'$ where $w \in W$ and $w' \in W'$
+\paragraph{Reachable and unreachable subworlds.}
+A world $\mathscr{W}'$ is \emph{reachable} from a world $\mathscr{W}$ if there exists a transformation $d: w \to w'$ where $w \in W$ and $w' \in W'$.
+Formally, we consider a world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$.
+The set of world states that are reachable from a world state $w$ is given by
+\begin{equation}
+    W^{\to}(w) := \{ w' \in W \mid \text{there exists} \; d \in D \; \text{with} \; d: w \to w' \}
+\end{equation}
+
+The set of minimum transformations that are reachable from $w$ is given by\footnote{
+This is the largest subset of minimum transformations that stay within the set of reachable states.
+}
+\begin{equation}
+    \hat{D}^{\to}(w) := \{ \hat{d} \in \hat{D} \mid s(\hat{d}) \in W^{\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\to}(w) \}
+\end{equation}
+
+The reachable subworld of $\mathscr{W}$ from the state $w$ is given by
+\begin{equation}
+    \mathscr{W}^{\to}(w) := (W^{\to}(w), \hat{D}^{\to}(w), \hat{s} \big|_{\hat{D}^{\to}(w)}, \hat{t} \big|_{\hat{D}^{\to}(w)})
+\end{equation}
+
+We denote the current state of a world by $w^{*}$.
+The subworld that is reachable from the current state of the world is called the \emph{natural reachable subworld}, which we denote by $\mathscr{W}^{\to}(w^{*})$.
+
+
+
+\draftnote{blue}{To do somewhere in this chapter}{Proposition that if there exists a $d \in D$ with $d: s(d) \to t(d)$ then there exists $\hat{d} \in \hat{D}$ with $\hat{d}: s(d) \to t(\hat{d})$ and there exists $\hat{d}' \in \hat{D}$ with $\hat{d}: s(\hat{d}) \to t(d)$.
+Same, is true for $d \in D_{A}$
+}
+
+\draftnote{blue}{Note}{
+Need to consider $\hat{D}_{A}$ instead of $\hat{D}$ when looking at reachable worlds due to the actions of an agent.
+}
+
+
 \footnote{
 	A sensible question is `what set of transformations contains $d$ ?'.
 	If $\mathscr{W}' \subseteq \mathscr{W}$ then $d \in \mathscr{W}$.
 	If $\mathscr{W}' \not\subseteq \mathscr{W}$ then we can consider a world $\mathscr{W}^{\aleph}$ containing all physically allowed world states and world state transformations; we then have that $\mathscr{W} \subseteq \mathscr{W}^{\aleph}$, $\mathscr{W}' \subseteq \mathscr{W}^{\aleph}$, and $d$ is an element of the set of transformations of $\mathscr{W}^{\aleph}$.
 }.
-If a world is not reachable, we say it is \emph{unreachable}.
+If a subworld is not reachable, we say it is \emph{unreachable}.
 
 
-We are building towards describing the structure of transformations in an agent's representation; late we will only be interested in the perspective of the agent and so will only care about the world states and transformations that the agent can come into contact with.
+\newthought{We are building} towards describing the structure of transformations in an agent's representation; late we will only be interested in the perspective of the agent and so will only care about the world states and transformations that the agent can come into contact with.
 Unreachable and reachable worlds give us the language to describe and then disregard parts of worlds that agents will never explore and therefore are not relevant to the agent's representation.
 For example, if an agent is in a maze and a section of the maze is inaccessible from the position that the agent is in, then that section of the maze would be disconnected from the section of the maze that the agent is in; if we want to study how the agent’s representation evolves as it learns, it makes sense to disregard world states where the agent is in the inaccessible part of the maze since those world states can never be reached and so those world states will not affect the agent's representation.
 \footnote{
@@ -240,7 +293,7 @@ Sensors provide the agent with \emph{observation states}\footnote{Sometimes thes
 An \emph{agent's perceptual model} is how the agent encodes and organises information from its sensors (e.g., vectors, symbols, or other data structures) as well as how it conceptualises the structure of the landscape of possible observation states.
 
 \newthought{Agents use \emph{effectors}} to interact with and alter their world, enabling the agent to carry out actions on the world; this can involve real-world effectors (e.g., motors and actuators on a robot) or virtual outputs (e.g., API calls or applying a transformation to a dataset the agent is manipulating) in a software agent.
-These effectors receive \emph{effector signals}\footnote{Also known as \emph{control signals} in the field of robotics.}, which are the concrete instructions sent by the agent to execute actions (e.g., a voltage spike to a motor or a command to a software interface).
+These effectors receive \emph{effector signals}\footnote{Called \emph{control signals} in the field of robotics.}, which are the concrete instructions sent by the agent to execute actions (e.g., a voltage spike to a motor or a command to a software interface).
 An agent also has an \emph{action model}, which is how the agent encodes and organises information about its actions (e.g., control signals, symbolic commands) as well as how it conceptualises how its actions will affect the world state.
 
 An agent's action model is intrinsically linked to its representation model since the action model describes the movement between states of the representation model due to actions\footnote{These actions do not have to be only the actions of the agent itself, it can be a grouping of world state transformations that the agent understands to be from a particular cause - more on this later.}.
@@ -597,7 +650,7 @@ to obtain a collection of (partial) functions
 
 These function $f_{a}$:
 \begin{enumerate}[(1)]
-	\item are not generally surjective because for a given $w \in W$ there is not necessarily a transition $d \in D$ with $l(d) = a$ and $t(d) = w$ \draftnote{blue}{awjdean}{Illustrative diagram}.
+	\item are not generally surjective because for a given $w \in W$ there is not necessarily a transformation $d \in D$ with $l(d) = a$ and $t(d) = w$ \draftnote{blue}{awjdean}{Illustrative diagram}.
 
 	\item are not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$ \draftnote{blue}{awjdean}{Illustrative diagram}.
 \end{enumerate}
@@ -608,10 +661,24 @@ These function $f_{a}$:
 	\begin{enumerate}
 		\item \textbf{Footnote:}
 		      We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
-		      If we let $f: A \times W \to W$ be the dynamics of the environment then the transition caused by an action $a \in A$ on a world state $w \in W$ (where $a \ast w$ is defined) is given by $(a,w) \mapsto f(a,w) = a \ast w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
+		      If we let $f: A \times W \to W$ be the dynamics of the environment then the transformation caused by an action $a \in A$ on a world state $w \in W$ (where $a \ast w$ is defined) is given by $(a,w) \mapsto f(a,w) = a \ast w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
 	\end{enumerate}
 	\noindent\rule{\textwidth}{1mm}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reachable subworlds due to the actions of an agent}
+
+To define reachable subworlds due to the actions of an agent, we take the reachable subworlds definition and replace $\hat{D}$ with $\hat{D}_{A}$.
+For a world $\mathscr{W} = (W, \hat{D}. \hat{s}, \hat{t})$ containing an agent with minimum actions $\hat{A}$ and minimum action transformations $\hat{D}_{A}$,
+\begin{align}
+    & W^{\hat{A}\to}(w) := \{ w' \in W \mid \text{there exists} \; d \in D \; \text{with} \; d: w \to w' \} \\
+    & \hat{D}_{A}^{\hat{A}\to}(w) := \{ \hat{d} \in \hat{D}_{A} \mid s(\hat{d}) \in W^{\hat{A}\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\hat{A}\to}(w) \} \\
+    & \mathscr{W}^{\hat{A}\to}(w) := (W^{\hat{A}\to}(w), \hat{D}_{A}^{\hat{A}\to}(w), \hat{s} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)}, \hat{t} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)})
+\end{align}
+where $W^{\hat{A}\to}(w)$ is the set of world states that are reachable from the world state $w \in W$ using the actions of the agent, $\hat{D}_{A}^{\hat{A}\to}(w)$ is the set of minimum transformations that are reachable from $w$ using the actions of the agent, and $\mathscr{W}^{\hat{A}\to}(w)$ is the reachable subworld of $\mathscr{W}$ from $w$ using the actions of the agent.
+The natural reachable subworld due to the actions of the agent is denoted by $\mathscr{W}^{\hat{A}\to}(w^{*})$.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{From partial to total}
@@ -740,7 +807,7 @@ Making the $\bot$'s explicit, $\mathcal{T}_{\hat{A}^{\ast}}$ is now defined as:
 
 There exists a monoid homomorphism\footnote{
 $\phi$ arises directly due to the \emph{universal property of free monoids}.
-We take a mapping $a \mapsto f_{a}$ that assigns each minimal action $a \in \hat{A}$ to its corresponding effect function $f_{a}$.
+We take a mapping $a \mapsto f_{a}$ that assigns each minimum action $a \in \hat{A}$ to its corresponding effect function $f_{a}$.
 Then, by the universal property of free monoids, $a \mapsto f_{a}$ uniquely extends to a monoid homomorphism $\phi : \hat{A}^{\ast} \to \mathcal{T}_{\hat{A}^{\ast}}$ that preserves the monoid structure.
 \draftnote{blue}{awjdean}{Expand on this ?}
 } from $(\hat{A}^{\ast}, \circ)$ to $\mathcal{T}_{\hat{A}^{\ast}}$:
@@ -840,7 +907,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 		\end{compactitem}
 
 		\item Action condition \ref*{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
-		In other words, the transitions in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
+		In other words, the transformations in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
         \item Summary
         \begin{compactitem}
             \item $a \sim a' \Leftrightarrow f_{a} = f_{a'} \Leftrightarrow \textit{for all } w \in W^{\bot}, \; a \ast w = a' \ast w$.
@@ -858,7 +925,9 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{An example world}\label{sec:an_example_world}
+\section{
+An example world \texorpdfstring{$\mathscr{W}_{\alpha}$}{}
+}\label{sec:an_example_world}
 
 So far we've seen a lot of definitions and mathematical descriptions, now we will illustrate these ideas through a toy example.
 Our chosen toy problem is a $2\times 2$ cyclic grid world $\mathscr{W}_{\alpha}$, where all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of an agent embodied in the world.
@@ -974,7 +1043,9 @@ Therefore, we have a bijective map $f = hb$ where $f(w_{i}) = z_{i}$ for $i = \{
 \draftnote{blue}{awjdean}{Talk about states not visited by the agent here ?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Actions of the agent in $\mathscr{W}_{\alpha}$}\label{sec:Actions of the agent in example}
+\subsection{
+Actions of the agent in $\mathscr{W}_{\alpha}$
+}\label{sec:Actions of the agent in example}
 
 Our agent has the following minimum actions: $\hat{A} = \{ 1, U, D, L, R \}$ as shown in table \ref{tab:actions_of_agent_2_by_2_cyclical}.
 \begin{table}[H]
@@ -1126,10 +1197,10 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 
 		\item Example.
 		\begin{compactitem}
-			\item Diagram (l-map-for-transitions-from-and-to-w0).
+			\item Diagram (l-map-for-transformations-from-and-to-w0).
 			\begin{compactitem}
-				\item This diagram shows how the minimum transitions $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
-				\item Figure ref[fig:l-map-for-transitions-from-and-to-w0] demonstrates how the map $l$ maps transitions in $D$ to the elements in $A$ for the transitions shown in Figure ref[fig:2x2-cyclical-min-actions-standard].
+				\item This diagram shows how the minimum transformations $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
+				\item Figure ref[fig:l-map-for-transformations-from-and-to-w0] demonstrates how the map $l$ maps transformations in $D$ to the elements in $A$ for the transformations shown in Figure ref[fig:2x2-cyclical-min-actions-standard].
 			\end{compactitem}
 		\end{compactitem}
 	\end{compactitem}

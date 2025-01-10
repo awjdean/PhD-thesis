@@ -1,14 +1,17 @@
 % MISC PACKAGES
 \RequirePackage{etoolbox} % For \AtBeginEnvironment
 \RequirePackage{ifthen}
+\RequirePackage{pdflscape} % For landscape pages.
 
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
 
 % TYPESETTING
 % \RequirePackage{bm, bbold}
+\RequirePackage{bm} % Make stuff bold (including in maths mode).
 \RequirePackage{setspace}  % For double spacing.
 \RequirePackage[normalem]{ulem} % For text strikethrough; can be used to edit \emph.
+\RequirePackage{anyfontsize}
 
 % FIGURES
 \RequirePackage{subcaption}
@@ -22,6 +25,8 @@
 \RequirePackage{tabularx}
 \RequirePackage{booktabs}
 \RequirePackage{colortbl}
+\RequirePackage{longtable}
+\RequirePackage{adjustbox}
 
 % ALGORITHMS
 \RequirePackage{algorithm}

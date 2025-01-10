@@ -1,0 +1,742 @@
+
+\draftnote{green}{Chapter structure}{
+\begin{enumerate}
+    \item Motivating example - take previous world and include a wall.
+\end{enumerate}
+}
+
+\draftnote{blue}{To do}{
+\begin{enumerate}
+    \item 
+\end{enumerate}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{What about walls ?}
+
+Let's take our $2 \times 2$ cyclic grid world $\mathscr{W}_{\alpha}$ and add a wall to give a new world $\mathscr{W}_{\beta}$.
+
+\begin{figure}[H]
+  \centering
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w0.png}
+        \caption{$w_{0}$}
+        \vspace{0.25cm}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w1.png}
+        \caption{$w_{1}$}
+        \vspace{0.25cm}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w2.png}
+        \caption{$w_{2}$}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w3.png}
+        \caption{$w_{3}$}
+    \end{subfigure}
+  \caption{
+  The world states of a cyclical $2\times 2$ grid world $\mathscr{W}_{\beta}$ with a wall, where changes to the world are due to an agent moving either north, south, east, or west.
+  The position of the agent in the world is represented by the position of the circled A.
+  \draftnote{blue}{To do}{Fix figures.}
+  }
+\label{fig:2x2_cyclical_grid_world_wall_states}
+\end{figure}
+
+Our agent has the same minimum actions as in \cref{sec:an_example_world}.
+But what happens if $\mathscr{W}_{\beta}$ is in state $w_{0}$ and the agent performs the `move east` action (i.e., the agent tries to move into the wall)?
+We say the wall has constrained the actions of the agent, and we consider two treatments of the constrained actions\footnote{
+An action $a \in \hat{A}^{*}/\sim$ is called \emph{constrained} in a world state $w \in W$ if we need to choose either a masked treatment or an identity treatment for performing that action in that world state (i.e., we must decide either $a * w = \bot$ or $a * w = w$).
+}
+\begin{enumerate}[(1)]
+    \item \textbf{Masked treatment.}
+    Constrained actions are not allowed to be performed by the agent and so are considered to be \emph{undefined} - they send the world into the undefined state $\bot$; and
+    \item \textbf{Identity treatment.}
+    Constrained actions can be performed by the agent, but any actions that would have been undefined have the same effect as performing the no-op action $1$.
+    \draftnote{blue}{Consider}{
+    Does this treatment actually want to treat constrained actions as $\epsilon$?
+    What about when we introduce equivalence that depends on time + space ?
+    }
+\end{enumerate}
+These two treatments are commonly used in reinforcement learning \draftnote{blue}{To do}{References.}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Masked treatment}
+
+\draftnote{blue}{Consider}{
+Do we actually not allow an agent to perform the masked action?
+}
+
+\Cref{tab:2x2_gridworld_minimum_transformations_wall_masked} shows the minimum action transformations, and \cref{fig:2x2_gridworld_minimum_transformations_wall_masked} is a world diagram containing the $\hat{D}_{A}$ transformations.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+                &  $1$      & $U$       & $D$       & $L$               & $R$\\
+         \hline
+        $w_{0}$ & $w_{0}$   & $w_{2}$   & $w_{2}$   & $w_{1}$           & \bm{$\bot$} \\
+        $w_{1}$ & $w_{1}$   & $w_{3}$   & $w_{3}$   & \bm{$\bot$}         & $w_{0}$ \\
+        $w_{2}$ & $w_{2}$   & $w_{0}$   & $w_{0}$   & $w_{3}$           & $w_{3}$ \\
+        $w_{3}$ & $w_{3}$   & $w_{1}$   & $w_{1}$   & $w_{2}$           & $w_{2}$ \\
+    \end{tabular}
+    \caption{
+    Each entry in this table shows the result of the outcome state of the agent performing the action given in the column label when in the world state given by the row label (i.e., $(row \; label) * (column \; label)$).
+    \draftnote{blue}{To do}{
+    Switch the row and column around so it matches Cayley tables (i.e., $(row \; label) \ast (column \; label)$).
+    }
+    }
+    \label{tab:2x2_gridworld_minimum_transformations_wall_masked}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/masked_walls_2x2_cyclical_min_actions.drawio.png}
+    \caption{
+    A world diagram of world $\mathscr{W}_{\beta}$ containing the labelled $\hat{D}_{A}$ transformations for an agent with minimum actions $\hat{A} = \{1, N, S, E, W\}$ using the masked treatment of constrained actions.
+    \draftnote{blue}{Consider}{Send arrows explicitly to $\bot$ ?}
+    }
+    \label{fig:2x2_gridworld_minimum_transformations_wall_masked}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{Property} & \textbf{Present?} \\
+\hline
+Total & N \\
+Associative & Y \\
+Identity & Y \\
+Inverses & N \\
+\hline
+Commutative & N \\
+\end{tabular}
+\caption{
+Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\beta}$ with masked treatment.
+\draftnote{blue}{To do}{Sort table formatting.}
+\draftnote{blue}{Consider}{Include Totality property ?}
+}
+\end{table}
+
+
+
+\begin{fullwidth}
+\begin{landscape}
+\draftnote{blue}{To do}{
+Figure out what to do with this table.
+}
+\setlength{\tabcolsep}{2pt}
+{\fontsize{8}{10}\selectfont
+\input{5BeyondSBDRL/GlobalAlgebras/Tables/2x2_wall_masked_cayley}
+}
+\setlength{\tabcolsep}{6pt}
+\end{landscape}
+\end{fullwidth}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Identity treatment}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+                &  $1$      & $U$       & $D$       & $L$               & $R$\\
+         \hline
+        $w_{0}$ & $w_{0}$   & $w_{2}$   & $w_{2}$   & $w_{1}$           & \bm{$w_{0}$}\\
+        $w_{1}$ & $w_{1}$   & $w_{3}$   & $w_{3}$   & \bm{$w_{1}$}  & $w_{0}$\\
+        $w_{2}$ & $w_{2}$   & $w_{0}$   & $w_{0}$   & $w_{3}$           & $w_{3}$\\
+        $w_{3}$ & $w_{3}$   & $w_{1}$   & $w_{1}$   & $w_{2}$           & $w_{2}$\\
+    \end{tabular}
+    \caption{
+    Each entry in this table shows the result of the outcome state of the agent performing the action given in the column label when in the world state given by the row label (i.e., $(column \; label) \ast (row \; label)$).
+    \draftnote{blue}{To do}{
+    Switch the row and column around so it matches Cayley tables (i.e., $(row \; label) \ast (column \; label)$).
+    }
+    }
+    \label{tab:2x2_gridworld_minimum_transitions_wall_identity}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/identity_walls_2x2_cyclical_min_actions.drawio.png}
+    \caption{
+        A world diagram of world $\mathscr{W}_{\beta}$ containing the labelled $\hat{D}_{A}$ transformations for an agent with minimum actions $\hat{A} = \{1, N, S, E, W\}$ using the identity treatment of constrained actions.
+    }
+    \label{fig:2x2_gridworld_minimum_transitions_wall_identity}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{Property} & \textbf{Present?} \\
+\hline
+Total & Y \\
+Associative & Y \\
+Identity & Y \\
+Inverses & N \\
+\hline
+Commutative & N \\
+\end{tabular}
+\caption{
+Group properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\beta}$ with identity treatment.
+\draftnote{blue}{To do}{Sort table formatting.}
+\draftnote{blue}{Consider}{Include Totality property ?}
+}
+\end{table}
+
+
+\begin{fullwidth}
+\begin{landscape}
+\draftnote{blue}{To do}{
+Figure out what to do with this table.
+}
+\setlength{\tabcolsep}{2pt}
+{\fontsize{8}{10}\selectfont
+\input{5BeyondSBDRL/GlobalAlgebras/Tables/2x2_wall_identity_cayley}
+}
+\setlength{\tabcolsep}{6pt}
+\end{landscape}
+\end{fullwidth}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Analysis}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+    \hline
+        \textbf{World} & \bm{$|\hat{A}^{*}/\sim|$} \\
+        \hline
+        $\mathscr{W}_{\alpha}$ & 4 \\
+        $\mathscr{W}_{\beta}$ with masked treatment & 59 \\
+        $\mathscr{W}_{\beta}$ with identity treatment & 26
+    \end{tabular}
+    \caption{
+    Comparison of the number of elements in the transformation algebras of the $2 \times 2$ gridworld world without a wall $\mathscr{W}_{\alpha}$ and with a wall $\mathscr{W}_{\beta}$.
+    \draftnote{blue}{To do}{Rewrite caption.}
+    }
+    \label{tab:num_elements_comparision_2x2_gridworlds}
+\end{table}
+
+As we can see from \cref{tab:num_elements_comparision_2x2_gridworlds}, adding a single wall to the world $\mathscr{W}_{\alpha}$ has massively increased the complexity of the transformation algebra of the world.
+Adding the wall has broken the symmetry of the world $\mathscr{W}_{\alpha}$
+\draftnote{blue}{To do}{
+Check this + check for subgroups (perhaps symmetry only broken in the $E$-$W$ direction.
+}
+.
+
+\begin{proposition}
+    The algebra $\hat{A}^{*}/\sim$ of the transformations due to the actions of an agent depends on the treatment of constrained actions in the same world.
+\end{proposition}
+\begin{proof}
+    \textbf{Proof by example.}
+    Consider the world $\mathscr{W}_{\beta}$.
+    From \cref{tab:num_elements_comparision_2x2_gridworlds}, we can see that the algebras $\hat{A}^{*}/\sim$ for the world $\mathscr{W}_{\beta}$ where different treatments of constrained actions have been used are not isomorphic because isomorphic algebras must contain the same number of elements.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reversible worlds}
+
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Proof: constrained actions are inhomogeneous actions. (do after inhomogeneous actions introduced)
+    \item 
+\end{enumerate}
+}
+
+We will now consider worlds where every action is reversible; we call these \emph{reversible worlds}.
+We have already seen two examples of reversible worlds: $\mathscr{W}_{\alpha}$ and $\mathscr{W}_{\beta}$ with the identity treatment.
+
+\draftnote{blue}{awjdean}{Example of reversible action-inhomogeneous world with no constrained actions}
+Consider a world $\mathscr{W}_{\gamma}$ with movement of an agent along a single 1D cyclical axis with a movable block (world states in \cref{fig:movable_block_world_states}).
+If the agent is in the location directly to the left of the block and moves into the block, the block moves one location in the direction of the agent's movement and the agent moves into the location previously occupied by the block (see \cref{tab:4x1_gridworld_min_transitions_moveable_block,fig:4x1_block_min_actions_wall}).
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w0.png}
+    \caption{$w_{0}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w1.png}
+    \caption{$w_{1}$}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w2.png}
+    \caption{$w_{2}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w3.png}
+    \caption{$w_{3}$}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w4.png}
+    \caption{$w_{4}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w5.png}
+    \caption{$w_{5}$}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w6.png}
+    \caption{$w_{6}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w7.png}
+    \caption{$w_{7}$}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w8.png}
+    \caption{$w_{8}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w9.png}
+    \caption{$w_{9}$}
+  \end{subfigure}%
+    \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w10.png}
+    \caption{$w_{10}$}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w11.png}
+    \caption{$w_{11}$}
+  \end{subfigure}%
+  \caption{World states of the world $\mathscr{W}_{\gamma}$ containing an agent and a movable block.}
+  \label{fig:movable_block_world_states}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c c c c c}
+                &  $1$      & $L$      & $R$\\
+         \hline
+        $w_{0}$ & $w_{0}$   & $w_{9}$   & $w_{1}$\\
+        $w_{1}$ & $w_{1}$   & $w_{0}$   & $w_{2}$\\
+        $w_{2}$ & $w_{2}$   & $w_{1}$   & $w_{3}$\\
+        $w_{3}$ & $w_{3}$   & $w_{5}$   & $w_{7}$\\
+        $w_{4}$ & $w_{4}$   & $w_{0}$   & $w_{5}$\\
+        $w_{5}$ & $w_{5}$   & $w_{4}$   & $w_{3}$\\
+        $w_{6}$ & $w_{6}$   & $w_{8}$   & $w_{7}$\\
+        $w_{7}$ & $w_{7}$   & $w_{6}$   & $w_{11}$\\
+        $w_{8}$ & $w_{8}$   & $w_{4}$   & $w_{6}$\\
+        $w_{9}$ & $w_{9}$   & $w_{8}$   & $w_{10}$\\
+        $w_{10}$ & $w_{10}$ & $w_{9}$   & $w_{11}$\\
+        $w_{11}$ & $w_{11}$ & $w_{10}$  & $w_{2}$\\
+    \end{tabular}
+    \caption{
+    \draftnote{blue}{To do}{
+    Redo caption.
+    }
+    Each entry in this table shows the outcome state of the agent performing the action given in the column label when in the world state given by the row label.
+    \draftnote{blue}{To do}{
+    Switch the row and column around so it matches Cayley tables (i.e., $(row \; label) \ast (column \; label)$).
+    }
+    }
+    \label{tab:4x1_gridworld_min_transitions_moveable_block}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/4x1_block_min_actions_wall.png}
+    \caption{
+    A transition diagram of the labelled transitions in Table \ref{tab:4x1_gridworld_min_transitions_moveable_block}.
+    }
+    \label{fig:4x1_block_min_actions_wall}
+\end{figure}
+
+\begin{fullwidth}
+\begin{landscape}
+\draftnote{blue}{To do}{
+Figure out what to do with this table.
+}
+\setlength{\tabcolsep}{2pt}
+{\fontsize{8}{10}\selectfont
+\input{5BeyondSBDRL/GlobalAlgebras/Tables/4x1_gridworld_block}
+}
+\setlength{\tabcolsep}{6pt}
+\end{landscape}
+\end{fullwidth}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+    \hline
+        \textbf{World} & \bm{$|\hat{A}^{*}/\sim|$} \\
+        \hline
+        $\mathscr{W}_{\gamma}$ & 17 \\
+    \end{tabular}
+    \caption{
+    The number of elements in the transformation algebra of the world $\mathscr{W}_{\gamma}$.
+    \draftnote{blue}{To do}{Redo caption.}
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Property}   & \textbf{Present?} \\
+        \hline
+        Total               & Y\\
+        Associative         & Y\\
+        Identity            & Y\\
+        Inverse             & N\\
+        \hline
+        Commutative         & N
+    \end{tabular}
+    \caption{
+    Properties of the $\hat{A}^{*}/\sim$ algebra for the world $\mathscr{W}_{\gamma}$.
+    }
+\end{table}
+
+\draftnote{blue}{Consider}{
+Give agents a letter $\mathscr{A}_{1}$, $\mathscr{A}_{2}$ etc... ? and make sure we mention the algebras as the 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{World with irreversible actions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+An example world \texorpdfstring{$\mathscr{W}_{\zeta}$}{}
+}
+
+Consider a world $\mathscr{W}_{\zeta}$ consisting of a $4 \times 1$ cyclical grid containing an agent with minimum actions $\hat{A} = \{1, N, S, E, W, C\}$ and a consumable; if the agent is in the same position as the consumable, the agent can consume the consumable using the consume action $C$.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w0.png}
+    \caption{$w_{0}$}
+    \label{fig:w0}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w1.png}
+    \caption{$w_{1}$}
+    \label{fig:w1}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w2.png}
+    \caption{$w_{2}$}
+    \label{fig:w2}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w3.png}
+    \caption{$w_{3}$}
+    \label{fig:w3}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w4.png}
+    \caption{$w_{4}$}
+    \label{fig:w4}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w5.png}
+    \caption{$w_{5}$}
+    \label{fig:w5}
+  \end{subfigure}%
+  \vspace{0.5cm}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w6.png}
+    \caption{$w_{6}$}
+    \label{fig:w6}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w7.png}
+    \caption{$w_{7}$}
+    \label{fig:w7}
+  \end{subfigure}%
+  
+  \caption{
+  World states of the world $\mathscr{W}_{\zeta}$ containing an agent and a consumable.
+  }
+  \label{fig:4x1_consumable_world_states}
+\end{figure}
+
+The agent is only in the same position as the consumable in world state $w_{1}$, therefore we need to chose a treatment for the consume action $C$ when the world is in a world state $w_{i \neq 1}$.
+We will first consider the identity treatment of $\mathscr{W}_{\zeta}$\footnote{
+We will consider the masked treatment of $\mathscr{W}_{\zeta}$ in \cref{sec:Undefined actions}.
+}, so the agent performing the consume action $C$ in a world state $w_{i \neq 1}$ produces the same effect as the agent performing the no op action $1$ (see \cref{fig:min_actions_world_with_consumable_identity}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/min_actions_world_with_consumable_identity.png}
+    \caption{
+   World diagram for world $\mathscr{W}_{consumable}$ containing...
+    }
+    \label{fig:min_actions_world_with_consumable_identity}
+\end{figure}
+
+\draftnote{blue}{To do}{
+Put Cayley table in appendix.
+}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+    \hline
+        \textbf{World} & \bm{$|\hat{A}^{*}/\sim|$} \\
+        \hline
+        $\mathscr{W}_{\zeta}$ & 64 \\
+    \end{tabular}
+    \caption{
+    The number of elements in the transformation algebra of the world $\mathscr{W}_{\zeta}$.
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Property}   & \textbf{Present?} \\
+        \hline
+        Total               & Y\\
+        Associative         & Y\\
+        Identity            & Y\\
+        Inverse             & N\\
+        \hline
+        Commutative         & N
+    \end{tabular}
+    \caption{
+    Properties of the $\hat{A}^{*}/\sim$ algebra for the world $\mathscr{W}_{\zeta}$.
+    }
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+Irreversible actions
+}
+\draftnote{blue}{Consider}{
+\begin{enumerate}
+    \item The reachable subworld is preserved by the isomorphism in category theory viewpoint.
+    \item Planes of reversibility - see Notion.
+    \item "irreversible from a state" vs "irreversible action from a state" ?
+\end{enumerate}
+}
+
+\draftnote{blue}{awjdean}{
+What about transformations that "disappear" when they are used (i.e., next time the same action is performed in that world state the action is constrained) - then we say that the transformation is irreversible and took us to a new world state, so this case is not possible.
+Put this as a footnote after doing the world transformation thing to convert $\sim_{t}$ into $\sim$ - same we can use the same trick to deal with problems like the above.
+}
+
+For an action $a \in \hat{A}^{*}/\sim$ that is irreversible from any state $w \in W$,
+\begin{equation}
+    \operatorname{Im}(f_{a}) \subsetneq W
+\end{equation}
+since $w \not\in \operatorname{Im}(f_{a})$ by the definition of $a$ being irreversible from state $w$\footnote{
+It is also possible to have $\operatorname{Im}(f_{a}) \subsetneq W$ for reversible actions.
+\draftnote{blue}{Include}{
+$\mathscr{W}_{\beta}$ with identity treatment example in Notion.
+Is $W' = W$ for homogeneous reversible actions? Yes I think so because homogeneous reversible actions are bijections (check this).
+}
+}.
+
+\draftnote{blue}{Consider}{
+Have we said anything about transformations $d: w \xrightarrow{[a]} w'$ ?
+$d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
+}
+
+\begin{proposition}
+\label{prp:reachable_subworld_reversible_action}
+    \draftnote{blue}{Consider}{
+    Move this to Reversible worlds section ?
+    }
+    If an action $a \in \hat{A}^{*}/\sim$ is reversible from $w$, then
+    \begin{equation}
+        \mathscr{W}^{\hat{A}\to}(a \ast w) = \mathscr{W}^{\hat{A}\to}(w)
+    \end{equation}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}[(1)]
+    \item \textbf{Set up.}
+    There exists a transformation $d_{1} \in D_{A}$ such that $d_{1}: w \xrightarrow{a} a \ast w$.
+    If $a$ is reversible from $w$, then there exists a transformation $d_{2} \in D_{A}$ such that $d_{2}: a \ast w \xrightarrow{a_{2}} w$ where $a_{2} \in \hat{A}^{*}/\sim$.
+    
+    \item \textbf{Show $W^{\hat{A}\to}(w) \subseteq W^{\hat{A}\to}(a \ast w)$.}
+    Take any $x \in W^{\hat{A}\to}(w)$.
+    From the definition of $W^{\hat{A}\to}(w)$, there exists a transformation $d_{3} \in D_{A}$ such that $d_{3}: w \xrightarrow{a_{3}} x$ where $a_{3} \in \hat{A}^{*}/\sim$.
+    Therefore, we have a transformation $(d_{3} \circ d_{2}) \in D_{A}$ such that $(d_{3} \circ d_{2}): a \ast w \ \xrightarrow{a_{2}} w \xrightarrow{a_{3}} x$, and so $x \in W^{\hat{A}\to}(a \ast w)$.
+    As the choice of $x$ is arbitrary, every world state reachable from $w$ is also reachable from $a \ast w$, and so
+    \begin{equation}
+        W^{\hat{A}\to}(w) \subseteq W^{\hat{A}\to}(a \ast w)
+        \label{eqn:reachable_subworld_w_subset_reachable_subworld_result_reversible}
+    \end{equation}
+
+    \item \textbf{Show $W^{\hat{A}\to}(a \ast w) \subseteq W^{\hat{A}\to}(w)$.}
+    Take any $y \in W^{\hat{A}\to}(a \ast w)$.
+    From the definition of $W^{\hat{A}\to}(a \ast w)$, there exists a transformation $d_{4} \in D_{A}$ such that $d_{4}: a \ast w \xrightarrow{a_{4}} y$ where $a_{2} \in \hat{A}^{*}/\sim$.
+    Therefore, we have a transformation $(d_{4} \circ d_{1}) \in D_{A}$ such that $(d_{4} \circ d_{1}): w \xrightarrow{a} a \ast w \xrightarrow{a_{4}} y$, and so $y \in W^{\hat{A}\to}(w)$.
+    As the choice of $y$ is arbitrary, every world state reachable from $a \ast w$ is also reachable from $w$, and so
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w) \subseteq W^{\hat{A}\to}(w)
+        \label{eqn:reachable_subworld_result_subset_reachable_subworld_w_reversible}
+    \end{equation}
+
+    \item \textbf{Combine results.}
+    Combining \cref{eqn:reachable_subworld_w_subset_reachable_subworld_result_reversible,eqn:reachable_subworld_result_subset_reachable_subworld_w_reversible} we have
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w) = W^{\hat{A}\to}(w)
+    \end{equation}
+    From the definition of reachable subworld, the set of reachable world states $W^{\hat{A}\to}(w)$ determines the minimum transformations included in $\hat{D}_{A}^{\hat{A}\to}(w)$, and so
+    \begin{equation}
+        \mathscr{W}^{\hat{A}\to}(a \ast w) = \mathscr{W}^{\hat{A}\to}(w)
+    \end{equation}
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+\label{prp:reachable_subworld_irreversible_action}
+    If an action $a \in \hat{A}^{*}/\sim$ is irreversible from $w$, then
+    \begin{equation}
+        \mathscr{W}^{\hat{A}\to}(a \ast w) \subsetneq \mathscr{W}^{\hat{A}\to}(w)
+    \end{equation}
+    where
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w) \subseteq W \setminus \{w\}
+    \end{equation}
+    \footnote{
+    The reachable subworld $\mathscr{W}^{\hat{A}\to}(a \ast w)$ produced by performing an irreversible action is an induced subgraph of the reachable subworld $\mathscr{W}^{\hat{A}\to}(w)$ because the reachable subworld $\mathscr{W}^{\hat{A}\to}(w)$ preserves all the edges among the world states that remain as the reachable subworld shrinks.
+    }
+\end{proposition}
+\begin{proof}
+\begin{enumerate}[(1)]
+    \item \textbf{Set up.}
+    Since $a$ is irreversible from $w$, there is no transformation $d \in D_{A}$ such that $d: a \ast w \xrightarrow{a'} w$.
+
+    \item \textbf{Loss of $w$.}
+    The lack of $d: a \ast w \xrightarrow{a'} w$ means we cannot reach $w$ from $a \ast w$.
+    Therefore,
+    \begin{equation}
+        w \not\in W^{\hat{A}\to}(a \ast w)
+        \label{eqn:w_not_in_reachable_subworld_irreversible}
+    \end{equation}
+
+    \item \textbf{Potential loss of other world states.}
+    Consider $x \in W^{\hat{A}\to}(w)$.
+    If all transformations $d_{1} \in D_{A}$ such that $a \ast w \to x$ pass through $w$, then when $w$ becomes unreachable $x$ also becomes unreachable.
+    Therefore,
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w) \subseteq W \setminus \{w\}
+    \end{equation}
+    \draftnote{blue}{Consider}{
+    Can we use $\operatorname{Seq}$ here to make this better ?
+    }
+    \draftnote{blue}{Footnote?}{
+    In subgraph topology, if $w$ is a \emph{hub} or a \emph{bridge} on all possible routes from $w$ to $x$, then when $w$ becomes unreachable $x$ also becomes unreachable.
+    }
+
+    \item \textbf{Final result.}
+    From \cref{eqn:w_not_in_reachable_subworld_irreversible} and the definition of a subworld, it follows that
+    \begin{equation}
+        \mathscr{W}^{\hat{A}\to}(a \ast w) \subsetneq \mathscr{W}^{\hat{A}\to}(w)
+    \end{equation}
+\end{enumerate}
+\end{proof}
+
+
+
+\begin{proposition}
+    For a world $\mathscr{W}$ with transformations only due to the actions of an agent, $|W^{\hat{A}\to}(w^{*})|$ is monotonically non-increasing over time.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+    \item \textbf{Set up.}
+    As time proceeds, the world transforms through a sequence of world states as the agent performs actions.
+    An action $a \in \hat{A}^{*}/\sim$ can either be (1) reversible, or (2) irreversible from a world state $w \in W$.
+    
+    \item \textbf{Reversible action.}
+    If $a$ is reversible from world state $w^{*}$, then from \cref{prp:reachable_subworld_reversible_action} we have
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w^{*}) = W^{\hat{A}\to}(w^{*})
+    \end{equation}
+    Therefore
+    \begin{equation}
+        |W^{\hat{A}\to}(a \ast w^{*})| = |W^{\hat{A}\to}(w^{*})|
+    \end{equation}
+    and so, $|W^{\hat{A}\to}(a \ast w^{*})|$ is unchanged.
+
+    \item \textbf{Irreversible action.}
+    If $a$ is irreversible from world state $w^{*}$, then from \cref{prp:reachable_subworld_irreversible_action} we have
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w^{*}) \subsetneq W^{\hat{A}\to}(w^{*})
+    \end{equation}
+    Therefore
+    \begin{equation}
+        |W^{\hat{A}\to}(a \ast w^{*})| < |W^{\hat{A}\to}(w^{*})|
+    \end{equation}
+    and so, $|W^{\hat{A}\to}(a \ast w^{*})|$ decreases.
+\end{enumerate}
+
+
+
+\end{proof}
+
+
+
+
+\draftnote{blue}{Consider}{
+Since $W^{\hat{A}\to}(w^{*})$ decreases monotonically with time, (if actions are performed with some non-zero random distribution) we eventually tend towards the world being reversible (i.e., we tend towards an island of reversibility).
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{
+Undefined actions
+}\label{sec:Undefined actions}
+
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Reversible worlds with undefined actions.
+    \begin{itemize}
+        \item This is the only one which requires care I think since undefined reversible actions act like defined irreversible actions when using the $\bot$ treatment.
+    \end{itemize}
+    \item Masked consumable.
+\end{enumerate}
+}

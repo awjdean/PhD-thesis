@@ -371,7 +371,8 @@ Convert to full page width table
 
 For an action $a \in \hat{A}^{*}/\sim$ to be able to be a member of a group $G \subseteq \hat{A}^{*}/\sim$, it must satisfy the properties of:
 \begin{enumerate}
-    \item Closure
+    \item Closure.
+    \item Totality.
     \item Associative.
     \item Identity.
     \item Inverse.
@@ -408,7 +409,9 @@ Generate an arbitrary subalgebra $(B, \circ_{\sim})$ from $(\hat{A}^{*}/\sim, \c
 \end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Properties of any subalgebra \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}}
+\section{
+Properties of any subalgebra \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Closure}
@@ -438,8 +441,9 @@ Associativity is inherited from the associativity of $(\hat{A}^{*}/\sim, \circ_{
 Properties of selected subalgebras \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Identity}
-The set $\hat{A}^{*}/\sim$ contains an identity element $[\epsilon]$ for any world (see \cref{prp:A_sim_identity}).
+The set $\hat{A}^{*}/\sim$ contains an identity element $[\epsilon]$ for any world (see \cref{prp:A_sim_identity}), and defined for any world state.
 If we construct our algebra $(B, \circ_{\sim})$ so that $[\epsilon] \in B$ then $(B, \circ_{\sim})$ will satisfy the identity property.
 
 \draftnote{green}{To do}{
@@ -451,7 +455,6 @@ Explain implementation problems with the empty action as an identity.
 \draftnote{blue}{Consider}{
 Adjust these definitions so that they scale to subsets $B \subseteq \hat{A}^{*}/\sim$.
 }
-\draftnote{blue}{include (?)}{An action that isn't reversible is called \emph{irreversible}.}
 \draftnote{blue}{Consider}{
 Make definitions for reversible, invertible etc... be to do with $\hat{A}^{*}$ instead of $\hat{A}^{*}/\sim$ ?
 }
@@ -460,6 +463,7 @@ Make definitions for reversible, invertible etc... be to do with $\hat{A}^{*}$ i
 An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{reversible} from a state $w \in W$ in a world $\mathscr{W}$ if there exists an action $[a'] \in \hat{A}^{*}/\sim$ that can send the result of $[a] \ast w$ back to $w$.\footnote{
 In terms of transformations, an action $[a] \in \hat{A}^{*}/\sim$ is called \emph{reversible} from a state $w \in W$ in a world $\mathscr{W}$ if there exists a transformation $d: a * w \xrightarrow w \in D_{A}$.
 }
+An action that is not reversible from a state $w \in W$ is called \emph{irreversible} from the state $w$.
 In other words,
 \begin{equation}
     [a'] * ([a] * w) = w.
@@ -516,7 +520,7 @@ We can now take our definitions for left inverse and right inverse in terms of $
     \text{Right inverse: } & [a] * ([a'] * w) = w \quad \to \quad ([a] \circ_{\sim} [a']) \ast w = w
     \label{eqn:right_inverse_consistent_global_extraction}
 \end{align}
-If \cref{eqn:left_inverse_consistent_global_extraction,eqn:right_inverse_consistent_global_extraction} hold for all $w \in W$ for the same $[a']$ then we can extract the $([a'] \circ_{\sim} [a])$ and $([a] \circ_{\sim} [a'])$ from the world states to give
+If \cref{eqn:left_inverse_consistent_global_extraction,eqn:right_inverse_consistent_global_extraction} hold for all $w \in W$ for the same $[a']$ then we can extract the $([a'] \circ_{\sim} [a])$ and $([a] \circ_{\sim} [a'])$ from the world states to give the definitions for a consistent global left inverse and a consistent global right inverse
 \begin{align}
     \text{Consistent global left inverse: } & ([a'] \circ_{\sim} [a]) \sim [\epsilon] 
     \label{eqn:consistent_global_left_inverse_def} \\
@@ -535,7 +539,8 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 \paragraph{Properties. \draftnote{blue}{awjdean}{Change this title.}}
 
 \begin{proposition}\label{prp:consistent_global_reversibility_necessary_for_consistent_global_inverse}
-    Consistent global reversibility of an action is a necessary condition for an action to have a consistent global inverse (and so satisfy the group inverse property).
+    Consistent global reversibility of an action is a necessary condition for an action to have a consistent global inverse (and so satisfy the group inverse property)
+    (i.e., consistent global inverse $\implies$ consistent global reversibility).
 \end{proposition}
 \begin{proof}
     Let $[a] \in \hat{A}^{*}/\sim$ have a consistent global inverse $[a']$.
@@ -604,6 +609,23 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
     \end{enumerate}
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Totality}
+
+\draftnote{blue}{To do}{
+\begin{enumerate}
+    \item Check that lack of totality doesn't affect (1) identity, and (2) associativity.
+    \begin{itemize}
+        \item I think the construction of the global algebra should account for that (e.g., masked wall fits associativity, identity etc...).
+    \end{itemize}
+\end{enumerate}
+}
+
+For a subalgebra $(B, \circ_{\sim}) \subseteq (\hat{A}^{*}/\sim, \circ_{\sim})$ to be total we need to only select elements in $\hat{A}^{*}/\sim$ for which there exists a transformation $d \in D_{A}$ with $d: w \xrightarrow{a} t(d)$ for all $w \in W$.
+
+\cref{prp:undefined_action_not_globally_reversible} shows that for an algebra to satisfy the group inverse property, the algebra must satisfy totality.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Properties of actions for $(B, \circ_{\sim})$ to be a group}
 
@@ -622,11 +644,15 @@ For a subalgebra $(B, \circ_{\sim})$ to be a group, we need the following:
     \item \textbf{Inverse.}
     This is the most restrictive of the group properties.
     $B$ can only contain actions with consistent global inverses, and if $B$ includes an action its consistent global inverse must also included in $B$.
+
+    \item \textbf{Totality.}
+    This holds if the subalgebra satisfies the inverse property (\cref{prp:undefined_action_not_globally_reversible}).
 \end{enumerate}
 
 \draftnote{blue}{awjdean}{Put group search algorithm here.}
 
-\draftnote{blue}{awjdean}{Proof that, if $(B, \circ_{sim})$ is a group, then $\ast|_{B}$ is a group action.}
+\draftnote{blue}{awjdean}{Proof that, if $(B, \circ_{\sim})$ is a group, then $\ast|_{B}$ is a group action.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Which actions are in the group \texorpdfstring{$(G, \circ_{\sim})$}{} of symmetries of the world?}
@@ -639,7 +665,7 @@ Assuming that all actions that can form a group are symmetries of the world, the
 \section{Worlds where all actions form a group}
 
 In this section, we will identify what conditions a world $\mathscr{W}$ must satisfy for $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be a group (and therefore for $\ast: (\hat{A}^{*}/\sim) \times W \to W$ to be a group action\footnote{
-\draftnote{blue}{Proof}{if $(\hat{A}^{*}/\sim, \circ_{sim})$ is a group, then $\ast$ is a group action.
+\draftnote{blue}{Proof}{if $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then $\ast$ is a group action.
 Use proof of $\ast|_{B}$ group action then say that when $B = \hat{A}^{*}/\sim$, $\ast|_{B} = \ast$.
 }
 }).
@@ -709,7 +735,6 @@ Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
 
 
 \begin{proposition}
-    Necessary condition.
     Consider an agent with minimum actions $\hat{A}$ in a world $\mathscr{W}$.
     All $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ are defined on every $w \in W$ (i.e., no actions send an element of $w$ to $\bot$) is a necessary condition for $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be a group.
 \end{proposition}
@@ -746,9 +771,11 @@ Cayley table for $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} =
 \begin{tabular}{l|c}
 \textbf{Property} & \textbf{Present?} \\
 \hline
+Total & Y \\
 Associative & Y \\
 Identity & Y \\
 Inverses & Y \\
+\hline
 Commutative & Y \\
 \end{tabular}
 \caption{
@@ -803,7 +830,7 @@ The order of each element is given by Table \ref{tab:example_1_element_orders}.
     \item (?) Show states Cayley table - mention that each row-column is different.
     \item (?) Show abstract Cayley table ?
     \begin{itemize}
-        \item ``The choice of the equivalence class label in Table \ref{tab:2x2-gridworld-no-walls-equivalence-classes} is arbitrary; it is better to think of each equivalence class as a distinct element as shown in the Cayley table in Table \ref{tab:2x2-gridworld-no-walls-action-cayley-abstract}.''
+        \item ``The choice of the equivalence class label in Table ref[tab:2x2-gridworld-no-walls-equivalence-classes] is arbitrary; it is better to think of each equivalence class as a distinct element as shown in the Cayley table in Table ref[tab:2x2-gridworld-no-walls-action-cayley-abstract].''
     \end{itemize}
 \end{enumerate}
 }

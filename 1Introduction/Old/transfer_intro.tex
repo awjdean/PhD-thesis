@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Towards nature-based artificial intelligence}
 
-\textit{Artificial intelligence} (AI) has progressed significantly in recent years due to massive increases in available computational power allowing the development and training of new deep learning algorithms \autocite{Amodei2018}.
+\textit{Artificial intelligence} (AI) has progressed significantly in recent years due to massive increases in available computational power allowing the development and training of new deep learning algorithms \autocite{amodei2018ai}.
 However, the best-performing learning algorithms often suffer from poor data efficiency and lack the levels of robustness and generalisation (\textit{i.e.,} poor transfer learning) that is characteristic of nature-based intelligence; reinforcement learning algorithms such as DeepMind’s AlphaZero algorithm \autocite{Silver2017a, Silver2017b} can successfully achieve superhuman level performance on many different games, however, they cannot transfer knowledge learnt during training on one game to another game: the system must be trained on each game individually\footnote{This algorithm shows generalisation during training, but no post-training generalisation (\textit{i.e.,} the same algorithm can learn to play different games with no code change, but knowledge learnt while training for one game cannot be transferred to a different but similar game).}.
 Performance of current learning algorithms is also heavily dependent on intensive problem-specific feature engineering, which reduces the generalisation of their solutions to new problems and the speed at which novel applications can be constructed or tested.
 Finally, current learning algorithms struggle, compared to nature-based intelligence, to learn tasks in dynamic, real-world environments by continually adapting their knowledge through interaction with their environment without experiencing catastrophic forgetting (\textit{i.e.,} they struggle with continual learning) \autocite{Sauders2018}; this is a long standing problem in reinforcement learning research and robotics.
@@ -199,7 +199,7 @@ Examples of possible general priors, or properties, proposed include:
     In high-level representations, it is sometimes considered good if the underlying factors are related to each other through simple, typically linear, dependencies.
     This also has the benefit of making the construction of algorithms easier since computers are very good at linear algebra manipulation (\textit{e.g.}, matrix multiplication).
     
-    \item \textbf{Expressiveness.} Good representations can accurately capture a large number of input configurations. This can be measured by counting the number of parameters the model requires compared to the number of input regions it can distinguish \autocite{Luo2019}.
+    \item \textbf{Expressiveness.} Good representations can accurately capture a large number of input configurations. This can be measured by counting the number of parameters the model requires compared to the number of input regions it can distinguish \autocite{luo2019expressiveness}.
 \end{enumerate}
 
 
@@ -315,7 +315,7 @@ The manifold learning approach to RL takes a geometric perspective on RL and all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generalisation in the manifold learning paradigm}
 
-If dimensionality reduction is desirable, disentangling the underlying factors of variation allows sensible dimensionality reduction by moving in the local directions of variation least represented by the training data towards the approximate boundary of the manifold; this boundary will have a lower dimension than the manifold and has been successfully used as a generalisation technique for various models, depending on the distance to the boundary \autocite{Transtrum2015sloppiness}.
+If dimensionality reduction is desirable, disentangling the underlying factors of variation allows sensible dimensionality reduction by moving in the local directions of variation least represented by the training data towards the approximate boundary of the manifold; this boundary will have a lower dimension than the manifold and has been successfully used as a generalisation technique for various models, depending on the distance to the boundary \autocite{transtrum2015sloppiness}.
 This method has had more success than globally removing the variations least represented in the training data, as with principle component analysis.
 
 
