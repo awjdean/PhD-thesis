@@ -2,49 +2,36 @@
 Reproducing symmetry-based disentangled representation learning
 (V1.2)
 }
-
-
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{Section to do:}
-	\begin{enumerate}
-		\item SBDRL actually only considers the transformations of the world that have a group structure.
-        However, as we see there are many scenarios when transformations so not form a group structure.
-            \begin{itemize}
-                \item We might want to disentangle actions that do not have a group structure.
-            \end{itemize}
-            \item Show that it's not possible to get a group without the labelling of transformations.
-
-            \item (Mention) The world (/dataset) doesn't actually have to be disentangled, it just has to be able to have a disentangled representation (containing all the information the agent needs).
-
-            \item Develop the idea that the labelling map is learned by the agent and so is separate from the world, which is made up of transformations.
-
-            \item (mention?) \autocite{caselles2020sensory} confuses consistent global inverse (i.e., consistent global reversibility) with global reversibility.
-
-            \item Consider this diagram:
-            % \[
-            % \xymatrix{
-            %     w \ar[r]^{\delta} \ar[d]_{f} & w' \ar[d]^{f} \\
-            %     z = f(w) \ar[r]_{\delta_Z} & z' = f(w')
-            % }
-            % \]
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item SBDRL actually only considers the transformations of the world that have a group structure.
+    However, as we see there are many scenarios when transformations so not form a group structure.
+    \begin{itemize}
+        \item We might want to disentangle actions that do not have a group structure.
+    \end{itemize}
+    \item Show that it's not possible to get a group without the labelling of transformations.
+    \item (Mention) The world (/dataset) doesn't actually have to be disentangled, it just has to be able to have a disentangled representation (containing all the information the agent needs).
+    \item Develop the idea that the labelling map is learned by the agent and so is separate from the world, which is made up of transformations.
+    \item (mention?) \autocite{caselles2020sensory} confuses consistent global inverse (i.e., consistent global reversibility) with global reversibility.
+    \item Consider this diagram:
+    % \[
+    % \xymatrix{
+    %     w \ar[r]^{\delta} \ar[d]_{f} & w' \ar[d]^{f} \\
+    %     z = f(w) \ar[r]_{\delta_Z} & z' = f(w')
+    % }
+    % \]
+\end{enumerate}
 }
-
 
 Our objective for this chapter is to partially validate our framework by showing it can reproduce Symmetry-based disentangled representation learning (SBDRL) \autocite{Higgins2018}, a well-establish mathematical framework for disentanglement in representation learning.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Section to do:}
+\draftnote{green}{To do}{
 \begin{enumerate}
     \item SBDRL is an attempt to provide a more rigorous mathematical definition of an important area of representation learning research; we are also attempting to provide a rigorous mathematical framework so we believed in made sense to see what SBDRL looks like in our framework and if our framework can help gain any further insights into \autocite{Higgins2018}'s formalism.
     \item [references] Examples of SBDRL being used.
 \end{enumerate}
-\noindent\rule{\textwidth}{1mm}
 }
 
 SBDRL is a well-established mathematical framework for disentanglement in representation learning based on group actions.
@@ -62,13 +49,10 @@ We will now reproduce SBDRL using our framework; we do this for the following re
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Preliminaries}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Section to do:}
+\draftnote{green}{To do}{
 \begin{enumerate}
     \item Have a look at what \autocite{Higgins2018} have in their preliminaries.
 \end{enumerate}
-\noindent\rule{\textwidth}{1mm}
 }
 
 \paragraph{Groups and symmetries}
@@ -150,16 +134,12 @@ If $W$, $Z$, and $f$ satisfy conditions (1), (2), and (3) then the agent's repre
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Limitations of SBDRL}
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{Section to do:}
+\draftnote{green}{To do}{
 \begin{enumerate}
     \item Need to expand this section.
     \item Change name to "Analysis of SBDRL" ?
 \end{enumerate}
-\noindent\rule{\textwidth}{1mm}
 }
-
 
 Both \autocite{Higgins2018} and \autocite{caselles2019symmetry} suggest that these group actions can be used to describe some types of real-world actions.
 However, it is important to note that they do not believe that all actions can be described by their formalism: \textit{``It is important to mention that not all actions are symmetries, for instance, the action of eating a collectible item in the environment is not part of any group of symmetries of the environment because it might be irreversible.''}
@@ -748,18 +728,18 @@ Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
 An example world\texorpdfstring{: $\mathscr{W}_{\alpha}$}{}
 }
 
-We will now show for the world $\mathscr{W}_{\alpha}$, which we described in \cref{sec:an_example_world, sec:the_equivalence_condition_on_example_world}, that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group.
+We will now show for the world $\mathscr{W}_{\alpha}$, which we described in \cref{sec:an_example_world,sec:the_equivalence_condition_on_example_world}, that $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group.
 We have used \cref{alg:GenerateEquivClasses,alg:GenerateCayley} to generate the Cayley table of $(\hat{A}^{*}/\sim, \circ_{\sim})$ for our agent in the world $\mathscr{W}_{\alpha}$ as described in \cref{sec:an_example_world}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{l| llll}
-     & $1$ & $W$  & $N$  & $NW$ \\
+    $\circ_{\sim}$ & $[1]$ & $[W]$  & $[N]$  & $[NW]$ \\
     \hline
-    $1$ & $1$ & $W$  & $N$  & $NW$ \\
-    $W$ & $W$ & $1$  & $NW$ & $N$  \\
-    $N$ & $N$ & $NW$ & $1$  & $W$  \\
-    $NW$ & $NW$ & $N$ & $W$  & $1$  \\
+    $[1]$ & $[1]$ & $[W]$  & $[N]$  & $[NW]$ \\
+    $[W]$ & $[W]$ & $[1]$  & $[NW]$ & $[N]$  \\
+    $[N]$ & $[N]$ & $[NW]$ & $[1]$  & $[W]$  \\
+    $[NW]$ & $[NW]$ & $[N]$ & $[W]$  & $[1]$  \\
 \end{tabular}
 \caption{
 Cayley table for $(\hat{A}^{*}/\sim, \circ_{\sim})$ for an agent with $\hat{A} = \{1, E, W, N, S \}$ in world $\mathscr{W}_{\alpha}$.

@@ -3,9 +3,7 @@ A mathematical framework
 (V1.1)
 }
 
-\whendraft{
-\noindent\rule{\textwidth}{1mm}
-\textbf{To do:}
+\draftnote{green}{To do}{
 \begin{enumerate}
     \item [Mention] Actions can be represented as tuples of their unique compositions of minimum actions.
     \item Define operator $\operatorname{Seq}: \hat{A}^{\ast} \to \hat{A}^{(n)}$ that sends an action to its tuple of minimum actions.
@@ -13,7 +11,6 @@ A mathematical framework
         \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
     \end{itemize}
 \end{enumerate}
-\noindent\rule{\textwidth}{1mm}
 }
 
 
@@ -254,23 +251,20 @@ For example, if an agent is in a maze and a section of the maze is inaccessible 
 	\label{fig:reachable_worlds}
 \end{figure}
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{compactitem}
-		\item \textbf{Mention:} we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
-		\item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
-		\item \textbf{Mention:} sometimes we don't include the trivial transformations for clarity.
-		\item \textbf{Mention:} For the rest of this document, if we talk about a sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
-		\item Define what a \emph{finite directed walk} is.
-		\item Explain how to construct the set of all finite walks.
 
-		\item \textbf{Diagrams:}
-		\begin{enumerate}
-			\item (?) No unique element in $D$ for sequence with trivial transformations.
-		\end{enumerate}
-	\end{compactitem}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item \textbf{Mention:} we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
+    \item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
+    \item \textbf{Mention:} sometimes we don't include the trivial transformations for clarity.
+    \item \textbf{Mention:} For the rest of this document, if we talk about a sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
+    \item Define what a \emph{finite directed walk} is.
+    \item Explain how to construct the set of all finite walks.
+    \item \textbf{Diagrams:}
+    \begin{enumerate}
+        \item (?) No unique element in $D$ for sequence with trivial transformations.
+    \end{enumerate}
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -298,22 +292,19 @@ An agent also has an \emph{action model}, which is how the agent encodes and org
 
 An agent's action model is intrinsically linked to its representation model since the action model describes the movement between states of the representation model due to actions\footnote{These actions do not have to be only the actions of the agent itself, it can be a grouping of world state transformations that the agent understands to be from a particular cause - more on this later.}.
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{Additions:}
-	\begin{enumerate}
-		\item \textbf{Figures:}
-		      \begin{itemize}
-			      \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
-			      \item Diagram showing mapping from $W$ to $O$ to $Z$. Also have diagram showing $W$ to $O$ to $Z$ for agent with ideal sensors.
-                  \begin{figure}[H]
-            	\centering
-            	\includegraphics[scale = 0.35]{2MathematicalFramework/Images/W_to_O_to_Z_mapping.png}
-            	\caption{The composite mapping from the set $W$ of world states to the set $Z$ of state representations via the set $O$ of observations.}
-            \end{figure}
-		      \end{itemize}
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{Include}{
+\begin{enumerate}
+    \item \textbf{Figures:}
+    \begin{itemize}
+        \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
+        \item Diagram showing mapping from $W$ to $O$ to $Z$. Also have diagram showing $W$ to $O$ to $Z$ for agent with ideal sensors.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale = 0.35]{2MathematicalFramework/Images/W_to_O_to_Z_mapping.png}
+            \caption{The composite mapping from the set $W$ of world states to the set $Z$ of state representations via the set $O$ of observations.}
+        \end{figure}
+    \end{itemize}
+\end{enumerate}
 }
 
 
@@ -441,49 +432,35 @@ By initially studying the structure of the worlds themselves, rather than struct
 
 Once we have this foundation, we can introduce aspects of non ideal sensors to see how they affect the agent's representation when learning the structure of the same worlds we've already studied.
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-
-	\textbf{Up next:}
-	\begin{enumerate}
-		\item Sensory perception in an agent.
-		      \begin{compactitem}
-			      \item Look at Higgins distribution set up.
-			      \item Cones figure - cone in $W$ leading to a single observation in $O$ - put in later discussion.
-			      \item If the agent has ideal sensors (i.e., there is no noise from the sensors) the number of possible observation states is less than or equal to the number of world states (i.e., $|O| \leq |W|$) - put this should later with a proof.
-		      \end{compactitem}
-
-		\item Learning.
-		      \begin{compactitem}
-			      \item Brief discussion about scenarios where you can have $b(w_{1}) = b(w_{2})$ but $h(b(w_{1})) \neq h(b(w_{2}))$ - say we'll discuss this in more detail later.
-			      \item Proof that the structure of an agent's representation should mirror the structure of the agent's representation for an agent with ideal sensors.
-		      \end{compactitem}
-	\end{enumerate}
-
-	\textbf{Small things:}
-	\begin{compactitem}
-		\item Environment vs world.
-		\item Mention at start of Agents section that we use a mix of papers for inspiration for our agent: Agent as a Markov blanker paper, Higgins, Caselles-Dupre.
-		\item World states as a distribution - see Higgins.
-
-		\item \textbf{Diagrams:}
-		\begin{enumerate}
-			\item
-		\end{enumerate}
-
-		\item \textbf{References:}
-		\begin{enumerate}
-			\item Agent as a Markov blanket: \url{https://www.researchgate.net/figure/The-structure-of-a-Markov-blanket-A-Markov-blanket-highlights-open-systems-exchanging_fig1_343643283}
-		\end{enumerate}
-	\end{compactitem}
-
-
-	\textbf{Implemented notes:}
-	\begin{compactitem}
-		\item Do the 'sensory states' in the Markov Blanket represent different observation states in $O$ or different sensors ? They represent different observation states - need to make my formalism consistent. \textbf{Use $o$ for observation states.}
-		\item Sensors can mean real-world sensors or virtual inputs (e.g., in a software agent).
-	\end{compactitem}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Sensory perception in an agent.
+          \begin{compactitem}
+              \item Look at Higgins distribution set up.
+              \item Cones figure - cone in $W$ leading to a single observation in $O$ - put in later discussion.
+              \item If the agent has ideal sensors (i.e., there is no noise from the sensors) the number of possible observation states is less than or equal to the number of world states (i.e., $|O| \leq |W|$) - put this should later with a proof.
+          \end{compactitem}
+    \item Learning.
+          \begin{compactitem}
+              \item Brief discussion about scenarios where you can have $b(w_{1}) = b(w_{2})$ but $h(b(w_{1})) \neq h(b(w_{2}))$ - say we'll discuss this in more detail later.
+              \item Proof that the structure of an agent's representation should mirror the structure of the agent's representation for an agent with ideal sensors.
+          \end{compactitem}
+\end{enumerate}
+\textbf{Small things:}
+\begin{enumerate}
+    \item Environment vs world.
+    \item Mention at start of Agents section that we use a mix of papers for inspiration for our agent: Agent as a Markov blanker paper, Higgins, Caselles-Dupre.
+    \item World states as a distribution - see Higgins.
+    \item \textbf{References:}
+    \begin{enumerate}
+        \item Agent as a Markov blanket: \url{https://www.researchgate.net/figure/The-structure-of-a-Markov-blanket-A-Markov-blanket-highlights-open-systems-exchanging_fig1_343643283}
+    \end{enumerate}
+\end{enumerate}
+\textbf{Implemented notes:}
+\begin{enumerate}
+    \item Do the 'sensory states' in the Markov Blanket represent different observation states in $O$ or different sensors ? They represent different observation states - need to make my formalism consistent. \textbf{Use $o$ for observation states.}
+    \item Sensors can mean real-world sensors or virtual inputs (e.g., in a software agent).
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -655,15 +632,9 @@ These function $f_{a}$:
 	\item are not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$ \draftnote{blue}{awjdean}{Illustrative diagram}.
 \end{enumerate}
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item \textbf{Footnote:}
-		      We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
-		      If we let $f: A \times W \to W$ be the dynamics of the environment then the transformation caused by an action $a \in A$ on a world state $w \in W$ (where $a \ast w$ is defined) is given by $(a,w) \mapsto f(a,w) = a \ast w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{blue}{Footnote}{
+We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
+If we let $f: A \times W \to W$ be the dynamics of the environment then the transformation caused by an action $a \in A$ on a world state $w \in W$ (where $a \ast w$ is defined) is given by $(a,w) \mapsto f(a,w) = a \ast w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -732,13 +703,10 @@ Now we can extend our action labelling map $l: D_{A} \to \hat{A}^{\ast}$ to incl
 
 To simplify notation, we will use $W$, $\ast$, $D_{A}$, and $l$ to denote $W^{\bot}$, $\ast^{\bot}$, $D_{A}^{\bot}$, and $l^{\bot}$ respectively unless we want to explicitly differentiate between the use of $W$, $\ast$, $D_{A}$, and $l$ vs $W^{\bot}$, $\ast^{\bot}$, $D_{A}^{\bot}$, and $l^{\bot}$.
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item Footnote about potential loss of information about why an action was undefined  (e.g., if two distinct actions are undefined on the same state $w$ then their effects are indistinguishable after $\bot$ is reached because $\bot$ is absorbing - in this cases we could introduce $\bot_{1}, \bot_{2}, \bot_{3} \dots$ to separate out different "types" of undefined.
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Footnote about potential loss of information about why an action was undefined  (e.g., if two distinct actions are undefined on the same state $w$ then their effects are indistinguishable after $\bot$ is reached because $\bot$ is absorbing - in this cases we could introduce $\bot_{1}, \bot_{2}, \bot_{3} \dots$ to separate out different "types" of undefined.
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -861,67 +829,53 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 
 \draftnote{blue}{awjdean}{Double check that $(\hat{A}^{\ast}, \circ, \ast)$ is a monoid.}
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item What would the structures be with no $\bot$ use --> Category or partial transformation monoid ?
-	\end{enumerate}
-
-	\textbf{Other potentially useful properties of $(\hat{A}^{\ast}, \circ)$:}
-	\begin{enumerate}
-		\item Any monoid homomorphism from $(\hat{A}^{\ast}, \circ)$ to another monoid is fully determined by its action on the generators $\hat{A}$.
-		      \begin{itemize}
-			      \item Does this mean that if we change the minimum actions we'll be able to map generators to find out if there's an isomorphism ?
-		      \end{itemize}
-		\item $(\hat{A}^{\ast}, \circ)$ is closed.
-		\item $(\hat{A}^{\ast}, \circ)$ is decidable (i.e., there exists an algorithm that can always provide a correct yes-or-no answer in a finite amount of time).
-		      \begin{itemize}
-			      \item Operations in Structures: In the context of $(\hat{A}^{\ast}, \circ)$, the questions "Is $s_{1} \circ s_{2} = s_{3}$" or "Does $s$ belong to $\hat{A}^{\ast}$?" are decidable because we can compute the concatenation $s_{1} \circ s_{2}$ and compare it to $s_{3}$, or verify $s$'s construction from the alphabet $\hat{A}$, respectively.
-		      \end{itemize}
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{blue}{Consider}{
+What would the structures be with no $\bot$ use --> Category or partial transformation monoid ?
 }
 
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item Appendix: Why $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
+\draftnote{blue}{Consider - Other potentially useful properties of $(\hat{A}^{\ast}, \circ)$}{
+\begin{enumerate}
+    \item Any monoid homomorphism from $(\hat{A}^{\ast}, \circ)$ to another monoid is fully determined by its action on the generators $\hat{A}$.
+    \begin{itemize}
+        \item Does this mean that if we change the minimum actions we'll be able to map generators to find out if there's an isomorphism ?
+    \end{itemize}
+    \item $(\hat{A}^{\ast}, \circ)$ is closed.
+    \item $(\hat{A}^{\ast}, \circ)$ is decidable (i.e., there exists an algorithm that can always provide a correct yes-or-no answer in a finite amount of time).
+    \begin{itemize}
+        \item Operations in Structures: In the context of $(\hat{A}^{\ast}, \circ)$, the questions "Is $s_{1} \circ s_{2} = s_{3}$" or "Does $s$ belong to $\hat{A}^{\ast}$?" are decidable because we can compute the concatenation $s_{1} \circ s_{2}$ and compare it to $s_{3}$, or verify $s$'s construction from the alphabet $\hat{A}$, respectively.
+    \end{itemize}
+\end{enumerate}
+}
 
-		\item Have I said that $\hat{D}_{A}$ contains $D_{\epsilon}$ by definition ?
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Appendix: Why $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
+    \item Have I said that $\hat{D}_{A}$ contains $D_{\epsilon}$ by definition ?
+    \item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ? --> endomorphism viewpoint ?
+    \item Talk about why we've created action condition 1.
+    \item \textbf{Footnote:} difference between the empty action and the no op action.
+    \item Say we refer to the empty sequence as the empty action.
+    \item \textbf{Mention:} We can use $s$, $t$ instead of having to define sub maps $s_{A}$ and $t_{A}$ because $s$ and $t$ act on the elements of $D$ and $D_{A}$ is just $D$ with some elements removed. - Put this as a footnote for the definition of subworlds; does this slightly alter the definition of subworld ?
+    \item \textbf{Mention:} Minimum actions denoted by $\hat{hat}$.
+    \item No-op action doesn't always exist.
+    \begin{compactitem}
+        \item Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
+    \end{compactitem}
+    \item Action condition \ref*{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
+    In other words, the transformations in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
+    \item Summary
+    \begin{compactitem}
+        \item $a \sim a' \Leftrightarrow f_{a} = f_{a'} \Leftrightarrow \textit{for all } w \in W^{\bot}, \; a \ast w = a' \ast w$.
+        \item $\hat{A}^{\ast}/\sim \; \Leftrightarrow \mathcal{T}$ (set of distinct transformations $W^{\bot} \to W^{\bot}$.
+    \end{compactitem}
+\end{enumerate}
+}
 
-		\item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ? --> endomorphism viewpoint ?
-
-		\item Talk about why we've created action condition 1.
-		\item \textbf{Footnote:} difference between the empty action and the no op action.
-		\item Say we refer to the empty sequence as the empty action.
-
-		\item \textbf{Mention:} We can use $s$, $t$ instead of having to define sub maps $s_{A}$ and $t_{A}$ because $s$ and $t$ act on the elements of $D$ and $D_{A}$ is just $D$ with some elements removed. - Put this as a footnote for the definition of subworlds; does this slightly alter the definition of subworld ?
-
-		\item \textbf{Mention:} Minimum actions denoted by $\hat{hat}$.
-
-		\item No-op action doesn't always exist.
-		\begin{compactitem}
-			\item Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
-		\end{compactitem}
-
-		\item Action condition \ref*{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
-		In other words, the transformations in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
-        \item Summary
-        \begin{compactitem}
-            \item $a \sim a' \Leftrightarrow f_{a} = f_{a'} \Leftrightarrow \textit{for all } w \in W^{\bot}, \; a \ast w = a' \ast w$.
-            \item $\hat{A}^{\ast}/\sim \; \Leftrightarrow \mathcal{T}$ (set of distinct transformations $W^{\bot} \to W^{\bot}$.
-        \end{compactitem}
-	\end{enumerate}
-
-	\textbf{Questions/thoughts that have been answered:}
-	\begin{compactitem}
-		\item $A$ is the set of words made from $\hat{A}$ - i.e., the set of finite sequences of elements of $A$, not infinite sequences - infinite sequences make things tricky (apparently).
-
-		\item We want the set $A$ of actions to be the Kleene star operation of $\hat{A}$ ($A = \hat{A}^{\ast}$). $\hat{A}^{\ast}$ includes an empty sequence $\epsilon$ and our no-op action $1$ as separate sequences; if the no op action is an identity action, then $1 \sim \epsilon$.
-	\end{compactitem}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{blue}{Questions/thoughts that have been answered:}{
+\begin{enumerate}
+    \item $A$ is the set of words made from $\hat{A}$ - i.e., the set of finite sequences of elements of $A$, not infinite sequences - infinite sequences make things tricky (apparently).
+    \item We want the set $A$ of actions to be the Kleene star operation of $\hat{A}$ ($A = \hat{A}^{\ast}$). $\hat{A}^{\ast}$ includes an empty sequence $\epsilon$ and our no-op action $1$ as separate sequences; if the no op action is an identity action, then $1 \sim \epsilon$.
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1167,53 +1121,43 @@ In fact, there are a (countably) infinite number of transformations in $D$ betwe
 Similarly, there are a (countably) infinite number of actions in $A$ between any two world states\footnote{Although the set $A$ is less dense or as dense as $D$. \draftnote{blue}{awjdean}{Explore this further in appendices.}} - just take the actions in $A$ that labels each of the transformations in $D$ we just described.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Show parts of: $\hat{A}^{\ast}$, $D$
+    \item Summary at end: State what each of the things are shown in figure \ref{fig:action_labelling_procedure}.
+    \item In section introduction --> say toy example inspired by Higgins (2018) + Caselles Dupres (?)
+    \item Show example of minimum transformations in $\hat{D}_{A}$ - example with intermediate world states that are skipped over by transformations due to actions of agent.
+    \item Change symbol for $\mathscr{W}_{\alpha}$ to include agent ? -- add agent to $(W, \hat{D}. s, t)$ ?
+    \item Label the transformation diagrams with their symbols ($d_{1}$, $d_{2}$ etc...) ?
+    \item Switch $U$, $D$, $R$, $L$ into $N$, $S$, $E$, $W$ --> makes sense when giving agent ability to rotate. What to do about $W$ also being the symbol for the set of world states ?
+    \begin{compactitem}
+        \item When doing the 'rotate 90 degrees and move forwards" agent, need to talk about how we usually only consider the transinformation of the world (arrows) for our specific agent, but in reality there are all possible transformations ? (otherwise $D$ looks different for agents with different actions - is that necessarily a bad thing or is it what we want ?)
+    \end{compactitem}
+    \item \textbf{Appendices:} Size of $D$ and $A$: $D$ and $A$ countably infinite, $A$ more sparse than $D$.
+    \begin{compactitem}
+        \item Proof that $D$ and $A$ are countably infinite.
+        \item \textbf{Mention:} We only consider finite walks because we were worried that including infinite walks would complicate the work; how including infinite walks would affect things is a potential direction for future study. Out guess is that including infinite walks should not affect things.
+        \item Consider "Directed Walks $\&$ density of A vs D".
+        \item Asymptotic density of A vs D --> for $\mathscr{W}_{\alpha}$, I think it might be $\rho_{D}(A) = \frac{1}{5}$ because there are 4 elements in $\hat{A}$.
+    \end{compactitem}
+    \item Example.
+    \begin{compactitem}
+        \item Diagram (l-map-for-transformations-from-and-to-w0).
+        \begin{compactitem}
+            \item This diagram shows how the minimum transformations $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
+            \item Figure ref[fig:l-map-for-transformations-from-and-to-w0] demonstrates how the map $l$ maps transformations in $D$ to the elements in $A$ for the transformations shown in Figure ref[fig:2x2-cyclical-min-actions-standard].
+        \end{compactitem}
+    \end{compactitem}
+\end{enumerate}
+}
 
-	\textbf{To do:}
-	\begin{compactitem}
-		\item Show parts of: $\hat{A}^{\ast}$, $D$
-		\item Summary at end: State what each of the things are shown in figure \ref{fig:action_labelling_procedure}.
-		\item In section introduction --> say toy example inspired by Higgins (2018) + Caselles Dupres (?)
-
-		\item Show example of minimum transformations in $\hat{D}_{A}$ - example with intermediate world states that are skipped over by transformations due to actions of agent.
-		\item Change symbol for $\mathscr{W}_{\alpha}$ to include agent ? -- add agent to $(W, \hat{D}. s, t)$ ?
-
-		\item Label the transformation diagrams with their symbols ($d_{1}$, $d_{2}$ etc...) ?
-
-		\item Switch $U$, $D$, $R$, $L$ into $N$, $S$, $E$, $W$ --> makes sense when giving agent ability to rotate. What to do about $W$ also being the symbol for the set of world states ?
-		\begin{compactitem}
-			\item When doing the 'rotate 90 degrees and move forwards" agent, need to talk about how we usually only consider the transinformation of the world (arrows) for our specific agent, but in reality there are all possible transformations ? (otherwise $D$ looks different for agents with different actions - is that necessarily a bad thing or is it what we want ?)
-		\end{compactitem}
-
-		\item \textbf{Appendices:} Size of $D$ and $A$: $D$ and $A$ countably infinite, $A$ more sparse than $D$.
-		\begin{compactitem}
-			\item Proof that $D$ and $A$ are countably infinite.
-			\item \textbf{Mention:} We only consider finite walks because we were worried that including infinite walks would complicate the work; how including infinite walks would affect things is a potential direction for future study. Out guess is that including infinite walks should not affect things.
-			\item Consider "Directed Walks $\&$ density of A vs D".
-			\item Asymptotic density of A vs D --> for $\mathscr{W}_{\alpha}$, I think it might be $\rho_{D}(A) = \frac{1}{5}$ because there are 4 elements in $\hat{A}$.
-		\end{compactitem}
-
-
-		\item Example.
-		\begin{compactitem}
-			\item Diagram (l-map-for-transformations-from-and-to-w0).
-			\begin{compactitem}
-				\item This diagram shows how the minimum transformations $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
-				\item Figure ref[fig:l-map-for-transformations-from-and-to-w0] demonstrates how the map $l$ maps transformations in $D$ to the elements in $A$ for the transformations shown in Figure ref[fig:2x2-cyclical-min-actions-standard].
-			\end{compactitem}
-		\end{compactitem}
-	\end{compactitem}
-
-	\textbf{Questions/thoughts that have been answered:}
-	\begin{compactitem}
-		\item Are the elements $1_{w}$ in $\hat{D}$ ? At the moment - yes.
-		\begin{compactitem}
-			\item \textbf{Counter:} Making $\hat{D}$ not include $D_{\epsilon}$ would line the notation up with $\hat{A}$.
-		\end{compactitem}
-	\end{compactitem}
-
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{blue}{Questions/thoughts that have been answered}{
+\begin{enumerate}
+    \item Are the elements $1_{w}$ in $\hat{D}$ ? At the moment - yes.
+    \begin{compactitem}
+        \item \textbf{Counter:} Making $\hat{D}$ not include $D_{\epsilon}$ would line the notation up with $\hat{A}$.
+    \end{compactitem}
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1275,7 +1219,7 @@ We define an equivalence relation on the elements of $\hat{A}^{\ast}$ that says 
 \begin{definition}[Equivalence of actions under $\sim$]
 	Given two actions $a, a' \in \hat{A}^{\ast}$,
 	\begin{equation}
-		a \sim a' \Leftrightarrow a \ast w = a' \ast w \quad \text{ for all $w \in W$}
+		a \sim a' \iff a \ast w = a' \ast w \quad \text{ for all $w \in W$}
 	\end{equation}
 \end{definition}
 
@@ -1305,10 +1249,8 @@ We define the canonical projection map $\pi_{A}: \hat{A}^{\ast} \to \hat{A}^{\as
 This projection map $\pi_{A}$ effectively collapses actions with identical effects into a single representative.
 The equivalent classes $[a]_{\sim}$, where $[a]_{\sim}$ denotes the equivalence class of $a$ due to $\sim$, are
 \begin{equation}
-	[a]_{\sim} = \{ a' \sim \hat{A}^{\ast} \mid a' \sim a \}
+	[a]_{\sim} = \{ a' \in \hat{A}^{\ast} \mid a' \sim a \}
 \end{equation}
-
-
 
 Sometimes we will drop the $[a]_{\sim}$ in favour of $a \in \hat{A}^{\ast}/\sim$ for ease.
 
@@ -1328,59 +1270,79 @@ We need to show that the operation $\circ_{\sim}$ on the equivariance classes do
 	$\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$.
 \end{proposition}
 \begin{proof}
-	To show that $\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$, we need to prove that if two actions $a,b \in \hat{A}^{\ast}$ are equivalent $a \sim b$ and two other actions $a', b' \in \hat{A}^{\ast}$ are equivalent $a' \sim b'$, then $[a' \circ a]_{\sim} = [b' \circ b]_{\sim}$ (i.e., $(a \circ a) \sim (b\ \circ b)$).
+\begin{enumerate}[(1)]
+    \item \textbf{Problem.}
+    For $\circ_{\sim}$ to be well-defined on $\hat{A}^{*}/\sim$, we need that\footnote{
+    \textbf{Well-definedness requirement.}
+    An operation on a quotient set
+    \begin{equation}
+        (\hat{A}^{*}/\sim) \times (\hat{A}^{*}/\sim) \to \hat{A}^{*}/\sim
+    \end{equation}
+    is \emph{well-defined} if take different representatives of the same equivalence classes doesn't change the resulting equivalence class.
+    Mathematically,
+    \begin{equation}
+    \begin{aligned}
+        & [a]_{\sim} = [b]_{\sim} \; \text{and} \; [a']_{\sim} = [b']_{\sim} \\
+        \implies & [a' \circ a]_{\sim} = [b' \circ b]_{\sim}
+    \end{aligned}
+    \end{equation}
+    }
+    \begin{equation}
+    \begin{aligned}
+        & \text{If $[a]_{\sim} = [b]_{\sim}$ and $[a']_{\sim} = [b']_{\sim}$, then} \\
+        & [a' \circ a]_{\sim} = [b' \circ b]_{\sim}
+    \end{aligned}
+    \end{equation}
 
-	\begin{enumerate}[(1)]
-		\item \textbf{Initial assumptions.}
-		      For $a, b, a', b' \in \hat{A}^{\ast}$:
-		      \begin{itemize}
-			      \item $a \sim b$ means:
-			            \begin{equation}
-				            a \ast w = b \ast w \quad \text{for all } w\in W
-			            \end{equation}
-			      \item $a' \sim b'$ means:
-			            \begin{equation}
-				            a' \ast w = b' \ast w \quad \text{for all } w\in W
-			            \end{equation}
-		      \end{itemize}
+    \item \textbf{Initial assumptions.}
+          For $a, b, a', b' \in \hat{A}^{\ast}$:
+          \begin{itemize}
+              \item $a \sim b$ means:
+                    \begin{equation}
+                        a \ast w = b \ast w \quad \text{for all } w\in W
+                    \end{equation}
+              \item $a' \sim b'$ means:
+                    \begin{equation}
+                        a' \ast w = b' \ast w \quad \text{for all } w\in W
+                    \end{equation}
+          \end{itemize}
 
-		\item \textbf{Goal.}
-		      We want to show $[a' \circ a]_{\sim} = [b' \circ b]_{\sim}$.
-		      \begin{align}
-			                    & [a' \circ a]_{\sim} = [b' \circ b]_{\sim}                               \\
-			      \Rightarrow{} & (a' \circ a) \sim (b' \circ b)                                          \\
-			      \Rightarrow{} & (a' \circ a) \ast w = (b' \circ b) \ast w \quad \text{for all } w \in W
-		      \end{align}
+    \item \textbf{Goal.}
+          We want to show $[a' \circ a]_{\sim} = [b' \circ b]_{\sim}$.
+          \begin{align}
+                            & [a' \circ a]_{\sim} = [b' \circ b]_{\sim}                               \\
+              \Rightarrow{} & (a' \circ a) \sim (b' \circ b)                                          \\
+              \Rightarrow{} & (a' \circ a) \ast w = (b' \circ b) \ast w \quad \text{for all } w \in W
+          \end{align}
 
-		\item \textbf{Proof.}
-		      We have:
-		      \begin{equation}
-			      (a' \circ a) \ast w = a' \ast (a \ast w).
-		      \end{equation}
-		      Similarly, we have:
-		      \begin{equation}
-			      (b' \circ b) \ast w = b' \ast (b \ast w).
-		      \end{equation}
-		      Since $a \sim b$, we have $a \ast w = b \ast w$ for all $w \in W$.
-		      Therefore,
-		      \begin{align}
-			          & (a' \circ a) \ast w \\
-			      ={} & a' \ast (a \ast w)  \\
-			      ={} & a' \ast (b \ast w)
-		      \end{align}
-		      Since $a' \sim b'$, we have $a' \ast w = b' \ast w$ for all $w \in W$.
-		      Therefore,
-		      \begin{align}
-			          & (a' \circ a) \ast w  \\
-			      ={} & b' \ast (b \ast w)   \\
-			      ={} & (b' \circ b) \ast w.
-		      \end{align}
+    \item \textbf{Proof.}
+          We have:
+          \begin{equation}
+              (a' \circ a) \ast w = a' \ast (a \ast w).
+          \end{equation}
+          Similarly, we have:
+          \begin{equation}
+              (b' \circ b) \ast w = b' \ast (b \ast w).
+          \end{equation}
+          Since $a \sim b$, we have $a \ast w = b \ast w$ for all $w \in W$.
+          Therefore,
+          \begin{align}
+                  & (a' \circ a) \ast w \\
+              ={} & a' \ast (a \ast w)  \\
+              ={} & a' \ast (b \ast w)
+          \end{align}
+          Since $a' \sim b'$, we have $a' \ast w = b' \ast w$ for all $w \in W$.
+          Therefore,
+          \begin{align}
+                  & (a' \circ a) \ast w  \\
+              ={} & b' \ast (b \ast w)   \\
+              ={} & (b' \circ b) \ast w.
+          \end{align}
 
 
-		\item \textbf{Conclusion.}
-		      We have shown that $(a' \circ a) \ast w = (b' \circ b) \ast w$, and therefore $(a' \circ a) \sim (b' \circ b)$, and hence $\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$.
-	\end{enumerate}
-
+    \item \textbf{Conclusion.}
+          We have shown that $(a' \circ a) \ast w = (b' \circ b) \ast w$, and therefore $(a' \circ a) \sim (b' \circ b)$, and hence $\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$.
+\end{enumerate}
 \end{proof}
 
 \begin{proposition}\label{prp:circ_sim_closed}
@@ -1816,44 +1778,20 @@ Figure \ref{fig:2x2_cyclical_equivalence_min_actions} shows what happens to Figu
 \end{figure}
 
 \draftnote{blue}{awjdean}{
-	Show diagrams with some non-minimum action transformations.
-	Make it clear that equivalence classes contain more elements: $\{\epsilon, 1 \dots \}$.
+Show diagrams with some non-minimum action transformations.
+Make it clear that equivalence classes contain more elements: $\{\epsilon, 1 \dots \}$.
 }
 
 \draftnote{blue}{awjdean}{
-	Map showing actions being sent to their equivalence classes under $\sim$: $D_{A}$ -($l$)-> $\hat{A}^{\ast}$ -($\pi_{A}$)-> $\hat{A}^{\ast}/\sim$.
-}
-
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{compactitem}
-		\item Equivalence relation $\sim$ for transformations and how it compares to equivalence relation $\sim$ for actions.
-		\begin{compactitem}
-			\item
-		\end{compactitem}
-
-		\item Local vs global equivalence relations for actions. --> in Beyond SBDRL section.
-
-		\item \textbf{Mention:} Our use of an equivalence relation was inspired by \cite{caselles2020sensory}, which uses a similar equivalence relation to equate action sequences that cause the same final observation state after each action sequence is performed from an initial observation state.
-	\end{compactitem}
-	\noindent\rule{\textwidth}{1mm}
+Map showing actions being sent to their equivalence classes under $\sim$: $D_{A}$ -($l$)-> $\hat{A}^{\ast}$ -($\pi_{A}$)-> $\hat{A}^{\ast}/\sim$.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-
-
-	\textbf{To do:}
-	\begin{compactitem}
-		\item Equivalence relation $\sim$ for transformations and how it compares to equivalence relation $\sim$ for actions.
-
-		\item Local vs global equivalence relations for actions. - here or in Beyond SBDRL section?
-
-		\item \textbf{Mention:} Our use of an equivalence relation was inspired by \cite{caselles2020sensory}, which uses a similar equivalence relation to equate action sequences that cause the same final observation state after each action sequence is performed from an initial observation state.
-	\end{compactitem}
-	\noindent\rule{\textwidth}{1mm}
+\draftnote{red}{DIVIDER}{}
+\draftnote{green}{To do}{
+\begin{enumerate}
+    \item Equivalence relation $\sim$ for transformations and how it compares to equivalence relation $\sim$ for actions.
+    \item \textbf{Mention:} Our use of an equivalence relation was inspired by \cite{caselles2020sensory}, which uses a similar equivalence relation to equate action sequences that cause the same final observation state after each action sequence is performed from an initial observation state.
+\end{enumerate}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\draftnote{red}{DIVIDER}{}

@@ -1,18 +1,3 @@
-
-\draftnote{green}{Chapter structure}{
-\begin{enumerate}
-    \item Motivating example - take previous world and include a wall.
-\end{enumerate}
-}
-
-\draftnote{blue}{To do}{
-\begin{enumerate}
-    \item 
-\end{enumerate}
-}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What about walls ?}
 
@@ -500,8 +485,8 @@ Consider a world $\mathscr{W}_{\zeta}$ consisting of a $4 \times 1$ cyclical gri
   \label{fig:4x1_consumable_world_states}
 \end{figure}
 
-The agent is only in the same position as the consumable in world state $w_{1}$, therefore we need to chose a treatment for the consume action $C$ when the world is in a world state $w_{i \neq 1}$.
-We will first consider the identity treatment of $\mathscr{W}_{\zeta}$\footnote{
+The agent is only in the same position as the consumable in world state $w_{1}$, therefore the $C$ action is constrained when $\mathscr{W}_{\gamma}$ is not in $w_{1}$; this means we need to chose a treatment for the consume action $C$ when the world is in a world state $w_{i \neq 1}$.
+In this section we will consider the identity treatment of constrained actions in $\mathscr{W}_{\zeta}$\footnote{
 We will consider the masked treatment of $\mathscr{W}_{\zeta}$ in \cref{sec:Undefined actions}.
 }, so the agent performing the consume action $C$ in a world state $w_{i \neq 1}$ produces the same effect as the agent performing the no op action $1$ (see \cref{fig:min_actions_world_with_consumable_identity}).
 
@@ -524,10 +509,10 @@ Put Cayley table in appendix.
     \hline
         \textbf{World} & \bm{$|\hat{A}^{*}/\sim|$} \\
         \hline
-        $\mathscr{W}_{\zeta}$ & 64 \\
+        $\mathscr{W}_{\zeta}$ with identity treatment & 64 \\
     \end{tabular}
     \caption{
-    The number of elements in the transformation algebra of the world $\mathscr{W}_{\zeta}$.
+    The number of elements in the transformation algebra of the world $\mathscr{W}_{\zeta}$ with the identity treatment of constrained actions.
     }
 \end{table}
 
@@ -737,6 +722,99 @@ Undefined actions
     \begin{itemize}
         \item This is the only one which requires care I think since undefined reversible actions act like defined irreversible actions when using the $\bot$ treatment.
     \end{itemize}
-    \item Masked consumable.
+    \item Worlds with irreversible actions and worlds with undefined and irreversible actions are structurally the same using the $\bot$ treatment.
+\end{enumerate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{An example world: irreversible and undefined actions}
+
+$\mathscr{W}_{\gamma}$ with masked treatment is an example of a world with irreversible actions and undefined actions.
+Since $C$ is a constrained action when $\mathscr{W}_{\gamma}$ is not in world state $w_{1}$, in the masked treatment when $\mathscr{W}_{\gamma}$ is in world state $w_{i \neq 1}$ we say the $C$ action is undefined.
+The world states of $\mathscr{W}_{\gamma}$ are given in \cref{fig:4x1_consumable_world_states}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/min_actions_world_with_consumable_masked.png}
+    \caption{
+    \draftnote{blue}{To do}{Redo caption.}
+    Minimum action network for world containing an agent and a consumable.
+    }
+\end{figure}
+
+\draftnote{blue}{To do}{
+Put Cayley table in appendix.
+}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+    \hline
+        \textbf{World} & \bm{$|\hat{A}^{*}/\sim|$} \\
+        \hline
+        $\mathscr{W}_{\zeta}$ with masked treatment & 21 \\
+    \end{tabular}
+    \caption{
+    \draftnote{blue}{awjdean}{
+    Old method give $|\hat{A}^{*}/\sim| = 20$, action functions method gives $|\hat{A}^{*}/\sim| = 21$.
+    Check - find differences and figure out which equivalence classes they're in.
+    }
+    The number of elements in the transformation algebra of the world $\mathscr{W}_{\zeta}$ with the masked treatment of constrained actions.
+    }
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Property}   & \textbf{Present?} \\
+        \hline
+        Total               & N\\
+        Associative         & Y\\
+        Identity            & Y\\
+        Inverse             & N\\
+        \hline
+        Commutative         & N
+    \end{tabular}
+    \caption{
+    Properties of the $\hat{A}^{*}/\sim$ algebra for the world $\mathscr{W}_{\zeta}$ with the masked treatment of constrained actions.
+    }
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+Two perspectives
+}
+
+\draftnote{blue}{To do}{
+Does my algorithm give any situation with masked actions as non reversible ?
+Change how property check is done so it's "when defined" ?
+}
+
+There are two perspectives we can consider when a world-agent pair has undefined actions
+\begin{enumerate}[(1)]
+    \item $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a monoid with a partially defined action $\ast: \hat{A}^{*}/\sim \times W \rightharpoonup W$, where $\ast$ is undefined if there is no corresponding transformation in $D_{A}$; or
+    \item $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a small category with a total action $\ast: \hat{A}^{*}/\sim \times W \to W$.
+\end{enumerate}
+
+When we augment our system with the undefined state $\bot$, the operator $\ast_{\sim}^{\bot}: \hat{A}^{*}/\sim \times W^{\bot} \to W^{\bot}$ is partial or total based on whether we decide to allow $\bot$ as a legitimate image or we ignore the $\bot$ state.
+
+\draftnote{blue}{Consider}{
+Mention something about the first perspective being favoured in category theory, and the second being favoured in monoid theory.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{
+(?) Reversible and undefined actions
+}
+
+\draftnote{green}{Include}{
+\begin{enumerate}
+    \item Cases where groupoid is not a group action ?
+    \begin{itemize}
+        \item This might depend on action homogeneity.
+    \end{itemize}
+    \item Does my algorithm give any situation with masked actions as non reversible ?
 \end{enumerate}
 }
