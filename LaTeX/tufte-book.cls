@@ -9,6 +9,11 @@
 % The name of the package (defaults to tufte-handout)
 \newcommand{\@tufte@pkgname}{tufte-book}
 
+% Package for automatically putting proofs in the Appendices.
+%% https://github.com/leo-colisson/proof-at-the-end
+\RequirePackage[createShortEnv, conf={one big link, end, restate}]{proof-at-the-end}
+
+
 %%
 % Load the common style elements
 \input{LaTeX/tufte-common.def}

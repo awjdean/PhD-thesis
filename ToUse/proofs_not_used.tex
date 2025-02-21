@@ -1,0 +1,63 @@
+\begin{propositionE}[][normal]
+    \draftnote{blue}{To do}{
+    Change this to be about how $\hat{A}^{*}/\sim_{w} = \hat{A}^{*}/\sim_{u}$ and $(\hat{A}^{*}/\sim)_{w} = (\hat{A}^{*}/\sim)_{u}$ for all $u \in W^{\hat{A}\to}(w)$.
+    }
+    Consider a world $\mathscr{W}$ with an action $a \in \hat{A}^{*}$ which is reversible from $w \in W$.
+    $\circ_{\sim_{w}}$ is well-defined $\implies$ $\circ_{\sim_{u}}$ is well-defined for $u \in W^{\hat{A}\to}(w)$, where $u = a \ast w$.
+\end{propositionE}
+\begin{proofE}
+\begin{enumerate}[(1)]
+    \item \textbf{Set up.}
+    From \cref{prp:circ_sim_w_is_well_defined_iff_global_sim_coincides_with_local_sim}, we have
+    \begin{equation}
+        \text{$\circ_{\sim_{w}}$ is well-defined} \iff (\hat{A}/\sim)_{w} = \hat{A}/\sim_{w}
+    \end{equation}
+
+    Consider an arbitrary action $a \in \hat{A}^{*}$ which is reversible from $w \in W$.
+    From the definition of $W^{\hat{A}\to}(w)$,
+    \begin{equation}
+        u = a \ast w
+    \end{equation}
+
+    \item \textbf{Effect on $|(\hat{A}^{*}/\sim)_{u}|$.}
+    If $a$ is reversible from $w$, then from \cref{prp:reachable_subworld_reversible_action} we have
+    \begin{equation}
+        \mathscr{W}^{\hat{A}\to}(u) = \mathscr{W}^{\hat{A}\to}(w)
+    \end{equation}
+    Since the reachable subworld is unchanged, 
+    \begin{equation}
+        (\hat{A}^{*}/\sim)_{u} = (\hat{A}^{*}/\sim)_{w}
+    \end{equation}
+    Therefore,
+    \begin{equation}
+        |(\hat{A}^{*}/\sim)_{u}| = |(\hat{A}^{*}/\sim)_{w}|
+    \end{equation}
+    
+    \item \textbf{Effect on $|\hat{A}^{*}/\sim_{u}|$.}
+    Since $\mathscr{W}^{\hat{A}\to}(u) = \mathscr{W}^{\hat{A}\to}(w)$,
+    \begin{equation}
+        W^{\hat{A}\to}(u) = W^{\hat{A}\to}(w)
+    \end{equation}
+    From \cref{prp:local_algebra_cardinality},
+    \begin{equation}
+        |\hat{A}^{*}/\sim_{x}| = |W^{\hat{A}\to}(x)|
+    \end{equation}
+    Therefore,
+    \begin{align}
+        & |\hat{A}^{*}/\sim_{u}| = |\hat{A}^{*}/\sim_{w}| \\
+        \implies & |\hat{A}^{*}/\sim_{u}| = |(\hat{A}^{*}/\sim)_{u}|
+    \end{align}
+
+    \item \textbf{$\circ_{\sim_{u}}$ is well-defined.}
+    Since each local equivalence class is a disjoint union of global equivalence classes (\cref{prp:local_class_is_disjoint_union_of_global_classes}), equalities of cardinalities implies that non non-trivial partitioning occurs; therefore,
+    \begin{align}
+        & |\hat{A}^{*}/\sim_{u}| = |(\hat{A}^{*}/\sim)_{u}| \\
+        \implies & \hat{A}^{*}/\sim_{u} = (\hat{A}^{*}/\sim)_{u}
+    \end{align}
+    From \cref{prp:circ_sim_w_is_well_defined_iff_global_sim_coincides_with_local_sim},
+    \begin{equation}
+        \hat{A}^{*}/\sim_{u} = (\hat{A}^{*}/\sim)_{u} \implies \text{$\circ_{\sim_{u}}$ is well-defined}
+    \end{equation}
+\end{enumerate}
+\end{proofE}
+

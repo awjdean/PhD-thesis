@@ -1,3 +1,8 @@
+\chapter{
+Beyond SBDRL I: global algebras
+(V0.5)
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{What about walls ?}
 
@@ -7,24 +12,24 @@ Let's take our $2 \times 2$ cyclic grid world $\mathscr{W}_{\alpha}$ and add a w
   \centering
     \begin{subfigure}[b]{0.45\linewidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w0.png}
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/2x2_with_wall_world_states/w0.png}
         \caption{$w_{0}$}
         \vspace{0.25cm}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\linewidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w1.png}
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/2x2_with_wall_world_states/w1.png}
         \caption{$w_{1}$}
         \vspace{0.25cm}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\linewidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w2.png}
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/2x2_with_wall_world_states/w2.png}
         \caption{$w_{2}$}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\linewidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/2x2_with_wall_world_states/w3.png}
+        \includegraphics[width=0.5\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/2x2_with_wall_world_states/w3.png}
         \caption{$w_{3}$}
     \end{subfigure}
   \caption{
@@ -82,7 +87,7 @@ Do we actually not allow an agent to perform the masked action?
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/masked_walls_2x2_cyclical_min_actions.drawio.png}
+    \includegraphics[width=0.75\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/masked_walls_2x2_cyclical_min_actions.drawio.png}
     \caption{
     A world diagram of world $\mathscr{W}_{\beta}$ containing the labelled $\hat{D}_{A}$ transformations for an agent with minimum actions $\hat{A} = \{1, N, S, E, W\}$ using the masked treatment of constrained actions.
     \draftnote{blue}{Consider}{Send arrows explicitly to $\bot$ ?}
@@ -119,7 +124,7 @@ Figure out what to do with this table.
 }
 \setlength{\tabcolsep}{2pt}
 {\fontsize{8}{10}\selectfont
-\input{5BeyondSBDRL/GlobalAlgebras/Tables/2x2_wall_masked_cayley}
+\input{5BeyondSBDRLGlobalAlgebras/Tables/2x2_wall_masked_cayley}
 }
 \setlength{\tabcolsep}{6pt}
 \end{landscape}
@@ -150,7 +155,7 @@ Figure out what to do with this table.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/identity_walls_2x2_cyclical_min_actions.drawio.png}
+    \includegraphics[width=0.75\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/identity_walls_2x2_cyclical_min_actions.drawio.png}
     \caption{
         A world diagram of world $\mathscr{W}_{\beta}$ containing the labelled $\hat{D}_{A}$ transformations for an agent with minimum actions $\hat{A} = \{1, N, S, E, W\}$ using the identity treatment of constrained actions.
     }
@@ -185,7 +190,7 @@ Figure out what to do with this table.
 }
 \setlength{\tabcolsep}{2pt}
 {\fontsize{8}{10}\selectfont
-\input{5BeyondSBDRL/GlobalAlgebras/Tables/2x2_wall_identity_cayley}
+\input{5BeyondSBDRLGlobalAlgebras/Tables/2x2_wall_identity_cayley}
 }
 \setlength{\tabcolsep}{6pt}
 \end{landscape}
@@ -249,73 +254,73 @@ If the agent is in the location directly to the left of the block and moves into
   \centering
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w0.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w0.png}
     \caption{$w_{0}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w1.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w1.png}
     \caption{$w_{1}$}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w2.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w2.png}
     \caption{$w_{2}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w3.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w3.png}
     \caption{$w_{3}$}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w4.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w4.png}
     \caption{$w_{4}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w5.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w5.png}
     \caption{$w_{5}$}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w6.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w6.png}
     \caption{$w_{6}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w7.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w7.png}
     \caption{$w_{7}$}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w8.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w8.png}
     \caption{$w_{8}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w9.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w9.png}
     \caption{$w_{9}$}
   \end{subfigure}%
     \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w10.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w10.png}
     \caption{$w_{10}$}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Movable_block_world_states/w11.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Movable_block_world_states/w11.png}
     \caption{$w_{11}$}
   \end{subfigure}%
   \caption{World states of the world $\mathscr{W}_{\gamma}$ containing an agent and a movable block.}
@@ -354,7 +359,7 @@ If the agent is in the location directly to the left of the block and moves into
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/4x1_block_min_actions_wall.png}
+    \includegraphics[width=\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/4x1_block_min_actions_wall.png}
     \caption{
     A transition diagram of the labelled transitions in Table \ref{tab:4x1_gridworld_min_transitions_moveable_block}.
     }
@@ -368,7 +373,7 @@ Figure out what to do with this table.
 }
 \setlength{\tabcolsep}{2pt}
 {\fontsize{8}{10}\selectfont
-\input{5BeyondSBDRL/GlobalAlgebras/Tables/4x1_gridworld_block}
+\input{5BeyondSBDRLGlobalAlgebras/Tables/4x1_gridworld_block}
 }
 \setlength{\tabcolsep}{6pt}
 \end{landscape}
@@ -425,56 +430,56 @@ Consider a world $\mathscr{W}_{\zeta}$ consisting of a $4 \times 1$ cyclical gri
   \centering
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w0.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w0.png}
     \caption{$w_{0}$}
     \label{fig:w0}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w1.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w1.png}
     \caption{$w_{1}$}
     \label{fig:w1}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w2.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w2.png}
     \caption{$w_{2}$}
     \label{fig:w2}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w3.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w3.png}
     \caption{$w_{3}$}
     \label{fig:w3}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w4.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w4.png}
     \caption{$w_{4}$}
     \label{fig:w4}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w5.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w5.png}
     \caption{$w_{5}$}
     \label{fig:w5}
   \end{subfigure}%
   \vspace{0.5cm}
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w6.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w6.png}
     \caption{$w_{6}$}
     \label{fig:w6}
   \end{subfigure}%
   \hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{5BeyondSBDRL/GlobalAlgebras/Images/Consumable_world_states/w7.png}
+    \includegraphics[width=\textwidth]{5BeyondSBDRLGlobalAlgebras/Images/Consumable_world_states/w7.png}
     \caption{$w_{7}$}
     \label{fig:w7}
   \end{subfigure}%
@@ -492,7 +497,7 @@ We will consider the masked treatment of $\mathscr{W}_{\zeta}$ in \cref{sec:Unde
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/min_actions_world_with_consumable_identity.png}
+    \includegraphics[width=\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/min_actions_world_with_consumable_identity.png}
     \caption{
    World diagram for world $\mathscr{W}_{consumable}$ containing...
     }
@@ -552,7 +557,7 @@ What about transformations that "disappear" when they are used (i.e., next time 
 Put this as a footnote after doing the world transformation thing to convert $\sim_{t}$ into $\sim$ - same we can use the same trick to deal with problems like the above.
 }
 
-For an action $a \in \hat{A}^{*}/\sim$ that is irreversible from any state $w \in W$,
+For an action $a \in \hat{A}^{*}$ that is irreversible from any state $w \in W$,
 \begin{equation}
     \operatorname{Im}(f_{a}) \subsetneq W
 \end{equation}
@@ -569,25 +574,27 @@ Have we said anything about transformations $d: w \xrightarrow{[a]} w'$ ?
 $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
 }
 
-\begin{proposition}
+\begin{propositionE}
 \label{prp:reachable_subworld_reversible_action}
     \draftnote{blue}{Consider}{
     Move this to Reversible worlds section ?
     }
-    If an action $a \in \hat{A}^{*}/\sim$ is reversible from $w$, then
+    If an action $a \in \hat{A}^{*}$ is reversible from $w$, then    \footnote{
+    In other words, $\mathscr{W}^{\hat{A}\to}(a \ast w)$ and $\mathscr{W}^{\hat{A}\to}(w)$ coincide, rather than are just isomorphic.
+    }
     \begin{equation}
         \mathscr{W}^{\hat{A}\to}(a \ast w) = \mathscr{W}^{\hat{A}\to}(w)
     \end{equation}
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
 \begin{enumerate}[(1)]
     \item \textbf{Set up.}
     There exists a transformation $d_{1} \in D_{A}$ such that $d_{1}: w \xrightarrow{a} a \ast w$.
-    If $a$ is reversible from $w$, then there exists a transformation $d_{2} \in D_{A}$ such that $d_{2}: a \ast w \xrightarrow{a_{2}} w$ where $a_{2} \in \hat{A}^{*}/\sim$.
+    If $a$ is reversible from $w$, then there exists a transformation $d_{2} \in D_{A}$ such that $d_{2}: a \ast w \xrightarrow{a_{2}} w$ where $a_{2} \in \hat{A}^{*}$.
     
     \item \textbf{Show $W^{\hat{A}\to}(w) \subseteq W^{\hat{A}\to}(a \ast w)$.}
     Take any $x \in W^{\hat{A}\to}(w)$.
-    From the definition of $W^{\hat{A}\to}(w)$, there exists a transformation $d_{3} \in D_{A}$ such that $d_{3}: w \xrightarrow{a_{3}} x$ where $a_{3} \in \hat{A}^{*}/\sim$.
+    From the definition of $W^{\hat{A}\to}(w)$, there exists a transformation $d_{3} \in D_{A}$ such that $d_{3}: w \xrightarrow{a_{3}} x$ where $a_{3} \in \hat{A}^{*}$.
     Therefore, we have a transformation $(d_{3} \circ d_{2}) \in D_{A}$ such that $(d_{3} \circ d_{2}): a \ast w \ \xrightarrow{a_{2}} w \xrightarrow{a_{3}} x$, and so $x \in W^{\hat{A}\to}(a \ast w)$.
     As the choice of $x$ is arbitrary, every world state reachable from $w$ is also reachable from $a \ast w$, and so
     \begin{equation}
@@ -597,7 +604,7 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
 
     \item \textbf{Show $W^{\hat{A}\to}(a \ast w) \subseteq W^{\hat{A}\to}(w)$.}
     Take any $y \in W^{\hat{A}\to}(a \ast w)$.
-    From the definition of $W^{\hat{A}\to}(a \ast w)$, there exists a transformation $d_{4} \in D_{A}$ such that $d_{4}: a \ast w \xrightarrow{a_{4}} y$ where $a_{2} \in \hat{A}^{*}/\sim$.
+    From the definition of $W^{\hat{A}\to}(a \ast w)$, there exists a transformation $d_{4} \in D_{A}$ such that $d_{4}: a \ast w \xrightarrow{a_{4}} y$ where $a_{4} \in \hat{A}^{*}$.
     Therefore, we have a transformation $(d_{4} \circ d_{1}) \in D_{A}$ such that $(d_{4} \circ d_{1}): w \xrightarrow{a} a \ast w \xrightarrow{a_{4}} y$, and so $y \in W^{\hat{A}\to}(w)$.
     As the choice of $y$ is arbitrary, every world state reachable from $a \ast w$ is also reachable from $w$, and so
     \begin{equation}
@@ -610,16 +617,17 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
     \begin{equation}
         W^{\hat{A}\to}(a \ast w) = W^{\hat{A}\to}(w)
     \end{equation}
-    From the definition of reachable subworld, the set of reachable world states $W^{\hat{A}\to}(w)$ determines the minimum transformations included in $\hat{D}_{A}^{\hat{A}\to}(w)$, and so
+    From the definition of reachable subworld, the set of reachable world states $W^{\hat{A}\to}(w)$ determines the minimum transformations included in $\hat{D}_{A}^{\hat{A}\to}(w)$ because the set $\hat{D}_{A}^{\hat{A}\to}(w)$ is entirely defined in terms of the source and targets of the minimum action transformations in $\hat{D}_{A}^{\hat{A}\to}(w)$ being in $W^{\hat{A}\to}(w)$, and so if the sets of states coincide, the corresponding collections of minimum transformations also coincide.
+    Therefore,
     \begin{equation}
         \mathscr{W}^{\hat{A}\to}(a \ast w) = \mathscr{W}^{\hat{A}\to}(w)
     \end{equation}
 \end{enumerate}
-\end{proof}
+\end{proofE}
 
-\begin{proposition}
+\begin{propositionE}
 \label{prp:reachable_subworld_irreversible_action}
-    If an action $a \in \hat{A}^{*}/\sim$ is irreversible from $w$, then
+    If an action $a \in \hat{A}^{*}$ is irreversible from $w$, then
     \begin{equation}
         \mathscr{W}^{\hat{A}\to}(a \ast w) \subsetneq \mathscr{W}^{\hat{A}\to}(w)
     \end{equation}
@@ -630,48 +638,51 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
     \footnote{
     The reachable subworld $\mathscr{W}^{\hat{A}\to}(a \ast w)$ produced by performing an irreversible action is an induced subgraph of the reachable subworld $\mathscr{W}^{\hat{A}\to}(w)$ because the reachable subworld $\mathscr{W}^{\hat{A}\to}(w)$ preserves all the edges among the world states that remain as the reachable subworld shrinks.
     }
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
 \begin{enumerate}[(1)]
     \item \textbf{Set up.}
-    Since $a$ is irreversible from $w$, there is no transformation $d \in D_{A}$ such that $d: a \ast w \xrightarrow{a'} w$.
+    Since $a$ is irreversible from $w$, by definition there is no transformation $d \in D_{A}$ with $d: a \ast w \xrightarrow{a'} w$ where $a' \in \hat{A}/\sim$.
 
     \item \textbf{Loss of $w$.}
-    The lack of $d: a \ast w \xrightarrow{a'} w$ means we cannot reach $w$ from $a \ast w$.
-    Therefore,
-    \begin{equation}
-        w \not\in W^{\hat{A}\to}(a \ast w)
-        \label{eqn:w_not_in_reachable_subworld_irreversible}
-    \end{equation}
-
-    \item \textbf{Potential loss of other world states.}
+    In the reachable subworld $\mathscr{W}^{\hat{A}\to}(w)$, $w$ is reachable from itself via the transformation $1_{w}: w \to w$, and so $w \in \mathscr{W}^{\hat{A}\to}(w)$.
+    
+    Since there is no $d: a \ast w \xrightarrow{a'} w$, by the definition of $W^{\hat{A}\to}(a \ast w)$ it follows that\footnote{
+    \textbf{Potential loss of other world states.}
     Consider $x \in W^{\hat{A}\to}(w)$.
     If all transformations $d_{1} \in D_{A}$ such that $a \ast w \to x$ pass through $w$, then when $w$ becomes unreachable $x$ also becomes unreachable.
-    Therefore,
-    \begin{equation}
-        W^{\hat{A}\to}(a \ast w) \subseteq W \setminus \{w\}
-    \end{equation}
     \draftnote{blue}{Consider}{
     Can we use $\operatorname{Seq}$ here to make this better ?
     }
     \draftnote{blue}{Footnote?}{
     In subgraph topology, if $w$ is a \emph{hub} or a \emph{bridge} on all possible routes from $w$ to $x$, then when $w$ becomes unreachable $x$ also becomes unreachable.
     }
+    }
+    \begin{equation}
+        w \not\in W^{\hat{A}\to}(a \ast w)
+        \label{eqn:w_not_in_reachable_subworld_irreversible}
+    \end{equation}
+    Therefore,
+    \begin{equation}
+        W^{\hat{A}\to}(a \ast w) \subseteq W \setminus \{w\}
+    \end{equation}
 
-    \item \textbf{Final result.}
-    From \cref{eqn:w_not_in_reachable_subworld_irreversible} and the definition of a subworld, it follows that
+    \item \textbf{Conclusion.}
+    From the definition of reachable subworld, the set of reachable world states $W^{\hat{A}\to}(w)$ determines the minimum transformations included in $\hat{D}_{A}^{\hat{A}\to}(w)$ because the set $\hat{D}_{A}^{\hat{A}\to}(w)$ is entirely defined in terms of the source and targets of the minimum action transformations in $\hat{D}_{A}^{\hat{A}\to}(w)$ being in $W^{\hat{A}\to}(w)$.
+    
+    Therefore, from \cref{eqn:w_not_in_reachable_subworld_irreversible} and the definition of a subworld,
     \begin{equation}
         \mathscr{W}^{\hat{A}\to}(a \ast w) \subsetneq \mathscr{W}^{\hat{A}\to}(w)
     \end{equation}
 \end{enumerate}
-\end{proof}
+\end{proofE}
 
 
 
-\begin{proposition}
+\begin{propositionE}
     For a world $\mathscr{W}$ with transformations only due to the actions of an agent, $|W^{\hat{A}\to}(w^{*})|$ is monotonically non-increasing over time.
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
 \begin{enumerate}
     \item \textbf{Set up.}
     As time proceeds, the world transforms through a sequence of world states as the agent performs actions.
@@ -699,10 +710,7 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
     \end{equation}
     and so, $|W^{\hat{A}\to}(a \ast w^{*})|$ decreases.
 \end{enumerate}
-
-
-
-\end{proof}
+\end{proofE}
 
 
 
@@ -735,7 +743,7 @@ The world states of $\mathscr{W}_{\gamma}$ are given in \cref{fig:4x1_consumable
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{5BeyondSBDRL/GlobalAlgebras/Images/min_actions_world_with_consumable_masked.png}
+    \includegraphics[width=\linewidth]{5BeyondSBDRLGlobalAlgebras/Images/min_actions_world_with_consumable_masked.png}
     \caption{
     \draftnote{blue}{To do}{Redo caption.}
     Minimum action network for world containing an agent and a consumable.

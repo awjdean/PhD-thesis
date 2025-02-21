@@ -1,6 +1,6 @@
 \chapter{
 Reproducing symmetry-based disentangled representation learning
-(V1.2)
+(V1.3)
 }
 \draftnote{green}{To do}{
 \begin{enumerate}
@@ -431,86 +431,157 @@ Explain implementation problems with the empty action as an identity.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Reversible and invertible actions}
+\subsection{Reversible and invertible actions}\label{sec:Reversible and invertible actions}
 \draftnote{blue}{Consider}{
 Adjust these definitions so that they scale to subsets $B \subseteq \hat{A}^{*}/\sim$.
 }
+For \cref{sec:Reversible and invertible actions}, we will explicitly state if we are using $W$ or $W^{\bot}$.
 \draftnote{blue}{Consider}{
-Make definitions for reversible, invertible etc... be to do with $\hat{A}^{*}$ instead of $\hat{A}^{*}/\sim$ ?
+How do we want to deal with worlds that are reversible when actions are defined, but have undefined actions ?
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Reversible actions.}
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{reversible} from a state $w \in W$ in a world $\mathscr{W}$ if there exists an action $[a'] \in \hat{A}^{*}/\sim$ that can send the result of $[a] \ast w$ back to $w$.\footnote{
-In terms of transformations, an action $[a] \in \hat{A}^{*}/\sim$ is called \emph{reversible} from a state $w \in W$ in a world $\mathscr{W}$ if there exists a transformation $d: a * w \xrightarrow w \in D_{A}$.
+\paragraph{Reversible and irreversible actions.}
+An action $a \in \hat{A}^{*}$ is reversible from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that satisfies
+ \footnote{
+In terms of transformations, an action $a \in \hat{A}^{*}$ is called \emph{reversible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists a transformation $d \in D_{A}$ with $d: a \ast w \xrightarrow{a'} w$, where $a' \in \hat{A}^{*}$.
 }
-An action that is not reversible from a state $w \in W$ is called \emph{irreversible} from the state $w$.
-In other words,
 \begin{equation}
-    [a'] * ([a] * w) = w.
+    a' \ast (a \ast w) = w.
 \end{equation}
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{globally reversible} in a world $\mathscr{W}$ if $[a]$ is reversible from all states in $W$\footnote{
-NB: this is $W$ not $W^{\bot}$.
-}.
+In other words, an action $a \in \hat{A}^{*}$ is reversible if it is possible to send the result of $a \ast w$ back to $w$.
+An action $a \in \hat{A}^{*}$ is called \emph{globally reversible} in a world $\mathscr{W}$ if $a$ is reversible from all world states in $W$.
+
+An action that is not reversible from a world state $w \in W$ is called \emph{irreversible} from the world state $w$.
+An action $a \in \hat{A}^{*}$ is called \emph{globally irreversible} in a world $\mathscr{W}$ if $a$ is irreversible from all world states in $W$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Invertible actions.}
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{left invertible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $[a'] \in \hat{A}^{*}/\sim$ that satisfies
+An action $a \in \hat{A}^{*}$ is called \emph{left invertible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that satisfies
 \begin{equation}
-    [a'] * ([a] * w) = w
+    a' \ast (a \ast w) = w.
 \end{equation}
-Such an $[a']$ is called a \emph{left inverse} of $[a]$ from $w$.
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{globally left invertible} in a world $\mathscr{W}$ if $[a]$ is left invertible from all states in $W$, but not necessarily by using the same left inverse to invert the action from each state $w \in W$\footnote{
-NB: this is $W$ not $W^{\bot}$.
-}; in this case, the left inverse is called a \emph{global left inverse}\footnote{
+Such an $a'$ is called a \emph{left inverse} of $a$ from $w$.
+An action $a \in \hat{A}^{*}$ is called \emph{globally left invertible} in a world $\mathscr{W}$ if $a$ is left invertible from all world states in $W$, but not necessarily by using the same left inverse to invert the action from each world state $w \in W$
+\footnote{
 You will have noticed that reversible actions are, by definition, left invertible and so have a left inverse.
-We have made a distinction between these concepts to highlight the difference between the more state-focused view of always being able to return to a starting state when an action has been applied, and the more action focused view of always being able to invert an action.
+We have made a distinction between these concepts to highlight the difference between the more state-focused view of always being able to return to a starting world state when an action has been applied, and the more action focused view of always being able to invert an action.
 }.
 
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{right invertible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $[a'] \in \hat{A}^{*}/\sim$ that satisfies
+An action $a \in \hat{A}^{*}$ is called \emph{right invertible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that satisfies
 \begin{equation}
-    [a] * ([a'] * w) = w
+    a \ast (a' \ast w) = w.
 \end{equation}
-Such an $[a']$ is called a \emph{right inverse} of $[a]$.
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{globally right invertible} in a world $\mathscr{W}$ if $[a]$ is right invertible from all states in $W$, but not necessarily by using the same right inverse to invert the action from each state $w \in W$\footnote{
-NB: this is $W$ not $W^{\bot}$.
-}; in this case, the right inverse is called a \emph{global right inverse}.
+Such an $a'$ is called a \emph{right inverse} of $a$ from $w$.
+An action $a \in \hat{A}^{*}$ is called \emph{globally right invertible} in a world $\mathscr{W}$ if $a$ is right invertible from all world states in $W$, but not necessarily by using the same right inverse to invert the action from each world state $w \in W$.
 
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{invertible} from a state $w \in W$ in a world $\mathscr{W}$ if there exists an action $[a'] \in \hat{A}^{*}/\sim$ that is both a right inverse and a left inverse
+An action $a \in \hat{A}^{*}$ is called \emph{invertible} from a world state $w \in W$ in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that is both a right inverse of $a$ and a left inverse of $a$
 \begin{equation}
 \begin{aligned}
-    & [a'] * ([a] * w) = w \\
-    & [a] * ([a'] * w) = w.
+    & a' \ast (a \ast w) = w \\
+    \text{and} \quad & a \ast (a' \ast w) = w.
 \end{aligned}
 \end{equation}
-Such an $[a']$ is called an inverse of $[a]$\footnote{
+Such an $a'$ is called an inverse of $a$ from $w$
+\footnote{
+\draftnote{blue}{Consider}{Move or adjust the below now these definitions use $a$ instead of $[a]$.}
 There's a subtle point to be made here about the uniqueness of an inverse element.
 When it is said that there is a unique inverse element for an element in an algebra $(A, \cdot)$, what is meant is that inverse elements are indistinguishable in terms of their behaviour under $\cdot$ and so are the same inverse with respect to $\cdot$.
 \draftnote{blue}{awjdean}{Give example of set that forms different algebras with different operators. Mention that this fact could be useful for those using our framework as a base to develop more complicated algebras.}
 }.
-An action $[a] \in \hat{A}^{*}/\sim$ is called \emph{globally invertible} in a world $\mathscr{W}$ if $[a]$ is invertible from all states in $W$, but not necessarily by using the same inverse to invert the action from each state $w \in W$\footnote{
-NB: this is $W$ not $W^{\bot}$.
-}; in this case, the inverse is called a \emph{global inverse}.
+An action $a \in \hat{A}^{*}$ is called \emph{globally invertible} in a world $\mathscr{W}$ if $a$ is invertible from all world states in $W$, but not necessarily by using the same inverse to invert the action from each world state $w \in W$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Consistently invertible actions.}
-We can now take our definitions for left inverse and right inverse in terms of $\ast$ and convert them into definitions about our algebra $(B, \circ_{\sim})$ using the relationship between $\ast$ and $\circ_{\sim}$:
-\begin{align}
-    \text{Left inverse: } & [a'] * ([a] * w) = w \quad \to \quad ([a'] \circ_{\sim} [a]) \ast w = w
-    \label{eqn:left_inverse_consistent_global_extraction} \\
-    \text{Right inverse: } & [a] * ([a'] * w) = w \quad \to \quad ([a] \circ_{\sim} [a']) \ast w = w
-    \label{eqn:right_inverse_consistent_global_extraction}
-\end{align}
-If \cref{eqn:left_inverse_consistent_global_extraction,eqn:right_inverse_consistent_global_extraction} hold for all $w \in W$ for the same $[a']$ then we can extract the $([a'] \circ_{\sim} [a])$ and $([a] \circ_{\sim} [a'])$ from the world states to give the definitions for a consistent global left inverse and a consistent global right inverse
-\begin{align}
-    \text{Consistent global left inverse: } & ([a'] \circ_{\sim} [a]) \sim [\epsilon] 
-    \label{eqn:consistent_global_left_inverse_def} \\
-    \text{Consistent global right inverse: } & ([a] \circ_{\sim} [a']) \sim [\epsilon]
-    \label{eqn:consistent_global_right_inverse_def}
-\end{align}
-where $([a'] \circ_{\sim} [a])$ and $([a] \circ_{\sim} [a'])$ are equivalent under $\sim$ to the identity element $[\epsilon]$ in $\hat{A}^{*}/\sim$ because the identity element also satisfies $[\epsilon] \ast w = w$ for all $w \in W$.
-\cref{eqn:consistent_global_left_inverse_def} is the definition for $[a']$ being a left inverse of $[a]$, \cref{eqn:consistent_global_right_inverse_def} is the definition for $[a']$ being a right inverse of $[a]$, and \cref{eqn:consistent_global_left_inverse_def,eqn:consistent_global_right_inverse_def} together are the definition for $[a']$ being an inverse of $[a]$.
+\paragraph{Consistently globally invertible actions.}
+An action $a \in \hat{A}^{*}$ is called \emph{consistently globally left invertible} in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that satisfies
+\begin{equation}\label{eqn:global_left_inverse_def}
+    a' \ast (a \ast w) = w \quad \text{for all $w \in W$}.
+\end{equation}
+\footnote{
+In other words, the \emph{same} action $a' \in \hat{A}^{*}$ is a left inverse of $a \in \hat{A}^{*}$ from all world states $w \in W$.
+}
+Such an $a'$ is called a \emph{global left inverse} of $a$.
 
-For our subalgebra $(B, \circ_{\sim})$ to satisfy the group inverse property, each element of $B$ must have have a consistent global inverse\footnote{
+An action $a \in \hat{A}^{*}$ is called \emph{consistently globally right invertible} in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that satisfies
+\begin{equation}\label{eqn:global_right_inverse_def}
+    a \ast (a' \ast w) = w \quad \text{for all $w \in W$}.
+\end{equation}
+Such an $a'$ is called a \emph{global right inverse} of $a$.
+
+An action $a \in \hat{A}^{*}$ is called \emph{consistently globally invertible} in a world $\mathscr{W}$ if there exists an action $a' \in \hat{A}^{*}$ that is both a global left inverse of $a$ and a global right inverse of $a$ for all $w \in W$:
+\begin{equation}
+\begin{aligned}
+    & a' \ast (a \ast w) = w \quad \text{for all $w \in W$} \\
+    \text{and} \quad & a \ast (a' \ast w) = w \quad \text{for all $w \in W$}.
+\end{aligned}
+\end{equation}
+Such an $a'$ is called a \emph{global inverse} of $a$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{
+Inverses under $\sim$.
+}
+\draftnote{blue}{To do}{
+Something (in relevant section) about how non consistent invertibility affects $(\hat{A}^{*}/\sim_{w}, \circ_{\sim_{w}})$.
+}
+
+The presence of non-global left or right inverses does not translate into properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ because $\sim$ captures global behaviour.
+However, for consistently globally invertible left or right actions, we can convert \cref{eqn:global_left_inverse_def,eqn:global_right_inverse_def} into definitions about our algebra $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+
+\begin{proposition}\label{prp:global_inverse_means_inverse_in_global_algebra}
+\begin{enumerate}[(a)]
+    \item An action $a \in \hat{A}^{*}$ has a global left inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is a left inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+    
+    \item An action $a \in \hat{A}^{*}$ has a global right inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is a right inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+
+    \item An action $a \in \hat{A}^{*}$ has a global inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is an inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}[(a)]
+    \item For a consistently globally invertible left action $a \in \hat{A}^{*}$ with global left inverse $a' \in \hat{A}^{*}$,
+    \begin{align}
+        & a' \ast (a \ast w) = w \quad \text{for all $w \in W$} \\
+        \implies & (a' \circ a) \ast w = w \quad \text{for all $w \in W$}.
+    \end{align}
+    Since
+    \begin{equation}
+        \epsilon \ast w = w \quad \text{for all $w \in W$},
+    \end{equation}
+    we have
+    \begin{align}
+        & (a' \circ a) \sim \epsilon \\
+        \implies & [a' \circ a]_{\sim} = [\epsilon]_{\sim} \\
+        \implies & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon]_{\sim}.
+    \end{align}
+    This is the condition for $[a']_{\sim}$ to a left inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+
+    \item Similarly, for a consistently globally invertible right action $a \in \hat{A}^{*}$ with global right inverse $a' \in \hat{A}^{*}$,
+    \begin{align}
+        & a \ast (a' \ast w) = w \quad \text{for all $w \in W$} \\
+        \implies & (a \circ a') \ast w = w \quad \text{for all $w \in W$}.
+    \end{align}
+    Since
+    \begin{equation}
+        \epsilon \ast w = w \quad \text{for all $w \in W$},
+    \end{equation}
+    we have
+    \begin{align}
+        & (a \circ a') \sim \epsilon \\
+        \implies & [a \circ a']_{\sim} = [\epsilon]_{\sim} \\
+        \implies & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\epsilon]_{\sim}.
+    \end{align}
+    This is the condition for $[a']_{\sim}$ to a right inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+
+    \item A consistently globally invertible action $a \in \hat{A}^{*}$ has a global inverse $a' \in \hat{A}^{*}$ that acts as both a global left inverse and a global right inverse, and so
+    \begin{align}
+        & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon]_{\sim} \\
+        \text{and } & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\epsilon]_{\sim}
+    \end{align}
+    These are the conditions for $[a']_{\sim}$ to an inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
+\end{enumerate}
+\end{proof}
+
+Therefore, for our subalgebra $(B, \circ_{\sim})$ to satisfy the inverse property, each element of $B$ must have have a global inverse\footnote{
 Confusion between global reversibility/global invertibility and global \emph{consistent} invertibility appears to be a common area of misunderstanding \draftnote{blue}{awjdean}{in the literature (get references)}.
 This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 } with respect to $\circ_{\sim}$ that is also in $B$.
@@ -519,6 +590,9 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 \paragraph{Properties. \draftnote{blue}{awjdean}{Change this title.}}
 
 \begin{proposition}\label{prp:consistent_global_reversibility_necessary_for_consistent_global_inverse}
+    \draftnote{blue}{To do}{
+    Update this proof to match the changes made to definitions of global reversibility.
+    }
     Consistent global reversibility of an action is a necessary condition for an action to have a consistent global inverse (and so satisfy the group inverse property)
     (i.e., consistent global inverse $\implies$ consistent global reversibility).
 \end{proposition}
@@ -533,12 +607,12 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 \end{proof}
 
 \begin{proposition}\label{prp:undefined_action_not_globally_reversible}
-    If an action $[a] \in \hat{A}^{*}/\sim$ sends a world state $w \in W$ to $\bot$ (i.e., if there isn't a transformation $d \in D$ with $d: w \xrightarrow{a} t(d)$ for some $w \in W$), then $[a]$ is not globally reversible.
+    If an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ sends a world state $w \in W$ to $\bot$ (i.e., if there isn't a transformation $d \in D$ with $d: w \xrightarrow{a} t(d)$ for some $w \in W$), then $[a]_{\sim}$ is not globally reversible.
 \end{proposition}
 \begin{proof}
-    Consider an action $[a] \in \hat{A}^{*}/\sim$ that sends a world state $w \in W$ to $\bot$ as
+    Consider an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ that sends a world state $w \in W$ to $\bot$ as
     \begin{equation}
-        [a] * w = \bot
+        [a]_{\sim} * w = \bot
     \end{equation}
     $\bot$ is an absorbing state, which means
     \begin{equation}
@@ -549,6 +623,9 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 \end{proof}
 
 \begin{proposition}
+    \draftnote{blue}{To do}{
+    Update this proof to match the changes made to definitions of global reversibility.
+    }
     For a world with a finite $|W|$, an action $[a] \in \hat{A}^{*}/\sim$ that is consistently globally reversible in $\hat{A}^{*}/\sim$ has a consistent global inverse in $\hat{A}^{*}/\sim$.
     (i.e., For a world with a finite $|W|$, consistent global reversibility is a sufficient condition for an action to be consistently globally invertible.)
 \end{proposition}

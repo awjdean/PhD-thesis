@@ -10,6 +10,7 @@ A mathematical framework
     \begin{itemize}
         \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
     \end{itemize}
+    \item Distinguish between the underlying minimum transformation worlds
 \end{enumerate}
 }
 
@@ -640,10 +641,14 @@ If we let $f: A \times W \to W$ be the dynamics of the environment then the tran
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Reachable subworlds due to the actions of an agent}
 
+\draftnote{blue}{To do}{
+Something (earlier) about how we need to specify $\hat{D}_{A}$ (you could have a transformation in $\hat{D}_{A}$ that's not in $\hat{D}$) - perhaps bundle this into world-agent pair.
+}
+
 To define reachable subworlds due to the actions of an agent, we take the reachable subworlds definition and replace $\hat{D}$ with $\hat{D}_{A}$.
-For a world $\mathscr{W} = (W, \hat{D}. \hat{s}, \hat{t})$ containing an agent with minimum actions $\hat{A}$ and minimum action transformations $\hat{D}_{A}$,
+For a world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ containing an agent with minimum actions $\hat{A}$ and minimum action transformations $\hat{D}_{A}$,
 \begin{align}
-    & W^{\hat{A}\to}(w) := \{ w' \in W \mid \text{there exists} \; d \in D \; \text{with} \; d: w \to w' \} \\
+    & W^{\hat{A}\to}(w) := \{ w' \in W \mid \text{there exists} \; d \in D_{A} \; \text{with} \; d: w \to w' \} \\
     & \hat{D}_{A}^{\hat{A}\to}(w) := \{ \hat{d} \in \hat{D}_{A} \mid s(\hat{d}) \in W^{\hat{A}\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\hat{A}\to}(w) \} \\
     & \mathscr{W}^{\hat{A}\to}(w) := (W^{\hat{A}\to}(w), \hat{D}_{A}^{\hat{A}\to}(w), \hat{s} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)}, \hat{t} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)})
 \end{align}
@@ -1431,10 +1436,10 @@ Applying the equivalence relation $\sim$ using the projection $\pi_{A}$ to the f
 	$(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is the homomorphic image of $(\hat{A}^{\ast}, \circ)$ through the projection $\pi_{A}$.
 }, whose elements are the equivalence classes $[a]_{\sim}$ for all $a \in \hat{A}^{\ast}$.
 
-\begin{proposition}\label{prp:circ_sim_associative}
+\begin{propositionE}\label{prp:circ_sim_associative}
     $\circ_{\sim}$ is associative on $\hat{A}^{\ast}/\sim$.
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
 Associativity of $\circ_{\sim}$ comes from the associativity of $\circ$.
 \begin{align}
           & ([a'']_{\sim} \circ_{\sim} [a']_{\sim}) \circ_{\sim} [a]_{\sim} \\
@@ -1444,7 +1449,7 @@ Associativity of $\circ_{\sim}$ comes from the associativity of $\circ$.
       = \; & [a'']_{\sim} \circ_{\sim} [a' \circ a]_{\sim}                   \\
       = \; & [a'']_{\sim} \circ_{\sim} ([a']_{\sim} \circ_{\sim} [a]_{\sim})
   \end{align}
-\end{proof}
+\end{proofE}
 
 
 \begin{proposition}\label{prp:A_sim_identity}
@@ -1460,7 +1465,7 @@ Therefore, $[\epsilon]_{\sim}$, where $\epsilon$ is the empty action, acts as th
 \end{proof}
 
 
-\begin{proposition}
+\begin{proposition}\label{prp:A_sim_is_monoid}
 	$(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is a monoid.
 \end{proposition}
 \begin{proof}

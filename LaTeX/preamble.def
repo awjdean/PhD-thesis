@@ -5,6 +5,7 @@
 
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
+\RequirePackage{centernot}
 
 % TYPESETTING
 % \RequirePackage{bm, bbold}
@@ -37,12 +38,19 @@
 % Define appendix chapter format
 \newcommand{\setappendixformat}{
     \renewcommand{\chaptername}{Appendix}
-    \renewcommand{\thechapter}{\chaptername~\Alph{chapter}}
+    \renewcommand{\thechapter}{\chaptername~\Alph{chapter}} % TODO: Want Appendix A to appear in RHS page headings, but not in table of contents.
+    % \renewcommand{\thechapter}{\Alph{chapter}}
     \fancyhead[RO]{\smallcaps{\thechapter: \leftmark}}
+    \renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}
 }
 \newcommand{\resetchapterformat}{
     \renewcommand{\chaptername}{Chapter}
     \renewcommand{\thechapter}{\arabic{chapter}}
+    % \renewcommand{\theequation}{\arabic{equation}}
+}
+% Prevent the equation counter from resetting in the appendix
+\newcommand{\continuousnumbering}{
+    \setcounter{equation}{\value{equation}} % Preserve the current value of the equation counter
 }
 
 % CITATIONS & BIBLIOGRAPHY
@@ -66,18 +74,21 @@
 %   % it issued
 %   \providecommand{\doi}[1]{\textsc{doi:} #1}%
 
-% REFERENCING
-\RequirePackage{cleveref}
+
 
 % THEOREM ENVIRONMENTS.
+\theoremstyle{definition} % TODO: Customise environment styles.
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}[section]
-\newtheorem{lemma}{Lemma}[definition]
 \newtheorem{remark}{Remark}[subsection]
 \newtheorem*{example}{Example}
 \newtheorem{proposition}{Proposition}[section]
+\providecommand*\propositionautorefname{Proposition}
 \newtheorem{corollary}{Corollary}[proposition]
+\providecommand*\corollaryautorefname{Corollary}
 \newtheorem{action_condition}{Action condition}
+\newtheorem{lemma}{Lemma}[proposition]
+\providecommand*\lemmaautorefname{Lemma}
 
 % TABLE OF CONTENTS
 \RequirePackage{tocbibind}
@@ -92,3 +103,6 @@
 %     \originalchapter{#1}%
 %     \insertminitoc%
 % }
+
+% REFERENCING
+\RequirePackage{cleveref}
