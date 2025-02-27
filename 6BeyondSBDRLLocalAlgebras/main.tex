@@ -1,6 +1,6 @@
 \chapter{
 Beyond SBDRL II: local algebras
-(V1.0)
+(V1.1)
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1137,6 +1137,9 @@ Therefore, the $[a]_{\sim_{w}}$ equivalence class splits when $\xi_{(w, u)}$ is 
     \begin{equation}
         (\hat{A}^{*}/\sim)_{w'} = \hat{A}^{*}/\sim_{w'} = \{ [\epsilon], [b] \}.
     \end{equation}
+    \draftnote{blue}{Consider}{
+    NB: this world is not action-homogeneous.
+    }
     }
     \begin{equation}
         (\hat{A}^{*}/\sim)_{u} = \hat{A}^{*}/\sim_{u} \iff \text{$\circ_{\sim_{u}}$ is well-defined}
@@ -1503,7 +1506,7 @@ What have we discovered ?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{
-Worlds with uniform algebraic structures
+Worlds with uniform local algebraic structures
 }
 
 \draftnote{blue}{Include in intro}{
@@ -2353,15 +2356,126 @@ Check in proofs that $\mathscr{W}^{\hat{A}\to}(w')$ and $W^{\hat{A}\to}(w)$ are 
 }
 
 \begin{definition}[Action-homogeneous world]\label{def:action_homogeneous}
-    A world $\mathscr{W}$ is called \emph{action-homogeneous} from a world state $w \in W$ if
+    A world $\mathscr{W}$ is called \emph{action-homogeneous} from a world state $w \in W$ if there exists a label-preserving directed multigraph isomorphism
     \begin{equation}
-        \mathscr{W}^{\hat{A}\to}(w) \cong \mathscr{W}^{\hat{A}\to}(w') \quad \text{for all $w' \in W^{\hat{A}\to}(w)$}.
+        \phi_{(w,w')}: \mathscr{W}^{\hat{A}\to}(w) \to \mathscr{W}^{\hat{A}\to}(w')
     \end{equation}
+    for all $w' \in W^{\hat{A}\to}(w)$.
 \end{definition}
 
 \draftnote{blue}{To do}{
-Check this is how the isomorphism is defined in proofs make consistent.
+Check this is how the isomorphism is defined in proofs to make them consistent.
 }
+
+\paragraph{Properties of $\phi_{(w,w')}$.}
+The isomorphism in \cref{def:action_homogeneous} is made up of a bijection
+\begin{equation}
+    \phi_{(w,w'), W}: W^{\hat{A}\to}(w) \to W^{\hat{A}\to}(w')
+\end{equation}
+between world states, and a bijection
+\begin{equation}
+    \phi_{(w,w'), D}: \hat{D}_{A}^{\hat{A}\to}(w) \to \hat{D}_{A}^{\hat{A}\to}(w')
+\end{equation}
+between minimum action transformations\footnote{\draftnote{blue}{To do}{Footnote about why mapping the minimum action transformations means the bijection works for all labelled transformations.}}.
+$\phi_{W,(w,w')}$ and $\phi_{D,(w,w')}$ satisfy the following:
+\begin{enumerate}
+    \item \textbf{Preservation of identities.}
+    For any world state $x \in W^{\hat{A}\to}(w)$,
+    \begin{equation}
+        \phi_{(w,w'), D}(1_{x}) = 1_{\phi_{W,(w,w')}(x)}
+    \end{equation}
+
+    \item \textbf{Preservation of composition.}
+    For any transformations $d_{1}, d_{2} \in D_{A}^{\hat{A}\to}(w)$,
+    \begin{equation}
+        \phi_{(w,w'), D}(d_{2} \circ d_{1}) = \phi_{(w,w'), D}(d_{2}) \circ \phi_{(w,w'), D}(d_{1})
+    \end{equation}
+
+    \item \textbf{Preservation of source and target maps.}
+    For any transformation $d \in D_{A}^{\hat{A}\to}(w)$,
+    \begin{equation}
+        s(\phi_{(w,w'), D}(d)) = \phi_{(w,w'), W}(s(d))
+    \end{equation}
+    and
+    \begin{equation}
+        t(\phi_{(w,w'), D}(d)) = \phi_{(w,w'), W}(t(d))
+    \end{equation}
+
+    \item \textbf{Preservation of transformation labels.}
+    For any transformation $d \in D_{A}^{\hat{A}\to}(w)$,
+    \begin{equation}
+        l(d) = l(\phi_{(w,w'), D}(d))
+    \end{equation}
+\end{enumerate}
+
+We can convert the effect of the transformation isomorphism $\phi_{(w,w'), D}$ into an action-equivariance condition on the world state isomorphism $\phi_{(w,w'), W}$.
+For any world state $x \in W^{\hat{A}\to}(w)$ and for any action $a \in \hat{A}^{*}$,\footnote{
+    This action-equivariance condition comes from the fact that the order of applying the isomorphism to the world state $x$ then applying $a \ast$ should be the same as applying $a \ast$ then applying the isomorphism.
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJ4Il0sWzAsMiwiXFxwaGlfe1d9KHgpIl0sWzIsMCwiYSBcXGFzdCB4Il0sWzIsMiwiXFxwaGlfe1d9KGEgXFxhc3QgeCkgPSBhIFxcYXN0IFxccGhpX3tXfSh4KSJdLFswLDIsImEgXFxhc3QiXSxbMSwzLCJhIFxcYXN0Il0sWzIsMywiXFxwaGlfe1d9Il0sWzAsMSwiXFxwaGlfe1d9Il1d
+\[\begin{tikzcd}[ampersand replacement=\&]
+	x \&\& {a \ast x} \\
+	\\
+	{\phi_{W}(x)} \&\& {\phi_{W}(a \ast x) = a \ast \phi_{W}(x)}
+	\arrow["{a \ast}", from=1-1, to=1-3]
+	\arrow["{\phi_{W}}", from=1-1, to=3-1]
+	\arrow["{\phi_{W}}", from=1-3, to=3-3]
+	\arrow["{a \ast}", from=3-1, to=3-3]
+\end{tikzcd}\]
+    }
+\begin{equation}
+    \phi_{(w,w'), W}(a \ast x) = a \ast \phi_{(w,w'), W}(x)
+\end{equation}
+whenever $a \ast x$ is defined.
+
+The equivariance condition on $\phi_{(w,w'), W}$ guarantees that the labelled directed multigraph structure of $\mathscr{W}^{\hat{A}\to}(w)$ is preserved.
+Therefore, if we construct an isomorphism with
+\begin{equation}
+    \phi_{(w,w')}: \mathscr{W}^{\hat{A}\to}(w) \to \mathscr{W}^{\hat{A}\to}(w')
+\end{equation}
+that satisfies, for all $x \in \mathscr{W}^{\hat{A}\to}(w)$ and for all $a \in \hat{A}^{*}$ where $a \ast x$ is defined,
+\begin{align}
+    & \phi_{W,(w,w')}(w) = w' \\
+    & \phi_{W,(w,w')}(a \ast x) = a \ast \phi_{W,(w,w')}(x),
+\end{align}
+then we have an isomorphism that preserves the labelled directed multigraph structure of $\mathscr{W}^{\hat{A}\to}(w)$ \footnote{
+Because every transformation is uniquely identified by its source world state and its label, the transformation map $\phi_{D,(w,w')}$ is determined by the world state map $\phi_{D,(w,w')}$.
+In other words, if we defined an isomorphism $\phi_{W,(w,w')}(w) = w'$ that is equivariant then, for each transformation $x \xrightarrow{a} a \ast x$, the isomorphism preserves the unique corresponding transformation $\phi_{W,(w,w')}(x) \xrightarrow{a} a \ast \phi_{W,(w,w')}(x)$.
+}
+.
+For that reason, we can write $\phi_{(w,w')}$ when we mean $\phi_{W,(w,w')}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Constructing $\phi_{(w,w')}$.}
+
+A natural way to construct the isomorphism $\phi_{(w,w')}$ for $w \in W$ and $w' \in W^{\hat{A}\to}(w)$ is to transport the structure of $\mathscr{W}^{\hat{A}\to}(w)$ to $\mathscr{W}^{\hat{A}\to}(w')$ using a \emph{transporter action} $a \in \hat{A}^{*}$ that sends $w$ to $w'$.
+
+By the definition of $W^{\hat{A}\to}(w)$, there exists an action $a \in \hat{A}^{*}$ with\footnote{
+It is possible to have multiple actions that send $w$ to $w'$, but we only need one.
+If the world is action-homogeneous from $w$, then these actions will be equivalent under $(\sim)_{w}$ and $\sim_{w}$.
+}
+\begin{equation}
+    a \ast w = w'.
+\end{equation}
+We then define the world state part of the isomorphism by
+\begin{equation}
+    \phi(x) := a \ast x \quad \text{for all $x \in W^{\hat{A}\to}(w)$}
+\end{equation}
+Note that this sends the base state $w$ to
+\begin{equation}
+    \phi(w) = a \ast w = w'
+\end{equation}
+
+
+\draftnote{red}{UP NEXT}{
+\begin{enumerate}
+    \item Constructing $\phi_{(w,w')}$ using an "action-transporter".
+    \item Inverse of $\phi_{(w,w')}$ still exists without an action.
+    \item Existence of the isomorphism between any two reachable subworlds in $\mathscr{W}^{\hat{A}\to}(w)$.
+    \item Check proofs.
+\end{enumerate}
+}
+------
+
 The isomorphism in \cref{def:action_homogeneous} is defined as follows:
 If $\mathscr{W}$ is action-homogeneous from $w$, then for any two world states $w', w'' \in W^{\hat{A}\to}(w)$ there exists a directed multigraph isomorphism\footnote{
 You'll notice that these isomorphisms are between any two world states $w', w'' \in \mathscr{W}^{\hat{A}\to}(w)$, rather than just between $w$ and a world state $w' \in \mathscr{W}^{\hat{A}\to}(w)$.
@@ -2434,6 +2548,9 @@ such that for any $u \in W^{\hat{A}\to}(w')$ we have
 \end{align}
 
 An action that is not homogeneous is called \emph{inhomogeneous.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Proofs about homogeneous actions.}
 
 \begin{corollary}
     If an action $a \in \hat{A}^{*}$ is homogeneous from $w \in W$, then $a$ is homogeneous from all $w' \in W^{\hat{A}\to}(w)$.
@@ -2810,8 +2927,11 @@ Any properties that are true for action-homogeneous worlds, are true for
 \end{enumerate}
 \end{proofE}
 
+\draftnote{blue}{Use when introducing Cayley tables}{
+A Cayley table shows the result of a binary operation for every pair of elements in a set, thereby encapsulating the structure's operation.
+}
 
-\begin{propositionE}
+\begin{propositionE}[][normal]
     A world $\mathscr{W}$ is action-homogeneous from a world state $w \in W$ $\iff$ $T_{\sim_{w}}(\hat{A}^{*}, \circ) = T_{\sim_{w'}}(\hat{A}^{*}, \circ)$ for all $w' \in W^{\hat{A}\to}(w)$.
 \end{propositionE}
 \begin{proofE}
@@ -2917,7 +3037,7 @@ Any properties that are true for action-homogeneous worlds, are true for
         Therefore, we have
         \begin{align}
             \phi_{(w, w')}(v) = & \phi_{(w, w')}(a \ast w) \\
-            = & a \ast w'
+            = & a \ast w' \\
             = & u
         \end{align}
         for any $u \in W^{\hat{A}\to}(w')$.
@@ -3120,11 +3240,11 @@ Define $D_{A}^{\hat{A}\to}(w)$ in reachable subworld definition.
     \item \textbf{Action-homogeneous from $w$.}
     \begin{enumerate}
         \item \textbf{Defining the candidate map.}
-        Consider two world states $w', w'' \in W^{\hat{A}\to}(w)$.
         By definition of $W^{\hat{A}\to}(w)$, there exists action $a, b \in \hat{A}^{*}$ such that
         \begin{equation}
             a \ast w = w' \quad \text{and} \quad b \ast w = w''
         \end{equation}
+        for any world states $w', w'' \in W^{\hat{A}\to}(w)$.
     
         $[a]_{\sim} \in (\hat{A}^{*}/\sim)_{w}$ and, since $((\hat{A}^{*}/\sim)_{w}, \circ_{\sim})$ is a group, there exists an inverse $[a]^{-1}_{\sim} \in (\hat{A}^{*}/\sim)_{w}$.
         Letting $a'$ be a representative of $[a]^{-1}_{\sim}$, we have
@@ -3137,25 +3257,81 @@ Define $D_{A}^{\hat{A}\to}(w)$ in reachable subworld definition.
             c := b \circ a'
         \end{equation}
 
-        Define the map
+        We define the candidate map, which we will show is an isomorphism, as
         \begin{equation}
-            \phi_{w', w''}: \mathscr{W}^{\hat{A}\to}(w) \to \mathscr{W}^{\hat{A}\to}(w)
+            \phi_{(w', w'')}: \mathscr{W}^{\hat{A}\to}(w') \to \mathscr{W}^{\hat{A}\to}(w'')
         \end{equation}
         given by
         \begin{equation}
-            \phi_{w', w''}(u) = c \ast u
+            \phi_{(w', w'')}(u) := c \ast u
         \end{equation}
 
-    \item \textbf{Verifying transfer of base.}
+    \item \textbf{$\phi_{(w', w'')}$ transfers the base world state.}
     \begin{align}
-        \phi_{w', w''}(w') = & c \ast (a \ast w) \\
+        \phi_{(w', w'')}(w') = & c \ast (a \ast w) \\
         = & (b \circ a') \ast (a \ast w) \\
         = & b \ast (a' \ast (a \ast w)) \\
         = & b \ast w \\
         = & w''
     \end{align}
 
-    \item \textbf{Verifying preservation of action structure.}
+    \item \textbf{$\phi_{(w', w'')}$ is well-defined.}
+    \draftnote{blue}{Not sure about this part.}{}
+    Since $\circ_{\sim}$ is well-defined on $(\hat{A}^{*}/\sim)_{w}$ as $[a]_{\sim} \circ_{\sim} [a']_{\sim} = [a \circ a']_{\sim}$ for all $a,a' \in \hat{A}^{*}$, we can work with the elements of $\hat{A}^{*}$ directly.
+    Let $u \in W^{\hat{A}\to}(w')$.
+    By definition of $W^{\hat{A}\to}(w')$, there exists some action $d \in \hat{A}^{*}$ such that
+    \begin{equation}
+        u = d \ast w'
+    \end{equation}
+    with $w' = a \ast w$ as before.
+    Taking $\phi_{(w', w'')}$ gives
+    \begin{align}
+        \phi_{(w', w'')}(u) = & c \ast u \\
+        = & c \ast (d \ast w') \\
+        = & (c \circ d) \ast w'
+    \end{align}
+    Since $w' \in W^{\hat{A}\to}(w)$, the $(c \circ d) \ast w'$ yields a world state in $W^{\hat{A}\to}(w'')$.
+    Therefore, since $u$ is an arbitrary world state in $W^{\hat{A}\to}(w')$, $\phi_{(w', w'')}(u)$ is in the reachable subworld $\mathscr{W}^{\hat{A}\to}(w'')$.
+
+    \item \textbf{$\phi_{(w', w'')}$ is bijective.}
+    \begin{enumerate}
+        \item \textbf{Injective.}
+        Suppose $u_{1}, u_{2} \in W^{\hat{A}\to}(w')$ satisfy
+        \begin{align}
+            & \phi_{(w', w'')}(u_{1}) = \phi_{w', w''}(u_{2}) \\
+            \implies & c \ast u_{1} = c \ast u_{2}
+        \end{align}
+        Since, from the uniqueness condition on the action labelling map, the effect of an action is deterministic, we have
+        \begin{align}
+            & c \ast u_{1} = c \ast u_{2} \\
+            \implies & u_{1} = u_{2}
+        \end{align}
+        Hence, $\phi_{(w', w'')}$ is injective.
+    
+        \item \textbf{Surjective.}
+        For any $v \in W^{\hat{A}\to}(w'')$, we define
+        \begin{equation}
+            u := c' \ast v
+        \end{equation}
+        where $c' \in [c]^{-1}_{\sim}$; we know $[c]^{-1}_{\sim} \in \hat{A}^{*}\sim$ because $((\hat{A}^{*}/\sim)_{w}, \circ_{\sim})$ is a group.
+        From the definition of $[c]^{-1}_{\sim}$, we have
+        \begin{equation}
+            c' \ast (c \ast k) = k \quad \text{for all $k \in W^{\hat{A}\to}(w)$}
+        \end{equation}
+
+        Now we have
+        \begin{align}
+            \phi_{(w', w'')}(u) = & c \ast u \\
+            = & c \ast (c' \ast v) \\
+            = & v
+        \end{align}
+        Therefore, $\phi_{(w', w'')}$ maps onto every world state in $W^{\hat{A}\to}(w'')$, and so $\phi_{(w', w'')}$ is surjective.
+    \end{enumerate}
+
+    \item \textbf{$\phi_{(w', w'')}$ preserves the graph structure.}
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
     
 
     
