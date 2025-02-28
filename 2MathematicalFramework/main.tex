@@ -105,7 +105,9 @@ Using $W$, $\hat{D}$, $\hat{s}$, and $\hat{t}$ we can construct another directed
 Our set $D$ of all transformations of $\mathscr{W}$ is the set of all finite directed walks in $\mathscr{W}$\footnote{
 	The atomic transformations are in $D$ as directed walks of length 1.
 }.
-This means that a transformation $d \in D$ is a sequence of atomic transformations
+This means that a transformation $d \in D$ is a sequence of atomic transformations\footnote{
+	This operator $\hat{\circ}$ is the operator of concatenation of walks of length 1.
+	}
 \begin{equation}
 	d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}
 \end{equation}
@@ -126,13 +128,46 @@ This means that when we perform the operation $\cdot$ on three or more elements,
 }
 by the definition of concatenation of walks.
 
+
+\paragraph{Trivial transformations.}
+For each world state $w \in W$ of our directed multigraph $\hat{\mathscr{W}}$, there is a trivial walk that does not leave $w$.
+We call the associated transformation of this trivial walk the \emph{trivial transformation at $w$} and denote it by $1_{w}$\footnote{Trivial transformations essentially represent no change happening in the world; we will hear more from trivial transformations when we look at the actions of agents.}
+.
+
+Therefore, for all $w \in W$, there exists a trivial transformation $1_{w} \in D$ with the following properties
+\begin{align}
+	\hat{s}(1_{w}) = w \\
+	\hat{t}(1_{w}) = w \\
+	|1_{w}| = 0
+\end{align}
+Trivial walks serve as neutral elements in the concatination of directed walks, and so transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation); for example, $\hat{d} \circ 1_{s(d)}$ is the same element in $\hat{D}$ as $\hat{d}$.
+In other words, trivial transformations satisfy
+\begin{align}
+	& \hat{d} \circ 1_{\hat{s}(\hat{d})} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$} \\
+	& 1_{\hat{t}(\hat{d})} \circ \hat{d} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$}
+\end{align}
+We denote the set of trival transformations by
+\begin{equation}
+	D_{\epsilon} = \{ 1_{w} \mid w \in W \}
+\end{equation}
+
+\paragraph{Extending from $\hat{\mathscr{W}}$ to $\mathscr{W}$.}
+Each transformation in $D$ can now be uniquely expressed as a sequence of composed atomic tranformations.
+\begin{equation}
+	\operatorname{Seq}: D \to \hat{D}^{n}
+\end{equation}
+such that, for $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} \dots \hat{\circ} \hat{d}_{1}$
+\begin{equation}
+	\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})
+\end{equation}
+
 We can extend our atomic source map $\hat{s}$ and atomic target map $\hat{t}$ to our source map $s$ and target map $t$ as, for a transformation $d \in D$ with $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$,
 \begin{align}
 	& s(d) = \hat{s}(\hat{d}_{1}) \\
-	& t(d) = \hat{t}(\hat{d}_{n})
+	& t(d) = \hat{t}(\hat{d}_{n}).
 \end{align}
 
-We also can extend the atomic transformation composition operator $\hat{\circ}$ to the transformation operator on the entire set $D$ as:
+We can also extend the atomic transformation composition operator $\hat{\circ}$ to the transformation operator on the entire set $D$ as:
 \begin{equation}
 \begin{aligned}
 	& \circ: D \times D \to D \\
@@ -141,14 +176,18 @@ We also can extend the atomic transformation composition operator $\hat{\circ}$ 
 \end{equation}
 such that, for $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$ and $\operatorname{Seq}(d') = (\hat{d'}_{n}, \hat{d'}_{n-1}, \dots, \hat{d'}_{1})$
 \begin{equation}
-	\operatorname{Seq}(d' \circ d) = (\hat{d'}_{n}, \hat{d'}_{n-1}, \dots, \hat{d'}_{1}, \hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})
+	\operatorname{Seq}(d' \circ d) = (\hat{d'}_{n}, \hat{d'}_{n-1}, \dots, \hat{d'}_{1}, \hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1}).
 \end{equation}
-$\circ$ is associative due to $\hat{\circ}$ being associative.
+$\circ$ is associative due to $\hat{\circ}$ being associative\footnote{
+$\circ$ is the operator of concatenation of walks.
+	We can now naturally extend stuff like the neutral element condition for trivial transformations as
+	\begin{align}
+		& d \circ 1_{s(d)} = d \quad \text{for all $d \in D$} \\
+		& 1_{t(d)} \circ d = d \quad \text{for all $d \in D$}
+	\end{align}
+}
+.
 
-
-
-\footnote{This operator $\hat{\circ}$ is the operator of concatenation of walks of length 1.}
-\footnote{$\circ$ is the operator of concatenation of walks.}
 
 \paragraph{Length of a transformation.}
 The \emph{length} of a transformation $d \in D$ is the number of atomic transformations that make up its associated directed walk in $\hat{\mathscr{W}}$ \footnote{
@@ -157,78 +196,48 @@ The \emph{length} of a transformation $d \in D$ is the number of atomic transfor
 We denote the length of $d$ by $|d|$.
 
 
-\paragraph{Trivial transformations.}
-For each world state $w \in W$ of our directed multigraph $\hat{\mathscr{W}}$, there is a trivial walk that does not leave $w$.
-We call the associated transformation in $D$ of this trivial walk the \emph{trivial transformation at $w$} and denote it by $1_{w}$\footnote{Trivial transformations essentially represent no change happening in the world; we will hear more from trivial transformations when we look at the actions of agents.}
-.
 
-Therefore, for all $w \in W$, there exists a trivial transformation $1_{w} \in D$ with the following properties
-\begin{align}
-	s(1_{w}) = w \\
-	t(1_{w}) = w \\
-	|1_{w}| = 0
-\end{align}
-Trivial walks serve as neutral elements in the concatination of directed walks, and so transformation sequences involving trivial transformations are not distinct elements in $D$ (except for the sequences of containing only a single trivial transformation); for example, $d \circ 1_{s(d)}$ is the same element in $D$ as $d$.
-In other words, trivial transformations satisfy
-\begin{align}
-	& d \circ 1_{s(d)} = d \quad \text{for all $d \in D$} \\
-	& 1_{t(d)} \circ d = d \quad \text{for all $d \in D$}
-\end{align}
-\footnote{
-	It is also the case that
-	\begin{align}
-		& \hat{d} \circ 1_{\hat{s}(\hat{d})} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$} \\
-		& 1_{\hat{t}(\hat{d})} \circ \hat{d} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$}
-	\end{align}
+\draftnote{blue}{To do}{
+Something about how we can refer to worlds by $\mathscr{W}$ or by $\hat{\mathscr{W}}$ ?
 }
 
-We denote the set of trival transformations by
-\begin{equation}
-	D_{\epsilon} = \{ 1_{w} \mid w \in W \}
-\end{equation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Simplifications}
 
+We make the following simplifications to worlds in our framework.
 
-\draftnote{blue}{Include as footnote}{
-Comment about how in the continuous case we could consider atomic transformations to be infinitesimal transformations.
-}
-\draftnote{red}{DIVIDER}{}
-
-
-
-(\textit{i.e.} the \emph{dynamics of the world}).
-
-We will also make a few simplifications to the worlds we consider:
 \paragraph{Deterministic worlds.}
 In a deterministic world, every change in the current world state has a single guaranteed effect.
 A world that is not deterministic is called \emph{stochastic}; in a stochastic world, the same change to the current world state could produce different results.
-We will initially consider deterministic worlds.
-
-
+We will initially consider deterministic worlds\footnote{Extensions to stochastic worlds will be discussed in \draftnote{blue}{section ???}.
+}.
 
 \paragraph{Discrete worlds.}
 In a \emph{discrete} world, the number of states and the number of transformations between states are countable.
 A world that is not discrete is called \emph{continuous}.
 For simplicity, we only consider discrete worlds.
-However, we argue that it is actually more natural to consider discrete worlds.
-Consider an agent with $n$ sensors $\theta_{n}$ that can interact with a world $\mathscr{W}$ using continuous actions $A$ to produce a sensor observation: $\theta_{i}(w) = o_{i}$ where $i \in \{1, ..., n\}$ and $w \in W$.
-We hypothesise that there will be actions $da \in A$ that cause changes in the world state that are so small that the agent's sensors will not perceive the change (\textit{i.e.}, $\theta_{i}(da \ast w) = o_i$).
-Therefore, there will be discrete jumps between perceptible states of the world in the agent's representation.
+However, we can make the following argument that it is actually more natural to consider discrete worlds than contiuous worlds.
+Consider a continuous world $\mathscr{W}$ and an agent with $n$ sensors $\theta_{i}$ that can produce a sensor observation $o_{i}$ of $\mathscr{W}$ as\footnote{
+More on how we model the sensory observations of agents in \draftnote{blue}{section ???}.
+}
+\begin{equation}
+	\theta_{i}(w) = o_{i}
+\end{equation}
+where $i \in \{1, ..., n\}$ and $w \in W$.
+We hypothesis that there are transformations that cuase changes to their source world state that are so small that the changes cannot be perceived by the agent; in other words, there exist transformations $d \in D$ such that
+\begin{equation}
+	\theta_{i}(s(d)) = \theta_{i}(t(d))
+\end{equation}
+Such transformations do not exist from the perspective of the agent; therefore, from the persepctive of the agent there will be discrete jumps between perceptible world states.
+We will initially consider discrete worlds\footnote{Extensions to continous worlds will be discussed in \draftnote{blue}{section ???}.
+}.
 
 
 
 \draftnote{red}{DIVIDER}{}
 
-\draftnote{blue}{To do}{
-Insert bit about the sequence function $\operatorname{Seq}$.
-"
-We have constructed our transformations this way because it means that each transformation in $D$ can be represented as a unique composition of minimum transformations.
-"
-}
 
-
-Additionally, it is easy to see that the neutral element properties of trivial transformations hold for any transformation in $D$\footnote{For any $d \in D$, $d \circ 1_{s(d)} = d$ and $1_{t(d)} \circ d = d$.}.
-For a transformation $d \in D$ with $s(d) = w$ and $t(d) = w'$, we will often denote such a $d$ by $d: w \to w'$.
 
 
 
