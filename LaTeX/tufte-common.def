@@ -1674,7 +1674,7 @@
   % Shape
   [runin]%
   % Format applied to label+text
-  {\normalfont\itshape}%
+  {\normalfont\bfseries}%
   % Label
   {\theparagraph}%
   % Horizontal separation between label and title body

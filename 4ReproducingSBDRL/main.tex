@@ -39,7 +39,7 @@ SBDRL is a well-established mathematical framework for disentanglement in repres
 \draftnote{blue}{awjdean}{Put more on the significance of SBDRL.}
 
 We will now reproduce SBDRL using our framework; we do this for the following reasons:
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item Symmetry-based representations describe transformations of the world that have formed relatively simple and well-understood algebraic structures (groups);
     \item Groups, and the symmetries they describe, are gaining increasing prominence in artificial intelligence research;
     \item Showing that a known, structured representation paradigm fits into our framework provides a good sanity check;
@@ -118,7 +118,7 @@ In other words, each subspace $Z_i$ is invariant to the action of all the $G_{j 
 \paragraph{Summary.}
 There is a bijective map $f: W \to Z$.
 The representation states in $Z$ are symmetry-based disentangled with respect to the decomposition $G = G_1 \times \hdots \times G_i \times \hdots \times G_n$ if:
-\begin{enumerate}[(1)]
+\begin{enumerate}
 	\item There exists a group action $\cdot_{W}: G \times W \to W$ and a corresponding group action $\cdot_{Z}: G \times Z \to Z$;
 	\item The map $f : W \to Z$ is group-equivariant between the group actions on $W$ and $Z$: $g \cdot_{Z} f(w) = f(g \cdot_{W} w)$.
 
@@ -149,9 +149,9 @@ However, it is important to note that they do not believe that all actions can b
 \section{SBDRL in our framework}
 
 In our framework, we have the following:
-\begin{enumerate}[(a)]
+\begin{enumerate}
     \item a world $\mathscr{W}$ consisting of
-    \begin{enumerate}[(i)]
+    \begin{enumerate}
         \item a set $W$ of world states;
         \item a set $\hat{D}$ of minimum transformations, which are used to generate a set $D$ of transformations;
         \item source and target maps $s, t: D \to W$;
@@ -528,7 +528,7 @@ The presence of non-global left or right inverses does not translate into proper
 However, for consistently globally invertible left or right actions, we can convert \cref{eqn:global_left_inverse_def,eqn:global_right_inverse_def} into definitions about our algebra $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 
 \begin{proposition}\label{prp:global_inverse_means_inverse_in_global_algebra}
-\begin{enumerate}[(a)]
+\begin{enumerate}
     \item An action $a \in \hat{A}^{*}$ has a global left inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is a left inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
     
     \item An action $a \in \hat{A}^{*}$ has a global right inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is a right inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
@@ -537,7 +537,7 @@ However, for consistently globally invertible left or right actions, we can conv
 \end{enumerate}
 \end{proposition}
 \begin{proof}
-\begin{enumerate}[(a)]
+\begin{enumerate}
     \item For a consistently globally invertible left action $a \in \hat{A}^{*}$ with global left inverse $a' \in \hat{A}^{*}$,
     \begin{align}
         & a' \ast (a \ast w) = w \quad \text{for all $w \in W$} \\
@@ -631,7 +631,7 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 \end{proposition}
 \begin{proof}
     \draftnote{blue}{awjdean}{Improve this write up.}
-    \begin{enumerate}[(1)]
+    \begin{enumerate}
     \item \textbf{Actions correspond to functions.}
     Consider an action $[a] \in \hat{A}^{*}/\sim$ that is consistently globally reversible.
     This means $[a]$ has a consistent global left inverse $[a']$.
@@ -687,7 +687,7 @@ For a subalgebra $(B, \circ_{\sim}) \subseteq (\hat{A}^{*}/\sim, \circ_{\sim})$ 
 \subsection{Properties of actions for $(B, \circ_{\sim})$ to be a group}
 
 For a subalgebra $(B, \circ_{\sim})$ to be a group, we need the following:
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Closure.}
     This holds by the definition of a subalgebra.
     
@@ -730,7 +730,7 @@ Use proof of $\ast|_{B}$ group action then say that when $B = \hat{A}^{*}/\sim$,
 For simplicity, we will consider worlds where all the transformations of the world are due to the actions of an agent\footnote{In other words, worlds where $D = D_{A}$.}\footnote{We will discuss worlds where the transformations are not due to the actions of an agent later.}.
 
 For any world, $(\hat{A}^{*}/\sim, \circ_{\sim})$ satisfies the group properties of
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item closure (from closure of $(\hat{A}^{*}, \circ)$);
     \item associativity (\cref{prp:circ_sim_associative}); and
     \item identity (\cref{prp:A_sim_identity} and presence of $[\epsilon]$).
@@ -743,7 +743,7 @@ Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
     $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\iff$ all $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$.
 \end{proposition}
 \begin{proof}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Necessary condition: $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\implies$ all $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$}.
     If $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then for every $[a] \in \hat{A}^{*}/\sim$ there is an inverse $[a]^{-1}$ that satisfies
     \begin{align}

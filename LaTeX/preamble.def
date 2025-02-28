@@ -8,11 +8,13 @@
 \RequirePackage{centernot}
 
 % TYPESETTING
-% \RequirePackage{bm, bbold}
 \RequirePackage{bm} % Make stuff bold (including in maths mode).
 \RequirePackage{setspace}  % For double spacing.
 \RequirePackage[normalem]{ulem} % For text strikethrough; can be used to edit \emph.
+\DeclareEmphSequence{\bfseries\boldmath,\itshape}
 \RequirePackage{anyfontsize}
+\RequirePackage{enumitem}
+\setlist[enumerate,1]{label={(\arabic*)}}
 
 % FIGURES
 \RequirePackage{subcaption}
@@ -89,6 +91,7 @@
 \newtheorem{action_condition}{Action condition}
 \newtheorem{lemma}{Lemma}[proposition]
 \providecommand*\lemmaautorefname{Lemma}
+\newtheorem{postulate}{Postulate}
 
 % TABLE OF CONTENTS
 \RequirePackage{tocbibind}

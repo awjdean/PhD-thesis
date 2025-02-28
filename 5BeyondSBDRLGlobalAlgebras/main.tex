@@ -45,7 +45,7 @@ But what happens if $\mathscr{W}_{\beta}$ is in state $w_{0}$ and the agent perf
 We say the wall has constrained the actions of the agent, and we consider two treatments of the constrained actions\footnote{
 An action $a \in \hat{A}^{*}/\sim$ is called \emph{constrained} in a world state $w \in W$ if we need to choose either a masked treatment or an identity treatment for performing that action in that world state (i.e., we must decide either $a * w = \bot$ or $a * w = w$).
 }
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Masked treatment.}
     Constrained actions are not allowed to be performed by the agent and so are considered to be \emph{undefined} - they send the world into the undefined state $\bot$; and
     \item \textbf{Identity treatment.}
@@ -587,7 +587,7 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
     \end{equation}
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     There exists a transformation $d_{1} \in D_{A}$ such that $d_{1}: w \xrightarrow{a} a \ast w$.
     If $a$ is reversible from $w$, then there exists a transformation $d_{2} \in D_{A}$ such that $d_{2}: a \ast w \xrightarrow{a_{2}} w$ where $a_{2} \in \hat{A}^{*}$.
@@ -640,7 +640,7 @@ $d \in D_{A}/\sim$ or $d \in D_{A/\sim}$ or something similar ?
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     Since $a$ is irreversible from $w$, by definition there is no transformation $d \in D_{A}$ with $d: a \ast w \xrightarrow{a'} w$ where $a' \in \hat{A}/\sim$.
 
@@ -801,7 +801,7 @@ Change how property check is done so it's "when defined" ?
 }
 
 There are two perspectives we can consider when a world-agent pair has undefined actions
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a monoid with a partially defined action $\ast: \hat{A}^{*}/\sim \times W \rightharpoonup W$, where $\ast$ is undefined if there is no corresponding transformation in $D_{A}$; or
     \item $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a small category with a total action $\ast: \hat{A}^{*}/\sim \times W \to W$.
 \end{enumerate}

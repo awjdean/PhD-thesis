@@ -385,12 +385,12 @@ Mathematical justification
     \item Pseudocode of simplified mathematical version of algorithm with use of $\epsilon$, and $\hat{A}$ instead of $\hat{A}/\sim$. - put in margin ?
     \item Footnote:
     Mathematically,
-    \begin{enumerate}[(a)]
+    \begin{enumerate}
         \item we can use the set $\hat{A}$ of minimum actions to create new candidate elements in the iterations of our expansion step instead of the set $\hat{A}/\sim$ of distinct minimum actions.
         \item we can initialise the algorithm with $L = \{ \epsilon \}$, $\mathcal{T} = \{f_{\epsilon}\}$, $\rho(\epsilon) = f_{\epsilon}$, and then go straight to the expansion step since the first iteration of the expansion step will check the actions $\hat{a} \circ \epsilon$ for all $\hat{a} \in \hat{A}$ and $\hat{a} \circ \epsilon = \hat{a}$ for all $\hat{a} \in \hat{A}$ by the definition of $\epsilon$.
     \end{enumerate}
     In practical terms,
-    \begin{enumerate}[(a)]
+    \begin{enumerate}
         \item using the set $\hat{A}/\sim$ of distinct minimum actions reduces the number of candidates elements we need to check for distinctness in each iteration of the expansion step since $(\hat{a}_{1} \circ a) \sim (\hat{a}_{2} \circ a)$ if $\hat{a}_{1} \sim \hat{a}_{2}$;
         \item we already calculate the $f_{\hat{a}}$ for all $\hat{a} \in \hat{A}$ to get our set of distinct minimum actions $\hat{A}/\sim$, so it's natural to set $L \gets \hat{A}/\sim$, $\mathcal{T} \gets \{f_{\hat{a}}\}$ for all $\hat{a} \in \hat{A}/\sim$, and $\rho \gets (\hat{a} \mapsto f_{\hat{a}})$ for all $\hat{a} \in \hat{A}/\sim$.
     \end{enumerate}
@@ -406,7 +406,7 @@ Mathematical justification
     \Cref{alg:GenerateEquivClasses} always halts for finite $W$.
 \end{proposition}
 \begin{proof}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{$|L|$ increases monotonically until its final iteration.}
     During each expansion iteration, the set $L$ either grows or remains the same.
     So at each expansion iteration, with a new distinct action is discovered and added to $L$ or no new distinct actions are discovered and the algorithm halts.
@@ -430,7 +430,7 @@ Mathematical justification
 \end{proposition}
 \begin{proof}
 \textbf{Proof by contradiction.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     Assume \cref{alg:GenerateEquivClasses} halts with a set $L$ of discovered distinct actions, but that there exists at least one distinct transformation that is not represented in $L$.
     Let $b$ be the shortest undiscovered distinct action.

@@ -25,7 +25,7 @@ A local equivalence
 \end{propositionE}
 \begin{proofE}
     To prove that $\sim_{w}$ is an equivalence relation on the set $\hat{A}^{*}$, we need to show that $\sim_{w}$ is (1) reflexive, (2) symmetric, and (3) transitive.
-    \begin{enumerate}[(1)]
+    \begin{enumerate}
         \item \textbf{Reflexive.}
         We need to show that $a \sim_{w} a$ for all $a \in \hat{A}^{*}$.
         By the definition of $\sim_{w}$, we need to check if $a \ast w = a \ast w$, which is true by equality.
@@ -84,7 +84,7 @@ A local equivalence
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{$a \sim a' \implies a \sim_{w} a'$ for all $w \in W$.}
     See \cref{prp:global_equivalence_implies_local_equivalence}.
 
@@ -118,7 +118,7 @@ For a world state $w$ of a world $\mathscr{W}$, let $(\hat{A}^{*}/\sim)_{w}$ den
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Global equivalence $\implies$ local equivalence.}
     From \cref{prp:global_equivalence_implies_local_equivalence} we have
     \begin{align}
@@ -282,7 +282,7 @@ The number of elements in $\hat{A}^{*}/\sim_{w}$ is the number of world states t
     \end{equation}
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Define mapping between $\hat{A}^{*}/\sim_{w}$ and $W^{\hat{A}\to}(w)$.}
     We define the canonical mapping
     \begin{equation}
@@ -321,7 +321,7 @@ The number of elements in $\hat{A}^{*}/\sim_{w}$ is the number of world states t
     \Cref{alg:GenerateEquivClasses} with adjustments for the local equivalence $\sim_{w}$ (\cref{alg:LocalComputeActionFunction,alg:ComputeCompositionActionFunction_local}) always halts for finite $W$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{$|L|$ increases monotonically until its final iteration.}
     During each expansion iteration, the set $L$ either grows or remains the same.
     So at each expansion iteration, with a new distinct action is discovered and added to $L$ or no new distinct actions are discovered and the algorithm halts.
@@ -346,7 +346,7 @@ The number of elements in $\hat{A}^{*}/\sim_{w}$ is the number of world states t
 \end{propositionE}
 \begin{proofE}
     \textbf{Proof by contradiction.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     Assume the algorithm halts with a set $L$, but there exists an undiscovered equivalence class $[b]_{\sim_{w}} \in \hat{A}^{*}/\sim_{w}$.
     Let $b$ be the shortest action such that $b \ast w^{*}$ is not represented in $L$ (i.e., $b$ is the shortest distinct action under $\sim_{w}$).
@@ -501,7 +501,7 @@ The reason for the differences in the constructions of the Cayley tables for the
     $\circ_{\sim_{w}}$ is \textbf{not} generally well-defined on $\hat{A}^{*}/\sim_{w}$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Problem.}
     For $\circ_{\sim_{w}}$ to be well-defined on $\hat{A}^{*}/\sim_{w}$, we need that
     \begin{equation}
@@ -572,7 +572,7 @@ Show cases where $\mathscr{W}_{\beta}$ with identity treatment gives $[a']_{\sim
     \draftnote{blue}{Include as footnote}{This is a property of universal algebra.}
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     If $\circ_{\sim_{w}}$ is well-defined on $\hat{A}^{*}/\sim_{w}$, we have
     \begin{equation}\label{eqn:circ_sim_well_defined_associative}
@@ -614,7 +614,7 @@ We denote by $T_{\sim}(A, \cdot)$ the Cayley table with rows and columns labelle
     }.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{$\circ_{\sim_{w}}$ is well-defined $\implies$ the Cayley table $T_{\sim_{w}}(\hat{A}^{*}, \circ)$ has a single consistent value in each table entry.}
     If $\circ_{\sim_{w}}$ is well-defined, then the value of $[a]_{\sim_{w}} \circ_{\sim_{w}} [a']_{\sim_{w}}$ does not depend on the choice of representative $a, b \in \hat{A}^{*}$, and so the composition $[a]_{\sim_{w}} \circ_{\sim_{w}} [a']_{\sim_{w}}$ is \textbf{uniquely} determined by the equivalence classes themselves and not by their representatives.
     Therefore, every entry in the Cayley table is a unique equivalence class in $\hat{A}^{*}/\sim_{w}$ independent of the choice of representative.
@@ -633,7 +633,7 @@ We denote by $T_{\sim}(A, \cdot)$ the Cayley table with rows and columns labelle
     Associativity property not present in a Cayley table $T_{\sim_{w}}(\hat{A}^{*}, \circ)$ $\implies$ $\circ_{\sim_{w}}$ is not well-defined on $\hat{A}^{*}/\sim_{w}$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \draftnote{blue}{Consider}{Not super happy with this proof.}
     \item \textbf{Algebraic argument.}
     If $\circ_{\sim_{w}}$ is well-defined, then, for any $a, a', a'' \in \hat{A}^{*}$, we have
@@ -709,7 +709,7 @@ For a Cayley table $T_{\sim}(\hat{A}^{*}, \circ)$
     \end{equation}
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     \begin{enumerate}
         \item \textbf{Use of reachable subworld.}
@@ -842,7 +842,7 @@ Consider: number of unique Cayley table constructions from $w$ is either the sam
     $\circ_{\sim_{w}}$ is well-defined $\iff$ $(\hat{A}/\sim)_{w} = \hat{A}/\sim_{w}$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \draftnote{blue}{To do}{Check this.}
     \item \textbf{Forwards direction $\implies$.}
     From \cref{prp:local_class_is_disjoint_union_of_global_classes}, we have that each local equivalence class in $\hat{A}^{*}/\sim_{w}$ is made up of one or more global equivalence classes in $\hat{A}^{*}/\sim$ and each global equivalence class in is exactly one local equivalence class.
@@ -1165,7 +1165,7 @@ No because $\sim_{w}$ classes can split unless $\circ_{\sim_{w}}$ is well-define
 Note about how $\bot$ could be replaced by a non undefined state with the same absorbing properties.
 }
 \textbf{Proof by example.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     \draftnote{blue}{To do}{Give this world a Greek letter.}
     Consider a world-agent pair $\mathscr{W}-\mathscr{A}$ with $W = \{ w, w_{1}, w_{2}, \bot \}$, $\hat{A} = \{\hat{a}, \hat{b}\}$, and $\hat{\ast}$ given by
@@ -1337,7 +1337,7 @@ Proofs about $[\epsilon]_{\sim_{w}}$
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Well-definedness.}
     If $\circ_{\sim_{w}}$ is well-defined, then for any $a, a' \in [a]_{\sim_{w}}$ and $b, b' \in [b]_{\sim_{w}}$,
     \begin{equation}
@@ -1417,7 +1417,7 @@ Proofs about $[\epsilon]_{\sim_{w}}$
     A cayley table construction of $(\hat{A}^{*}/\sim_{w}, \circ_{\sim_{w}})$ satisfies the identity property $\iff$ an element of $[\epsilon]_{\sim} \in (\hat{A}^{*}/\sim)_{w}$ is used as the representative of $[\epsilon]_{\sim_{w}}$ in the Cayley table construction of $(\hat{A}^{*}/\sim_{w}, \circ_{\sim_{w}})$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Identity property $\implies$ representative is in $[\epsilon]_{\sim}$.}
     Assume that the Cayley table construction satisfied the identity property.
     Let $[e]_{\sim_{w}} \in \hat{A}^{*}/\sim_{w}$ be the identity element in the Cayley table construction and let $e \in \hat{A}^{*}$ be the representative of $[e]_{\sim_{w}}$ in the Cayley table construction.
@@ -1533,10 +1533,10 @@ $\mathscr{W}_{\alpha}$ has a uniform local algebraic structure across its states
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Forwards direction $\implies$.}
     Assume $T_{\sim_{w'}}(\hat{A}^{*}, \circ)$ for all $w \in W^{\hat{A}\to}(w)$.
-    \begin{enumerate}[(a)]
+    \begin{enumerate}
         \item \textbf{Equality of local Cayley tables $\implies$ equality of local equivalence classes.}
         For local Cayley tables $T_{\sim_{w'}}$ for all $w' \in W^{\hat{A}\to}(w)$ to be identical, the labels, which are the equivalence classes in $\hat{A}^{*}/\sim_{w'}$, and their compositions $[a]_{\sim_{w'}} \circ_{\sim_{w'}} [a']_{\sim_{w'}}$ must match.
         Therefore,
@@ -1591,7 +1591,7 @@ A world $\mathscr{W}$ is called \emph{vertex-transitive} if its underlying label
 That is, for every pair of world states $w, w' \in W$, there exists an automorphism\footnote{
 It is possible to have a world with an automorphism mapping between two states without having a transformation existing between those states.
 } $\varphi_{(w,w')}: W \to W$, which is a bijection $\varphi_{(w,w')}: W \to W$ together with an induced bijection $\Phi_{(w, w')}: \hat{D}_{A} \to \hat{D}_{A}$ satisfying:
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{World state mapping.}
     \begin{equation}
         \varphi_{(w,w')}(w) = w'
@@ -1638,7 +1638,7 @@ Yes - cycles of $a$-labelled transformations different lengths, then connect the
     }.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Equality of out-going $a$-labelled transformations.}
     \begin{enumerate}
         \item \textbf{Set up.}
@@ -1821,7 +1821,7 @@ Include something about the automorphism group and its properties ?
 \end{propositionE}
 \begin{proofE}
 We will assume the world is vertex-transitive, then show that all the local Cayley tables $T_{\sim_{w'}}(\hat{A}^{*}, \circ)$ are identical.
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Equivalence class preservation.}
     We want to show that, for any $a, a' \in \hat{A}^{*}$:
     \begin{equation}
@@ -1903,7 +1903,7 @@ Irreversible actions and vertex-transitive worlds.
 \begin{proofE}
     \textbf{Proof by example.}
     We will construct a double infinite linear chain world, then show it contains irreversible actions and is vertex-transitive.
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     Consider a world-agent pair with $W = \{w_{i}\}_{i \in \mathbb{Z}}$, $\hat{A} = \{a\}$, and $\hat{\ast}$ given by\footnote{\begin{figure}[H]
         \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/infinite_double_linear_chain_world.jpeg}
@@ -1985,7 +1985,7 @@ Irreversible actions and vertex-transitive worlds.
      A world $\mathscr{W}$ is vertex-transitive and has finite $|W|$ $\implies$ every action in $\hat{A}^{*}$ has a global inverse.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Defining $f_{a}$.}
     Let $a \in \hat{A}^{*}$ an arbitrary action that is defined in at least one world state.
     Vertex-transitivity requires that the number of out-going $a$-labelled transformations is the same for every world, therefore each state must have at least one transformation $d : w \xrightarrow{a} a \ast w$.
@@ -2111,7 +2111,7 @@ Irreversible actions and vertex-transitive worlds.
 \draftnote{blue}{Consider}{
 Do we need to include something about $D_{A}$ vs $\hat{D}_{A}$ and $D_{A}^{\hat{A}\to}(w)$ (which hasn't been defined ?) vs $\hat{D}_{A}^{\hat{A}\to}(w)$.
 }
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Existence of automorphisms.}
     By vertex-transitivity, we have an automorphism
     \begin{equation}
@@ -2184,7 +2184,7 @@ Do we need to include something about $D_{A}$ vs $\hat{D}_{A}$ and $D_{A}^{\hat{
 \end{propositionE}
 \begin{proofE}
 \textbf{Proof by example.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Defining a binary tree world $\mathscr{W}$.}
     Consider a world-agent pair with $W = \{w_{i}\}$ where $i \in \{0, 1\}^{*}$\footnote{
     $\{0, 1\}^{*}$ is the set of all finite words over $\{0, 1\}$ produced by the Kleene star operator:
@@ -2208,7 +2208,7 @@ Do we need to include something about $D_{A}$ vs $\hat{D}_{A}$ and $D_{A}^{\hat{
     Therefore, from \cref{prp:vertex_transitive_implies_num_ingoing_equals_num_outgoing}, $\mathscr{W}$ is not vertex-transitive.
 
     \item \textbf{Local Cayley tables are identical.}
-    \begin{enumerate}[(a)]
+    \begin{enumerate}
         \item \textbf{Defining a map.}
         We define the map
         \begin{align}
@@ -2259,7 +2259,7 @@ Do we need to include something about $D_{A}$ vs $\hat{D}_{A}$ and $D_{A}^{\hat{
 \end{propositionE}
 \begin{proofE}
     \draftnote{red}{To do}{Prove for action-homogeneous.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item 
 \end{enumerate}
 \end{proofE}
@@ -2284,7 +2284,7 @@ Does the Cayley table counting formula mean that, for a given world, each there 
     \draftnote{blue}{To do}{
     Rework using action-homogeneous $\circ_{\sim_{w}}$ is well-defined proof.
     }
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Aim.}
     We need to show that for a vertex-transitive world,
     \begin{equation}
@@ -2578,7 +2578,7 @@ An action that is not homogeneous is called \emph{inhomogeneous.}
     The action $a' \circ a \in \hat{A}^{*}$ is also homogeneous from $w$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \draftnote{blue}{Not super happy with this proof}{
     Do I need to show that transformations are transported by the isomorphism too ?
     }
@@ -2675,7 +2675,7 @@ Any properties that are true for action-homogeneous worlds, are true for
         \mathscr{W}^{\{a'\}\to}(w') \centernot\cong \mathscr{W}^{\{a'\}\to}(w'')
     \end{equation}
 
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{$a' \circ a$ is inhomogeneous.}
     For any world state $z \in W^{\hat{A}\to}(w)$, we have
     \begin{equation}
@@ -2782,7 +2782,7 @@ Any properties that are true for action-homogeneous worlds, are true for
     }
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Set up.}
     There exists some $w' \in W^{\hat{A}\to}(w)$ with
     \begin{equation}
@@ -2862,7 +2862,7 @@ Any properties that are true for action-homogeneous worlds, are true for
 \end{propositionE}
 \begin{proofE}
 \draftnote{blue}{To do}{}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Aim.}
     We need to show that
     \begin{equation}
@@ -2935,7 +2935,7 @@ A Cayley table shows the result of a binary operation for every pair of elements
     A world $\mathscr{W}$ is action-homogeneous from a world state $w \in W$ $\iff$ $T_{\sim_{w}}(\hat{A}^{*}, \circ) = T_{\sim_{w'}}(\hat{A}^{*}, \circ)$ for all $w' \in W^{\hat{A}\to}(w)$.
 \end{propositionE}
 \begin{proofE}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Action-homogeneity $\implies$ Local Cayley tables are identical.}
     \begin{enumerate}
         \item \textbf{Isomorphism preserves actions.}
@@ -3089,7 +3089,7 @@ Define $D_{A}^{\hat{A}\to}(w)$ in reachable subworld definition.
 \end{propositionE}
 \begin{proofE}
 \draftnote{blue}{To do}{Reverse direction could be possible but I think the wording would need changing.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Action-homogeneity provides isomorphism.}
     Since $\mathscr{W}$ is action-homogeneous from $w$, for any two states $w_{0}, w_{1} \in W^{\hat{A\to}}(w)$, there exists an isomorphism
     \begin{align}
@@ -3171,7 +3171,7 @@ Define $D_{A}^{\hat{A}\to}(w)$ in reachable subworld definition.
 \end{propositionE}
 \begin{proofE}
 \textbf{Proof by contradiction.}
-\begin{enumerate}[(1)]
+\begin{enumerate}
     \item \textbf{Aim.}
     Suppose $P(a, a', w_{0})$ does not hold for a world state $w_{0} \in W^{\hat{A}\to}(w)$, which gives us:
     \begin{equation}

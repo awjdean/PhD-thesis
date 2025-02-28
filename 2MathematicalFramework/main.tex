@@ -3,33 +3,33 @@
   (V1.2)
  }
 
-\draftnote{green}{To do}{
-	\begin{enumerate}
-		\item [Mention] Actions can be represented as tuples of their unique compositions of minimum actions.
-		\item Define operator $\operatorname{Seq}: \hat{A}^{\ast} \to \hat{A}^{(n)}$ that sends an action to its tuple of minimum actions.
-		      \begin{itemize}
-			      \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
-		      \end{itemize}
-		\item Distinguish between the underlying minimum transformation worlds
-	\end{enumerate}
-}
+ \draftnote{purple}{To do}{Insert chapter table of contents}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
 
 \newthought{In this chapter}, we describe a mathematical framework of the structure for the transformations of a world from the perspective of an agent; we consider an \emph{agent} to be an entity that can interact with our world and learn its structure.
-We want our framework to be as general as possible, so we model a world as a directed multigraph consisting of the states of the world (\emph{world states}) and the transformations between those world states.
+We want our framework to be as general as possible, so we model a world as a multidigraph consisting of the states of the world (\emph{world states}) and the transformations between those world states.
 
 
 
 
 
 \draftnote{blue}{To do}{
-We then construct the arrows of this directed multigraph from an underlying multigraph of atomic transformations between world states.
+We then construct the arrows of this multidigraph from an underlying multigraph of atomic transformations between world states.
 Then we will introduce our agent into our framework and how we treat the agent's representations.
 We describe the actions of an agent as collections of transformations between world states and explore some of the properties of these actions.
 In future chapters, we will use our framework to explore the types of structure that can be present in the transformations in the representation of our agent for an agent learning a representation for different worlds.
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+\draftnote{blue}{Include}{
+\begin{enumerate}
+    \item Why is creating a mathematical framework useful ?
+\end{enumerate}
+}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,9 +37,9 @@ In future chapters, we will use our framework to explore the types of structure 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{What is the most general form of a world?}
-A world contains world states, which are how the world is at a snapshot in time, and a way to move between world states when the world changes; we call a change of a world from one world state to another a \emph{tranformation}.
+A world contains world states, which are how the world is at a snapshot in time, and a way to move between world states when the world changes; we call a change of a world from one world state to another a \emph{transformation}.
 
-Mathematically, we can represent the collection of world states as a set $W$ of objects, the collection of tranformations as a set $D$ of objects that connect world states; individual world states in $W$ and individual transformations in $D$ are distinguishable in some way\footnote{
+Mathematically, we can represent the collection of world states as a set $W$ of objects, the collection of transformations as a set $D$ of objects that connect world states; individual world states in $W$ and individual transformations in $D$ are distinguishable in some way\footnote{
 We are building up to using our framework to consider the transformation structure of the world from the perspective of an agent. So when we say \emph{distinguishable in some way} we mean that there is some way for our agent to distinguish between the world states or the transformations.
 }.
 We connect transformations with their associated world states using a source map
@@ -61,9 +61,9 @@ These source and target maps allow us to represent a world as a type of graph $\
 Since it is possible to have a world where more than one transformation has the same source and the same target, our graph $\mathscr{W}$ must be a \emph{multigraph}.
 Since it is possible to have a world where there is a transformation from a world state $w$ to a world state $w'$, but not have a transformation from $w'$ back to $w$\footnote{In other words, a world with an irreversible change.}, our multigraph $\mathscr{W}$ must be \emph{directed}.
 
-\begin{definition}[\textbf{Change to Postulate block}]
-	The most abstract mathematical representation of a world is a directed multigraph that consists of a collection $W$ of world states as vertices, a collection $D$ of tranformations as arrows, a source map $s$ that maps each arrow to the world state it is leaving, and a target map $t$ that maps each arrow to the world state it is entering.
-\end{definition}
+\begin{postulate}
+	The most abstract mathematical representation of a world is a multidigraph that consists of a collection $W$ of world states as vertices, a collection $D$ of tranformations as arrows, a source map $s$ that maps each arrow to the world state it is leaving, and a target map $t$ that maps each arrow to the world state it is entering.
+\end{postulate}
 
 \begin{definition}[\textbf{Change to Notation block}]
 	We denote a world $\mathscr{W}$ with a set $W$ of world states, a set $D$ of transformations, a source map $s$ and a target map $t$ by
@@ -75,9 +75,9 @@ Since it is possible to have a world where there is a transformation from a worl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constructing worlds from atomic transformations}
 
-\begin{definition}[\textbf{Change to Postulate block}]
+\begin{postulate}
 	All transformations are made up of sequences of \emph{atomic transformations}, which cannot be broken down into smaller transformations.
-\end{definition}
+\end{postulate}
 
 We will construct our world $\mathscr{W}$ from atomic transformations\footnote{
 Note that, in a similar same way as for distinguishable world states, when we use our framework to describe the representation of an agent, these atomic transformations can be thought of as the transformations giving the smallest change to an aspect of a world state that is detectable by the agent.
@@ -90,16 +90,16 @@ Note that, in a similar same way as for distinguishable world states, when we us
 Let $\hat{D}$ be the set of atomic transformations.
 We define atomic source and target maps
 \begin{equation}
-	\hat{s}: \hat{D} \to W \quad \hat{t}: \hat{D} \to W
+	\hat{s}: \hat{D} \to W \quad\quad \hat{t}: \hat{D} \to W
 \end{equation}
 such that for any atomic transformation $\hat{d} \in \hat{D}$
 \begin{equation}
 	\hat{d}: w \to w' \implies \hat{s}(d) = w \text{ and } \hat{t}(d) = w'.
 \end{equation}
 
-Using $W$, $\hat{D}$, $\hat{s}$, and $\hat{t}$ we can construct another directed multigraph $\hat{\mathscr{W}}$, which we call the \emph{atomic multigraph of the world}
+Using $W$, $\hat{D}$, $\hat{s}$, and $\hat{t}$ we can construct another multidigraph $\hat{\mathscr{W}}$, which we call the \emph{atomic multidigraph of the world}
 \begin{equation}
-	\hat{\mathscr{W}} = (W, \hat{D}, \hat{s}, \hat{t})
+	\hat{\mathscr{W}} = (W, \hat{D}, \hat{s}, \hat{t}).
 \end{equation}
 
 Our set $D$ of all transformations of $\mathscr{W}$ is the set of all finite directed walks in $\mathscr{W}$\footnote{
@@ -115,7 +115,7 @@ where
 \begin{equation}
 	\hat{\circ}: \hat{D} \times \hat{D} \to D
 \end{equation}
-is the atomic transformation composition operator that is defined if
+is the \emph{atomic transformation composition operator} that is defined if
 \begin{equation}
 	\hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1}) \quad \text{for $i = 1, ..., n-1$}.
 \end{equation}
@@ -130,7 +130,7 @@ by the definition of concatenation of walks.
 
 
 \paragraph{Trivial transformations.}
-For each world state $w \in W$ of our directed multigraph $\hat{\mathscr{W}}$, there is a trivial walk that does not leave $w$.
+For each world state $w \in W$ of our multidigraph $\hat{\mathscr{W}}$, there is a trivial walk that does not leave $w$.
 We call the associated transformation of this trivial walk the \emph{trivial transformation at $w$} and denote it by $1_{w}$\footnote{Trivial transformations essentially represent no change happening in the world; we will hear more from trivial transformations when we look at the actions of agents.}
 .
 
@@ -146,19 +146,19 @@ In other words, trivial transformations satisfy
 	& \hat{d} \circ 1_{\hat{s}(\hat{d})} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$} \\
 	& 1_{\hat{t}(\hat{d})} \circ \hat{d} = \hat{d} \quad \text{for all $\hat{d} \in \hat{D}$}
 \end{align}
-We denote the set of trival transformations by
+We denote the set of trivial transformations by
 \begin{equation}
-	D_{\epsilon} = \{ 1_{w} \mid w \in W \}
+	D_{\varepsilon} = \{ 1_{w} \mid w \in W \}
 \end{equation}
 
 \paragraph{Extending from $\hat{\mathscr{W}}$ to $\mathscr{W}$.}
-Each transformation in $D$ can now be uniquely expressed as a sequence of composed atomic tranformations.
+Each transformation in $D$ can now be uniquely expressed as a sequence of composed atomic transformations.
 \begin{equation}
 	\operatorname{Seq}: D \to \hat{D}^{n}
 \end{equation}
 such that, for $d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} \dots \hat{\circ} \hat{d}_{1}$
 \begin{equation}
-	\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})
+	\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1}).
 \end{equation}
 
 We can extend our atomic source map $\hat{s}$ and atomic target map $\hat{t}$ to our source map $s$ and target map $t$ as, for a transformation $d \in D$ with $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$,
@@ -171,12 +171,12 @@ We can also extend the atomic transformation composition operator $\hat{\circ}$ 
 \begin{equation}
 \begin{aligned}
 	& \circ: D \times D \to D \\
-	& \text{where $d' \circ d$ is defined if $t(d) = s(d')$.}  
+	& \text{where $d' \circ d$ is defined if $t(d) = s(d')$}
 \end{aligned}
 \end{equation}
-such that, for $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$ and $\operatorname{Seq}(d') = (\hat{d'}_{n}, \hat{d'}_{n-1}, \dots, \hat{d'}_{1})$
+such that, for $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$ and $\operatorname{Seq}(d') = (\hat{d'}_{m}, \hat{d'}_{m-1}, \dots, \hat{d'}_{1})$
 \begin{equation}
-	\operatorname{Seq}(d' \circ d) = (\hat{d'}_{n}, \hat{d'}_{n-1}, \dots, \hat{d'}_{1}, \hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1}).
+	\operatorname{Seq}(d' \circ d) = (\hat{d'}_{m}, \hat{d'}_{m-1}, \dots, \hat{d'}_{1}, \hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1}).
 \end{equation}
 $\circ$ is associative due to $\hat{\circ}$ being associative\footnote{
 $\circ$ is the operator of concatenation of walks.
@@ -201,7 +201,6 @@ We denote the length of $d$ by $|d|$.
 Something about how we can refer to worlds by $\mathscr{W}$ or by $\hat{\mathscr{W}}$ ?
 }
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simplifications}
 
@@ -217,7 +216,7 @@ We will initially consider deterministic worlds\footnote{Extensions to stochasti
 In a \emph{discrete} world, the number of states and the number of transformations between states are countable.
 A world that is not discrete is called \emph{continuous}.
 For simplicity, we only consider discrete worlds.
-However, we can make the following argument that it is actually more natural to consider discrete worlds than contiuous worlds.
+However, we can make the following argument that it is actually more natural to consider discrete worlds than continuous worlds.
 Consider a continuous world $\mathscr{W}$ and an agent with $n$ sensors $\theta_{i}$ that can produce a sensor observation $o_{i}$ of $\mathscr{W}$ as\footnote{
 More on how we model the sensory observations of agents in \draftnote{blue}{section ???}.
 }
@@ -225,27 +224,22 @@ More on how we model the sensory observations of agents in \draftnote{blue}{sect
 	\theta_{i}(w) = o_{i}
 \end{equation}
 where $i \in \{1, ..., n\}$ and $w \in W$.
-We hypothesis that there are transformations that cuase changes to their source world state that are so small that the changes cannot be perceived by the agent; in other words, there exist transformations $d \in D$ such that
+We hypothesis that there are transformations that cause changes to their source world state that are so small that the changes cannot be perceived by the agent; in other words, there exist transformations $d \in D$ such that
 \begin{equation}
-	\theta_{i}(s(d)) = \theta_{i}(t(d))
+	\theta_{i}(s(d)) = \theta_{i}(t(d)).
 \end{equation}
-Such transformations do not exist from the perspective of the agent; therefore, from the persepctive of the agent there will be discrete jumps between perceptible world states.
-We will initially consider discrete worlds\footnote{Extensions to continous worlds will be discussed in \draftnote{blue}{section ???}.
+Such transformations do not exist from the perspective of the agent; therefore, from the perspective of the agent there will be discrete jumps between perceptible world states.
+We will initially consider discrete worlds\footnote{Extensions to continuos worlds will be discussed in \draftnote{blue}{section ???}.
 }.
 
 
-
-\draftnote{red}{DIVIDER}{}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Drawing worlds}
+\subsection{World diagrams}
 
-\newthought{We can visually} represent the structure of our directed multigraphs using \emph{world diagrams} consisting of a dots for the world states and arrows for the transformations.
+\newthought{We can visually} represent the structure of our multidigraphs using \emph{world diagrams} consisting of dots for the world states and arrows for the transformations.
 These diagrams can make it easier to visualise and understand the structure and properties of a world.
 
-Since our set $D$ is can be very large\footnote{
+Since our set $D$ is very large\footnote{
 	If we have transformations $d: s(d) \to t(d)$ and $d': s(d) \to t(d)$, then we can construct sequences like $d' \circ d$, $d' \circ d \circ d' \circ d$ etc..., which means $D$ has an infinite number of elements:
 	\begin{center}
 		\FloatBarrier
@@ -255,8 +249,12 @@ Since our set $D$ is can be very large\footnote{
 		\caption{A world diagram showing sequences of the transformations $d$ and $d'$ that are of the form $(d' \circ d)^{n}$.}
 	\end{center}
 }, we do not show all the transformations in $D$ in our world diagrams unless explicitly stated.
+When drawing the world diagram for a world $\mathscr{W}$, we default to drawing the vertices and arrows of the atomic multidigraph $\hat{\mathscr{W}}$ and the trivial transformations in $D_{\varepsilon}$.
 
 Let's look at some world diagrams show casing some of the properties we've already seen.
+\draftnote{blue}{Consider}{
+Put these in the margin as we go, then say something about how these are the sort of diagrams we mean ?
+}
 
 \begin{figure}[H]
 	\centering
@@ -297,41 +295,66 @@ Let's look at some world diagrams show casing some of the properties we've alrea
 	\caption{Examples of world diagrams displaying some of the concepts we have already come across.}
 \end{figure}
 
-It's important to note that, in a world diagram, the positioning (relative or absolute) of the world states and the shapes and lengths of the arrows do not matter\footnote{Formally, two world diagrams are isomorphic if...}:
-\begin{figure}
+It's important to note that, in a world diagram, the positioning (relative or absolute) of the world states and the shapes and lengths of the arrows do not matter:
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/isomorphic_world_diagrams.jpeg}
-	\caption{The properties of these world diagrams are the same (the world diagrams are isomorphic).}
+	\caption{The properties of these world diagrams are identical (the world diagrams are isomorphic).}
 	\label{fig:isomorphic_world_diagrams}
 \end{figure}
 
-\paragraph{Subworlds.}
-A world $\mathscr{W}' = (W', \hat{D}', \hat{s}', \hat{t}')$ is a \emph{subworld} of the world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ if
-\begin{align}
-	 & W' \subseteq W                                                                                                   \\
-	 & \hat{D}' \subseteq \hat{D} \quad \text{such that $s(\hat{d}), t(\hat{d}) \in W'$ for all $\hat{d} \in \hat{D}'$} \\
-	 & \hat{s}' = \hat{s} \big|_{\hat{D}'}                                                                              \\
-	 & \hat{t}' = \hat{t} \big|_{\hat{D}'}
-\end{align}
-\footnote{
-	This definition requires $\hat{D}' \subseteq \hat{D}$ and not $D' \subseteq D$ because removal of an element of $D$ which is not an element of $\hat{D}$ to create $D'$ would lead to sequences of minimum transformations not being transformations
-	\draftnote{blue}{Include}{Wouldn't it also work the other way: removal of a non-minimum transformation but removing one of its constituent minimum transformations would break compositionality}
-	; to avoid problems like this we always consider the minimum transformations then use them to generate the set of transformations.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Subworlds}
 
-	However, I think we could remove minimum transformations while keeping non-minimum transformations if composition still works (i.e., removing some minimum transformations would turn some non-minimum transformations into minimum transformations (size $|\hat{D}|$ would need to decrease or stay the same due to the removal of the minimum transformations.
-	This could be a way of removing minimum transformations that can't be sensed by the agent - can we make this work for infinitely small minimum transformations ?
-}.
-\draftnote{blue}{To do}{
-	Note that $1_{w} \in D$ are also in $D'$ because $D_{\epsilon}$ is separate.
-	What about the $1_{w}$ for
+When constructing a subworld we want to preserve the composition $\circ$, so that a subworld is a world; this means we have to be careful which transformations we remove to form a valid subworld.
+
+A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\mathscr{W} = (W, D, s, t)$ if
+\begin{enumerate}
+    \item $W' \subseteq W$
+    \item $D' \subseteq D$ such that
+    \begin{enumerate}
+        \item For all $d \in D'$, $s(d) \in W'$ and $t(d) \in W'$.
+        \item For all $d, d' \in D'$ with $d: s(d) \to t(d)$ and $d': t(d) \to t(d')$, $d \circ d' \in D'$.
+        \item For all $w' \in W'$, $1_{w} \in D'$.
+    \end{enumerate}
+    \item $s'$ is the restriction of $s$ to $D' \to W'$.
+    \item $t'$ is the restriction of $t$ to $D' \to W'$.
+\end{enumerate}
+
+\begin{definition}[Notation block]
+    If $\mathscr{W}'$ is a subworld of $\mathscr{W}$ then we can write $\mathscr{W}' \subseteq \mathscr{W}$.
+\end{definition}
+
+
+
+If $\mathscr{W}' \subseteq \mathscr{W}$, then the atomic multidigraph of $\mathscr{W}'$ is not necessarily a sub-multidigraph of the atomic multidigraph of $\mathscr{W}$; in other words, $\mathscr{W}' \subseteq \mathscr{W}$ does not necessarily mean $\hat{D}' \subseteq \hat{D}$. For example, if $\hat{d}_{1}, \hat{d}_{2} \in \hat{D}$ and $\operatorname{Seq}(d_{3}) = (\hat{d}_{2}, \hat{d}_{1})$, it is possible to have a subworld where $\hat{d}_{1}, \hat{d}_{2} \centernot\in D'$ (and so $\hat{d}_{1}, \hat{d}_{2} \centernot\in \hat{D}'$) but have $d_{3} \in D$.
+In this case, $d_{3}$ would be an atomic transformation in $\mathscr{W}'$ (i.e., $d_{3} \in \hat{D}'$).\footnote{
+\begin{figure}[H]
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/transformation_composition.jpg}
+    \caption{
+    If $d_{3} = d_{2} \circ d_{1}$ and $d_{1}, d_{2} \in \hat{D}$, then when constructing a subworld we can remove $d_{1}$ and $d_{2}$ and keep $d_{3}$ (in which case $d_{3}$ would be an atomic transinformation in the subworld), but we cannot remove $d_{3}$ without removing $d_{1}$ and $d_{2}$.
+    }
+\end{figure}
 }
-We can denote that $\mathscr{W}'$ is a subworld of $\mathscr{W}$ using $\mathscr{W}' \subseteq \mathscr{W}$.
-A subworld is a world.
-\draftnote{blue}{Consider}{
-	I think we might also not be able to remove an arbitrary element of $D_{A}$ ?
-	Or do we need a proof that all types of actions produce subworlds that obey compositionality ?
-	Or we say that a subworld is a sub-multi-digraph that obeys compositionality ?
+More generally, suppose $\mathscr{W}' \subseteq \mathscr{W}$; for $d \in D$ and $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$, if $\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1} \centernot\in \hat{D}'$, then either $d \in \hat{D}'$ or $d \centernot\in D$.
+\draftnote{blue}{Consider}{Is this a proposition?}
+\footnote{
+This property of subworlds allows us to construct discrete worlds out of continuous worlds by, for example, removing atomic transformations that cannot be perceived by an agent as outlined in 
+\draftnote{blue}{section ???}{}.
 }
+When constructing subworlds from a world, if removing atomic transformations causes another transformation to become an atomic transformation in the subworld, the number of atomic transformations in the subworld will decrease.
+Therefore, we have,
+\begin{equation}
+    \mathscr{W}' \subseteq \mathscr{W} \implies |\hat{D}'| \leq |\hat{D}|
+\end{equation}
+\draftnote{blue}{Consider}{Is this a proposition that we need to prove?}
+
+
+
+
+\draftnote{red}{DIVIDER}{}
+
+
 
 \paragraph{Reachable and unreachable subworlds.}
 A world $\mathscr{W}'$ is \emph{reachable} from a world $\mathscr{W}$ if there exists a transformation $d: w \to w'$ where $w \in W$ and $w' \in W'$.
@@ -396,24 +419,30 @@ For example, if an agent is in a maze and a section of the maze is inaccessible 
 
 
 \draftnote{green}{To do}{
-	\begin{enumerate}
-		\item \textbf{Mention:} we can have more than one minimum transformation between two states. Why we allow this becomes clear when we introduce the idea of agent actions.
+\begin{enumerate}
 		\item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
-		\item \textbf{Mention:} sometimes we don't include the trivial transformations for clarity.
-		\item \textbf{Mention:} For the rest of this document, if we talk about a sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
+		\item \textbf{Mention:} For the rest of this document, if we talk about sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
 		\item Define what a \emph{finite directed walk} is.
 		\item Explain how to construct the set of all finite walks.
-		\item \textbf{Diagrams:}
-		      \begin{enumerate}
-			      \item (?) No unique element in $D$ for sequence with trivial transformations.
-		      \end{enumerate}
-	\end{enumerate}
+\end{enumerate}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducing an agent}
 
 \draftnote{red}{DIVIDER}{}
+
+\draftnote{red}{Include}{
+\begin{enumerate}
+    \item [Mention] Actions can be represented as tuples of their unique compositions of minimum actions.
+    \item Define operator $\operatorname{Seq}: \hat{A}^{\ast} \to \hat{A}^{(n)}$ that sends an action to its tuple of minimum actions.
+          \begin{itemize}
+              \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
+          \end{itemize}
+    \item Distinguish between the underlying minimum transformation worlds
+\end{enumerate}
+}
+
 \draftnote{blue}{Put in Agents section}{
 \paragraph{Fully observable worlds.}
 If complete knowledge of the current world state for every possible current world state is known\footnote{This does not mean knowledge of the transformations between world states. Also, it does not mean knowledge of every world state, but knowledge of the current world state, no matter which world state is the current one}, then the world is called \emph{fully observable}; if not then the world is called \emph{partially observable}.
@@ -527,7 +556,7 @@ The structure of $o_{i}$ depends on the agent's perceptual model; commonly, each
 \end{figure}
 
 Initially, we will consider our agents to have \emph{ideal sensors}; for an agent with ideal sensors:
-\begin{enumerate}[(1)]
+\begin{enumerate}
 	\item information is not lost or modified during the observation process,
 	\item there is no noise in the sensors,
 	\item a change in the world state causes a change in the observation state \draftnote{blue}{awjdean}{This might be too strict? We want to allow cases where $b(w_{1})=b(w_{2})$ due to things such as occlusion? Should we discuss this separately later or should we introduce something like a world with bijective f ?} \draftnote{blue}{awjdean}{Include a note about how changes occur instantly ? (I'm thinking about the skipped intermediate world states example).}.
@@ -634,20 +663,20 @@ In this section, we define the actions of agents as collections of transformatio
 Consider a set $\hat{A}$ called the set of \emph{minimum actions} of an agent, where $\hat{A} = \{1, a_{1}, a_{2}, \dots, a_{n}\}$.
 
 We now take the Kleene star operator of $\hat{A}$ \footnote{
-	$\hat{A}^{\ast} = \{ \epsilon \} \cup \{ (a_1, a_2, \dots, a_n) \mid a_i \in \hat{A}, \, n \in \mathbb{N} \}$.
-} to get the set of all possible finite sequences formed from elements of $\hat{A}$, including the empty sequence $\epsilon$.
+	$\hat{A}^{\ast} = \{ \varepsilon \} \cup \{ (a_1, a_2, \dots, a_n) \mid a_i \in \hat{A}, \, n \in \mathbb{N} \}$.
+} to get the set of all possible finite sequences formed from elements of $\hat{A}$, including the empty sequence $\varepsilon$.
 We call $\hat{A}^{\ast}$ the set of \emph{actions} of an agent.
 
 We define a composition operator $\circ: \hat{A}^{\ast} \times \hat{A}^{\ast} \to \hat{A}^{\ast}$ such that $(a_1, a_2, \dots, a_n) \in \hat{A}^{\ast}$ can be written as $a_1 \circ a_2 \circ \dots \circ a_n$.
 Sometimes we write compositions like $a_1 \circ a_2 \circ \dots \circ a_n$ as $a_1 a_2 \dots a_n$.
 The operator $\circ$ is closed under the definition of the Kleene star operator.
 
-\paragraph{Properties of the empty sequence $\epsilon$.}
+\paragraph{Properties of the empty sequence $\varepsilon$.}
 \begin{enumerate}
-	\item \textbf{Uniqueness:} There is only one empty sequence $\epsilon$.
-	\item \textbf{Identity element for concatenation:} the empty sequence $\epsilon$ serves as an identity element for concatenation of sequences:
-	      $\epsilon \circ a = a \circ \epsilon = a$ for all $a \in \hat{A}^{\ast}$.
-	\item \textbf{Length:} The empty sequence $\epsilon$ has a length of zero (i.e., $|\epsilon| = 0$).
+	\item \textbf{Uniqueness:} There is only one empty sequence $\varepsilon$.
+	\item \textbf{Identity element for concatenation:} the empty sequence $\varepsilon$ serves as an identity element for concatenation of sequences:
+	      $\varepsilon \circ a = a \circ \varepsilon = a$ for all $a \in \hat{A}^{\ast}$.
+	\item \textbf{Length:} The empty sequence $\varepsilon$ has a length of zero (i.e., $|\varepsilon| = 0$).
 \end{enumerate}
 
 \paragraph{Linking actions with transformations.}
@@ -664,9 +693,9 @@ We define a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that $\hat{l}$
 	      \end{equation}
 
 	\item \textbf{Identity condition.}
-	      Trivial transformations, $1_{w}$ for all $w \in W$, are mapped to the empty sequence $\epsilon$:
+	      Trivial transformations, $1_{w}$ for all $w \in W$, are mapped to the empty sequence $\varepsilon$:
 	      \begin{equation}
-		      \hat{l}(1_{w}) = \epsilon \quad \text{for all } w \in W.
+		      \hat{l}(1_{w}) = \varepsilon \quad \text{for all } w \in W.
 	      \end{equation}
 \end{enumerate}
 
@@ -691,9 +720,9 @@ The extended map $l$ now satisfies the following conditions:
 		      For any $d,d' \in D_{A}$ with $s(d)=s(d')$, $l(d) \neq l(d')$.
 	      \end{action_condition}
 
-	\item Trivial transformations, $1_{w}$ for all $w \in W$, are mapped to the empty sequence $\epsilon$:
+	\item Trivial transformations, $1_{w}$ for all $w \in W$, are mapped to the empty sequence $\varepsilon$:
 	      \begin{action_condition}[Identity]\label{actcon:trivial_transformations_mapped_to_empty_sequence}
-		      $l(1_{w}) = \epsilon$ for all $w \in W$.
+		      $l(1_{w}) = \varepsilon$ for all $w \in W$.
 	      \end{action_condition}
 
 	\item Transformations are labelled consistently with the sequence of labels corresponding to their constituent minimum transformations.
@@ -723,7 +752,7 @@ We define the \emph{effect of an action $a \in \hat{A}^{\ast}$ on a world state 
 
 \begin{itemize}
 	\item[] $\ast: \hat{A}^{\ast} \times W \to W$ such that
-	      \begin{enumerate}[(1)]
+	      \begin{enumerate}
 		      \item if there exists a $d: w \xrightarrow{a} t(d)$, then $a \ast w = t(d)$; and
 		      \item if there does not exist a $d: w \xrightarrow{a} t(d)$, then we say that $a \ast w$ is \emph{undefined}.
 	      \end{enumerate}
@@ -786,7 +815,7 @@ to obtain a collection of (partial) functions
 \end{equation}
 
 These function $f_{a}$:
-\begin{enumerate}[(1)]
+\begin{enumerate}
 	\item are not generally surjective because for a given $w \in W$ there is not necessarily a transformation $d \in D$ with $l(d) = a$ and $t(d) = w$ \draftnote{blue}{awjdean}{Illustrative diagram}.
 
 	\item are not generally injective because it is possible to have an environment where $f_{a}(w)=f_{a}(w')$ for some $w \in W$ different from $w' \in W$ \draftnote{blue}{awjdean}{Illustrative diagram}.
@@ -888,14 +917,14 @@ This means there are no relations between the generators in $\hat{A}$ apart from
 	$(\hat{A}^{\ast}, \circ)$ is a monoid.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Associativity.}
 		      $\circ$ is associative for all $a \in \hat{A}^{\ast}$
 		      \draftnote{blue}{awjdean}{Prove this explicitly.}
 		\item \textbf{Identity element.}
-		      The empty action $\epsilon$ acts as the identity element:
+		      The empty action $\varepsilon$ acts as the identity element:
 		      \begin{equation}
-			      \epsilon \circ a = a \quad \text{and} \quad a \circ \epsilon = a \quad \text{for all } a \in \hat{A}^{\ast}.
+			      \varepsilon \circ a = a \quad \text{and} \quad a \circ \varepsilon = a \quad \text{for all } a \in \hat{A}^{\ast}.
 		      \end{equation}
 	\end{enumerate}
 \end{proof}
@@ -919,7 +948,7 @@ Making the $\bot$'s explicit, $\mathcal{T}_{\hat{A}^{\ast}}$ is now defined as:
 	\end{equation}
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Associativity.}
 		      Associativity of the composition of the partial functions $f_{a}$ follows from the associativity of $\circ: \hat{A}^{\ast} \times \hat{A}^{\ast} \to \hat{A}^{\ast}$:
 		      \begin{align}
@@ -930,9 +959,9 @@ Making the $\bot$'s explicit, $\mathcal{T}_{\hat{A}^{\ast}}$ is now defined as:
 			                                         & = f_{a''} \cdot (f_{a'} \cdot f_{a})
 		      \end{align}
 		\item \textbf{Identity element.}
-		      The function $f_{\epsilon}$ correspondence to the empty action $\epsilon$ is the identity function\draftnote{blue}{awjdean}{Make this more explicit?}:
+		      The function $f_{\varepsilon}$ correspondence to the empty action $\varepsilon$ is the identity function\draftnote{blue}{awjdean}{Make this more explicit?}:
 		      \begin{equation}
-			      f_{\epsilon}(w) = \epsilon \ast w = w \quad \text{for all $w \in W$}
+			      f_{\varepsilon}(w) = \varepsilon \ast w = w \quad \text{for all $w \in W$}
 		      \end{equation}
 	\end{enumerate}
 \end{proof}
@@ -949,7 +978,7 @@ Then, by the universal property of free monoids, $a \mapsto f_{a}$ uniquely exte
 that preserves the monoid structure
 \begin{align}
 	 & \phi(a' \circ a) = f_{a' \circ a} = f_{a'} \cdot f_{a} = \phi(a') \cdot \phi(a) \\
-	 & \phi(\epsilon) = f_{\epsilon}
+	 & \phi(\varepsilon) = f_{\varepsilon}
 \end{align}
 
 \draftnote{blue}{awjdean}{$\mathcal{T}_{\hat{A}^{\ast}}$ is an action monoid.}
@@ -957,9 +986,9 @@ that preserves the monoid structure
 Each function $f_{a}$ precisely represents the effect of an action $a \in \hat{A}^{*}$ on all possible world states.
 
 Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
-\begin{enumerate}[(1)]
+\begin{enumerate}
 	\item \textbf{Not generally invertible.}
-	      There may not exist a function $f_{a}^{-1}$ such that $f_{a}^{-1} \circ f_{a} = f_{a} \circ f_{a}^{-1} = f_{\epsilon}$.
+	      There may not exist a function $f_{a}^{-1}$ such that $f_{a}^{-1} \circ f_{a} = f_{a} \circ f_{a}^{-1} = f_{\varepsilon}$.
 	\item \textbf{Not necessarily injective.}
 	      It is possible for a function $f_{a}$ to map different world states to the same world state (i.e., it is possible to have $f_{a}(w) = f_{a'}(w)$).
 	\item \textbf{Not necessarily surjective onto $W$.}
@@ -975,7 +1004,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 	$(\hat{A}^{\ast}, \circ, \ast)$ is a monoid action of $\hat{A}^{\ast}$ on the set $W$.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Compatibility.}
 		      The action effect operator $\ast$ is compatible with the composition operator $\circ$ since:
 		      \begin{equation}
@@ -983,9 +1012,9 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 		      \end{equation}
 
 		\item \textbf{Identity action.}
-		      The empty action $\epsilon$ acts as the identity on $W$:
+		      The empty action $\varepsilon$ acts as the identity on $W$:
 		      \begin{equation}
-			      \epsilon \ast w = w \quad \text{for all } w \in W.
+			      \varepsilon \ast w = w \quad \text{for all } w \in W.
 		      \end{equation}
 
 	\end{enumerate}
@@ -1014,7 +1043,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 \draftnote{green}{To do}{
 	\begin{enumerate}
 		\item Appendix: Why $\hat{A}$ is not necessarily labelling elements of $\hat{D}$ only.
-		\item Have I said that $\hat{D}_{A}$ contains $D_{\epsilon}$ by definition ?
+		\item Have I said that $\hat{D}_{A}$ contains $D_{\varepsilon}$ by definition ?
 		\item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ? --> endomorphism viewpoint ?
 		\item Talk about why we've created action condition 1.
 		\item \textbf{Footnote:} difference between the empty action and the no op action.
@@ -1038,7 +1067,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 \draftnote{blue}{Questions/thoughts that have been answered:}{
 	\begin{enumerate}
 		\item $A$ is the set of words made from $\hat{A}$ - i.e., the set of finite sequences of elements of $A$, not infinite sequences - infinite sequences make things tricky (apparently).
-		\item We want the set $A$ of actions to be the Kleene star operation of $\hat{A}$ ($A = \hat{A}^{\ast}$). $\hat{A}^{\ast}$ includes an empty sequence $\epsilon$ and our no-op action $1$ as separate sequences; if the no op action is an identity action, then $1 \sim \epsilon$.
+		\item We want the set $A$ of actions to be the Kleene star operation of $\hat{A}$ ($A = \hat{A}^{\ast}$). $\hat{A}^{\ast}$ includes an empty sequence $\varepsilon$ and our no-op action $1$ as separate sequences; if the no op action is an identity action, then $1 \sim \varepsilon$.
 	\end{enumerate}
 }
 
@@ -1096,13 +1125,13 @@ We define that there are 24 minimum transformations in $\mathscr{W}_{\alpha}$: t
 	\draftnote{blue}{awjdean}{Put proof of this in appendices ?}
 }
 and the 4 trivial transformations $1_{w_{0}}$, $1_{w_{1}}$, $1_{w_{2}}$, and $1_{w_{3}}$.
-So for $\mathscr{W}_{\alpha}$, $D_{\epsilon} = \{ 1_{w_{0}}, 1_{w_{1}}, 1_{w_{3}}, 1_{w_{4}} \}$ and $\hat{D} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\epsilon}$.
+So for $\mathscr{W}_{\alpha}$, $D_{\varepsilon} = \{ 1_{w_{0}}, 1_{w_{1}}, 1_{w_{3}}, 1_{w_{4}} \}$ and $\hat{D} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\varepsilon}$.
 
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|c|c c|}
 		\hline
-		Element of $\hat{D} \backslash D_{\epsilon}$ & Source  & Target  \\
+		Element of $\hat{D} \backslash D_{\varepsilon}$ & Source  & Target  \\
 		\hline
 		$d_{1}$                                      & $w_{0}$ & $w_{0}$ \\
 		$d_{2}$                                      & $w_{0}$ & $w_{1}$ \\
@@ -1135,14 +1164,14 @@ We have deliberately positioned the vertices of our world diagram where we have 
 For example:
 \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/2x2_cyclical_min_trans_quirky.jpg}
 }
-containing the world states and the minimum transformations given in figure \ref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each minimum transformation as shown in $D_{\epsilon}$ and table \ref{tab:2x2_gridworld_length_1_transformations}.
+containing the world states and the minimum transformations given in figure \ref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each minimum transformation as shown in $D_{\varepsilon}$ and table \ref{tab:2x2_gridworld_length_1_transformations}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/2x2_cyclical_minimum_transformations.jpeg}
 	\caption{
 		A world diagram of $\mathscr{W}_{\alpha}$ containing the transformations in $\hat{D}$.
-		Transformations in $D_{\epsilon}$ are in red.
+		Transformations in $D_{\varepsilon}$ are in red.
 	}
 	\label{fig:2x2_cyclical_minimum_transformations}
 \end{figure}
@@ -1198,7 +1227,7 @@ This behaviour is similar to that found in games like Pac-Man \draftnote{blue}{a
 A more precise example would be that if the embodied agent performs the up action while $\mathscr{W}_{\alpha}$ is in world state $w_{0}$ then $\mathscr{W}_{\alpha}$ will transform into world state $w_{2}$.
 
 Before we label the transformations in $D$ with their associated actions, we must identify which transformations should be labelled and how (i.e, we must identify the elements of the sets $\hat{D}_{A}$ and $D_{A}$).
-For our example world $\mathscr{W}_{\alpha}$, the procedure outlined in figure \ref{fig:action_labelling_procedure} in somewhat simplified because all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of the agent embodied in the world; this means that $\hat{D} = \hat{D}_{A}$\footnote{so $\hat{D}_{A} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\epsilon}$.}, and therefore $\mathscr{W} = \mathscr{W}_{A}$ and $D = D_{A}$.
+For our example world $\mathscr{W}_{\alpha}$, the procedure outlined in figure \ref{fig:action_labelling_procedure} in somewhat simplified because all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of the agent embodied in the world; this means that $\hat{D} = \hat{D}_{A}$\footnote{so $\hat{D}_{A} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\varepsilon}$.}, and therefore $\mathscr{W} = \mathscr{W}_{A}$ and $D = D_{A}$.
 
 The transformations of $\mathscr{W}_{\alpha}$ due to the agent's minimum actions (i.e., the effect of the minimum actions on the world states $W$) are shown in table \ref{tab:2x2_gridworld_minimum_actions}.
 Since all transformations of $\mathscr{W}_{\alpha}$ are due to the actions of the agent, this table shows all the minimum transformations in $\mathscr{W}_{\alpha}$ and how they are labelled using the labelling map $l$.
@@ -1252,10 +1281,10 @@ We can use table \ref{tab:2x2_gridworld_minimum_actions} to construct the labell
 		$d_{18}$        & $w_{3}$ & $w_{1}$ & $D$          \\
 		$d_{19}$        & $w_{3}$ & $w_{2}$ & $L$          \\
 		$d_{20}$        & $w_{3}$ & $w_{2}$ & $R$          \\
-		$1_{w_{0}}$     & $w_{0}$ & $w_{0}$ & $\epsilon$   \\
-		$1_{w_{1}}$     & $w_{1}$ & $w_{1}$ & $\epsilon$   \\
-		$1_{w_{2}}$     & $w_{2}$ & $w_{2}$ & $\epsilon$   \\
-		$1_{w_{3}}$     & $w_{3}$ & $w_{3}$ & $\epsilon$   \\
+		$1_{w_{0}}$     & $w_{0}$ & $w_{0}$ & $\varepsilon$   \\
+		$1_{w_{1}}$     & $w_{1}$ & $w_{1}$ & $\varepsilon$   \\
+		$1_{w_{2}}$     & $w_{2}$ & $w_{2}$ & $\varepsilon$   \\
+		$1_{w_{3}}$     & $w_{3}$ & $w_{3}$ & $\varepsilon$   \\
 		\hline
 	\end{tabular}
 	\caption{
@@ -1265,7 +1294,7 @@ We can use table \ref{tab:2x2_gridworld_minimum_actions} to construct the labell
 \end{table}
 
 The application of the labelling map $\hat{l}$ as a world diagram is shown in figure \ref{fig:2x2_cyclical_labelling_with_min_actions}\footnote{
-	It's important to note that the no-op action $1$, where the agent does nothing, does not label the trivial transformations $1_{w}$, which are labelled by the empty action $\epsilon$.
+	It's important to note that the no-op action $1$, where the agent does nothing, does not label the trivial transformations $1_{w}$, which are labelled by the empty action $\varepsilon$.
 	This means the no-op action does not act as an identity element for $(\hat{A}\ast, \circ)$.
 }.
 
@@ -1319,7 +1348,7 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 	\begin{enumerate}
 		\item Are the elements $1_{w}$ in $\hat{D}$ ? At the moment - yes.
 		      \begin{compactitem}
-			      \item \textbf{Counter:} Making $\hat{D}$ not include $D_{\epsilon}$ would line the notation up with $\hat{A}$.
+			      \item \textbf{Counter:} Making $\hat{D}$ not include $D_{\varepsilon}$ would line the notation up with $\hat{A}$.
 		      \end{compactitem}
 	\end{enumerate}
 }
@@ -1330,10 +1359,10 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 \subsection{Motivation}
 
 We now have \draftnote{blue}{awjdean}{Improve this - include stuff like the set $\mathcal{T}$.}
-\begin{enumerate}[(1)]
-	\item an infinite set $D$ of transformations, which are walks in the directed multigraph $\mathscr{W}=(W, \hat{D}, s, t)$;
+\begin{enumerate}
+	\item an infinite set $D$ of transformations, which are walks in the multidigraph $\mathscr{W}=(W, \hat{D}, s, t)$;
 
-	\item an infinite set $D_{A}$ of action transformations, which are walks in the directed multigraph $\mathscr{W}_{A}=(W, \hat{D}_{A}, s, t)$;
+	\item an infinite set $D_{A}$ of action transformations, which are walks in the multidigraph $\mathscr{W}_{A}=(W, \hat{D}_{A}, s, t)$;
 
 	\item an infinite, but less dense, set $\hat{A}^{\ast}$ of actions;
 
@@ -1346,7 +1375,7 @@ We now have \draftnote{blue}{awjdean}{Improve this - include stuff like the set 
 Our basic algebra of actions $(\hat{A}^{\ast}, \; \circ)$ is a (countably infinite) free monoid; this is the same for any world.
 However, we expect that there must be more structure we can tease out of our $(\hat{A}^{\ast}, \; \circ)$ since it appears that different worlds have different transformation structures.
 But how do we produce those structures from $(\hat{A}^{\ast}, \; \circ)$ ?
-If we want to form other recognisable algebraic structures (e.g., groups, semigroups etc...), we need some way of saying collections of transformations (i.e., the actions that are elements of $\hat{A}^{\ast}$) are the same in some way, otherwise, there is no way to satisfy the requirements of these algebras (\textit{e.g.}, for the inverse property we need an element $a'$ in $\hat{A}^{\ast}$ for each $a \in \hat{A}^{\ast}$ such that $a' \circ a = \epsilon$ and $a \circ a' = \epsilon$).
+If we want to form other recognisable algebraic structures (e.g., groups, semigroups etc...), we need some way of saying collections of transformations (i.e., the actions that are elements of $\hat{A}^{\ast}$) are the same in some way, otherwise, there is no way to satisfy the requirements of these algebras (\textit{e.g.}, for the inverse property we need an element $a'$ in $\hat{A}^{\ast}$ for each $a \in \hat{A}^{\ast}$ such that $a' \circ a = \varepsilon$ and $a \circ a' = \varepsilon$).
 
 To solve this issue and to enforce the structure of the world on the algebra $(\hat{A}^{\ast}, \; \circ)$, we will define an equivalence relation $\sim$ on the elements of $\hat{A}^{\ast}$.
 This equivalence relation will enforce aspects of the structure of the world onto the free monoid $(\hat{A}^{\ast}, \; \circ)$ to give us a new algebra $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$ \draftnote{blue}{awjdean}{Do we actually need congruences?}, where it is now possible to satisfy properties like the inverse condition.
@@ -1434,7 +1463,7 @@ We need to show that the operation $\circ_{\sim}$ on the equivariance classes do
 	$\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Problem.}
 		      For $\circ_{\sim}$ to be well-defined on $\hat{A}^{*}/\sim$, we need that\footnote{
 			      \textbf{Well-definedness requirement.}
@@ -1534,7 +1563,7 @@ We define the effect of an element of  $\hat{A}^{\ast}/\sim$ on world states as
 \begin{proof}
 	To prove that $\ast_{\sim}$ is well-defined, we need to show that if two actions $a, b \in \hat{A}^{\ast}$ are equivalent (i.e., $a \sim b$), then they have the same effect on any world state $w$.
 
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Initial assumption.}
 		      Let $a \sim b$.
 		      By definition of the equivalence relation $\sim$, we have
@@ -1612,15 +1641,15 @@ Applying the equivalence relation $\sim$ using the projection $\pi_{A}$ to the f
 
 
 \begin{proposition}\label{prp:A_sim_identity}
-	$[\epsilon]_{\sim}$ is the identity element of $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$.
+	$[\varepsilon]_{\sim}$ is the identity element of $(\hat{A}^{\ast}/\sim, \; \circ_{\sim})$.
 \end{proposition}
 \begin{proof}
 	For any $[a]_{\sim} \in \hat{A}^{\ast}/\sim$, we have
 	\begin{align}
-		 & [\epsilon]_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon \circ a]_{\sim} = [a]_{\sim}
-		 & [a]_{\sim} \circ_{\sim} [\epsilon]_{\sim} = [a \circ \epsilon]_{\sim} = [a]_{\sim}
+		 & [\varepsilon]_{\sim} \circ_{\sim} [a]_{\sim} = [\varepsilon \circ a]_{\sim} = [a]_{\sim}
+		 & [a]_{\sim} \circ_{\sim} [\varepsilon]_{\sim} = [a \circ \varepsilon]_{\sim} = [a]_{\sim}
 	\end{align}
-	Therefore, $[\epsilon]_{\sim}$, where $\epsilon$ is the empty action, acts as the identity.
+	Therefore, $[\varepsilon]_{\sim}$, where $\varepsilon$ is the empty action, acts as the identity.
 \end{proof}
 
 
@@ -1628,7 +1657,7 @@ Applying the equivalence relation $\sim$ using the projection $\pi_{A}$ to the f
 	$(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is a monoid.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Closure and well-definedness.}
 		      We need to show that the operation $\circ_{\sim}$ is well-defined and closed on $\hat{A}^{\ast}/\sim$.
 		      $\circ_{\sim}$ is well-defined on $\hat{A}^{\ast}/\sim$ from proposition \ref{prp:circ_sim_well_defined} and closed from proposition \ref{prp:circ_sim_closed}.
@@ -1649,7 +1678,7 @@ Now can now show that $\pi_{A}$ preserves the monoid structure of $(\hat{A}^{\as
 	$\pi_{A}$ is a monoid homomorphism from $(\hat{A}^{\ast}, \circ)$ to $(\hat{A}^{\ast}/\sim, \circ_{\sim})$.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Preservation of the Operation.}
 		      For any $a, a' \in \hat{A}^{\ast}$, the projection $\pi_{A}$ satisfies:
 		      \begin{align}
@@ -1663,10 +1692,10 @@ Now can now show that $\pi_{A}$ preserves the monoid structure of $(\hat{A}^{\as
 		      \end{equation}
 
 		\item \textbf{Preservation of the Identity Element.}
-		      The identity element in $(\hat{A}^{\ast}, \circ)$ is $\epsilon$, and the identity element in $(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is $[\epsilon]_{\sim}$.
+		      The identity element in $(\hat{A}^{\ast}, \circ)$ is $\varepsilon$, and the identity element in $(\hat{A}^{\ast}/\sim, \circ_{\sim})$ is $[\varepsilon]_{\sim}$.
 		      The projection satisfies:
 		      \begin{equation}
-			      \pi_{A}(\epsilon) = [\epsilon]_{\sim}.
+			      \pi_{A}(\varepsilon) = [\varepsilon]_{\sim}.
 		      \end{equation}
 
 		\item \textbf{Conclusion.}
@@ -1684,7 +1713,7 @@ If the number of distinct effects on $W$ is finite, then $(\hat{A}^{\ast}/\sim, 
 \end{proposition}
 
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Compatibility.}
 		      The action effect operator $\ast_{\sim}$ is compatible with the composition operator $\circ_{\sim}$ since:
 		      \begin{equation}
@@ -1701,17 +1730,17 @@ If the number of distinct effects on $W$ is finite, then $(\hat{A}^{\ast}/\sim, 
 		      Therefore, the compatibility condition holds.
 
 		\item \textbf{Identity action.}
-		      The identity element $[\epsilon]_{\sim}$ acts as the identity on $W$:
+		      The identity element $[\varepsilon]_{\sim}$ acts as the identity on $W$:
 		      \begin{equation}
-			      [\epsilon]_{\sim} \ast_{\sim} w = w \quad \text{for all } w \in W.
+			      [\varepsilon]_{\sim} \ast_{\sim} w = w \quad \text{for all } w \in W.
 		      \end{equation}
 
-		      \textit{Proof:} Using the definition of $\ast_{\sim}$ and knowing that $\epsilon$ is the empty action sequence, we get:
+		      \textit{Proof:} Using the definition of $\ast_{\sim}$ and knowing that $\varepsilon$ is the empty action sequence, we get:
 		      \begin{align}
-			      [\epsilon]_{\sim} \ast_{\sim} w & = \epsilon \ast w \\
+			      [\varepsilon]_{\sim} \ast_{\sim} w & = \varepsilon \ast w \\
 			                                      & = w.
 		      \end{align}
-		      Thus, $[\epsilon]_{\sim}$ acts as the identity on $W$.
+		      Thus, $[\varepsilon]_{\sim}$ acts as the identity on $W$.
 
 		\item \textbf{Conclusion.}
 		      $(\hat{A}^{\ast}/\sim, \circ_{\sim}, \ast_{\sim})$ is a monoid action on the set $W$.
@@ -1728,7 +1757,7 @@ To explore the effect of applying the equivalence relation $\sim$ to the functio
 	$a \sim a' \iff f_{a}(w) = f_{a'}(w)$ for all $w \in W$.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{$a \sim a' \implies f_{a}(w) = f_{a'}(w)$ for all $w \in W$.}
 		      Let $a \sim a'$. By the definition of $\sim$, this means:
 		      \begin{equation}
@@ -1804,10 +1833,10 @@ Similarly to what we did with $\phi: \hat{A}^{\ast} \to \mathcal{T}_{\hat{A}^{\a
 	$\Phi$ is an injective homomorphism. \draftnote{blue}{awjdean}{Put $[]_{\sim}$'s in.}
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		To prove that $\Phi$ is an injective homomorphism we need to show that $\Phi$ is injective and a homomorphism.
 		\item \textbf{Homomorphism.}
-		      \begin{enumerate}[(a)]
+		      \begin{enumerate}
 			      \item \textbf{Goal.}
 			            We want
 			            \begin{equation}
@@ -1837,7 +1866,7 @@ Similarly to what we did with $\phi: \hat{A}^{\ast} \to \mathcal{T}_{\hat{A}^{\a
 		      \end{enumerate}
 
 		\item \textbf{Injective.}
-		      \begin{enumerate}[(a)]
+		      \begin{enumerate}
 			      \item \textbf{Goal.}
 			            We want to show that:
 			            \begin{equation}
@@ -1869,7 +1898,7 @@ We can now use the infectivity of $\Phi$ to establish an upper bound on the numb
 	$|\hat{A}^{\ast}/\sim| \leq |W|^{|W|}$.
 \end{proposition}
 \begin{proof}
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Relation between $\hat{A}^{\ast}/\sim$ and endofunctions on $W$.}
 		      \begin{itemize}
 			      \item Since $\Phi$ is injective, there is a one-to-one correspondence between elements of $\hat{A}^{\ast}/\sim$ and their images in $\text{End}(W)$ under $\Phi$.
@@ -1907,7 +1936,7 @@ The codomain required for this restriction is exactly our set $\mathcal{T}_{\hat
 \end{proposition}
 \begin{proof}
 	To prove that $\Phi_{R}$ is an isomorphism we need to show that $\Phi$ is injective, surjective and a homomorphism.
-	\begin{enumerate}[(1)]
+	\begin{enumerate}
 		\item \textbf{Homomorphism.}
 		      This follows from the fact that $\Phi$ is a homomorphism.
 
@@ -1937,13 +1966,13 @@ Figure \ref{fig:2x2_cyclical_equivalence_min_actions} shows what happens to Figu
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/2x2_cyclical_equivalence_min_actions.jpeg}
-	\caption{World diagram showing the minimum action equivalence classes under $\sim$ for the set $\hat{A} \cup \epsilon$.}
+	\caption{World diagram showing the minimum action equivalence classes under $\sim$ for the set $\hat{A} \cup \varepsilon$.}
 	\label{fig:2x2_cyclical_equivalence_min_actions}
 \end{figure}
 
 \draftnote{blue}{awjdean}{
 	Show diagrams with some non-minimum action transformations.
-	Make it clear that equivalence classes contain more elements: $\{\epsilon, 1 \dots \}$.
+	Make it clear that equivalence classes contain more elements: $\{\varepsilon, 1 \dots \}$.
 }
 
 \draftnote{blue}{awjdean}{
