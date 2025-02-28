@@ -39,6 +39,8 @@
   "[latex]": {
     "editor.defaultFormatter": "James-Yu.latex-workshop"
   },
-  "editor.formatOnSave": true, // Automatically formats the document on save
-  "latex-workshop.bibtex-format.sort.enabled": true
+  // "editor.formatOnSave": true, // Automatically formats the document on save
+  "latex-workshop.bibtex-format.sort.enabled": true,
+  "editor.wordWrap":"on",
+  "editor.minimap.enabled": false
 }

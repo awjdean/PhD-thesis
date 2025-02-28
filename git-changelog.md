@@ -1,3 +1,5 @@
+A mathematical framework V1.2.
+
 27.02.2025 - Beyond SBDRL I - Global algebras V1.0; Beyond SBDRL II - Local algebras V1.1.
 21.02.2025 - Beyond SBDRL II - Local algebras V1.0.
 04.02.2025 - Beyond SBDRL V0.5 becomes Beyond SBDRL I - Global algebras V0.5; new chapter Beyond SBDRL II - Local algebras; Reproducing symmetry-based disentangled representation learning V1.3 (updated definitions for reversible actions, inverse actions ...).
