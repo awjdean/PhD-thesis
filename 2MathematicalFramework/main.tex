@@ -4,6 +4,7 @@
  }
 
  \draftnote{purple}{To do}{Insert chapter table of contents}
+ \draftnote{purple}{Footnote}{Say what a \emph{finite directed walk} is.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
@@ -106,8 +107,8 @@ Our set $D$ of all transformations of $\mathscr{W}$ is the set of all finite dir
 	The atomic transformations are in $D$ as directed walks of length 1.
 }.
 This means that a transformation $d \in D$ is a sequence of atomic transformations\footnote{
-	This operator $\hat{\circ}$ is the operator of concatenation of walks of length 1.
-	}
+	Composition of transformations is read from left to right.
+}
 \begin{equation}
 	d = \hat{d}_{n} \hat{\circ} \hat{d}_{n-1} \hat{\circ} ... \hat{\circ} \hat{d}_{1}
 \end{equation}
@@ -115,7 +116,9 @@ where
 \begin{equation}
 	\hat{\circ}: \hat{D} \times \hat{D} \to D
 \end{equation}
-is the \emph{atomic transformation composition operator} that is defined if
+is the \emph{atomic transformation composition operator} that is defined if\footnote{
+This operator $\hat{\circ}$ is the operator of concatenation of walks of length 1.
+}
 \begin{equation}
 	\hat{t}(\hat{d}_{i}) = \hat{s}(\hat{d}_{i+1}) \quad \text{for $i = 1, ..., n-1$}.
 \end{equation}
@@ -188,12 +191,19 @@ $\circ$ is the operator of concatenation of walks.
 }
 .
 
+\begin{definition}[Notation block]
+	When defining a world $\mathscr{W}$ it is sufficent to give $W$ and $\hat{D}$ since we can always construct $D$ from $\hat{D}$.
+	We also usually don't explictly provide the source and target maps when defining a world.
+\end{definition}
+
+
 
 \paragraph{Length of a transformation.}
 The \emph{length} of a transformation $d \in D$ is the number of atomic transformations that make up its associated directed walk in $\hat{\mathscr{W}}$ \footnote{
 	This means minimum transformations have a length of one.
 }.
 We denote the length of $d$ by $|d|$.
+
 
 
 
@@ -306,8 +316,19 @@ It's important to note that, in a world diagram, the positioning (relative or ab
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Subworlds}
 
-When constructing a subworld we want to preserve the composition $\circ$, so that a subworld is a world; this means we have to be careful which transformations we remove to form a valid subworld.
+\newthought{We are building} towards describing the structure of transformations in an agent's representation; later we will only be interested in the perspective of the agent and so will only care about the world states and transformations that the agent can interact with.
+Reachable and unreachable subworlds give us the language to describe and then disregard parts of worlds that agents will never explore and therefore are not relevant to the agent's representation.
+For example, if an agent is in a maze and a section of the maze is inaccessible from the position that the agent is in, then that section of the maze would be disconnected from the section of the maze that the agent is in; if we want to study how the agent’s representation evolves as it learns, it makes sense to disregard world states where the agent is in the inaccessible part of the maze since those world states can never be reached and so those world states will not affect the agent's representation.
+\footnote{
+	But what about worlds that are unreachable from the current world state, but the agent has already visited?
+	If we assume the representation evolution process is Markov, then all the necessary information will contained in the current representation space of the agent and so past world states which are now unreachable are irrelevant.
+	Therefore, for a Markov representation evolution process, we only need to consider the world states in subworlds that are reachable from the current world state.
 
+	If the representation evolution process is not Markov, we can transform the representation evolution process into a Markov process by augmenting the state space of the process to include any relevant historical information.
+}
+
+
+When constructing a subworld we want to preserve the composition $\circ$, so that a subworld is a world; this means we have to be careful which transformations we remove to form a valid subworld.
 A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\mathscr{W} = (W, D, s, t)$ if
 \begin{enumerate}
     \item $W' \subseteq W$
@@ -324,8 +345,6 @@ A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\math
 \begin{definition}[Notation block]
     If $\mathscr{W}'$ is a subworld of $\mathscr{W}$ then we can write $\mathscr{W}' \subseteq \mathscr{W}$.
 \end{definition}
-
-
 
 If $\mathscr{W}' \subseteq \mathscr{W}$, then the atomic multidigraph of $\mathscr{W}'$ is not necessarily a sub-multidigraph of the atomic multidigraph of $\mathscr{W}$; in other words, $\mathscr{W}' \subseteq \mathscr{W}$ does not necessarily mean $\hat{D}' \subseteq \hat{D}$. For example, if $\hat{d}_{1}, \hat{d}_{2} \in \hat{D}$ and $\operatorname{Seq}(d_{3}) = (\hat{d}_{2}, \hat{d}_{1})$, it is possible to have a subworld where $\hat{d}_{1}, \hat{d}_{2} \centernot\in D'$ (and so $\hat{d}_{1}, \hat{d}_{2} \centernot\in \hat{D}'$) but have $d_{3} \in D$.
 In this case, $d_{3}$ would be an atomic transformation in $\mathscr{W}'$ (i.e., $d_{3} \in \hat{D}'$).\footnote{
@@ -350,65 +369,10 @@ Therefore, we have,
 \draftnote{blue}{Consider}{Is this a proposition that we need to prove?}
 
 
-
-
-\draftnote{red}{DIVIDER}{}
-
-
-
 \paragraph{Reachable and unreachable subworlds.}
-A world $\mathscr{W}'$ is \emph{reachable} from a world $\mathscr{W}$ if there exists a transformation $d: w \to w'$ where $w \in W$ and $w' \in W'$.
-Formally, we consider a world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$.
-The set of world states that are reachable from a world state $w$ is given by
-\begin{equation}
-	W^{\to}(w) := \{ w' \in W \mid \text{there exists} \; d \in D \; \text{with} \; d: w \to w' \}
-\end{equation}
-
-The set of minimum transformations that are reachable from $w$ is given by\footnote{
-	This is the largest subset of minimum transformations that stay within the set of reachable states.
-}
-\begin{equation}
-	\hat{D}^{\to}(w) := \{ \hat{d} \in \hat{D} \mid s(\hat{d}) \in W^{\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\to}(w) \}
-\end{equation}
-
-The reachable subworld of $\mathscr{W}$ from the state $w$ is given by
-\begin{equation}
-	\mathscr{W}^{\to}(w) := (W^{\to}(w), \hat{D}^{\to}(w), \hat{s} \big|_{\hat{D}^{\to}(w)}, \hat{t} \big|_{\hat{D}^{\to}(w)})
-\end{equation}
-
-We denote the current state of a world by $w^{*}$.
-The subworld that is reachable from the current state of the world is called the \emph{natural reachable subworld}, which we denote by $\mathscr{W}^{\to}(w^{*})$.
-
-
-
-\draftnote{blue}{To do somewhere in this chapter}{Proposition that if there exists a $d \in D$ with $d: s(d) \to t(d)$ then there exists $\hat{d} \in \hat{D}$ with $\hat{d}: s(d) \to t(\hat{d})$ and there exists $\hat{d}' \in \hat{D}$ with $\hat{d}: s(\hat{d}) \to t(d)$.
-	Same, is true for $d \in D_{A}$
-}
-
-\draftnote{blue}{Note}{
-	Need to consider $\hat{D}_{A}$ instead of $\hat{D}$ when looking at reachable worlds due to the actions of an agent.
-}
-
-
-\footnote{
-	A sensible question is `what set of transformations contains $d$ ?'.
-	If $\mathscr{W}' \subseteq \mathscr{W}$ then $d \in \mathscr{W}$.
-	If $\mathscr{W}' \not\subseteq \mathscr{W}$ then we can consider a world $\mathscr{W}^{\aleph}$ containing all physically allowed world states and world state transformations; we then have that $\mathscr{W} \subseteq \mathscr{W}^{\aleph}$, $\mathscr{W}' \subseteq \mathscr{W}^{\aleph}$, and $d$ is an element of the set of transformations of $\mathscr{W}^{\aleph}$.
-}.
-If a subworld is not reachable, we say it is \emph{unreachable}.
-
-
-\newthought{We are building} towards describing the structure of transformations in an agent's representation; late we will only be interested in the perspective of the agent and so will only care about the world states and transformations that the agent can come into contact with.
-Unreachable and reachable worlds give us the language to describe and then disregard parts of worlds that agents will never explore and therefore are not relevant to the agent's representation.
-For example, if an agent is in a maze and a section of the maze is inaccessible from the position that the agent is in, then that section of the maze would be disconnected from the section of the maze that the agent is in; if we want to study how the agent’s representation evolves as it learns, it makes sense to disregard world states where the agent is in the inaccessible part of the maze since those world states can never be reached and so those world states will not affect the agent's representation.
-\footnote{
-	But what about worlds that are unreachable from the current world state, but the agent has already visited?
-	If we assume the representation evolution process is Markov, then all the necessary information will contained in the current representation space of the agent and so past world states which are now unreachable are irrelevant.
-	Therefore, for a Markov representation evolution process, we only need to consider the world states in subworlds that are reachable from the current world state.
-
-	If the representation evolution process is not Markov, we can transform the representation evolution process into a Markov process by augmenting the state space of the process to include any relevant historical information.
-}
-\begin{figure}
+Consider a world $\mathscr{W}^{\aleph}$ containing two subworlds $\mathscr{W}$ and $\mathscr{W}'$.
+The subworld $\mathscr{W}'$ is \emph{reachable} from the subworld $\mathscr{W}$ if there exists a transformation $d \in D^{\aleph}$ with $d: w \to w'$ where $w \in W$ and $w' \in W'$.\footnote{
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/reachable_worlds.jpg}
 	\caption{
@@ -416,21 +380,39 @@ For example, if an agent is in a maze and a section of the maze is inaccessible 
 	}
 	\label{fig:reachable_worlds}
 \end{figure}
-
-
-\draftnote{green}{To do}{
-\begin{enumerate}
-		\item \textbf{Footnote:} Composition of transformations is read from left to right; the reason for this will be explained later.
-		\item \textbf{Mention:} For the rest of this document, if we talk about sets $D$, $\hat{D}$ of transformations or sets $W$ of worlds without explicitly defining an associated world $\mathscr{W}$, then the results are for a general world $\mathscr{W}$; we will explicitly define the world for specific examples.
-		\item Define what a \emph{finite directed walk} is.
-		\item Explain how to construct the set of all finite walks.
-\end{enumerate}
 }
+If a subworld is not reachable, we say it is \emph{unreachable}.
+
+Formally, for a world $\mathscr{W} = (W, \hat{D}, s, t)$, the set of world states that are reachable from a world state $w$ is given by
+\begin{equation}
+	W^{\to}(w) := \{ w' \in W \mid \text{ there exists } d \in D \text{ with } d: w \to w' \}.
+\end{equation}
+The set of minimum transformations that are reachable from $w$ is given by\footnote{
+	This is the largest subset of minimum transformations that stay within the set of reachable states.
+}
+\begin{equation}
+	\hat{D}^{\to}(w) := \{ \hat{d} \in \hat{D} \mid s(\hat{d}) \in W^{\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\to}(w) \}
+\end{equation}
+
+The \emph{reachable subworld} of a world $\mathscr{W}$ from the state $w$ is given by
+\begin{equation}
+	\mathscr{W}^{\to}(w) := (W^{\to}(w), \hat{D}^{\to}(w), s \big|_{D^{\to}(w)}, t \big|_{D^{\to}(w)})
+\end{equation}
+
+\begin{definition}[Notation block]
+	We denote the current worl state by $w^{*}$.
+\end{definition}
+
+The subworld that is reachable from the current world state $w^{*}$ is called the \emph{natural reachable subworld}, which we denote by $\mathscr{W}^{\to}(w^{*})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducing an agent}
 
 \draftnote{red}{DIVIDER}{}
+
+\draftnote{blue}{Note}{
+	Need to consider $\hat{D}_{A}$ instead of $\hat{D}$ when looking at reachable worlds due to the actions of an agent.
+}
 
 \draftnote{red}{Include}{
 \begin{enumerate}
@@ -439,7 +421,9 @@ For example, if an agent is in a maze and a section of the maze is inaccessible 
           \begin{itemize}
               \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
           \end{itemize}
-    \item Distinguish between the underlying minimum transformation worlds
+    \item \draftnote{blue}{To do (after introducing $\bot$)}{
+		Say something about how if we say $a \ast w$ is defined we mean $a \ast w \neq \bot$.
+		}
 \end{enumerate}
 }
 
@@ -607,7 +591,7 @@ We will initially focus on the structure of an agent's representation due to the
 	\label{fig:W_to_Z}
 \end{figure}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Our approach}
 
 We propose there are two approaches for understanding the learning of an agent: (1) we can study the learning process of the agent itself (i.e., how does the agent learn at each step of the learning process) or (2) we can study what we believe the end result of the agent's learning process should be.
@@ -660,15 +644,35 @@ In this section, we define the actions of agents as collections of transformatio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Actions as collections of labelled transformations}
 
+\draftnote{red}{To do}{
+\begin{enumerate}
+	\item $\mathscr{W}_{A}$ is a labelled multidigraph.
+	\item 
+\end{enumerate}
+}
+
+
+\begin{postulate}
+	Actions are collections of labelled tranformations.
+\end{postulate}
+
 Consider a set $\hat{A}$ called the set of \emph{minimum actions} of an agent, where $\hat{A} = \{1, a_{1}, a_{2}, \dots, a_{n}\}$.
 
 We now take the Kleene star operator of $\hat{A}$ \footnote{
 	$\hat{A}^{\ast} = \{ \varepsilon \} \cup \{ (a_1, a_2, \dots, a_n) \mid a_i \in \hat{A}, \, n \in \mathbb{N} \}$.
-} to get the set of all possible finite sequences formed from elements of $\hat{A}$, including the empty sequence $\varepsilon$.
-We call $\hat{A}^{\ast}$ the set of \emph{actions} of an agent.
+} to get the set of all possible finite sequences formed from elements of $\hat{A}$, including the empty sequence, which we denote by $\varepsilon$.
+We call $\hat{A}^{\ast}$ the set of \emph{actions of the agent}.
 
-We define a composition operator $\circ: \hat{A}^{\ast} \times \hat{A}^{\ast} \to \hat{A}^{\ast}$ such that $(a_1, a_2, \dots, a_n) \in \hat{A}^{\ast}$ can be written as $a_1 \circ a_2 \circ \dots \circ a_n$.
-Sometimes we write compositions like $a_1 \circ a_2 \circ \dots \circ a_n$ as $a_1 a_2 \dots a_n$.
+We define a composition operator
+\begin{equation}
+	\circ: \hat{A}^{\ast} \times \hat{A}^{\ast} \to \hat{A}^{\ast}
+\end{equation}
+such that $(a_1, a_2, \dots, a_n) \in \hat{A}^{\ast}$ can be written as $a_1 \circ a_2 \circ \dots \circ a_n$.
+
+\begin{definition}[Notation block]
+	Sometimes we write compositions like $a_1 \circ a_2 \circ \dots \circ a_n$ as $a_1 a_2 \dots a_n$.
+\end{definition}
+
 The operator $\circ$ is closed under the definition of the Kleene star operator.
 
 \paragraph{Properties of the empty sequence $\varepsilon$.}
@@ -699,8 +703,8 @@ We define a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that $\hat{l}$
 	      \end{equation}
 \end{enumerate}
 
-So, for any world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$, there is a subworld $\mathscr{W}_{A} = (W, \hat{D}_{A}, \hat{s}, \hat{t})$.
-In the same way as we did in section \ref{sec:A mathematical treatment of worlds and their transformations} to get $D$ from $\mathscr{W}$, we take the set of all finite directed walks in $\mathscr{W}_{A}$ and denote it by $D_{A}$; the elements of $D_{A}$ are called \emph{transformations due to the actions of the agent}.
+So, for any world $\mathscr{W} = (W, \hat{D})$, there is a subworld $\mathscr{W}_{A} = (W, \hat{D}_{A})$.
+In the same way as we did in \cref{sec:A mathematical treatment of worlds and their transformations} to get $D$ from $\mathscr{W}$, we take the set of all finite directed walks in $\mathscr{W}_{A}$ and denote it by $D_{A}$; the elements of $D_{A}$ are called \emph{transformations due to the actions of the agent}.
 As before, we extend $\hat{s}$ and $\hat{t}$ to $s$ and $t$ respectively\footnote{
 	We can use $s$, $t$ instead of having to define sub maps $s_{A}$ and $t_{A}$ because $s$ and $t$ act on the elements of $D$ and $D_{A}$ is just $D$ with some elements removed.
 	If we wanted to define such maps $s_{A}$ and $t_{A}$ they would be restrictions of the maps $s$ and $t$ to the set $D_{A}$.
@@ -749,18 +753,17 @@ Unlike transformations, which are tied to individual world states, actions can h
 For example, it could be the case that applying the action $a$ followed by the action $b$ on a world state $w_{1}$ gives back the original world state, while applying $a$ followed by $b$ on world state $w_{2}$ could give a different world state $w_{3}$ - the action sequence $ba$ produces the original world state when applied to certain world states (e.g., $w_{1}$), but produces a world state that is not the original world state when applied to other world states (e.g., $w_{2}$).
 Due to this behaviour, we need a way to describe how actions change world states.
 We define the \emph{effect of an action $a \in \hat{A}^{\ast}$ on a world state $w \in W$} as
+\begin{equation}
+	\ast: \hat{A}^{\ast} \times W \to W
+\end{equation}
+such that
+\begin{enumerate}
+	\item if there exists a $d: w \xrightarrow{a} t(d)$, then $a \ast w = t(d)$; and
+	\item if there does not exist a $d: w \xrightarrow{a} t(d)$, then we say that $a \ast w$ is \emph{undefined}.
+\end{enumerate}
 
-\begin{itemize}
-	\item[] $\ast: \hat{A}^{\ast} \times W \to W$ such that
-	      \begin{enumerate}
-		      \item if there exists a $d: w \xrightarrow{a} t(d)$, then $a \ast w = t(d)$; and
-		      \item if there does not exist a $d: w \xrightarrow{a} t(d)$, then we say that $a \ast w$ is \emph{undefined}.
-	      \end{enumerate}
-\end{itemize}
-From now on, unless stated otherwise, when we give something like $a \ast w$ we will assume that $a \ast w$ is defined \draftnote{blue}{awjdean}{Remove this ? - have introduced $\bot$ state.}.
 
-
-The effect of actions on world states is well-defined due to action condition \ref{actcon:action_gives_single_outcome} \draftnote{blue}{awjdean}{Prove this explicitly?}.
+The effect of actions on world states is well-defined due to \cref{actcon:action_gives_single_outcome} \draftnote{blue}{awjdean}{Prove this explicitly?}.
 
 The compatibility of $\ast$ and $\circ$ is given by:
 \begin{equation}\label{eqn:circ_ast_compatibility}
