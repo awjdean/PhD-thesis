@@ -200,7 +200,7 @@ $\circ$ is the operator of concatenation of walks.
 
 \paragraph{Length of a transformation.}
 The \emph{length} of a transformation $d \in D$ is the number of atomic transformations that make up its associated directed walk in $\hat{\mathscr{W}}$ \footnote{
-	This means minimum transformations have a length of one.
+	This means atomic transformations have a length of one.
 }.
 We denote the length of $d$ by $|d|$.
 
@@ -331,14 +331,14 @@ For example, if an agent is in a maze and a section of the maze is inaccessible 
 When constructing a subworld we want to preserve the composition $\circ$, so that a subworld is a world; this means we have to be careful which transformations we remove to form a valid subworld.
 A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\mathscr{W} = (W, D, s, t)$ if
 \begin{enumerate}
-    \item $W' \subseteq W$
-    \item $D' \subseteq D$ such that
+    \item $W' \subseteq W$;
+    \item $D' \subseteq D$ such that:
     \begin{enumerate}
-        \item For all $d \in D'$, $s(d) \in W'$ and $t(d) \in W'$.
-        \item For all $d, d' \in D'$ with $d: s(d) \to t(d)$ and $d': t(d) \to t(d')$, $d \circ d' \in D'$.
-        \item For all $w' \in W'$, $1_{w} \in D'$.
+        \item For all $d \in D'$, $s(d) \in W'$ and $t(d) \in W'$;
+        \item For all $d, d' \in D'$ with $d: s(d) \to t(d)$ and $d': t(d) \to t(d')$, $d \circ d' \in D'$;
+        \item For all $w' \in W'$, $1_{w} \in D'$;
     \end{enumerate}
-    \item $s'$ is the restriction of $s$ to $D' \to W'$.
+    \item $s'$ is the restriction of $s$ to $D' \to W'$;
     \item $t'$ is the restriction of $t$ to $D' \to W'$.
 \end{enumerate}
 
@@ -387,20 +387,21 @@ Formally, for a world $\mathscr{W} = (W, \hat{D}, s, t)$, the set of world state
 \begin{equation}
 	W^{\to}(w) := \{ w' \in W \mid \text{ there exists } d \in D \text{ with } d: w \to w' \}.
 \end{equation}
-The set of minimum transformations that are reachable from $w$ is given by\footnote{
-	This is the largest subset of minimum transformations that stay within the set of reachable states.
+The set of atomic transformations that are reachable from $w$ is given by\footnote{
+	This is the largest subset of atomic transformations that stay within the set of reachable states.
 }
 \begin{equation}
 	\hat{D}^{\to}(w) := \{ \hat{d} \in \hat{D} \mid s(\hat{d}) \in W^{\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\to}(w) \}
 \end{equation}
 
-The \emph{reachable subworld} of a world $\mathscr{W}$ from the state $w$ is given by
+The atomic multigraph of the \emph{reachable subworld} of a world $\mathscr{W}$ from the state $w$ is given by
 \begin{equation}
-	\mathscr{W}^{\to}(w) := (W^{\to}(w), \hat{D}^{\to}(w), s \big|_{D^{\to}(w)}, t \big|_{D^{\to}(w)})
+	\hat{\mathscr{W}}^{\to}(w) := (W^{\to}(w), \hat{D}^{\to}(w), s \big|_{D^{\to}(w)}, t \big|_{D^{\to}(w)})
 \end{equation}
+The reachable subworld of $\mathscr{W}$ from the state $w$ is then given by extending $\hat{\mathscr{W}}^{\to}(w)$ to $\mathscr{W}^{\to}(w)$ in the normal way.
 
 \begin{definition}[Notation block]
-	We denote the current worl state by $w^{*}$.
+	We denote the current world state by $w^{*}$.
 \end{definition}
 
 The subworld that is reachable from the current world state $w^{*}$ is called the \emph{natural reachable subworld}, which we denote by $\mathscr{W}^{\to}(w^{*})$.
@@ -470,12 +471,7 @@ An agent's action model is intrinsically linked to its representation model sinc
 		\item \textbf{Figures:}
 		      \begin{itemize}
 			      \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
-			      \item Diagram showing mapping from $W$ to $O$ to $Z$. Also have diagram showing $W$ to $O$ to $Z$ for agent with ideal sensors.
-			            \begin{figure}[H]
-				            \centering
-				            \includegraphics[scale = 0.35]{2MathematicalFramework/Images/W_to_O_to_Z_mapping.png}
-				            \caption{The composite mapping from the set $W$ of world states to the set $Z$ of state representations via the set $O$ of observations.}
-			            \end{figure}
+			      \item Diagram showing $W$ to $O$ to $Z$ mappings for an agent with \textbf{ideal sensors}.
 		      \end{itemize}
 	\end{enumerate}
 }
@@ -547,7 +543,7 @@ Initially, we will consider our agents to have \emph{ideal sensors}; for an agen
 \end{enumerate}
 
 In real world situations, it is common for information about the world state to be lost, modified or not picked up during the observation process; for example, the human eye only picks up certain wavelengths of light or a camera could take in a colour spectrum then output greyscale.
-We will discuss agents with non-ideal sensors in section ???.
+We will discuss agents with non-ideal sensors in \draftnote{blue}{section ???}{}.
 
 Something else to note is that world states with differences that are not detectable by the agent's sensors or actions are effectively identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world.
 
@@ -691,7 +687,7 @@ Consider a set $\hat{D}_{A} \subset D$, where $1_{w} \in \hat{D}_{A}$ for all $w
 We define a labelling map $\hat{l}: \hat{D}_{A} \to \hat{A}$ such that $\hat{l}$ satisfies the following conditions:
 \begin{enumerate}
 	\item \textbf{Uniqueness condition.}
-	      Any two distinct minimum transformations leaving the same world state are labelled with different actions:
+	      Any two distinct atomic transformations leaving the same world state are labelled with different actions:
 	      \begin{equation}
 		      \text{If } s(d) = s(d'), \text{ then } \hat{l}(d) \neq \hat{l}(d') \quad \text{for any } d, d' \in \hat{D}_{A}.
 	      \end{equation}
@@ -729,7 +725,7 @@ The extended map $l$ now satisfies the following conditions:
 		      $l(1_{w}) = \varepsilon$ for all $w \in W$.
 	      \end{action_condition}
 
-	\item Transformations are labelled consistently with the sequence of labels corresponding to their constituent minimum transformations.
+	\item Transformations are labelled consistently with the sequence of labels corresponding to their constituent atomic transformations.
 	      \begin{action_condition}[Composition consistency]\label{actcon:composition_consistency}
 		      If $d = \hat{d}_{n} \circ ... \circ \hat{d}_{1}$ then $l(d) = \hat{l}(\hat{d}_{n}) ... \hat{l}(\hat{d}_{1})$ for all $d \in D_{A}$ and for all $\hat{d_{1}}, \dots , \hat{d_{n}} \in \hat{D}_{A}$.
 	      \end{action_condition}
@@ -843,7 +839,7 @@ For a world $\mathscr{W} = (W, \hat{D}, \hat{s}, \hat{t})$ containing an agent w
 	 & \hat{D}_{A}^{\hat{A}\to}(w) := \{ \hat{d} \in \hat{D}_{A} \mid s(\hat{d}) \in W^{\hat{A}\to}(w) \; \text{and} \; t(\hat{d}) \in W^{\hat{A}\to}(w) \}                      \\
 	 & \mathscr{W}^{\hat{A}\to}(w) := (W^{\hat{A}\to}(w), \hat{D}_{A}^{\hat{A}\to}(w), \hat{s} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)}, \hat{t} \big|_{\hat{D}_{A}^{\hat{A}\to}(w)})
 \end{align}
-where $W^{\hat{A}\to}(w)$ is the set of world states that are reachable from the world state $w \in W$ using the actions of the agent, $\hat{D}_{A}^{\hat{A}\to}(w)$ is the set of minimum transformations that are reachable from $w$ using the actions of the agent, and $\mathscr{W}^{\hat{A}\to}(w)$ is the reachable subworld of $\mathscr{W}$ from $w$ using the actions of the agent.
+where $W^{\hat{A}\to}(w)$ is the set of world states that are reachable from the world state $w \in W$ using the actions of the agent, $\hat{D}_{A}^{\hat{A}\to}(w)$ is the set of atomic transformations that are reachable from $w$ using the actions of the agent, and $\mathscr{W}^{\hat{A}\to}(w)$ is the reachable subworld of $\mathscr{W}$ from $w$ using the actions of the agent.
 The natural reachable subworld due to the actions of the agent is denoted by $\mathscr{W}^{\hat{A}\to}(w^{*})$.
 
 
@@ -1122,7 +1118,7 @@ So, for $\mathscr{W}_{\alpha}$, $W = \{ w_{0}. w_{1}, w_{2}, w_{3} \}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transformations of $\mathscr{W}_{\alpha}$}
 
-We define that there are 24 minimum transformations in $\mathscr{W}_{\alpha}$: the 20 transformations of length 1 given in table \ref{tab:2x2_gridworld_length_1_transformations}\footnote{
+We define that there are 24 atomic transformations in $\mathscr{W}_{\alpha}$: the 20 transformations of length 1 given in table \ref{tab:2x2_gridworld_length_1_transformations}\footnote{
 	We have chosen these because we know the actions we will give the agent in section \ref{sec:Actions of the agent in example}; there is a link between the structure of a world from the agent's perspective and the actions the agent will perform - more on this later.
 	However, these are the only transformations that are possible for a world with the world states given in section \ref{sec:World states of example}, the condition that all the transformations of the world are due to the actions of an agent with the actions provided in section \ref{sec:Actions of the agent in example}, and obeying action condition \ref{actcon:action_gives_single_outcome}.
 	\draftnote{blue}{awjdean}{Put proof of this in appendices ?}
@@ -1167,7 +1163,7 @@ We have deliberately positioned the vertices of our world diagram where we have 
 For example:
 \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/2x2_cyclical_min_trans_quirky.jpg}
 }
-containing the world states and the minimum transformations given in figure \ref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each minimum transformation as shown in $D_{\varepsilon}$ and table \ref{tab:2x2_gridworld_length_1_transformations}.
+containing the world states and the atomic transformations given in figure \ref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each atomic transformation as shown in $D_{\varepsilon}$ and table \ref{tab:2x2_gridworld_length_1_transformations}.
 
 \begin{figure}[H]
 	\centering
@@ -1233,7 +1229,7 @@ Before we label the transformations in $D$ with their associated actions, we mus
 For our example world $\mathscr{W}_{\alpha}$, the procedure outlined in figure \ref{fig:action_labelling_procedure} in somewhat simplified because all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of the agent embodied in the world; this means that $\hat{D} = \hat{D}_{A}$\footnote{so $\hat{D}_{A} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\varepsilon}$.}, and therefore $\mathscr{W} = \mathscr{W}_{A}$ and $D = D_{A}$.
 
 The transformations of $\mathscr{W}_{\alpha}$ due to the agent's minimum actions (i.e., the effect of the minimum actions on the world states $W$) are shown in table \ref{tab:2x2_gridworld_minimum_actions}.
-Since all transformations of $\mathscr{W}_{\alpha}$ are due to the actions of the agent, this table shows all the minimum transformations in $\mathscr{W}_{\alpha}$ and how they are labelled using the labelling map $l$.
+Since all transformations of $\mathscr{W}_{\alpha}$ are due to the actions of the agent, this table shows all the atomic transformations in $\mathscr{W}_{\alpha}$ and how they are labelled using the labelling map $l$.
 
 \begin{table}[H]
 	\centering
@@ -1322,7 +1318,7 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 		\item Show parts of: $\hat{A}^{\ast}$, $D$
 		\item Summary at end: State what each of the things are shown in figure \ref{fig:action_labelling_procedure}.
 		\item In section introduction --> say toy example inspired by Higgins (2018) + Caselles Dupres (?)
-		\item Show example of minimum transformations in $\hat{D}_{A}$ - example with intermediate world states that are skipped over by transformations due to actions of agent.
+		\item Show example of atomic transformations in $\hat{D}_{A}$ - example with intermediate world states that are skipped over by transformations due to actions of agent.
 		\item Change symbol for $\mathscr{W}_{\alpha}$ to include agent ? -- add agent to $(W, \hat{D}. s, t)$ ?
 		\item Label the transformation diagrams with their symbols ($d_{1}$, $d_{2}$ etc...) ?
 		\item Switch $U$, $D$, $R$, $L$ into $N$, $S$, $E$, $W$ --> makes sense when giving agent ability to rotate. What to do about $W$ also being the symbol for the set of world states ?
@@ -1340,7 +1336,7 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 		      \begin{compactitem}
 			      \item Diagram (l-map-for-transformations-from-and-to-w0).
 			      \begin{compactitem}
-				      \item This diagram shows how the minimum transformations $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
+				      \item This diagram shows how the atomic transformations $d$ with $d(s) = w_{0}$ or $d(t)= w_{0}$ are mapped to actions using the map $l$.
 				      \item Figure ref[fig:l-map-for-transformations-from-and-to-w0] demonstrates how the map $l$ maps transformations in $D$ to the elements in $A$ for the transformations shown in Figure ref[fig:2x2-cyclical-min-actions-standard].
 			      \end{compactitem}
 		      \end{compactitem}

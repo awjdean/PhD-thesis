@@ -77,7 +77,7 @@ We will now introduce relevant category theory concepts.
 
 \begin{definition}[Natural transform]
     For categories $\mathcal{C}$ and $\mathcal{D}$ and functors $F,G: \mathcal{C} \to \mathcal{D}$, a \textit{natural transform} $\alpha: F \Rightarrow G$ between $F$ and $G$ is an assignment to every object $x$ in $\mathcal{C}$ of a morphism $\alpha_{x}: F(x) \to G(x)$ in $\mathcal{D}$ such that for any morphism $f: x \to y$ in $\mathcal{C}$, the following diagram commutes:
-    \input{6CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-definition}
+    \input{7CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-definition}
  \end{definition}
 
 \begin{definition}[Delooped category]
@@ -173,7 +173,7 @@ The generalised equivariance condition for the single-object case is:
     $\eta_{b}(a *_{W} w) = a *_{Z} \eta_{b}(w)$ for all $w \in W$ and for all $a \in A/\sim$.
 \end{center}
 In other words, the diagram
-\input{6CategoryTheoryI/Old/tikzcd-diagrams/single-object-general-equivalence-commuting.tex}
+\input{7CategoryTheoryI/Old/tikzcd-diagrams/single-object-general-equivalence-commuting.tex}
 commutes.
 
 \paragraph{Summary}
@@ -223,7 +223,7 @@ For each object $b_{i} \in \textbf{B}$, there is a component $\eta_{b_{i}}: W \t
  \end{center}
 
 In other words, the diagram 
- \input{6CategoryTheoryI/Old/tikzcd-diagrams/multi-object-general-equivalence-commuting}
+ \input{7CategoryTheoryI/Old/tikzcd-diagrams/multi-object-general-equivalence-commuting}
  commutes.
 
 This generalised equivariance condition ensures that the action of $A/\sim$ on $W$ and $Z$ is preserved consistently across all objects of $\textbf{B}(A/\sim)$.
@@ -239,7 +239,7 @@ This generalised equivariance condition ensures that the action of $A/\sim$ on $
 
 To check that this defines a natural transformation, we need to show that for each morphism $f: b_i \to b_j$ in $\textbf{B}A$, the diagram
 
-\input{6CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-commuting-diagram}
+\input{7CategoryTheoryI/Old/tikzcd-diagrams/natural-transform-commuting-diagram}
  
 commutes, i.e., $\tau(f)(\eta_{b_i}(w)) = \eta_{b_j}(\rho(f)(w))$ for all $w \in W$.
 This follows from the fact that the actions of $A$ on $W$ and $Z$ are the same, and therefore, applying the algebraic structure of $a_j$ to the element $\eta_{b_j}(\rho(b_j)(w))$ gives the same result as applying the algebraic structure of $a_i$ to the element $\eta_{b_i}(\rho(b_i)(w))$ and then applying the morphism $f$ in $A$.
