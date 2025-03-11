@@ -8,94 +8,51 @@ But before we can study the structure of an agent's representations, we need to 
 
 \newthought{An \emph{agent} is} an autonomous entity\footnote{This could be a natural or artificial entity.} that can observe and interact with its environment\footnote{Our agent does not need to be embodied in the world - more on this later !}; the agents that we care about can also learn about their environments.
 
-
-
-
-
-
-\draftnote{red}{DIVIDER}{}
-
-\draftnote{blue}{Note}{
-	Need to consider $\hat{D}_{A}$ instead of $\hat{D}$ when looking at reachable worlds due to the actions of an agent.
-}
-
-\draftnote{red}{Include}{
-\begin{enumerate}
-    \item [Mention] Actions can be represented as tuples of their unique compositions of minimum actions.
-    \item Define operator $\operatorname{Seq}: \hat{A}^{\ast} \to \hat{A}^{(n)}$ that sends an action to its tuple of minimum actions.
-          \begin{itemize}
-              \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
-          \end{itemize}
-    \item \draftnote{blue}{To do (after introducing $\bot$)}{
-		Say something about how if we say $a \ast w$ is defined we mean $a \ast w \neq \bot$.
-		}
-\end{enumerate}
-}
-
-\draftnote{blue}{Put in Agents section}{
-\paragraph{Fully observable worlds.}
-If complete knowledge of the current world state for every possible current world state is known\footnote{This does not mean knowledge of the transformations between world states. Also, it does not mean knowledge of every world state, but knowledge of the current world state, no matter which world state is the current one}, then the world is called \emph{fully observable}; if not then the world is called \emph{partially observable}.
-Partially observable worlds are common in many real-world scenarios, however, we will initially consider fully observable worlds.
-\footnote{Move this section to agents section? "When an agent sensor is capable to sense or access the complete state of an agent at each point in time, it is said to be a fully observable environment else it is partially observable."}
-We begin with fully observable worlds because:
-\begin{itemize}
-	\item their treatment is simpler than partially observable worlds, and
-	\item the representation of an agent of a partially observable world should ideally be the same as the representation of the agent in the same world but fully observable; therefore, if we identify structures present in an agent's representation of fully observable worlds then we are also identifying structures that should be present in the agent's representation of the same world but partially observable without having to consider the complications of partial observability\footnote{???}.
-\end{itemize}
-}
-\draftnote{red}{DIVIDER}{}
-
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Representations of an agent}
 
 \newthought{An agent's \emph{representation states}} are the agent's internal representations of world states, through which the agent maintains its understanding of its world.
-An agent's \emph{representation model} is the agent's internal model of the world, which includes how the agent encodes and organises information about its environment (e.g., as vectors, symbols, or other data structures) as representation states as well as the dynamics of how those representation states change due to actions that affect the world\footnote{T
-he agent's representation model does not directly encode the dynamics of the world states, it encodes the dynamics of the representation states; a `good' representation will provide a good approximation to the dynamics of the world states.
+An agent's \emph{representation model} is the agent's internal model of the world, which includes how the agent encodes and organises information about its environment (e.g., as vectors, symbols, or other data structures) as representation states as well as the dynamics of how those representation states change due to actions that affect the world\footnote{
+	The agent's representation model does not directly encode the dynamics of the world states, it encodes the dynamics of the representation states; a `good' representation will provide a good approximation to the dynamics of the world states.
 }.
-The agent's representation model not only captures the current state of the world but also allows it to (attempt to) conceptualise future states by predicting the state of the world based on its observations and actions and plan actions accordingly, forming a comprehensive framework for decision-making and interaction.
+The agent's representation model not only captures the current state of the world but also allows the agent to conceptualise future world states by predicting the wporld state that will our from the current world state when an action is applied; this allows the agent to plan future actions, and so form a comprehensive framework for decision-making and interaction.
 
-\newthought{Agents use \emph{sensors}} to capture data from their world, enabling the agent to perceive the world; these sensors include real-world sensors (e.g., cameras on a robot, the human eye) and virtual inputs (e.g., data streams, user commands) in a software agent.
-Sensors provide the agent with \emph{observation states}\footnote{Sometimes these are called sensory states such as in \cite{Ramstead2020}.}, which are the agent's internal representations of the information the sensors collect (e.g., data streams from the camera), and importantly are not the sensors themselves.
-An \emph{agent's perceptual model} is how the agent encodes and organises information from its sensors (e.g., vectors, symbols, or other data structures) as well as how it conceptualises the structure of the landscape of possible observation states.
+\newthought{Agents use \emph{sensors}} to capture data from their world, enabling the agent to perceive the world; these sensors include real-world sensors (e.g., cameras on a robot, the human eye) and virtual inputs (e.g., data streams, user commands).
+Sensors provide the agent with \emph{observation states}\footnote{In some literature, observation states are called \emph{sensory states} such as in \cite{Ramstead2020}.}, which are the agent's internal representations of the information the sensors collect (e.g., data streams from the camera)\footnote{
+	Importantly, obervation states are not the sensors themselves.
+}.
+An agent's \emph{perceptual model} is how the agent encodes and organises information from its sensors (e.g., vectors, symbols, or other data structures) as well as how it conceptualises the structure of the landscape of possible observation states.
 
-\newthought{Agents use \emph{effectors}} to interact with and alter their world, enabling the agent to carry out actions on the world; this can involve real-world effectors (e.g., motors and actuators on a robot) or virtual outputs (e.g., API calls or applying a transformation to a dataset the agent is manipulating) in a software agent.
-These effectors receive \emph{effector signals}\footnote{Called \emph{control signals} in the field of robotics.}, which are the concrete instructions sent by the agent to execute actions (e.g., a voltage spike to a motor or a command to a software interface).
+\newthought{Agents use \emph{effectors}} to interact with and alter worlds.
+Effectors enable agents to carry out actions in the world; effectors can be real-world effectors (e.g., motors and actuators on a robot) or virtual outputs (e.g., API calls or applying a transformation to a dataset the agent is manipulating).
+Effectors receive \emph{effector signals}\footnote{
+Effector signals are commonly called \emph{control signals} in the field of robotics.
+}, which are the concrete instructions sent by the agent to perform actions (e.g., a voltage spike sent to a motor or a command sent to a software interface).
 An agent also has an \emph{action model}, which is how the agent encodes and organises information about its actions (e.g., control signals, symbolic commands) as well as how it conceptualises how its actions will affect the world state.
+An agent's action model is intrinsically linked to its representation model since the action model describes the movement between representation states of the representation model due to actions\footnote{
+These actions do not have to be only the actions of the agent itself, they can be a grouping of world state transformations that the agent understands to be from a particular cause (see \draftnote{blue}{section ???}{}).
+}.
 
-An agent's action model is intrinsically linked to its representation model since the action model describes the movement between states of the representation model due to actions\footnote{These actions do not have to be only the actions of the agent itself, it can be a grouping of world state transformations that the agent understands to be from a particular cause - more on this later.}.
-
-\draftnote{green}{Include}{
-	\begin{enumerate}
-		\item \textbf{Figures:}
-		      \begin{itemize}
-			      \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
-			      \item Diagram showing $W$ to $O$ to $Z$ mappings for an agent with \textbf{ideal sensors}.
-		      \end{itemize}
-	\end{enumerate}
-}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Agents as Markov blankets}
 
-In our framework, we consider agents to be systems with internal states that interact with the world in ways that maintain a boundary between their internal states and the world.
-
+\newthought{In our framework}, we consider agents to be systems with internal states that interact with the world such that a boundary is maintained between their internal states and the world.
 Agent's in our framework have four types of state:
 \begin{enumerate}
 	\item \emph{Observation states} represent the agent's inputs from the environment (e.g., vision, sound, touch etc...).
 	\item \emph{Effector states} represent how the agent influences the world state (i.e., the agent's external environment).
-	\item \emph{(External) world states} consist of the states of the agent's external environment, which are the world states we introduced in section \ref{sec:A mathematical treatment of worlds and their transformations}.
+	\item \emph{(External) world states} consist of the states of the agent's external environment, which are the world states we introduced in \cref{sec:A mathematical treatment of worlds and their transformations}.
 	\item \emph{Agent's (internal) representation states} contain our agent's representations of the environment, memory model, knowledge models, goals, decision making processes etc...
 	      These internal states can only interact with the external world states via observation states and effector states.
 \end{enumerate}
 
-Using these four types of states we can view our agents as Markov blankets (see figure \ref{fig:markov_blanket}).
+Using these four types of states we can view our agents as Markov blankets (see \cref{fig:markov_blanket})]
+\draftnote{blue}{Consider}{
+	Is the agent a Markov blanket or is it surrounded by a Markov blanket ???
+}
+.
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/markov_blanket.jpg}
 	\caption{
@@ -107,102 +64,222 @@ Using these four types of states we can view our agents as Markov blankets (see 
 
 The Markov blanket consists of the states that mediate interactions between our agent and its environment (the world) \cite{Ramstead2020}.
 
-For our agent, the observation and effector states form the Markov blanket with the world states being outside the blanket and the the internal state being inside the blanket.
+\newthought{For an agent} in our framework, the observation and effector states form the Markov blanket with the world states being outside the blanket and the the internal state being inside the blanket.
 This Markov blanket acts as a boundary that separates the agent's internal representation states from the external world states.
-The agent can not directly access the external world states, but can infer these world states by processing sensory inputs through its observation states and performing actions through its effector states; information about the world states crosses the Markov blanket through the agent's sensory states and the agent's affect on the world crosses the Markov blanket through the agent's effector states.
+The agent can not directly access the world states, but it can infer the structure of these world states by processing sensory inputs through its observation states and performing actions through its effector states; information about the world states crosses the Markov blanket through the agent's sensory states and the agent's affect on the world crosses the Markov blanket through the agent's effector states.
+
+\begin{postulate}
+	An agent consists of internal representation states separated from external world states by a Markov blanket consisting of observation states, through which the agent receives information about the world states, and effectors, through which the agent can change the world state.
+\end{postulate}
 
 Technically, given the observation and effector states (i.e., the blanket), the internal representation states of the agent are \emph{conditionally independent} of the external world states; conditionally independent of the external world states means that the behaviour of the agent's internal representation depends only on the states of the agent's Markov blanket (i.e., the agent's observation and effector states) and not (directly) on the world states external to the agent because all the relevant information about the external world states are filtered through the observation states and the agent only affects the world through its effector states.
 
-By framing an agent as a Markov blanket, we clearly show that the agent learns about its world only through its observation states and its actions.
-One major implication of this approach for our framework is we consider the internal representation states of the agent to be separate from the world states introduced in section \ref{sec:A mathematical treatment of worlds and their transformations}; this means that if we swap an agent embodied in a world with another agent that is identical except for having a different internal representation state (or a different representation model), then the world state would remain unchanged.
+\newthought{By framing agents} as a Markov blankets, we aim to clearly show that agents learn about their world only through their observation states and their effectors.
 
-Another implication is that, since an agent's only gains knowledge about the structure of the world through its sensors and its actions, world states with differences that are not detectable by the agent are identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world (i.e, those world states do not exist from the perspective of the agent)\footnote{More on this later !}.
+A major implication of this approach for our framework is we consider the internal representation states of the agent to be separate from the world states introduced in \cref{sec:A mathematical treatment of worlds and their transformations}; this means that if we swap an agent embodied in a world with another agent that is identical except for having a different internal representation state (or a different representation model), then the world state would remain unchanged.
 
+Another implication of our approach is that, since an agent's only gains knowledge about the structure of the world through its sensors and its actions, world states with differences that are not detectable by the agent are identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world (i.e, indistinguishable world states do not exist from the perspective of the agent, and so cannot appear in the agent's representation).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sensory perception}
 
-Our agents have an unspecified number of sensors that allows it to make observations of the world.
-Information about the agent's current world state is delivered to the internal state of the agent as an observation state; this is called the \emph{observation process}\footnote{If the world state is modelled as a distribution then is process is also referred to as the agent \emph{sampling} the world state.}.
-For example, the human eye (the sensor) converts information about the light entering the eye into
-electrical and chemical energy in the optic nerve (the observation process).
+\newthought{Our agent has} an unspecified number of sensors that allows it to make observations of the world.
+Information about the agent's current world state is delivered to the agent's internal decision systems as an observation state; this is called the \emph{observation process}\footnote{
+If the world state is modelled as a distribution then is process is also referred to as the agent \emph{sampling the world state}.
+}.
+For example, the human eye (the sensor) converts information about the light entering the eye into electrical signals in the optic nerve (the observation process); each particular collection of electrical signals (the observation state) is provided to the agent's internal decision mechanisms.
 
-Mathematically, we treat the observation process as a mapping $b: W \to O$ which produces an observation $o_{i}$.
+\newthought{Mathematically, we treat} the observation process as a mapping
+\begin{equation}
+\begin{aligned}
+	& b: W \to O \\
+	& \text{such that } b(w_{i}) = o_{i}
+\end{aligned}
+\end{equation}
+where $w_{i} \in W$ is a world state and $o_{i} \in O$ the observation state produced by the observation process $b$.
 The structure of $o_{i}$ depends on the agent's perceptual model; commonly, each observation $o_{i}$ is a vector of length $N$, where $N$ is the number of sensors the agent has.
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/observation_process_W_to_O.jpeg}
 	\caption{
-		Observation map
-		\draftnote{blue}{awjdean}{Improve this caption.}
+		An example of how an observation process $b: W \to O$ sends each worlds state in $W$ to an observation state in $O$.
+		Note how it is possible for two distinct world states to produce the same observation state.
 	}
 	\label{fig:observation_process_W_to_O}
 \end{figure}
 
-Initially, we will consider our agents to have \emph{ideal sensors}; for an agent with ideal sensors:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Ideal sensors.}
+
+\newthought{In real-world situations}, it is common for information about the world state to be lost, modified or not picked up during the observation process (e.g., the human eye only picks up certain wavelengths of light or a camera could capture an image in a colour spectrum then output greyscale) or for distinct world states to produce the same observation state (e.g., worlds where objects can be hidden).
+
+We say that an agent has \emph{ideal sensors}, if
 \begin{enumerate}
-	\item information is not lost or modified during the observation process,
-	\item there is no noise in the sensors,
-	\item a change in the world state causes a change in the observation state \draftnote{blue}{awjdean}{This might be too strict? We want to allow cases where $b(w_{1})=b(w_{2})$ due to things such as occlusion? Should we discuss this separately later or should we introduce something like a world with bijective f ?} \draftnote{blue}{awjdean}{Include a note about how changes occur instantly ? (I'm thinking about the skipped intermediate world states example).}.
+	\item information is not lost or modified during the observation process;
+	\item there is no noise in the obervation process; and
+	\item for every distinct world state in $W$ the observation process produces a distinct observation states in $O$:
+	\begin{equation}
+		b(w) \neq b(w') \quad \text{for all $w,w' \in W$}.
+	\end{equation}
 \end{enumerate}
 
-In real world situations, it is common for information about the world state to be lost, modified or not picked up during the observation process; for example, the human eye only picks up certain wavelengths of light or a camera could take in a colour spectrum then output greyscale.
-We will discuss agents with non-ideal sensors in \draftnote{blue}{section ???}{}.
+Unless stated otherwise, we will only consider agents with ideal sensors\footnote{
+Agents with non-ideal sensor are discussed in \draftnote{blue}{section ???}{}
+}.
 
-Something else to note is that world states with differences that are not detectable by the agent's sensors or actions are effectively identical from the agent's perspective and so can be treated as such when we are constructing a mathematical description of the agent's interaction with the world.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Partially observable vs fully observable worlds.}
+
+
+
+
+
+
+
+\draftnote{red}{DIVIDER}{}
+
+\paragraph{Fully observable worlds.}
+If complete knowledge of the current world state for every possible current world state is known\footnote{This does not mean knowledge of the transformations between world states. Also, it does not mean knowledge of every world state, but knowledge of the current world state, no matter which world state is the current one}, then the world is called \emph{fully observable}; if not then the world is called \emph{partially observable}.
+Partially observable worlds are common in many real-world scenarios, however, we will initially consider fully observable worlds.
+\footnote{Move this section to agents section? "When an agent sensor is capable to sense or access the complete state of an agent at each point in time, it is said to be a fully observable environment else it is partially observable."}
+We begin with fully observable worlds because:
+\begin{itemize}
+	\item their treatment is simpler than partially observable worlds, and
+	\item the representation of an agent of a partially observable world should ideally be the same as the representation of the agent in the same world but fully observable; therefore, if we identify structures present in an agent's representation of fully observable worlds then we are also identifying structures that should be present in the agent's representation of the same world but partially observable without having to consider the complications of partial observability\footnote{???}.
+\end{itemize}
+
+\draftnote{blue}{Consider}{
+\begin{itemize}
+	\item Fully observable + non-ideal sensors = sensors have noise.
+	\item Fully observable + ideal sensors = the example worlds that we use.
+	\item Partially observable + non-ideal sensors = real-world situations.
+	\item Partially observable + ideal sensors = Each world state has a unique observation state, but ??????
+\end{itemize}
+}
+
+\draftnote{red}{DIVIDER}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Learning and inference}
 
-We consider agents that learn about their world.
-The end goal of the agent’s learning process is to map the useful aspects of the structure of the world to the structure of its representation; the useful aspects are those that enable the agent to complete whatever task the agent has.
-The observation states from our agents' sensors are used by an \emph{inference process} to produce a representation of the current state of the world; the agent
-then uses some internal mechanism to select an action to perform.
+\newthought{We're interested in} agents that learn about their world.
+The end goal of the agent’s learning process is to map the useful aspects of the structure of the world to the structure of its representation\footnote{
+The useful aspects are those that enable the agent to complete whatever task the agent has; of course, what is considered to be `useful' depends on the agent's task.
+}.
+The observation states from our agents' sensors are used by an \emph{inference process} to produce a representation of the current state of the world; the agent then uses some internal mechanism to select an action to perform.
 For example, the electrical signals from the optic nerve are given to the brain for inference; mechanisms in the brain then select an action to be performed.
-Mathematically, we consider this inference process to be a mapping $h: O \to Z$.
-\begin{figure}
+
+\newthought{Mathematically, we consider} this inference process to be a mapping
+\begin{equation}
+\begin{aligned}
+	& h: O \to Z \\
+	& \text{such that } h(o_{i}) = z_{i}
+\end{aligned}
+\end{equation}
+where $o_{i} \in O$ is an observation state and $z_{i} \in Z$ is the representation state the agent associates with the observation state.
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/inference_process_O_to_Z.jpeg}
 	\caption{
-		Inference process.
-		\draftnote{blue}{awjdean}{Improve this caption}
+		An example of how an inference process $h: O \to Z$ sends each observation state in $O$ to a representation state in $Z$.
+		Note how it is possible for two distinct observation states to produce the same representation state.
 	}
 	\label{fig:inference_process_O_to_Z}
 \end{figure}
 
-For agents without ideal sensors, there are scenarios (e.g., in partially observable environments) where two world states that are distinct for the agent produce the same observation state (i.e., $h(o_{\alpha}) = w_{1}$ and $h(o_{\alpha}) = w_{2}$).
-We will discuss these types of scenarios in section ???.
+\newthought{We can combine} $b$ and $h$ to form a mapping
+\begin{equation}
+\begin{aligned}
+	& f: W \to Z \\
+	& \text{such that } f = h \circ b
+\end{aligned}
+\end{equation}
+that describes the process of the agent obtaining and processing information about the world.
 
-We can combine $b$ and $h$ to form a mapping $f = h \circ b$, from $W$ to $Z$, that describes the process of the agent getting information about the world.
-For agents with ideal sensors, the map $f$ is bijective
-\draftnote{blue}{awjdean}{Proof that $f$ is bijective if agent ideal sensors.
-	1. Prove $b$ bijective.
-	2. Prove $h$ bijective.
-	3. Composition of two bijective maps is also a bijective map.
-}, and therefore is invertible.
-We will initially focus on the structure of an agent's representation due to these types of maps $f$.
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/W_to_Z.jpeg}
 	\caption{
-		Example of map $f$
-		\draftnote{blue}{awjdean}{Improve this caption}
+		An example of the map $f: W \to Z$ sends each world state in $W$ to a representation state in $Z$.
 		\draftnote{blue}{awjdean}{$g$ should be $b$.}
 	}
 	\label{fig:W_to_Z}
 \end{figure}
 
+
+\begin{propositionE}[][normal]
+	For agents with ideal sensors, the map $f$ is bijective.
+\end{propositionE}
+\begin{proofE}
+	\draftnote{blue}{awjdean}{Proof that $f$ is bijective if agent ideal sensors.
+	1. Prove $b$ bijective.
+	2. Prove $h$ bijective.
+	3. Composition of two bijective maps is also a bijective map.
+}
+\end{proofE}
+
+\draftnote{purple}{To do (after submission)}{
+Figure showing $W$ to $O$ to $Z$ mappings for an agent with \textbf{ideal sensors}.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draftnote{red}{DIVIDER}{}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Our approach}
+\subsection{Our approach to studying an agent's learning}
+\draftnote{blue}{Consider}{Move this up ?}
 
-We propose there are two approaches for understanding the learning of an agent: (1) we can study the learning process of the agent itself (i.e., how does the agent learn at each step of the learning process) or (2) we can study what we believe the end result of the agent's learning process should be.
-We will initially focus on approach (2).
+\newthought{We propose that} there are two approaches for studying the learning of an agent:
+\begin{enumerate}
+	\item we can study the learning process of the agent itself (i.e., what happens at each step of the learning process;
+	\item we can study what we believe the end result of the agent's learning process should be.
+\end{enumerate}
+Our work focuses on approach (2).
 
-We assume that the best representation of the worlds we study should exactly mirror the structure of the worlds themselves in the structure of the agent's representation, and so the end result of the agent's learning process should be the relevant structure of the world being present in the structure of the agent's representation of the world
-\draftnote{blue}{awjdean}{Can we prove that the representation 'world' should be a subworld of $\mathscr{W}$ ?}.
-By initially studying the structure of the worlds themselves, rather than structure of an agent's representation, we simplify the problem we are tackling since we no longer have to consider each step of the learning process; this provides the opportunity to generalises our results somewhat - for example, if we prove that the structure of the world does not obey certain conditions then we might be able to show that this is true no matter the process used for learning
-\draftnote{blue}{awjdean}{Flesh this out a bit more - talk about learning equilibria ?}
+\newthought{We assume that} the best representation of the worlds we study should mirror the relevant structure of the worlds in the structure of the agent's representation; this means the end result of the agent's learning process should be the relevant structure of the world being present in the structure of the agent's representation of the world.
+
+\begin{propositionE}[][normal]
+	The representation 'world' should be isomorphic to a subworld of $\mathscr{W}$.
+\end{propositionE}
+\begin{proofE}
+	\draftnote{blue}{awjdean}{Not sure about this}
+	\draftnote{green}{Consider}{Is this actually an assumption ?}
+\end{proofE}
+
+By initially studying the structure of the worlds themselves, rather than structure of an agent's representation, we can simplify the problem we are tackling since we no longer have to consider each step of the learning process; this provides the opportunity to generalises our results somewhat; results proven about the structure of an agent's representation at the end of the learning process could be agnostic to the learning algorithm\footnote{
+This would be the case if the learning algorithm was path independent.
+}
+
+Additonally, it might be the case
+
+For example, if we prove that the structure of the world does not obey certain conditions then we might be able to show that this is true no matter the process used for learning
+\draftnote{blue}{awjdean}{Flesh this out a bit more - talk about learning equilibria ?
+We assume that when learning reaches an equilibirum state, that the dynamics of the representation states are isomorphic to a subworld of $\mathscr{W}$.
+}
 .
 
-Once we have this foundation, we can introduce aspects of non ideal sensors to see how they affect the agent's representation when learning the structure of the same worlds we've already studied.
+\draftnote{red}{UP NEXT}{
+\begin{enumerate}
+	\item Define the representation multigraph.
+	\item We assume that the representation multigraph is ismorphic to a subworld of $\mathscr{W}$ at the end of the learning process
+	\begin{itemize}
+		\item (footnote) Or when learning equilibirum reached.
+	\end{itemize}
+\end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draftnote{red}{DIVIDER}
+
 
 \draftnote{green}{To do}{
 	\begin{enumerate}
@@ -238,7 +315,37 @@ Once we have this foundation, we can introduce aspects of non ideal sensors to s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Actions of agents}
 
-In this section, we define the actions of agents as collections of transformations that are labelled by their associated action, and then we define some relevant properties of these actions.
+In this section, we define the actions of agents as collections of transformations that are labelled by their associated action.
+We then define some relevant properties of these actions.
+
+\draftnote{red}{DIVIDER}{}
+\draftnote{blue}{Note}{
+	Need to consider $\hat{D}_{A}$ instead of $\hat{D}$ when looking at reachable worlds due to the actions of an agent.
+}
+
+\draftnote{red}{Include}{
+\begin{enumerate}
+    \item [Mention] Actions can be represented as tuples of their unique compositions of minimum actions.
+    \item Define operator $\operatorname{Seq}: \hat{A}^{\ast} \to \hat{A}^{(n)}$ that sends an action to its tuple of minimum actions.
+    \begin{itemize}
+        \item $\operatorname{Seq}$ is a bijective mapping because each action has a unique minimum action tuple.
+    \end{itemize}
+    \item (after introducing $\bot$)
+		Say something about how if we say $a \ast w$ is defined we mean $a \ast w \neq \bot$.
+\end{enumerate}
+}
+
+\draftnote{green}{Include}{
+	\begin{enumerate}
+		\item \textbf{Figures:}
+		      \begin{itemize}
+			      \item Diagram showing what $W$, $Z$, $A$, $w$, $z$, $a$ are.
+		      \end{itemize}
+	\end{enumerate}
+}
+
+\draftnote{red}{DIVIDER}{}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Actions as collections of labelled transformations}
@@ -336,7 +443,7 @@ The extended map $l$ now satisfies the following conditions:
 
 For $d \in D_{A}$ with $s(d) = w$, $t(d) = w'$ and $l(d) = a$, we will often denote $d$ by $d: w \xrightarrow{a} w'$.
 
-A summary of the procedure we've taken to label the transformations of a world $\mathscr{W}$ that are due to the actions of an agent is given by figure \ref{fig:action_labelling_procedure}.
+A summary of the procedure we've taken to label the transformations of a world $\mathscr{W}$ that are due to the actions of an agent is given by \cref{fig:action_labelling_procedure}.
 
 \begin{figure}
 	\centering
@@ -394,7 +501,7 @@ if $a = \hat{a}_{k}...\hat{a}_{1}$, then
 	         & = \dots
 \end{align}
 
-Equation \ref{eqn:circ_ast_compatibility} means that $\ast$ is an \emph{action} of the algebra $(\hat{A}^{\ast}, \circ)$ on the set $W$ \footnote{
+\Cref{eqn:circ_ast_compatibility} means that $\ast$ is an \emph{action} of the algebra $(\hat{A}^{\ast}, \circ)$ on the set $W$ \footnote{
 	The action of an algebra is different to the actions of an agent.
 	Yes, it's confusing!
 }.
@@ -404,7 +511,7 @@ Equation \ref{eqn:circ_ast_compatibility} means that $\ast$ is an \emph{action} 
 \subsection{Actions as (partial) functions.}
 
 Consider all the transformations that are labelled by a particular action $a \in \hat{A}^{\ast}$.
-Together these transformations form a partial function $f_{a}: W \to W$ because for any $w \in W$ either $a \ast w$ is undefined or $a \ast w$ is defined and there is a unique world state $w' \in W$ for which $a \ast w = w'$ (from action condition \ref{actcon:action_gives_single_outcome}).
+Together these transformations form a partial function $f_{a}: W \to W$ because for any $w \in W$ either $a \ast w$ is undefined or $a \ast w$ is defined and there is a unique world state $w' \in W$ for which $a \ast w = w'$ (from \cref{actcon:action_gives_single_outcome}).
 Each of the transformations labelled by the action $a$ is an assignment of $f_{a}$ to one of the world states in $W$ ($f_{a}(w) \mapsto a \ast w = w'$).
 
 Formally, we can curry\footnote{Currying allows us to transform an operation with multiple arguments into a collection of functions with single arguments by fixing all but one of the operation's arguments.} the action effect operator $\ast : \hat{A}^{\ast} \times W \to W$
@@ -416,7 +523,7 @@ to obtain a collection of (partial) functions
 	\mathcal{T}_{\hat{A}^{\ast}} = \{f_{a}: W \to W \mid f_{a}(w) = a \ast w \text{ where defined, for each } a \in \hat{A}^{\ast} \}
 \end{equation}
 
-These function $f_{a}$:
+These functions $f_{a}$
 \begin{enumerate}
 	\item are not generally surjective because for a given $w \in W$ there is not necessarily a transformation $d \in D$ with $l(d) = a$ and $t(d) = w$ \draftnote{blue}{awjdean}{Illustrative diagram}.
 
@@ -656,7 +763,7 @@ Other properties of $f_{a} \in \mathcal{T}_{\hat{A}^{\ast}}$:
 		      \begin{compactitem}
 			      \item Physically, the identity action $1 \in A$ corresponds to the no-op action (\textit{i.e.}, the world state does not change due to this action).
 		      \end{compactitem}
-		\item Action condition \ref*{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
+		\item \Cref{actcon:action_gives_single_outcome} means that for each $w \in W$, there is a subset of $\hat{D}_{A}$ given by $\{d \mid d \in \hat{D}_{A}\textit{, } s(d)=w\}$; for each of these subsets, the elements of the subset are uniquely labelled (within the subset) by $l$.
 		      In other words, the transformations in $D_{A}$ with source $s(d)$ are uniquely labelled by $\hat{l}$ for all $d \in D_{A}$.
 		\item Summary
 		      \begin{compactitem}
@@ -684,7 +791,7 @@ Our chosen toy problem is a $2\times 2$ cyclic grid world $\mathscr{W}_{\alpha}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{World states of $\mathscr{W}_{\alpha}$}\label{sec:World states of example}
 
-The world states of $\mathscr{W}_{\alpha}$ are shown in figure \ref{fig:2x2-cyclical-grid-world-states}.
+The world states of $\mathscr{W}_{\alpha}$ are shown in \cref{fig:2x2-cyclical-grid-world-states}.
 So, for $\mathscr{W}_{\alpha}$, $W = \{ w_{0}. w_{1}, w_{2}, w_{3} \}$.
 \begin{figure}[H]
 	\centering
@@ -721,9 +828,9 @@ So, for $\mathscr{W}_{\alpha}$, $W = \{ w_{0}. w_{1}, w_{2}, w_{3} \}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transformations of $\mathscr{W}_{\alpha}$}
 
-We define that there are 24 atomic transformations in $\mathscr{W}_{\alpha}$: the 20 transformations of length 1 given in table \ref{tab:2x2_gridworld_length_1_transformations}\footnote{
-	We have chosen these because we know the actions we will give the agent in section \ref{sec:Actions of the agent in example}; there is a link between the structure of a world from the agent's perspective and the actions the agent will perform - more on this later.
-	However, these are the only transformations that are possible for a world with the world states given in section \ref{sec:World states of example}, the condition that all the transformations of the world are due to the actions of an agent with the actions provided in section \ref{sec:Actions of the agent in example}, and obeying action condition \ref{actcon:action_gives_single_outcome}.
+We define that there are 24 atomic transformations in $\mathscr{W}_{\alpha}$: the 20 transformations of length 1 given in \cref{tab:2x2_gridworld_length_1_transformations}\footnote{
+	We have chosen these because we know the actions we will give the agent in \cref{sec:Actions of the agent in example}; there is a link between the structure of a world from the agent's perspective and the actions the agent will perform - more on this later.
+	However, these are the only transformations that are possible for a world with the world states given in \cref{sec:World states of example}, the condition that all the transformations of the world are due to the actions of an agent with the actions provided in \cref{sec:Actions of the agent in example}, and obeying action condition \cref{actcon:action_gives_single_outcome}.
 	\draftnote{blue}{awjdean}{Put proof of this in appendices ?}
 }
 and the 4 trivial transformations $1_{w_{0}}$, $1_{w_{1}}$, $1_{w_{2}}$, and $1_{w_{3}}$.
@@ -766,7 +873,7 @@ We have deliberately positioned the vertices of our world diagram where we have 
 For example:
 \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/2x2_cyclical_min_trans_quirky.jpg}
 }
-containing the world states and the atomic transformations given in figure \ref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each atomic transformation as shown in $D_{\varepsilon}$ and table \ref{tab:2x2_gridworld_length_1_transformations}.
+containing the world states and the atomic transformations given in \cref{fig:2x2_cyclical_minimum_transformations}, since this displays the transformation structure of $\mathscr{W}_{\alpha}$ in a more intuitive way than giving the definitions of each atomic transformation as shown in $D_{\varepsilon}$ and \cref{tab:2x2_gridworld_length_1_transformations}.
 
 \begin{figure}[H]
 	\centering
@@ -796,7 +903,7 @@ Therefore, we have a bijective map $f = hb$ where $f(w_{i}) = z_{i}$ for $i = \{
 	Actions of the agent in $\mathscr{W}_{\alpha}$
 }\label{sec:Actions of the agent in example}
 
-Our agent has the following minimum actions: $\hat{A} = \{ 1, U, D, L, R \}$ as shown in table \ref{tab:actions_of_agent_2_by_2_cyclical}.
+Our agent has the following minimum actions: $\hat{A} = \{ 1, U, D, L, R \}$ as shown in \cref{tab:actions_of_agent_2_by_2_cyclical}.
 \begin{table}[H]
 	\centering
 	\begin{tabular}{|c|c|}
@@ -829,9 +936,9 @@ This behaviour is similar to that found in games like Pac-Man \draftnote{blue}{a
 A more precise example would be that if the embodied agent performs the up action while $\mathscr{W}_{\alpha}$ is in world state $w_{0}$ then $\mathscr{W}_{\alpha}$ will transform into world state $w_{2}$.
 
 Before we label the transformations in $D$ with their associated actions, we must identify which transformations should be labelled and how (i.e, we must identify the elements of the sets $\hat{D}_{A}$ and $D_{A}$).
-For our example world $\mathscr{W}_{\alpha}$, the procedure outlined in figure \ref{fig:action_labelling_procedure} in somewhat simplified because all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of the agent embodied in the world; this means that $\hat{D} = \hat{D}_{A}$\footnote{so $\hat{D}_{A} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\varepsilon}$.}, and therefore $\mathscr{W} = \mathscr{W}_{A}$ and $D = D_{A}$.
+For our example world $\mathscr{W}_{\alpha}$, the procedure outlined in \cref{fig:action_labelling_procedure} in somewhat simplified because all the transformations in $\mathscr{W}_{\alpha}$ are due to the actions of the agent embodied in the world; this means that $\hat{D} = \hat{D}_{A}$\footnote{so $\hat{D}_{A} = \{ d_{1}, d_{2}, d_{3}, \dots, d_{20} \} \cup D_{\varepsilon}$.}, and therefore $\mathscr{W} = \mathscr{W}_{A}$ and $D = D_{A}$.
 
-The transformations of $\mathscr{W}_{\alpha}$ due to the agent's minimum actions (i.e., the effect of the minimum actions on the world states $W$) are shown in table \ref{tab:2x2_gridworld_minimum_actions}.
+The transformations of $\mathscr{W}_{\alpha}$ due to the agent's minimum actions (i.e., the effect of the minimum actions on the world states $W$) are shown in \cref{tab:2x2_gridworld_minimum_actions}.
 Since all transformations of $\mathscr{W}_{\alpha}$ are due to the actions of the agent, this table shows all the atomic transformations in $\mathscr{W}_{\alpha}$ and how they are labelled using the labelling map $l$.
 
 \begin{table}[H]
@@ -855,7 +962,7 @@ Since all transformations of $\mathscr{W}_{\alpha}$ are due to the actions of th
 	\label{tab:2x2_gridworld_minimum_actions}
 \end{table}
 
-We can use table \ref{tab:2x2_gridworld_minimum_actions} to construct the labelling map $\hat{l}$ - the construction of $\hat{l}$ and $l$ and the generation of table \ref{tab:2x2_gridworld_minimum_actions} would happen during the agent's learning process.
+We can use \cref{tab:2x2_gridworld_minimum_actions} to construct the labelling map $\hat{l}$ - the construction of $\hat{l}$ and $l$ and the generation of \cref{tab:2x2_gridworld_minimum_actions} would happen during the agent's learning process.
 
 \begin{table}[H]
 	\centering
@@ -895,7 +1002,7 @@ We can use table \ref{tab:2x2_gridworld_minimum_actions} to construct the labell
 	\label{tab:2x2_cyclical_labelling_with_min_actions}
 \end{table}
 
-The application of the labelling map $\hat{l}$ as a world diagram is shown in figure \ref{fig:2x2_cyclical_labelling_with_min_actions}\footnote{
+The application of the labelling map $\hat{l}$ as a world diagram is shown in \cref{fig:2x2_cyclical_labelling_with_min_actions}\footnote{
 	It's important to note that the no-op action $1$, where the agent does nothing, does not label the trivial transformations $1_{w}$, which are labelled by the empty action $\varepsilon$.
 	This means the no-op action does not act as an identity element for $(\hat{A}\ast, \circ)$.
 }.
@@ -909,7 +1016,7 @@ The application of the labelling map $\hat{l}$ as a world diagram is shown in fi
 	\label{fig:2x2_cyclical_labelling_with_min_actions}
 \end{figure}
 
-Remember, figure \ref{fig:2x2_cyclical_labelling_with_min_actions} only shows the minimum action transformations in $\hat{D}_{A}$ labelled by there associated minimum actions in $\hat{D}$ - we only show these transformations for simplicity.
+Remember, \cref{fig:2x2_cyclical_labelling_with_min_actions} only shows the minimum action transformations in $\hat{D}_{A}$ labelled by there associated minimum actions in $\hat{D}$ - we only show these transformations for simplicity.
 
 When considering the full transformation structure of $\mathscr{W}_{\alpha}$, there will be transformations between any two world states; for example, $d_{9} \circ d_{1}: w_{0} \to w_{3}$.
 In fact, there are a (countably) infinite number of transformations in $D$ between any two world states; for example, $D \circ R$, $D \circ R \circ 1^{n}$ ($n \in \mathbb{N}$), $1^{n} \circ D \circ R$ ($n \in \mathbb{N}$), $D \circ R \circ (L \circ R)^{n}$ ($n \in \mathbb{N}$) etc...
@@ -919,7 +1026,7 @@ Similarly, there are a (countably) infinite number of actions in $A$ between any
 \draftnote{green}{To do}{
 	\begin{enumerate}
 		\item Show parts of: $\hat{A}^{\ast}$, $D$
-		\item Summary at end: State what each of the things are shown in figure \ref{fig:action_labelling_procedure}.
+		\item Summary at end: State what each of the things are shown in \cref{fig:action_labelling_procedure}.
 		\item In section introduction --> say toy example inspired by Higgins (2018) + Caselles Dupres (?)
 		\item Show example of atomic transformations in $\hat{D}_{A}$ - example with intermediate world states that are skipped over by transformations due to actions of agent.
 		\item Change symbol for $\mathscr{W}_{\alpha}$ to include agent ? -- add agent to $(W, \hat{D}. s, t)$ ?
