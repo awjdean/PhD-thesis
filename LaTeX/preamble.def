@@ -14,10 +14,11 @@
 \DeclareEmphSequence{\bfseries\boldmath,\itshape}
 \RequirePackage{anyfontsize}
 \RequirePackage{enumitem}
-\setlist[enumerate,1]{label={(\arabic*)}}
+\setlist[enumerate,1]{label={(\arabic*)}, leftmargin=*}
 
 % FIGURES
 \RequirePackage{subcaption}
+\input{LaTeX/TikZit/tikzit.sty}
 \RequirePackage{tikz-cd}
 \RequirePackage{float}
 % \RequirePackage{caption}
@@ -78,20 +79,24 @@
 
 
 
-% THEOREM ENVIRONMENTS.
-\theoremstyle{definition} % TODO: Customise environment styles.
-\newtheorem{theorem}{Theorem}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{remark}{Remark}[subsection]
-\newtheorem*{example}{Example}
-\newtheorem{proposition}{Proposition}[section]
-\providecommand*\propositionautorefname{Proposition}
-\newtheorem{corollary}{Corollary}[proposition]
-\providecommand*\corollaryautorefname{Corollary}
-\newtheorem{action_condition}{Action condition}
-\newtheorem{lemma}{Lemma}[proposition]
-\providecommand*\lemmaautorefname{Lemma}
-\newtheorem{postulate}{Postulate}
+% % THEOREM ENVIRONMENTS.
+% \theoremstyle{definition} % TODO: Customise environment styles.
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{definition}{Definition}[section]
+% \newtheorem{remark}{Remark}[subsection]
+% \newtheorem*{example}{Example}
+% \newtheorem{proposition}{Proposition}[section]
+% \providecommand*\propositionautorefname{Proposition}
+% \newtheorem{corollary}{Corollary}[proposition]
+% \providecommand*\corollaryautorefname{Corollary}
+% \newtheorem{actioncondition}{Action condition}
+% \providecommand*\actionconditionautorefname{Action condition}
+% \newtheorem{lemma}{Lemma}[proposition]
+% \providecommand*\lemmaautorefname{Lemma}
+% \newtheorem{postulate}{Postulate}
+% \providecommand*\postulateautorefname{Postulate}
+% \crefname{postulate}{postulate}{postulates}
+% \Crefname{postulate}{Postulate}{Postulates}
 
 % TABLE OF CONTENTS
 \RequirePackage{tocbibind}
@@ -109,3 +114,21 @@
 
 % REFERENCING
 \RequirePackage{cleveref}
+
+% THEOREM ENVIRONMENTS.
+\theoremstyle{definition} % TODO: Customise environment styles.
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[subsection]
+\newtheorem*{example}{Example}
+\newtheorem{proposition}{Proposition}[section]
+\providecommand*\propositionautorefname{Proposition}
+\newtheorem{corollary}{Corollary}[proposition]
+\providecommand*\corollaryautorefname{Corollary}
+\newtheorem{actioncondition}{Action condition}
+\providecommand*\actionconditionautorefname{Action condition}
+\newtheorem{lemma}{Lemma}[proposition]
+\providecommand*\lemmaautorefname{Lemma}
+\newtheorem{postulate}{Postulate}
+\providecommand*\postulateautorefname{Postulate}
+\newtheorem{notation}{Notation}

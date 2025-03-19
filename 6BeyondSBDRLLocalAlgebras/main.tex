@@ -1170,7 +1170,7 @@ Note about how $\bot$ could be replaced by a non undefined state with the same a
     \draftnote{blue}{To do}{Give this world a Greek letter.}
     Consider a world-agent pair $\mathscr{W}-\mathscr{A}$ with $W = \{ w, w_{1}, w_{2}, \bot \}$, $\hat{A} = \{\hat{a}, \hat{b}\}$, and $\hat{\ast}$ given by
     \footnote{\begin{figure}[H]
-        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/circ_sim_w_not_well_defined_does_not_mean_no_associativity_counter_example.jpeg}
+        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/circ_sim_w_not_well_defined_does_not_mean_no_associativity_counter_example.png}
         \caption{
         \draftnote{blue}{To do}{Improve caption.}
         }
@@ -1369,7 +1369,10 @@ Proofs about $[\epsilon]_{\sim_{w}}$
     \item \textbf{Set up.}
         \draftnote{blue}{To do}{Give this world a Greek letter.}
         Consider a world-agent pair $\mathscr{W}-\mathscr{A}$ with $W = \{ w, w', w'', \bot \}$, $\hat{A} = \{a, b\}$, and $\hat{\ast}$ given by\footnote{
-        \draftnote{blue}{To do}{Minimum action world diagram.}
+        \begin{figure}[H]
+            \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/cayley_table_constructions_dont_always_satisfy_identity.png}
+            \caption{Caption}
+        \end{figure}
         }
         \begin{table}[H]
             \centering
@@ -1906,7 +1909,7 @@ Irreversible actions and vertex-transitive worlds.
 \begin{enumerate}
     \item \textbf{Set up.}
     Consider a world-agent pair with $W = \{w_{i}\}_{i \in \mathbb{Z}}$, $\hat{A} = \{a\}$, and $\hat{\ast}$ given by\footnote{\begin{figure}[H]
-        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/infinite_double_linear_chain_world.jpeg}
+        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/infinite_double_linear_chain_world.png}
         \caption{
         \draftnote{blue}{To do}{Improve caption.}
         }
@@ -2193,7 +2196,7 @@ Do we need to include something about $D_{A}$ vs $\hat{D}_{A}$ and $D_{A}^{\hat{
     \end{equation}
     }, and $\hat{\ast}$ given by\footnote{
     \begin{figure}[H]
-        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/binary_tree_world.jpeg}
+        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/binary_tree_world.png}
         \caption{\draftnote{blue}{To do}{Caption.}}
     \end{figure}
     }
@@ -3415,6 +3418,11 @@ An easy mistake: \autocite{caselles2020sensory}
     \end{itemize}
     \item Check the PhD thesis that \autocite{caselles2020sensory} cited.
 \end{enumerate}
+}
+
+\draftnote{blue}{Footnote}{
+	We can also reproduce these functions using the formalism given by \autocite{caselles2019symmetry}, which describes the dynamics of the world in terms of a multivariate function $f: A \times W \to W$.
+	If we let $f: A \times W \to W$ be the dynamics of the world then the transformation caused by an action $a \in A$ on a world state $w \in W$ (where $a \ast w$ is defined) is given by $(a,w) \mapsto f(a,w) = a \ast w$. \draftnote{blue}{awjdean}{Put stuff like this in a separate "Other formalisms described using our formalism" section after Reproducing SBDRL ?}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

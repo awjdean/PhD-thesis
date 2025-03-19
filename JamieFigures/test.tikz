@@ -1,0 +1,3 @@
+\begin{tikzpicture}
+  \node[world state] {State};
+\end{tikzpicture}

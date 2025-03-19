@@ -6,24 +6,21 @@ Extending the framework
 
 
 \draftnote{blue}{Stochastic worlds}{
-Keep transformations deterministic, but actions 'select' different transformations based on a probability distribution.
+\begin{enumerate}
+    \item Keep transformations deterministic, but actions 'select' different transformations based on a probability distribution.
+    \item World states as a distribution - see Higgins.
+\end{enumerate}
 }
 
 \draftnote{blue}{Continuous worlds}{
 In the continuous case, atomic transformations are infinitesimal transformations.
 }
 
-draftnote{red}{Tracelet theory - Nicolas Behr}{
+\draftnote{red}{Tracelet theory - Nicolas Behr}{
 	Extracting algebras from graphs.
 }
 
-\draftnote{blue}{To do: non-ideal sensors}{
-Section on non-ideal sensors and how we need to adjust the idea of what is required for the decision process of the agent to be a Markov process.
-For example, in the non-ideal sensors case the current representation state needs to be included in what the agent uses to make its decision since occlusion (i.e., $b(w_{1})=b(w_{2})$) is possible (thought experiment where there is a wall and either an object is hidden behind the wall or there is no object behind the wall; in this case, the agent `knowing` that the object is hidden behind the wall would affect the agent's prediction of what its observation state would be when it looks behind the wall.
-)
-}
-
-\draftnote{blue}{More realtistic inference mapping}{
+\draftnote{blue}{More realistic inference mapping}{
 We'd actually have
 \begin{equation}
 	h: O \times Z \to Z,
@@ -32,12 +29,41 @@ such that
 \begin{equation}
 	h(o_{t+1}, z_{t}) = z_{t+1}
 \end{equation}
-where $o_{t+1}$ is the observation state at time $t+1$, $z_{t}$ is the representation state at time $t$, and $z_{t+1}$ is the representaiton state at time $t+1$.
+where $o_{t+1}$ is the observation state at time $t+1$, $z_{t}$ is the representation state at time $t$, and $z_{t+1}$ is the representation state at time $t+1$.
 This is because the next representation state should depend on the current representation state.
 Do we have something where the representation of the action is affected by the change from the old to the new observation states ?
-So somehting like:
+So something like:
 \begin{equation}
 	h: A \times O \to Z
 \end{equation}
-where $A$ is the representation fo the action ?
+where $A$ is the representation of the action ?
 }
+
+\draftnote{blue}{Sensory perception in an agent}{
+\begin{enumerate}
+    \item Look at Higgins distribution set up.
+    \item Cones figure - cone in $W$ leading to a single observation in $O$ - put in later discussion.
+    \item If the agent has ideal sensors (i.e., there is no noise from the sensors) the number of possible observation states is less than or equal to the number of world states (i.e., $|O| \leq |W|$) - put this should later with a proof.
+    \item Non-ideal sensors
+    \begin{itemize}
+        \item Section on non-ideal sensors and how we need to adjust the idea of what is required for the decision process of the agent to be a Markov process.
+        \item For example, in the non-ideal sensors case the current representation state needs to be included in what the agent uses to make its decision since occlusion (i.e., $b(w_{1})=b(w_{2})$) is possible (thought experiment where there is a wall and either an object is hidden behind the wall or there is no object behind the wall; in this case, the agent `knowing` that the object is hidden behind the wall would affect the agent's prediction of what its observation state would be when it looks behind the wall).
+    \end{itemize}
+\end{enumerate}
+}
+
+\newthought{We propose that} there are two approaches for studying the learning of an agent:
+\begin{enumerate}
+	\item we can study what happens at each stage of the learning process; or
+	\item we can study what the end result of the agent's learning process should be.
+\end{enumerate}
+Our work focuses on approach (2).
+
+
+\draftnote{red}{Insider an agent's representation}{
+\begin{enumerate}
+    \item $\mathscr{W}_{\mathscr{A}}$ is structure we expect to find in an agent's representation at the end of the learning process.
+    \item (postulate) Only transformations that an agent attributes causality to will appear in its representation.
+\end{enumerate}
+}
+
