@@ -18,9 +18,9 @@ which sends each transformation to the world state it originates at, and a targe
 which sends each transformation to the world state it ends at.
 Note that we haven't enforced any structure on the world states or the transformations except that each transformation connects two world states.
 
-\begin{definition}[\textbf{Change to Notation block}]
+\begin{notation}
 	We denote a transformation $d \in D$ with a source of $w$ and a target of $w'$ as $d: w \to w'$.
-\end{definition}
+\end{notation}
 
 These source and target maps allow us to represent a world as a type of graph $\mathscr{W}$ with arrows (the transformations in $D$) connecting vertices (the world states $W$).
 Since it is possible to have a world where more than one transformation has the same source and the same target, our graph $\mathscr{W}$ must be a \emph{multigraph}.
@@ -31,12 +31,12 @@ A multigraph that is directed is called a \emph{multidigraph}.
 	The most abstract mathematical representation of a world is a multidigraph that consists of a collection $W$ of world states as vertices, a collection $D$ of transformations as arrows, a source map $s$ that maps each arrow to the world state it is leaving, and a target map $t$ that maps each arrow to the world state it is entering.
 \end{postulate}
 
-\begin{definition}[\textbf{Change to Notation block}]
-	We denote a world $\mathscr{W}$ with a set $W$ of world states, a set $D$ of transformations, a source map $s$ and a target map $t$ by
-	\begin{equation}
-		\mathscr{W} = (W, D, s, t).
-	\end{equation}
-\end{definition}
+\begin{notation}
+    We denote a world $\mathscr{W}$ with a set $W$ of world states, a set $D$ of transformations, a source map $s$ and a target map $t$ by
+    \begin{equation}
+        \mathscr{W} = (W, D, s, t).
+    \end{equation}
+\end{notation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Constructing worlds from atomic transformations}
@@ -49,9 +49,9 @@ We will construct our world $\mathscr{W}$ from atomic transformations\footnote{
 Note that, in a similar same way as for distinguishable world states, when we use our framework to describe the representation of an agent, these atomic transformations can be thought of as the transformations giving the smallest change to an aspect of a world state that is detectable by the agent.
 }, but first we will establish some properties of atomic transformations.
 
-\begin{definition}[\textbf{Change to Notation block}]
-	We use a $\hat{ }$ symbol to explicitly show that something is atomic, contains atomic things, or that an operator acts exclusively on atomic things.
-\end{definition}
+\begin{notation}
+    We use a $\hat{ }$ symbol to explicitly denote that something is atomic, contains atomic things, or that an operator acts exclusively on atomic things.
+\end{notation}
 
 Let $\hat{D}$ be the set of atomic transformations.
 We define atomic source and target maps
@@ -105,10 +105,7 @@ This operator $\hat{\circ}$ is the operator of concatenation of directed walks o
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Trivial transformations.}
-\draftnote{purple}{PS}{
-Put trivial transformations in $\hat{\mathscr{W}}$ or not? Not (matches with Kleene star operator).
-Therefore need to change either the diagrams of $\hat{\mathscr{W}}$ or the captions.
-}
+
 \newthought{For each world state} $w \in W$ of our multidigraph $\hat{\mathscr{W}}$, there is a trivial walk that does not leave $w$.
 We call the associated transformation of this trivial walk the \emph{trivial transformation at $w$} and denote it by $1_{w}$\footnote{
 Trivial transformations essentially represent no transformation happening in the world.
@@ -189,29 +186,24 @@ such that, for $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat
     \end{align}
 }.
 
-\draftnote{blue}{To do}{
-Something about how we can refer to worlds by $\mathscr{W}$ or by $\hat{\mathscr{W}}$ ?
-}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simplifications}
 
 \newthought{We make the} following simplifications to worlds in our framework.
 
+
 \paragraph{Deterministic worlds.}
 \newthought{In a \emph{deterministic}} world, every change in the current world state has a single guaranteed effect.
 A world that is not deterministic is called \emph{stochastic}; in a stochastic world, the same change to the current world state could produce different results.
-We will initially consider deterministic worlds\footnote{Extensions to stochastic worlds will be discussed in \draftnote{blue}{section ???}.
-}.
+We will initially consider deterministic worlds.
+
 
 \paragraph{Discrete worlds.}
 \newthought{In a \emph{discrete}} world, the number of states and the number of transformations between states are countable.
 A world that is not discrete is called \emph{continuous}.
 For simplicity, we only consider discrete worlds.
 However, we can make the following argument that it is actually more natural to consider discrete worlds than continuous worlds.
-Consider a continuous world $\mathscr{W}$ and an agent with $n$ sensors $\theta_{i}$ that can produce a sensor observation $o_{i}$ of $\mathscr{W}$ as\footnote{
-More on how we model the sensory observations of agents in \draftnote{blue}{section ???}.
-}
+Consider a continuous world $\mathscr{W}$ and an agent with $n$ sensors $\theta_{i}$ that can produce a sensor observation $o_{i}$ of $\mathscr{W}$ as
 \begin{equation}
 	\theta_{i}(w) = o_{i}
 \end{equation}
@@ -223,8 +215,7 @@ We hypothesis that there are transformations that cause changes to their source 
 Such transformations do not exist from the perspective of the agent; therefore, from the perspective of the agent there will be discrete jumps between perceptible world states\footnote{
 From this perspective, a world forms a sort of directed discrete manifold; we can sometimes approximate this to a sort of directed continuous manifold.
 }.
-We will initially consider discrete worlds\footnote{Extensions to continuos worlds will be discussed in \draftnote{blue}{section ???}.
-}.
+We will initially consider discrete worlds.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{World diagrams}
@@ -237,7 +228,7 @@ Since our set $D$ is very large\footnote{
 	\begin{center}
 		\FloatBarrier
 		\captionsetup{type=figure}
-		\includegraphics[width=1.0\linewidth]{2MathematicalFramework/Images/D_commonly_large.jpg}
+		\includegraphics[width=1.0\linewidth]{2MathematicalFramework/Images/D_commonly_large.png}
 		% \captionof{figure}{Test caption.}
 		\caption{A world diagram showing sequences of the transformations $d$ and $d'$ that are of the form $(d' \circ d)^{n}$.}
 	\end{center}
@@ -253,35 +244,35 @@ Put these in the margin as we go, then say something about how these are the sor
 	\centering
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/transformation.jpg}
+		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/transformation.png}
 		\caption{A world diagram showing a transformation.}
 		\label{fig:transformation}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/transformation_composition.jpg}
+		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/transformation_composition.png}
 		\caption{A world diagram showing the composition of two transformations $d$ followed by $d'$ to give a transformation $d' \circ d$.}
 		\label{fig:transformation_composition}
 	\end{subfigure}
 	\vskip\baselineskip
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/left_trivial_transformation.jpg}
+		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/left_trivial_transformation.png}
 		\caption{A world diagram showing a transformation $d: s(d) \to t(d)$ and its left identity element, the trivial transformation $1_{t(d)}$. Composing these two transformations gives the transformation $d$.}
 		\label{fig:left_trivial_transformation}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/right_trivial_transformation.jpg}
+		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/right_trivial_transformation.png}
 		\caption{A world diagram showing a transformation $d: s(d) \to t(d)$ and its right identity element, the trivial transformation $1_{s(d)}$. Composing these two transformations gives the transformation $d$.}
 		\label{fig:right_trivial_transformation}
 	\end{subfigure}
 	\vskip\baselineskip
 	\begin{subfigure}[b]{0.45\linewidth}
 		\centering
-		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/trivial_transformations_example_all_transformations.jpg}
+		\includegraphics[width=\linewidth]{2MathematicalFramework/Images/trivial_transformations_example_all_transformations.png}
 		\caption{A world diagram showing a transformation $d: s(d) \to t(d)$, its left identity $1_{t(d)}$, and its right identity $1_{s(d)}$.}
 		\label{fig:trivial_transformations_example_all_transformations}
 	\end{subfigure}
@@ -290,10 +281,16 @@ Put these in the margin as we go, then say something about how these are the sor
 
 It's important to note that, in a world diagram, the positioning (relative or absolute) of the world states and the shapes and lengths of the arrows do not matter:
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/isomorphic_world_diagrams.jpeg}
-	\caption{The properties of these world diagrams are identical (the world diagrams are isomorphic).}
-	\label{fig:isomorphic_world_diagrams}
+    \centering
+    \begin{tikzpicture}
+        \node (left) {\includegraphics[width=0.3\textwidth]{2MathematicalFramework/Images/isomorphic_world_diagrams_1.png}};
+        \node (sim) [right=1cm of left] {\Huge$\cong$};
+        \node (right) [right=1cm of sim] {\includegraphics[width=0.4\textwidth]{2MathematicalFramework/Images/isomorphic_world_diagrams_2.png}};
+    \end{tikzpicture}
+    \caption{
+    The properties of these world diagrams are identical (the world diagrams are isomorphic).
+    }
+    \label{fig:isomorphic_world_diagrams}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -319,7 +316,7 @@ A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\math
     \begin{enumerate}
         \item For all $d \in D'$, $s(d) \in W'$ and $t(d) \in W'$;
         \item For all $d, d' \in D'$ with $d: s(d) \to t(d)$ and $d': t(d) \to t(d')$, $d \circ d' \in D'$;
-        \item For all $w' \in W'$, $1_{w} \in D'$;
+        \item For all $w' \in W'$, $1_{w'} \in D'$;
     \end{enumerate}
     \item $s'$ is the restriction of $s$ to $D' \to W'$;
     \item $t'$ is the restriction of $t$ to $D' \to W'$\footnote{
@@ -334,7 +331,7 @@ A world $\mathscr{W}' = (W', D', s', t')$ is a \emph{subworld} of a world $\math
 If $\mathscr{W}' \subseteq \mathscr{W}$, then the atomic multidigraph of $\mathscr{W}'$ is not necessarily a sub-multidigraph of the atomic multidigraph of $\mathscr{W}$; in other words, $\mathscr{W}' \subseteq \mathscr{W}$ does not necessarily mean $\hat{D}' \subseteq \hat{D}$. For example, if $\hat{d}_{1}, \hat{d}_{2} \in \hat{D}$ and $\operatorname{Seq}(d_{3}) = (\hat{d}_{2}, \hat{d}_{1})$, it is possible to have a subworld where $\hat{d}_{1}, \hat{d}_{2} \centernot\in D'$ (and so $\hat{d}_{1}, \hat{d}_{2} \centernot\in \hat{D}'$) but have $d_{3} \in D$.
 In this case, $d_{3}$ would be an atomic transformation in $\mathscr{W}'$ (i.e., $d_{3} \in \hat{D}'$).\footnote{
 \begin{figure}[H]
-    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/transformation_composition.jpg}
+    \includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/transformation_composition.png}
     \caption{
     If $d_{3} = d_{2} \circ d_{1}$ and $d_{1}, d_{2} \in \hat{D}$, then when constructing a subworld we can remove $d_{1}$ and $d_{2}$ and keep $d_{3}$ (in which case $d_{3}$ would be an atomic transinformation in the subworld), but we cannot remove $d_{3}$ without removing $d_{1}$ and $d_{2}$.
     }
@@ -343,8 +340,7 @@ In this case, $d_{3}$ would be an atomic transformation in $\mathscr{W}'$ (i.e.,
 More generally, suppose $\mathscr{W}' \subseteq \mathscr{W}$; for $d \in D$ and $\operatorname{Seq}(d) = (\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1})$, if $\hat{d}_{n}, \hat{d}_{n-1}, \dots, \hat{d}_{1} \centernot\in \hat{D}'$, then either $d \in \hat{D}'$ or $d \centernot\in D$.
 \draftnote{purple}{PS: Consider}{Is this a proposition we need to prove ?}
 \footnote{
-This property of subworlds allows us to construct discrete worlds out of continuous worlds by, for example, removing atomic transformations that cannot be perceived by an agent as outlined in 
-\draftnote{blue}{section ???}{}.
+This property of subworlds allows us to construct discrete worlds out of continuous worlds by, for example, removing atomic transformations that cannot be perceived by an agent.
 }
 When constructing subworlds from a world, if removing atomic transformations causes another transformation to become an atomic transformation in the subworld, the number of atomic transformations in the subworld will decrease.
 Therefore, we have
@@ -359,8 +355,7 @@ Therefore, we have
 \newthought{Consider a world} $\mathscr{W}^{\aleph}$ containing two subworlds $\mathscr{W}$ and $\mathscr{W}'$.
 The subworld $\mathscr{W}'$ is \emph{reachable} from the subworld $\mathscr{W}$ if there exists a transformation $d \in D^{\aleph}$ with $d: w \to w'$ where $w \in W$ and $w' \in W'$.\footnote{
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/reachable_worlds.jpg}
+	\includegraphics[width=0.5\linewidth]{2MathematicalFramework/Images/reachable_worlds.jpeg}
 	\caption{
 		$\mathscr{W}_{C}$ is reachable from $\mathscr{W}_{A}$ and $\mathscr{W}_{B}$, but $\mathscr{W}_{A}$ is not reachable from $\mathscr{W}_{B}$ or $\mathscr{W}_{C}$.
 	}

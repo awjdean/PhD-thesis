@@ -3,9 +3,14 @@
 \RequirePackage{ifthen}
 \RequirePackage{pdflscape} % For landscape pages.
 
+\RequirePackage{datetime}
+% Define a new date format for month and year
+\newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+
 % MATHS
 \RequirePackage{amsthm, mathtools, newtxmath}
 \RequirePackage{centernot}
+\newcommand{\cat}[1]{\mathbf{#1}}
 
 % TYPESETTING
 \RequirePackage{bm} % Make stuff bold (including in maths mode).
@@ -24,6 +29,9 @@
 % \RequirePackage{caption}
 % \RequirePackage{graphicx, caption, subcaption}
 
+% Tikz
+\RequirePackage{LaTeX/quiver}
+
 % TABLES
 \RequirePackage{multirow}
 \RequirePackage{tabularx}
@@ -31,6 +39,7 @@
 \RequirePackage{colortbl}
 \RequirePackage{longtable}
 \RequirePackage{adjustbox}
+\RequirePackage{array}
 
 % ALGORITHMS
 \RequirePackage{algorithm}
@@ -59,10 +68,10 @@
 % CITATIONS & BIBLIOGRAPHY
 \RequirePackage[
     backend=biber,
-    style=alphabetic,
-    sorting=ynt,
-    autocite=plain,
-    backref=true
+    style=authoryear, % Author-year citation style
+    sorting=nyt,      % Sort by name, year, title
+    % autocite=inline,  % Inline citations
+    backref=true      % Enable back references
 ]{biblatex}
 \addbibresource{bibliography.bib}
 % Adding to TOC at the start of the bibliography section

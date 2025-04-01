@@ -1,0 +1,977 @@
+\section{Preliminaries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Categories and morphisms}
+
+\newthought{A \emph{category} $\mathcal{C}$ consists} of
+\begin{enumerate}
+    \item \textbf{Objects:}
+    a class $\text{Ob}(\mathcal{C})$ of objects;
+    
+    \item \textbf{Morphisms:}\footnote{
+    A \emph{morphism} is a structure preserving map between objects.
+    }
+    for each pair $X$, $Y$ of objects, a class $\text{Hom}(X,Y)$ of morphisms $\alpha : X \to Y$ that satisfy the following:
+    \begin{enumerate}
+        \item \textbf{Composition law:}
+        Given two morphisms $\alpha \in \text{Hom}(X,Y)$ and $\beta \in \text{Hom}(Y,Z)$, there exists a morphism
+        \begin{equation}
+            \beta \circ \alpha \in \text{Hom}(X,Z)
+        \end{equation}
+        called the \emph{composition} of $\alpha$ and $\beta$.
+        
+        \item \textbf{Existence of identity morphisms:}
+        Given an object $X$, there exists a morphism $\text{id}_{X} \in \text{Hom}(X,X)$ such that for any morphism $\alpha \in \text{Hom}(X, A)$,
+        \begin{equation}
+            \alpha \circ \text{id}_{X} = \alpha
+        \end{equation}
+        and for any morphism $\beta \in \text{Hom}(B,X)$,
+        \begin{equation}
+            \text{id}_{X} \circ \beta = \beta.
+        \end{equation}
+        
+        \item \textbf{Associativity.}
+        For any three morphisms $\alpha \in \text{Hom}(X,Y)$, $\beta \in \text{Hom}(Y,Z)$, $\gamma \in \text{Hom}(Z,U)$, the following associative law is satisfied:
+        \begin{equation}
+            \gamma \circ ( \beta \circ \alpha) = (\gamma \circ \beta) \circ \alpha.
+        \end{equation}
+    \end{enumerate}
+\end{enumerate}
+
+A category $\mathcal{C}$ is a \emph{small category} if its collection of objects $\text{Ob}(\mathcal{C})$ is a set, and its collections of morphisms $\text{Hom}_{\mathcal{C}}(X, Y)$, for $X,Y \in \text{Ob}(\mathcal{C})$, are also sets.
+
+A \emph{discrete category} $\mathcal{C}$ is a category in which the only morphisms are identity morphisms; in other words, for $A, B \in \text{Ob}(\mathcal{C})$,
+\begin{align}
+    & \text{Hom}(A, A) = \{\text{id}_A\} \\
+    & \text{Hom}(A, B) =  \emptyset \quad \text{for $A \neq B$}.
+\end{align}
+
+
+\newthought{A morphism $f: X \to Y$ in} a category $\mathcal{C}$ is a \emph{split monomorphism} if there exists a morphism $g: Y \to X$ such that
+\begin{equation}
+    g \circ f = \text{id}_{X}.
+\end{equation}
+$g$ is called a \emph{left inverse} of $f$.
+A morphism $f: X \to Y$ is a \emph{split epimorphism} if there exists a morphism $h: Y \to X$ such that
+\begin{equation}
+    f \circ h = \text{id}_{Y}.
+\end{equation}
+$h$ is called a \emph{right inverse} of $f$.
+
+A morphism $\alpha : X \to Y$ in a category $\mathcal{C}$ is an \emph{isomorphism} if it is both a split monomorphism and a split epimorphism is an isomorphism; formally, a morphism $\alpha : X \to Y$ in a category $\mathcal{C}$ is an isomorphism if there exists another morphism $\beta : X \to Y$ in $\mathcal{C}$ such that
+\begin{align}
+    & \beta \circ \alpha = \text{id}_{X} \\
+    \text{and } & \alpha \circ \beta = \text{id}_{Y}
+\end{align}
+\begin{notation}
+    An isomorphism $\alpha : X \to Y$ can be denoted by $X \overset{\alpha}{\cong} Y$.
+\end{notation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Functors}
+
+\newthought{A \emph{functor} is} a structure-preserving map between two categories.
+For two categories $\mathcal{A}$ and $\mathcal{B}$, a functor $F: \mathcal{A} \to \mathcal{B}$ from $\mathcal{A}$ to $\mathcal{B}$ assigns to each object in $\mathcal{A}$ an object in $\mathcal{B}$ and to each morphism in $\mathcal{A}$ a morphism in $\mathcal{B}$ such that the composition of morphisms and the identity morphisms are preserved.
+A functor transforms objects and morphism from one category to another in a way that preserves the structure of the original category.
+
+Formally, a functor $F: \mathcal{A} \to \mathcal{B}$ maps:
+\begin{enumerate}
+    \item each object $A \in \text{Ob}(\mathcal{A})$ to an object $F(A) \in \mathcal{B}$
+    \begin{equation}
+        F: \text{Ob}(\mathcal{A}) \to \text{Ob}(\mathcal{B});
+    \end{equation}
+
+    \item each morphism $f: A \to B$ in $\mathcal{A}$ to a morphism $F(f): F(A) \to F(B)$ in $\mathcal{B}$
+    \begin{equation}
+        F: \text{Hom}_{\mathcal{A}}(X, Y) \to \text{Hom}_{\mathcal{B}}(F(X), F(Y)),
+    \end{equation}
+    while preserving
+    \begin{enumerate}
+        \item \textbf{Composition:} for any two composable morphisms $f,g \in \mathcal{A}$,
+        \begin{equation}
+            F(f \circ g) = F(f) \circ F(g);
+        \end{equation}
+
+        \item \textbf{Identities:} for any object $X$ in $\mathcal{A}$,
+        \begin{equation}
+            F(\text{id}_{X}) = \text{id}_{F(X)}.
+        \end{equation}
+    \end{enumerate}
+\end{enumerate}
+A \emph{strict functor} satisfies these rules exactly, not just up to isomorphism.
+The \emph{data} of a functor consists of the object mapping and the morphism mapping specific to that functor.
+
+A functor $F : \mathcal{C} \to \mathcal{D}$ is called \textbf{faithful} if, for every pair of objects $X, Y \in \mathcal{C}$, the function\footnote{
+    Faithfulness ensures that the functor does not "collapse" distinct morphisms.
+}
+\begin{equation}
+    F_{X,Y} : \text{Hom}_{\mathcal{C}}(X,Y) \to \text{Hom}_{\mathcal{D}}(F(X), F(Y))
+\end{equation}
+is injective. That is, if $f, g : X \to Y$ are two morphisms in $\mathcal{C}$ with $f \neq g$, then it must be that 
+\begin{equation}
+    F(f) \neq F(g) \quad \text{in } \mathcal{D}.
+\end{equation}
+
+A \emph{concrete category} $\mathcal{C}$ over a base category $\mathcal{B}$ is a pair $(\mathcal{C}, U)$ where $U: \mathcal{C} \to \mathcal{B}$ is a faithful functor.
+
+An \emph{endofunctor} is a functor $F: \mathcal{C} \to \mathcal{C}$ that maps a category to itself.
+
+The \emph{kernel congruence} of a functor tell us which morphisms are indistinguishable to the functor because the functor treats them as equivalent.
+Formally, the kernel congruence of a functor $F: \mathcal{C} \to \mathcal{D}$ is the equivalence relation on the morphisms of $\mathcal{C}$ that identifies $f,g: X \to Y$ in $\mathcal{C}$ if $F(f) = F(g)$ in $\mathcal{D}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Natural transformations}
+
+A \emph{natural transformation} is a structure-preserving map between functors.
+Formally, for two functors
+\begin{equation}
+    F,G: \mathcal{C} \to \mathcal{D}
+\end{equation}
+between categories $\mathcal{C}$ and $\mathcal{D}$, a \emph{natural transform}
+\begin{equation}
+    \eta: F \Rightarrow G
+\end{equation}
+between $F$ and $G$ consists of a family of morphisms
+\begin{equation}
+    \{\eta_{X}: F(X) \to G(X)\}_{X \in \text{Ob}(\mathcal{C})}
+\end{equation}
+in $\mathcal{D}$ such that, for every morphism $f: X \to Y$ in $\mathcal{C}$, the following diagram commutes
+\begin{equation}
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGKFgpIl0sWzAsMiwiRyhYKSJdLFsyLDAsIkYoWSkiXSxbMiwyLCJHKFkpIl0sWzAsMiwiRihmKSJdLFsyLDMsIlxcZXRhX3tZfSJdLFsxLDMsIkcoZikiXSxbMCwxLCJcXGV0YV97WH0iXV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    {F(X)} \&\& {F(Y)} \\
+    \\
+    {G(X)} \&\& {G(Y)}
+    \arrow["{F(f)}", from=1-1, to=1-3]
+    \arrow["{\eta_{X}}", from=1-1, to=3-1]
+    \arrow["{\eta_{Y}}", from=1-3, to=3-3]
+    \arrow["{G(f)}", from=3-1, to=3-3]
+\end{tikzcd}
+\end{equation}
+in other words
+\begin{equation}
+    \eta_{Y} \circ F(f) = G(f) \circ \eta_{X}.
+\end{equation}
+
+A \emph{natural isomorphism} is a natural transformation where each morphism is an isomorphism.
+
+The \emph{functor category} $[\mathcal{C}, \mathcal{D}]$ of two categories $\mathcal{C}$ and $\mathcal{D}$ is the category consisting of
+\begin{enumerate}
+    \item \textbf{Objects:}
+    objects that are functors
+    \begin{equation}
+        F: \mathcal{C} \to \mathcal{D};
+    \end{equation}
+    \item \textbf{Morphisms:}
+    morphisms that are natural transforms between these functors $F$.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebraic structures as categories}
+
+A standard way of "categorising" an algebraic structure $A$ is to construct the \emph{delooped category} of $A$.
+Given an algebraic structure $A$, the delooped category $\textbf{B}A$ is the category whose morphisms correspond to the elements of $A$ with the relevant composition:
+\begin{equation}
+    A \xrightarrow{\text{deloop}} \textbf{B}A
+\end{equation}
+where $\textbf{B}$ is called the \emph{base} of the category and this base contains the necessary number of objects for the morphisms of $\textbf{B}A$ to correspond to the elements of $A$.
+
+A \emph{monoid} is a category with a single object.
+
+\begin{definition}[Group]
+    A group is a category that has a single object and in which every morphism is an isomorphism (\textit{i.e.,} every morphism has an inverse).
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Adjunctions}
+\draftnote{purple}{(PS) Include?}{
+\begin{enumerate}
+    \item Projections.
+    \item Inclusions.
+    \item Terminal objects.
+    \item Limits and colimits formally (in terms of diagrams $\mathcal{D}: \mathcal{J} \to \mathcal{C}$ from an index category $\mathcal{J}$ to a category $\mathcal{C}$).
+    \item Adjunctions in general.
+\end{enumerate}
+}
+
+\newthought{\emph{Adjunctions} can be} though of as the most general way of converting between two perspectives.
+Adjunctions consists of two functors and a natural transformation between them that lets you translate objects and morphisms between two categories.
+Formally, an adjunction $F \dashv G$ between two categories $\mathcal{C}$ and $\mathcal{D}$ consists of
+\begin{enumerate}
+    \item \textbf{Functors.}
+    Two functors: the left adjoint
+    \begin{equation}
+        F: \mathcal{C} \to \mathcal{D}
+    \end{equation}
+    and the right adjoint
+    \begin{equation}
+        G: \mathcal{D} \to \mathcal{C}
+    \end{equation}
+
+    \item \textbf{Natural isomorphism.}
+    For all $C \in \mathcal{C}$ and for all $D \in \mathcal{D}$, a natural isomorphism between two Hom-sets
+    \begin{equation}
+        \text{Hom}_{\mathcal{D}}(F(C, D) \cong \text{Hom}_{\mathcal{C}}(C, G(D));
+    \end{equation}
+    this isomorphism is natural in both directions\draftnote{purple}{PS}{Explain this.}, universal (the most efficient translation between $\mathcal{C}$ and $\mathcal{D}$ and therefore unique), and constructive (gives canonical maps).
+    This means a morphism from $F(C)$ to $D$ in $\mathcal{D}$ corresponds uniquely and naturally to a morphism from $C$ to $G(C)$ in $\mathcal{C}$.
+
+    \item \textbf{Natural transformations.}
+    The natural isomorphism can be equivalently encodes using two natural transformations:
+    \begin{enumerate}
+        \item The unit natural transformation
+        \begin{equation}
+            \eta: \text{Id}_{\mathcal{C}} \Rightarrow G \circ F.
+        \end{equation}
+        \item The counit natural transformation
+        \begin{equation}
+            \epsilon: F \circ G \Rightarrow \text{Id}_{\mathcal{D}}.
+        \end{equation}
+    \end{enumerate}
+    $\eta$ and $\epsilon$ satisfy the following triangle identities
+    \begin{align}
+        & \epsilon_{F(C)} \circ F(\eta_{C}) = \text{id}_{F(C)} \quad \text{for all $C \in \mathcal{C}$} \\
+        & G(\epsilon_{D}) \circ \eta_{G(D)} = \text{id}_{G(D)} \quad \text{for all $D \in \mathcal{D}$}.
+    \end{align}
+    
+    These two natural transformations describe how we can embed and lift objects and morphisms using the functors $F$ and $G$.
+\end{enumerate}
+
+\begin{notation}
+    Adjunctions are denoted by $F \dashv G$, which is read as "$F$ is left adjoint to $G$".
+\end{notation}
+
+\newthought{Right adjoints are} \emph{continuous}, which means that when right adjoints are applied they preserve all limits (e.g., products, pullbacks, coequalizers etc...) that exist in their domain.\draftnote{purple}{(PS) Consider}{Define the preservation of limits under right adjoints formally.}
+
+\newthought{Left adjoints are} \emph{cocontinuous}, which means that when left adjoints are applied they preserve all colimits (e.g., coproducts, pushouts, kernel pairs, equalizers etc...) that exist in their domain.\draftnote{purple}{(PS) Consider}{Define the preservation of colimits under left adjoints formally.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{The universal property of free categories.}
+\newthought{There is a} \emph{free category functor}\footnote{
+    $\cat{Quiv}$ is the category of multidigraphs (also known as \emph{quivers}), and $\cat{Cat}$ is the category of categories.
+}
+\begin{equation}
+    \mathcal{F}: \cat{Quiv} \to \cat{Cat}.
+\end{equation}
+that sends a multidigraph $Q$ to the \emph{free category} $\mathcal{F}(Q)$ generated by that multidigraph; $\mathcal{F}$ constructs the free category $\mathcal{F}(Q)$ by freely generating paths\footnote{
+In category theory, the terms "walk" and "path" are used interchangeably, but both mean sequences of composable edges with repeated vertices and edges allowed; this is aligned with the term "walk" in the graph theory context used in \draftnote{blue}{section}{???}).
+In graph theory, a walk allows repetition of vertices and edges, but a path does not.
+}
+between vertices of the multidigraph $Q$, treating these paths as morphism, and defining composition as the concatenation of paths.
+The data of the free category $\mathcal{F}(Q)$ generated by a multidigraph $Q$ are:
+\begin{enumerate}
+    \item \textbf{Objects:}
+    The vertices $Q_{0}$ of the multidigraph.
+    \begin{equation}
+        \text{Ob}(\mathcal{F}(\hat{\mathscr{W}})) := Q_{0}
+    \end{equation}
+    \item \textbf{Morphisms:}
+    The finite paths of arrows $Q_{1}$
+    \begin{equation}
+        \text{Hom}_{\mathcal{F}(Q)}(x, y) = \{ \text{finite paths in $Q$ from $x$ to $y$} \}.
+    \end{equation}
+    where the identity morphisms of $\mathcal{F}(Q)$ are the trivial paths, the paths of length 1 are the arrows in $Q_{1}$, and the the paths of length $\geq 2$ are chains of composable arrows.
+    Composition of morphisms is concatenation of paths.
+\end{enumerate}
+
+We also have a \emph{forgetful functor}
+\begin{equation}
+    U: \cat{Cat} \to \cat{Quiv},
+\end{equation}
+which sends a category $\mathcal{C}$ to the underlying multidigraph $U(\mathcal{C})$ of $\mathcal{C}$.
+$U(\mathcal{C})$ is the multidigraph where
+\begin{enumerate}
+    \item vertices are the same as the objects of the category $\mathcal{C}$:
+    \begin{equation}
+        U(\mathcal{C})_{0} = \text{Ob}(\mathcal{C}).
+    \end{equation}
+    \item arrows are the morphisms of the category in such a way that respects the source and target of morphisms and arrows (i.e., a morphism $f:X \to Y$ in $\mathcal{C}$ becomes an arrow in $U(\mathcal{C})$ with source $X$ and target $Y$)\footnote{
+        Importantly, the data of composition and the identity morphism relationships of $\mathcal{C}$ are forgotten by $U(\mathcal{C})$.
+        The identity morphisms themselves are present in $U(\mathcal{C})$ are arrows but they have forgotten their special status as identities.
+    }:
+    \begin{equation}
+        U(\mathcal{C})_{1} = \{f \mid \text{$f$ is a morphism in $\mathcal{C}$}\};
+    \end{equation}
+\end{enumerate}
+
+The free category functor $\mathcal{F}$ and the forgetful functor $U$ form an adjunction
+\begin{equation}
+    \mathcal{F}: \cat{Quiv} \leftrightarrows \cat{Cat}: U.
+\end{equation}
+where the free category functor $\mathcal{F}$ is left adjoint to a forgetful functor
+\begin{equation}
+    \mathcal{F} \dashv U.
+\end{equation}
+
+This adjunction comes with a unit natural transformation\footnote{
+    The adjunction also comes with a counit natural transformation
+    \begin{equation}
+        \epsilon: \mathcal{F} \circ U  \Rightarrow \text{id}_{\cat{Cat}}.
+    \end{equation}
+}
+\begin{equation}
+    \eta: \text{Id}_{\cat{Quiv}} \Rightarrow U \circ \mathcal{F}.
+\end{equation}
+The components of $\eta$ are the multidigraph morphisms from each multidigraph $Q \in \cat{Quiv}$ to the underlying multidigraph $U(\mathcal{F}(Q))$ of the free category $\mathcal{F}(Q)$ of the multidigraph $Q$:
+\begin{equation}
+    \eta_{Q}: Q \to U(\mathcal{F}(Q)).
+\end{equation}
+This gives us
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNSxbMCwxLCJRIl0sWzAsMiwiVShcXG1hdGhjYWx7Rn0oUSkpIl0sWzIsMSwiXFxtYXRoY2Fse0Z9KFEpIl0sWzAsMCwiXFx0ZXh0e0luICRcXGNhdHtRdWl2fSQ6fSJdLFsyLDAsIlxcdGV4dHtJbiAkXFxjYXR7Q2F0fSR9OiJdLFswLDEsIlxcZXRhX3tRfSJdLFswLDIsIkYiLDAseyJjdXJ2ZSI6LTIsImNvbG91ciI6WzAsNjAsNjBdfSxbMCw2MCw2MCwxXV0sWzIsMSwiVSIsMix7ImNvbG91ciI6WzEyMCw2MCw2MF19LFsxMjAsNjAsNjAsMV1dXQ==
+\begin{tikzcd}[ampersand replacement=\&]
+    {\text{In $\cat{Quiv}$:}} \&\& {\text{In $\cat{Cat}$}:} \\
+    Q \&\& {\mathcal{F}(Q)} \\
+    {U(\mathcal{F}(Q))}
+    \arrow["F", color={rgb,255:red,214;green,92;blue,92}, curve={height=-12pt}, from=2-1, to=2-3]
+    \arrow["{\eta_{Q}}", from=2-1, to=3-1]
+    \arrow["U"', color={rgb,255:red,92;green,214;blue,92}, from=2-3, to=3-1]
+\end{tikzcd}
+\end{equation}
+
+The universal property of free categories says that for any category $\mathcal{C} \in \cat{Cat}$ and multidigraph morphism $G: Q \to U(\mathcal{C})$, there exists a unique functor $G' : \mathcal{F}(Q) \to \mathcal{C}$ such that\footnote{
+    Explicitly, the functor $G': \mathcal{F}(Q) \to \mathcal{C}$ is uniquely defined as:
+    \begin{enumerate}
+        \item \textbf{Objects:}
+        Since $\text{Ob}(\mathcal{F}(Q)) = Q_{0}$, where $Q_{0}$ is the set of vertices of the multidigraph $Q$,
+        \begin{equation}
+            G'(x) := G(x) \quad \text{for all $x \in Q_{0}$};
+        \end{equation}
+        \item \textbf{Morphisms:}
+        For each object $x \in Q_{0}$,
+        \begin{equation}
+            G'(\text{id}_{x}) := \text{id}_{G(x)}.
+        \end{equation}
+        For each arrow $b \in Q_{1}$,
+        \begin{equation}
+            G'(b) := G(b).
+        \end{equation}
+        For each path of arrows $b_{n} \circ \dots \circ b_{1}$ that make up a morphism of $\mathcal{F}(C)$,
+        \begin{equation}
+            G'(b_{n} \circ \dots \circ b_{1}) := G(b_{n}) \circ \dots \circ G(b_{1}).
+        \end{equation}
+    \end{enumerate}
+
+    Once $G'$ has been constructed, we can apply the forgetful functor $U: \cat{Cat} \to \cat{Quiv}$ to obtain $U(G')$.
+}
+\begin{equation}
+    U(G') \circ \eta_{Q} = G.
+\end{equation}
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNyxbMiwxLCJRIl0sWzIsMiwiVShcXG1hdGhjYWx7Rn0oUSkpIl0sWzQsMSwiXFxtYXRoY2Fse0Z9KFEpIl0sWzIsMCwiXFx0ZXh0e0luICRcXGNhdHtRdWl2fSQ6fSJdLFs0LDAsIlxcdGV4dHtJbiAkXFxjYXR7Q2F0fSR9OiJdLFswLDIsIlUoXFxtYXRoY2Fse0N9KSJdLFs0LDIsIlxcbWF0aGNhbHtDfSJdLFswLDEsIlxcZXRhX3tRfSJdLFswLDIsIkYiLDAseyJjdXJ2ZSI6LTIsImNvbG91ciI6WzAsNjAsNjBdfSxbMCw2MCw2MCwxXV0sWzIsMSwiVSIsMix7ImNvbG91ciI6WzEyMCw2MCw2MF19LFsxMjAsNjAsNjAsMV1dLFswLDUsIkciLDJdLFs2LDUsIlUiLDAseyJvZmZzZXQiOi0xLCJjdXJ2ZSI6LTIsImNvbG91ciI6WzEyMCw2MCw2MF19LFsxMjAsNjAsNjAsMV1dLFsxLDUsIlxcZXhpc3RzISBcXDsgVShHJykiLDIseyJsYWJlbF9wb3NpdGlvbiI6NDAsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDYsIlxcZXhpc3RzISBcXDsgRyciLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    \&\& {\text{In $\cat{Quiv}$:}} \&\& {\text{In $\cat{Cat}$}:} \\
+    \&\& Q \&\& {\mathcal{F}(Q)} \\
+    {U(\mathcal{C})} \&\& {U(\mathcal{F}(Q))} \&\& {\mathcal{C}}
+    \arrow["F", color={rgb,255:red,214;green,92;blue,92}, curve={height=-12pt}, from=2-3, to=2-5]
+    \arrow["G"', from=2-3, to=3-1]
+    \arrow["{\eta_{Q}}", from=2-3, to=3-3]
+    \arrow["U"', color={rgb,255:red,92;green,214;blue,92}, from=2-5, to=3-3]
+    \arrow["{\exists! \; G'}", dashed, from=2-5, to=3-5]
+    \arrow["{\exists! \; U(G')}"'{pos=0.4}, dashed, from=3-3, to=3-1]
+    \arrow["U", shift left, color={rgb,255:red,92;green,214;blue,92}, curve={height=-12pt}, from=3-5, to=3-1]
+\end{tikzcd}
+\end{equation}
+
+This universal property is equivalent to the existence of a natural bijection\footnote{
+    The unit natural transformation $\eta: \text{id}_{\cat{Quiv}} \Rightarrow U \circ \mathcal{F}$ of an adjunction always produces a natural bijection.
+    
+    The counit natural transformation $\epsilon: \mathcal{F} \circ U  \Rightarrow \text{id}_{\cat{Cat}}$ of an adjunction produces the same natural bijection as the unit natural transformation.
+}
+\begin{equation}
+    \text{Hom}_{\cat{Quiv}}(Q, U(\mathcal{C})) \cong \text{Hom}_{\cat{Cat}}(\mathcal{F}(Q), \mathcal{C}),
+\end{equation}
+which means that
+\begin{enumerate}
+    \item every functor $\mathcal{F}(Q) \to \mathcal{C}$ in $\cat{Cat}$ corresponds to a unique multidigraph morphism $Q \to U(\mathcal{C})$ (namely $G = U(G') \circ \eta_{Q}$) in $\cat{Quiv}$; and
+    \item every multidigraph morphism $Q \to U(\mathcal{C})$ in $\cat{Quiv}$ corresponds to a unique functor $\mathcal{F}(Q) \to \mathcal{C}$ in $\cat{Cat}$.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Currying.}
+
+\newthought{\emph{Currying} can be} thought of as taking a two-valued map and converting it into a collection of one-valued maps; it is the most general way to reinterpret morphisms from a product as morphisms into an exponential object.
+
+Formally, for any objects $X$, $Y$, $Z$ in a category $\mathcal{C}$, if the exponential object $Z^{Y}$ exists as an object in $\mathcal{C}$, then $Z^{Y}$ come equipped with a morphism
+\begin{equation}
+    \text{eval}: Z^{Y} \times Y \to Z.
+\end{equation}
+From the universal property of exponential objects, for any morphism $\alpha: X \times Y \to Z$ there exists a unique morphism
+\begin{equation}
+    \tilde{\alpha}: X \to Z^{B},
+\end{equation}
+called the \emph{curried form} of $\alpha$, such that the following diagram commutes:\footnote{
+    The morphism $\tilde{\alpha}: X \to Z^{B}$ is the universal, unique morphism from the universal property; the morphism $\tilde{\alpha} \times \text{id}_{Y}$ is uniquely constructed after $\tilde{\alpha}$ is determined.
+}
+\begin{equation}
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIFxcdGltZXMgWSJdLFsyLDAsIloiXSxbMCwyLCJaXntCfSBcXHRpbWVzIFkiXSxbMCwxLCJcXGFscGhhIl0sWzAsMiwiXFx0aWxkZXtcXGFscGhhfVxcdGltZXNcXHRleHR7aWR9X3tZfSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsyLDEsIlxcdGV4dHtldmFsfSIsMl1d
+\begin{tikzcd}[ampersand replacement=\&]
+    {X \times Y} \&\& Z \\
+    \\
+    {Z^{B} \times Y}
+    \arrow["\alpha", from=1-1, to=1-3]
+    \arrow["{\tilde{\alpha}\times\text{id}_{Y}}"', dashed, from=1-1, to=3-1]
+    \arrow["{\text{eval}}"', from=3-1, to=1-3]
+\end{tikzcd}
+\end{equation}
+where\footnote{
+\textbf{Example of currying in $\cat{Set}$.}
+Suppose we have sets
+\begin{align}
+    & X = \{x_{1}, x_{2}\} \\
+    & Y = \{y_{1}, y_{2}\} \\
+    & Z = \{z_{1}, z_{2}\},
+\end{align}
+and a function
+\begin{align}
+    \alpha: X \times Y \to Z \quad \text{such that} \\
+    \alpha(x_{1}, y_{1}) = z_{1}, \alpha(x_{1}, y_{2}) = z_{2} \\
+    \alpha(x_{2}, y_{1}) = z_{2}, \alpha(x_{2}, y_{2}) = z_{1}.
+\end{align}
+We curry $\alpha$:
+\begin{equation}
+    (\alpha: X \times Y \to Z) \xrightarrow{\text{curry}} (\tilde{\alpha}: X \to Z^{Y});
+\end{equation}
+for each $x \in X$, we produce a function
+\begin{equation}
+\begin{aligned}
+    & \tilde{\alpha}(x): Y \to Z \quad \text{defined by} \\
+    & \tilde{\alpha}(x)(y) := \alpha(x, y).
+\end{aligned}
+\end{equation}
+Therefore, $\tilde{\alpha}(x_{1})$ is the function
+\begin{equation}
+\begin{aligned}
+    & \tilde{\alpha}(x_{1}): Y \to Z \quad \text{such that} \\
+    & \tilde{\alpha}(x_{1})(y_{1}) = z_{1}, \tilde{\alpha}(x_{1})(y_{2}) = z_{2};
+\end{aligned}
+\end{equation}
+and $\tilde{\alpha}(x_{2})$ is the function
+\begin{equation}
+\begin{aligned}
+    & \tilde{\alpha}(x_{2}): Y \to Z \quad \text{such that} \\
+    & \tilde{\alpha}(x_{2})(y_{1}) = z_{2}, \tilde{\alpha}(x_{2})(y_{2}) = z_{1}.
+\end{aligned}
+\end{equation}
+}
+\begin{equation}
+    \alpha = \text{eval} \circ (\tilde{\alpha} \times \text{id}_{Y});
+\end{equation}
+a natural isomorphism
+\begin{equation}
+    \text{Hom}_{\mathcal{C}}(X \times Y, Z) \cong \text{Hom}_{\mathcal{C}}(X, Z^{Y}),
+\end{equation}
+can be obtained from this condition.
+\draftnote{purple}{PS}{How can we obtain the natural isomorphism of functors from this condition ?}
+
+Canonically, currying relies on this natural isomorphism of functors, called the \emph{exponential adjunction}\footnote{
+    In a category $\mathcal{C}$, the exponential adjunction is an adjunction between the product functor $- \times Y: \mathcal{C} \to \mathcal{C}$ and the Hom functor $\text{Hom}(Y, -): \mathcal{C} \to \mathcal{C}$.
+    This adjunction only holds if category $\mathcal{C}$ is a Cartesian closed category.
+}, which says that, for objects $X$, $Y$ and $Z$ in a category $\mathcal{C}$,
+\begin{equation}
+    \text{Hom}_{\mathcal{C}}(X \times Y, Z) \cong \text{Hom}_{\mathcal{C}}(X, Z^{Y}),
+\end{equation}
+where there exists an exponential object $Z^{Y}$.
+
+\newthought{In a \emph{Cartesian closed category}} $\mathcal{C}$,
+\begin{enumerate}
+    \item \textbf{Products:}
+    For any two objects $X$ and $Y$ in $\mathcal{C}$, the product $X \times Y$ exists in $\mathcal{C}$;
+    \item \textbf{Exponentials:}
+    For any two objects $X$ and $Y$ in $\mathcal{C}$, the exponential object $B^{A}$ exists in $\mathcal{C}$;
+    \item \textbf{Terminal object:}
+    There exists a terminal object $1$ in $\mathcal{C}$.
+\end{enumerate}
+Since all pairs of objects can make products and exponentials, the exponential adjunction holds naturally for all objects in the $\mathcal{C}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Universal constructions from limits.}
+
+\newthought{\emph{Limits} can be} thought of as extracting a common structure from multiple pieces of data in a way that preserves the relationships between those pieces of data\footnote{
+The formal definition of limits is not required to understand this work, but for interested parties:
+A limit is a terminal object in the category of cones over a diagram.
+}; in short, limits are intersections.
+
+Limits provide the most general way to extract what is common among pieces of data, while respecting how those pieces of data relate to each other.
+Since the limit object is the most general common structure of some pieces of data, any object formed by extracting common structure from the same pieces of data must uniquely factor through the limit\footnote{
+This is the \emph{universal property} of the limit.
+}.
+
+\paragraph{Pullbacks.}
+\newthought{The \emph{pullback} of} a pair of morphisms $f: A \to C$ and $g: B \to C$ is the most general way to extract a new object from $f$ and $g$ that consists of the parts of two objects $A$ and $B$ that are the same when mapped into the object $C$.
+Formally, consider two morphisms $f: A \to C$ and $g: B \to C$ in a category $\mathcal{C}$.
+A pullback $(P, p_{A}, p_{B})$ of the morphisms $f, g$ is an object $P$ together with \emph{pullback projection} morphisms
+\begin{align}
+    & p_{A}: P \to A \\
+    & p_{B}: P \to B
+\end{align}
+such that the following diagram commutes:\footnote{
+In diagrams, constructing a pullback $(P, p_{A}, p_{B})$ looks like:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsOSxbNCwwLCJQIl0sWzUsMCwiQSJdLFs0LDEsIkIiXSxbNSwxLCJDIl0sWzMsMV0sWzIsMV0sWzEsMCwiQSJdLFsxLDEsIkMiXSxbMCwxLCJCIl0sWzAsMSwicF8xIl0sWzAsMiwicF8yIiwyXSxbMSwzLCJmIl0sWzIsMywiZyIsMl0sWzUsNCwiXFx0ZXh0e3B1bGxiYWNrfSJdLFs2LDcsImYiXSxbOCw3LCJnIiwyXV0=
+\begin{tikzcd}[ampersand replacement=\&]
+	\& A \&\&\& P \& A \\
+	B \& C \& {} \& {} \& B \& C
+	\arrow["f", from=1-2, to=2-2]
+	\arrow["{p_A}", from=1-5, to=1-6]
+	\arrow["{p_B}"', from=1-5, to=2-5]
+	\arrow["f", from=1-6, to=2-6]
+	\arrow["g"', from=2-1, to=2-2]
+	\arrow["{\text{pullback}}", from=2-3, to=2-4]
+	\arrow["g"', from=2-5, to=2-6]
+\end{tikzcd}
+\end{equation}
+}
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJLIl0sWzIsMCwiWCJdLFswLDIsIlgiXSxbMiwyLCJZIl0sWzAsMSwicF97MX0iLDAseyJvZmZzZXQiOi0xfV0sWzAsMiwicF97Mn0iLDIseyJvZmZzZXQiOjF9XSxbMSwzLCJmIl0sWzIsMywiZiJdLFswLDMsIlxcZXhpc3RzICEgXFw7IGgiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    P \&\& A \\
+    \\
+    B \&\& C
+    \arrow["{p_{A}}", shift left, from=1-1, to=1-3]
+    \arrow["{p_{B}}"', shift right, from=1-1, to=3-1]
+    \arrow["f", from=1-3, to=3-3]
+    \arrow["g", from=3-1, to=3-3]
+\end{tikzcd}
+\end{equation}
+where\footnote{
+\textbf{Example of a pullback in $\cat{Set}$.}
+Suppose we have sets
+\begin{align}
+    & A = \{a_{1}, a_{2}\} \\
+    & B = \{b_{1}, b_{2}, b_{3}\} \\
+    & C = \{c_{1}, c_{2}\},
+\end{align}
+and functions
+\begin{equation}
+\begin{aligned}
+    & f: A \to C \quad \text{such that} \\
+    & f(a_{1}) = c_{1}, f(a_{2}) = c_{2}
+\end{aligned}
+\end{equation}
+and
+\begin{equation}
+\begin{aligned}
+    & g: B \to C \quad \text{such that} \\
+    & g(b_{1}) = c_{1}, g(b_{2}) = c_{2}, g(b_{3}) = c_{2}.
+\end{aligned}
+\end{equation}
+The pullback object $A \times_{C} B$ is
+\begin{align}
+    & A \times_{C} B = \{(a,b) \in A \times B \mid f(a) = g(b)\} \\
+    & = \{(a_{1}, b_{1}), (a_{2}, b_{2}), (a_{2}, b_{3})\}.
+\end{align}
+
+So the pullback has associated $a_{1}$ with $b_{1}$, $a_{2}$ with $b_{2}$, and $a_{2}$ with $b_{3}$ because they match in $C$.
+The pullback object $A \times_{C} B \subseteq A \times B$ is a subset of the Cartesian product, filtered by agreement over $C$.
+}
+\begin{equation}
+    f \circ p_{A} = g \circ p_{B}.
+\end{equation}
+
+\begin{notation}
+    The pullback object $P$ of the morphisms $f: A \to C$ and $g: B \to C$ is often denoted by $A \times_{C} B$, which is read as the "pullback of $A$ and $B$ over $C$"\footnote{
+    $\times_{C}$ is also sometimes called the \emph{fibre product} over $C$.
+    }.
+\end{notation}
+
+The pullback object $P$ is universal with the property: for any other object $Q$ with morphisms $q_{A}: Q \to A$ and $q_{B}: Q \to B$ such that $f \circ q_{A} = g \circ q_{B}$, there exists a unique morphism
+\begin{align}
+    & u: Q \to P \quad \text{such that} \\
+    & p_{A} \circ u = q_{A} \\
+    & p_{B} \circ u = q_{B},
+\end{align}
+which in diagram form is:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJRIl0sWzEsMSwiUCJdLFszLDEsIkEiXSxbMSwzLCJCIl0sWzMsMywiQyJdLFswLDEsIlxcZXhpc3RzICEgXFw7dSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFswLDIsInFfMSIsMCx7ImN1cnZlIjotMX1dLFswLDMsInFfMiIsMix7ImN1cnZlIjoxfV0sWzEsMiwicF8xIl0sWzEsMywicF8yIiwyXSxbMiw0LCJmIl0sWzMsNCwiZyIsMl1d
+\begin{tikzcd}[ampersand replacement=\&]
+	Q \\
+	\& P \&\& A \\
+	\\
+	\& B \&\& C
+	\arrow["{\exists ! \;u}", dashed, from=1-1, to=2-2]
+	\arrow["{q_A}", curve={height=-6pt}, from=1-1, to=2-4]
+	\arrow["{q_B}"', curve={height=6pt}, from=1-1, to=4-2]
+	\arrow["{p_A}", from=2-2, to=2-4]
+	\arrow["{p_B}"', from=2-2, to=4-2]
+	\arrow["f", from=2-4, to=4-4]
+	\arrow["g"', from=4-2, to=4-4]
+\end{tikzcd}
+\end{equation}
+
+
+\paragraph{Products.}
+\newthought{A \emph{product} is} the most general way to collect and coordinate morphisms into multiple target objects.
+Formally, the \emph{product} $(A \times B, p_{A}, p_{B})$ of two objects $A$ and $B$ in a category $\mathcal{C}$ is another object $A \times B$ together with two \emph{projection} morphisms\footnote{
+    The \emph{product} $(A \times B, p_{A}, p_{B})$ of two objects $A$ and $B$ in a category $\mathcal{C}$ is the pullback of the morphisms $A \xrightarrow{!_{A}} 1 \xleftarrow{!_{B}} B$, where $1$ is the terminal object in $\mathcal{C}$, $!_{A}: A \to 1$ is the unique morphism from $A$ to the terminal object, and $!_{B}: B \to 1$ is the unique morphism from $B$ to the terminal object:
+    \begin{equation}
+    % https://q.uiver.app/#q=WzAsOSxbNCwwLCJBIFxcdGltZXMgQiJdLFs1LDAsIkEiXSxbNCwxLCJCIl0sWzUsMSwiMSJdLFszLDFdLFsyLDFdLFsxLDAsIkEiXSxbMSwxLCIxIl0sWzAsMSwiQiJdLFswLDEsInBfe0F9Il0sWzAsMiwicF97Qn0iLDJdLFsxLDMsIiFfe0F9Il0sWzIsMywiIV97Qn0iLDJdLFs1LDQsIlxcdGV4dHtwdWxsYmFja30iXSxbNiw3LCIhX3tBfSJdLFs4LDcsIiFfe0J9IiwyXV0=
+    \begin{tikzcd}[ampersand replacement=\&]
+        \& A \&\&\& {A \times B} \& A \\
+        B \& 1 \& {} \& {} \& B \& 1
+        \arrow["{!_{A}}", from=1-2, to=2-2]
+        \arrow["{p_{A}}", from=1-5, to=1-6]
+        \arrow["{p_{B}}"', from=1-5, to=2-5]
+        \arrow["{!_{A}}", from=1-6, to=2-6]
+        \arrow["{!_{B}}"', from=2-1, to=2-2]
+        \arrow["{\text{pullback}}", from=2-3, to=2-4]
+        \arrow["{!_{B}}"', from=2-5, to=2-6]
+    \end{tikzcd}
+    \end{equation}
+}
+\begin{align}
+    & p_{A}: A \times B \to A \\
+    & p_{B}: A \times B \to B.
+\end{align}
+As a diagram, $A \times B$ is shown as\footnote{
+    \textbf{Example of a product in $\cat{Set}$.}
+    Suppose we have sets
+    \begin{align}
+        & A = \{a_{1}, a_{2}\} \\
+        & B = \{b_{1}, b_{2}\}.
+    \end{align}
+    The product $A \times B$ is
+    \begin{align}
+        A \times B & = \{(a,b) \mid a \in A, b \in B\} \\
+        & = \{(a_{1}, b_{1}), (a_{1}, b_{2}), (a_{2}, b_{1}), (a_{2}, b_{2})\}.
+    \end{align}
+    The projections are defined as
+    \begin{align}
+        p_{A}((a, b)) = a \\
+        p_{B}((a, b)) = b.
+    \end{align}
+    The product $A \times B$ is the Cartesian product in $\cat{Set}$.
+}
+\begin{equation}
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIFxcdGltZXMgQiJdLFsxLDAsIkEiXSxbMCwxLCJCIl0sWzAsMSwicF97QX0iXSxbMCwyLCJwX3tCfSIsMl1d
+    \begin{tikzcd}[ampersand replacement=\&]
+        {A \times B} \& A \\
+        B
+        \arrow["{p_{A}}", from=1-1, to=1-2]
+        \arrow["{p_{B}}"', from=1-1, to=2-1]
+    \end{tikzcd}
+\end{equation}
+
+
+\paragraph{Kernel pairs.}
+\newthought{The \emph{kernel pair} of} a morphism $f: A \to B$ is the most general way to extract a new object from $f$ that consists of the parts of $A$ that are the same in $B$.
+Formally, the kernel pair $(K, p_{1}, p_{2})$ of a morphism $f: A \to B$ in a category $\mathcal{C}$ is the pullback of $f$ with itself\footnote{
+    In diagrams, constructing a kernel pair $(K, p_{1}, p_{2})$ looks like:
+    \begin{equation}
+    % https://q.uiver.app/#q=WzAsOSxbNCwwLCJLIl0sWzUsMCwiQSJdLFs0LDEsIkEiXSxbNSwxLCJCIl0sWzMsMV0sWzIsMV0sWzEsMCwiQSJdLFsxLDEsIkIiXSxbMCwxLCJBIl0sWzAsMSwicF8xIl0sWzAsMiwicF8yIiwyXSxbMSwzLCJmIl0sWzIsMywiZiIsMl0sWzUsNCwiXFx0ZXh0e3B1bGxiYWNrfSJdLFs2LDcsImYiXSxbOCw3LCJmIiwyXV0=
+    \begin{tikzcd}[ampersand replacement=\&]
+        \& A \&\&\& K \& A \\
+        A \& B \& {} \& {} \& A \& B
+        \arrow["f", from=1-2, to=2-2]
+        \arrow["{p_1}", from=1-5, to=1-6]
+        \arrow["{p_2}"', from=1-5, to=2-5]
+        \arrow["f", from=1-6, to=2-6]
+        \arrow["f"', from=2-1, to=2-2]
+        \arrow["{\text{pullback}}", from=2-3, to=2-4]
+        \arrow["f"', from=2-5, to=2-6]
+    \end{tikzcd}
+    \end{equation}
+}:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJLIl0sWzIsMCwiQSJdLFswLDIsIkEiXSxbMiwyLCJCIl0sWzAsMSwicF8xIl0sWzAsMiwicF8yIiwyXSxbMSwzLCJmIl0sWzIsMywiZiIsMl1d
+\begin{tikzcd}[ampersand replacement=\&]
+	K \&\& A \\
+	\\
+	A \&\& B
+	\arrow["{p_1}", from=1-1, to=1-3]
+	\arrow["{p_2}"', from=1-1, to=3-1]
+	\arrow["f", from=1-3, to=3-3]
+	\arrow["f"', from=3-1, to=3-3]
+\end{tikzcd}
+\end{equation}
+where $p_{1}, p_{2}: K \rightrightarrows A$ are the pullback projection morphisms that satisfy
+\begin{equation}
+    f \circ p_{1} = f \circ p_{2}
+\end{equation}
+to make the pullback diagram commute, and $K$ is the kernel pair object where
+\begin{equation}
+    K = A \times_{B} A.
+\end{equation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Universal constructions from colimits.}
+
+\newthought{\emph{Colimits}\footnote{
+    Colimits are the categorical \emph{dual} of limits; this means that if you reverse all the arrows of a limit you get a colimit.
+} can be} thought of as constructing new structures from existing structures by gluing pieces of data together along shared overlaps or connections, in a way that respects how those pieces of data are related\footnote{
+The formal definition of colimits is not required to understand this work, but for interested parties:
+A colimit is an initial object in the category of cocones over a diagram.
+}; in short, colimits are amalgamations.
+
+Colimits provide the most general way to glue pieces of data together as specified by the morphisms in a diagram, while preserving the structure of the connections.
+Since the colimit object is the most general structure constructed by gluing together pieces of data, any object constructed by gluing together the same pieces of data must uniquely factor through the colimit\footnote{
+    This is the \emph{universal property} of the colimit.
+}.
+
+
+\paragraph{Pushouts.}
+\newthought{The \emph{pushout} of} a pair of morphisms $f: A \to B$ and $g: A \to C$ is the most general way to construct a new object by gluing the two objects $B$ and $C$ together along a shared subobject $A$.
+Formally, consider two morphisms $f: A \to B$ and $g: A \to C$ in a category $\mathcal{C}$.
+A pushout $(P, i_{B}, i_{C})$ of the morphisms $f,g$ is an object $P$ together with \emph{pushout coprojection} morphisms
+\begin{align}
+    & i_{B}: B \to P \\
+    & i_{C}: C \to P
+\end{align}
+such that the following diagram commutes:\footnote{
+    As a diagram, constructing a pushout looks like:
+    \begin{equation}
+    % https://q.uiver.app/#q=WzAsOSxbNCwwLCJBIl0sWzUsMCwiQiJdLFs0LDEsIkMiXSxbNSwxLCJQIl0sWzMsMV0sWzIsMV0sWzAsMCwiQSJdLFsxLDAsIkIiXSxbMCwxLCJDIl0sWzAsMSwiZiJdLFswLDIsImciLDJdLFsyLDMsImlfe0N9IiwyXSxbMSwzLCJpX3tCfSJdLFs1LDQsIlxcdGV4dHtwdXNob3V0fSJdLFs2LDcsImYiXSxbNiw4LCJnIiwyXV0=
+    \begin{tikzcd}[ampersand replacement=\&]
+        A \& B \&\&\& A \& B \\
+        C \&\& {} \& {} \& C \& P
+        \arrow["f", from=1-1, to=1-2]
+        \arrow["g"', from=1-1, to=2-1]
+        \arrow["f", from=1-5, to=1-6]
+        \arrow["g"', from=1-5, to=2-5]
+        \arrow["{i_{B}}", from=1-6, to=2-6]
+        \arrow["{\text{pushout}}", from=2-3, to=2-4]
+        \arrow["{i_{C}}"', from=2-5, to=2-6]
+    \end{tikzcd}
+    \end{equation}
+}
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkMiXSxbMiwyLCJQIl0sWzAsMSwiZiJdLFswLDIsImciLDJdLFsyLDMsImlfe0N9IiwyXSxbMSwzLCJpX3tCfSJdXQ==
+\begin{tikzcd}[ampersand replacement=\&]
+    A \&\& B \\
+    \\
+    C \&\& P
+    \arrow["f", from=1-1, to=1-3]
+    \arrow["g"', from=1-1, to=3-1]
+    \arrow["{i_{B}}", from=1-3, to=3-3]
+    \arrow["{i_{C}}"', from=3-1, to=3-3]
+\end{tikzcd}
+\end{equation}
+where\footnote{
+    \textbf{Example of a pushout in $\cat{Set}$.}
+    Suppose we have sets
+    \begin{align}
+        & A = \{a_{1}, a_{2}\} \\
+        & B = \{b_{1}, b_{2}\} \\
+        & C = \{c_{1}, c_{2}\},
+    \end{align}
+    and functions
+    \begin{equation}
+    \begin{aligned}
+        & f: A \to B \quad \text{such that} \\
+        & f(a_{1}) = b_{1}, f(a_{2}) = b_{2}
+    \end{aligned}
+    \end{equation}
+    and
+    \begin{equation}
+    \begin{aligned}
+        & g: A \to C \quad \text{such that} \\
+        & g(a_{1}) = c_{1}, g(a_{2}) = c_{1}.
+    \end{aligned}
+    \end{equation}
+    For each $a_{i} \in A$, the elements in $B$ and $C$ with $f(a_{i})=g(a_{i})$ are identified with each other in $B \sqcup_{A} C$
+    \begin{align}
+        & f(a_{1}) = g(a_{1}) \\
+        \implies & \text{glue $b_{1}$ to $c_{1}$} \\
+        \implies & b_{1} \sim c_{1} \text{ in $B \sqcup_{A} C$}
+    \end{align}
+    and
+    \begin{align}
+        & f(a_{2}) = g(a_{2}) \\
+        \implies & \text{glue $b_{2}$ to $c_{1}$} \\
+        \implies & b_{2} \sim c_{1} \text{ in $B \sqcup_{A} C$},
+    \end{align}
+    and so in $B \sqcup_{A} C$ we have
+    \begin{equation}
+        b_{1} \sim c_{1} \quad \text{and} \quad b_{2} \sim c_{1}.
+    \end{equation}
+    The pushout object $B \sqcup_{A} C$ is
+    \begin{align}
+        B \sqcup_{A} C &= ((B \times \{0\}) \cup (C \times \{1\}))/\{f(a) \sim g(a)\}\\
+        & = \{[c_{1}]_{\sim}, c_{2}\}
+    \end{align}
+    where $[c_{1}]_{\sim} = \{c_{1}, b_{1}, b_{2}\}$.
+    
+    So the pushout has "glued" $B$ and $C$ together by identifying parts of $B$ and $C$ using the images of $A$ under $f$ and $g$.
+    The pushout is the union of $B$ and $C$ with $f(a) \sim g(a)$ for all $a \in A$.
+}
+\begin{equation}
+    i_{B} \circ f = i_{C} \circ g.
+\end{equation}
+
+\begin{notation}
+    The pushout object $P$ of the morphisms $f: A \to B$ and $g: A \to C$ is often denoted by $B \sqcup_{A} C$, which is read as the "pushout of $B$ and $C$ over $A$".
+\end{notation}
+
+The pushout object $P$ is universal with the property: for any other object $Q$ with morphisms $j_{B}: B \to Q$ and $j_{C}: C \to Q$ such that $j_{B} \circ f = j_{C} \circ g$, there exists a unique morphism
+\begin{align}
+    & u: P \to Q \quad \text{such that} \\
+    & u \circ i_{B} = j_{B} \\
+    & u \circ i_{C} = j_{C},
+\end{align}
+which as a diagram is:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkMiXSxbMiwyLCJQIl0sWzMsMywiUSJdLFswLDEsImYiXSxbMCwyLCJnIiwyXSxbMiwzLCJpX3tDfSIsMl0sWzEsMywiaV97Qn0iXSxbMSw0LCJqX3tCfSIsMCx7ImN1cnZlIjotMn1dLFsyLDQsImpfe0N9IiwyLHsiY3VydmUiOjJ9XSxbMyw0LCJcXGV4aXN0cyAhIFxcOyB1IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+\begin{tikzcd}[ampersand replacement=\&]
+    A \&\& B \\
+    \\
+    C \&\& P \\
+    \&\&\& Q
+    \arrow["f", from=1-1, to=1-3]
+    \arrow["g"', from=1-1, to=3-1]
+    \arrow["{i_{B}}", from=1-3, to=3-3]
+    \arrow["{j_{B}}", curve={height=-12pt}, from=1-3, to=4-4]
+    \arrow["{i_{C}}"', from=3-1, to=3-3]
+    \arrow["{j_{C}}"', curve={height=12pt}, from=3-1, to=4-4]
+    \arrow["{\exists ! \; u}", dashed, from=3-3, to=4-4]
+\end{tikzcd}
+\end{equation}
+Pushouts automatically "glue" the compositions in the structure they construct, so we don't need to worry about that.
+
+
+\paragraph{Coequalizer.}
+\newthought{The \emph{coequalizer} of} two parallel morphisms $f,g: A \to B$ gives us the most efficient way to glue together parts of $B$ so that the two different ways of mapping $A \to B$ become indistinguishable; this generalises the notion of identifying equivalent elements, which are related by a pair of parallel morphisms, by "gluing together" the images of the morphisms.
+
+Formally, the coequalizer $(Q, q)$ of a pair of parallel morphisms $f,g: A \rightrightarrows B$ in a category $\mathcal{C}$ is the pushout of the morphisms $f,g$:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFswLDIsIkIiXSxbMiwyLCJRIl0sWzAsMSwiZiJdLFswLDIsImciLDJdLFsyLDMsInEiLDJdLFsxLDMsInEiXV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    A \&\& B \\
+    \\
+    B \&\& Q
+    \arrow["f", from=1-1, to=1-3]
+    \arrow["g"', from=1-1, to=3-1]
+    \arrow["q", from=1-3, to=3-3]
+    \arrow["q"', from=3-1, to=3-3]
+\end{tikzcd}
+\end{equation}
+where $q: B \to Q$ is the coequalizer morphism that satisfies\footnote{
+    \textbf{Example of a coequalizer in $\cat{Set}$.}
+    Suppose we have sets
+    \begin{align}
+        & A = \{a_{1}, a_{2}\} \\
+        & B = \{b_{1}, b_{2}, b_{3}, b_{4}\},
+    \end{align}
+    and functions
+    \begin{align}
+        & f,g: A \to B \quad \text{such that} \\
+        & f(a_{1}) = b_{1}, f(a_{2}) = b_{2} \text{ and} \\
+        & g(a_{1}) = b_{2}, g(a_{2}) = b_{3}
+    \end{align}
+    For each $a_{i} \in A$, the coequalizer morphism $q$ forces elements in $B$ with $f(a_{i})=g(a_{i})$ to be the same in $B \sqcup_{A} B$:
+    \begin{align}
+        & f(a_{1}) = g(a_{1}) \\
+        \implies & \text{glue $b_{1}$ to $b_{2}$} \\
+        \implies & b_{1} \sim b_{2} \text{ in $B \sqcup_{A} B$}
+    \end{align}
+    and
+    \begin{align}
+        & f(a_{2}) = g(a_{2}) \\
+        \implies & \text{glue $b_{2}$ to $b_{3}$} \\
+        \implies & b_{2} \sim b_{3} \text{ in $B \sqcup_{A} B$},
+    \end{align}
+    and so in $B \sqcup_{A} B$ we have
+    \begin{equation}
+        b_{1} \sim b_{2} \sim b_{3}.
+    \end{equation}
+    The coequalizer object $B \sqcup_{A} B$ is
+    \begin{equation}
+        B \sqcup_{A} B = \{[b_{1}]_{\sim}, [b_{4}]_{\sim}\},
+    \end{equation}
+    where $[b_{1}]_{\sim} = \{b_{1}, b_{2}, b_{3}\}$ and $[b_{4}]_{\sim} = \{b_{4}\}$.
+    
+    So the coequalizer has constructed the object $B \sqcup_{A} B$ by "gluing" $B$ to itself at the parts of $B$ that give the same result in $A$ under $f$ and $g$.
+}
+\begin{equation}
+    q \circ f = q \circ g;
+\end{equation}
+and $Q$ is the coequalizer object with
+\begin{equation}
+    Q = B \sqcup_{A} B.
+\end{equation}
+The diagram for the coequalizer of the morphisms $f,g: A \to B$ is usually drawn as\footnote{
+In diagrams, constructing a coequalizer looks like
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNyxbNCwwLCJBIl0sWzUsMCwiQiJdLFs2LDAsIlEiXSxbMCwwLCJBIl0sWzEsMCwiQiJdLFsyLDBdLFszLDBdLFswLDEsImciLDIseyJvZmZzZXQiOjF9XSxbMCwxLCJmIiwwLHsib2Zmc2V0IjotMX1dLFsxLDIsInEiXSxbMyw0LCIiLDAseyJvZmZzZXQiOjF9XSxbMyw0LCIiLDIseyJvZmZzZXQiOi0xfV0sWzUsNiwiXFx0ZXh0e2NvZXF1YWxpemVyfSJdXQ==
+\begin{tikzcd}[ampersand replacement=\&]
+    A \& B \& {} \& {} \& A \& B \& Q
+    \arrow[shift right, from=1-1, to=1-2]
+    \arrow[shift left, from=1-1, to=1-2]
+    \arrow["{\text{coequalizer}}", from=1-3, to=1-4]
+    \arrow["g"', shift right, from=1-5, to=1-6]
+    \arrow["f", shift left, from=1-5, to=1-6]
+    \arrow["q", from=1-6, to=1-7]
+\end{tikzcd}
+\end{equation}
+}:
+\begin{equation}
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiQiJdLFs0LDAsIlEiXSxbMCwxLCJnIiwyLHsib2Zmc2V0IjoxfV0sWzAsMSwiZiIsMCx7Im9mZnNldCI6LTF9XSxbMSwyLCJxIl1d
+\begin{tikzcd}[ampersand replacement=\&]
+    A \&\& B \&\& Q
+    \arrow["g"', shift right, from=1-1, to=1-3]
+    \arrow["f", shift left, from=1-1, to=1-3]
+    \arrow["q", from=1-3, to=1-5]
+\end{tikzcd}
+\end{equation}
+We can then use the universal property of coequalizers to construct the unique morphism:
+for any other morphism $q': B \to Q'$ satisfying
+\begin{equation}
+    q' \circ f = q' \circ g,
+\end{equation}
+there exists a unique morphism $u: Q \to Q'$ such that the following diagram commutes
+\begin{equation}
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzIsMCwiQiJdLFs0LDAsIlEiXSxbNCwyLCJRJyJdLFswLDEsImciLDIseyJvZmZzZXQiOjF9XSxbMCwxLCJmIiwwLHsib2Zmc2V0IjotMX1dLFsxLDIsInEiXSxbMSwzLCJxJyJdLFsyLDMsIlxcZXhpc3RzICEgXFw7IHUiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    A \&\& B \&\& Q \\
+    \\
+    \&\&\&\& {Q'}
+    \arrow["g"', shift right, from=1-1, to=1-3]
+    \arrow["f", shift left, from=1-1, to=1-3]
+    \arrow["q", from=1-3, to=1-5]
+    \arrow["{q'}", from=1-3, to=3-5]
+    \arrow["{\exists ! \; u}", dashed, from=1-5, to=3-5]
+\end{tikzcd}
+\end{equation}
+where
+\begin{equation}
+    q' = u \circ q.
+\end{equation}
+
+
+\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}
+
+\begin{definition}[Categorical product]
+    The \emph{categorical product} of two categories $C_{1}$ and $C_{2}$ is the category $C_{1} \times C_{2}$.
+    The objects of $C_{1} \times C_{2}$ are the pairs of objects $(B_{1}, B_{2})$, where $B_{1}$ is an object in $C_{1}$ and $B_{2}$ is an object in $C_{2}$.
+    The morphisms in $C_{1} \times C_{2}$ are the pairs of morphisms $(f_{1}, f_{2})$, where $f_{1}$ is a morphism in $C_{1}$ and $f_{2}$ is a morphism in $C_{2}$.
+    The composition of morphisms is defined component-wise.
+\end{definition}
+
+\begin{definition}[Sub-functors of sub-categories]
+    We can define a functor $F: C_{1} \times C_{2} \to C$ as follows:
+    \begin{enumerate}
+        \item For each object $(B_{1}, B_{2})$ in $C_{1} \times C_{2}$, $F(B_{1}, B_{2})$ is the object in $C$ that corresponds to the pair $(B_{1}, B_{2})$.
+    
+        \item For each morphism $(f_{1}, f_{2}): (B_{1}, B_{2}) \to (B'_{1}, B'_{2})$ in $G_{1} \times G_{2}$, $F(f_{1}, f_{2})$ is the morphism in $G$ that corresponds to the pair $(f_{1}, f_{2})$.
+    \end{enumerate}
+    
+    We can now define sub-functors $F_{1}$ of $G_{1}$ and $F_{2}$ of $G_{2}$ on an object $B$ of $G$ as follows:
+    \begin{enumerate}
+        \item $F_{1}(g_{1}, B) = F(g_{1}, 1_{G_{2}})(B)$ for all $g_{1} \in G_{1}$.
+        \item $F_{2}(g_{2}, B) = F(1_{G_{1}}, g_{2})(B)$ for all $g_{1} \in G_{1}$.
+    \end{enumerate}
+    
+    We can decompose $F$ into the sub-functors $F_{1}$ and $F_{2}$ as $F = F_{1} \times F_{2}$, if there is a decomposition $B = B_{1} \times B_{2}$ of $B$ into two sub-objects $B_{1}$ and $B_{2}$ such that:
+    \begin{enumerate}
+        \item For all $g_{1} \in G_{1}$ and $B_{2} \in G_{2}$, we have $F_{1}(g_{1}, B_{1} \times B_{2}) = F_{1}(g_{1}, B_{1} \times B_{2}$.
+    
+        \item For all $g_{2} \in G_{2}$ and $B_{1} \in G_{1}$, we have $F_{2}(g_{2}, B_{1} \times B_{2}) = B_{1} \times F_{2}(g_{2}, B_{2})$.
+    \end{enumerate}
+\end{definition}
+
+\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}\draftnote{red}{DIVIDER}{}

@@ -2,7 +2,37 @@
 \draftnote{blue}{(change name)}{}
 (V1.0)
 }
-\begin{table*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draftnote{red}{To do}{
+\begin{enumerate}
+    \item Proof that algorithm halts when it has all necessary elements and not before.
+    \item Proof that $L = \hat{A}^{*}/\sim$ when the algorithm halts.
+    \item Step-by-step example of an iteration of the algorithm.
+    \item (formatting) Span algorithm blocks across full width of page.
+    \item (discuss) What if two actions appeared to be equivalent under $\sim$ at one point in the algorithm but are not actually equivalent under $\sim$ ?
+    \item Introduce the states Cayley table.
+    \item Call the "actions Cayley table" the "Cayley table" to align with algorithm in Chapter 3.
+    \item Go over pseudocode key table.
+    \item $\operatorname{Seq} : \hat{A}^* \to (\hat{A})^n, \quad \operatorname{Seq}(a) = (\hat{a}_{n}, \hat{a}_{n-1}, \dots, \hat{a}_{1})$
+    \item Explain how assignment to $\mathcal{E}$ works - assignment occurs for each of the constituents of $\mathcal{E}$.
+    \item Mention that the only bit of information needed from $\mathscr{W}$ is the mapping: $\hat{*}: \hat{A} \times W \to W$ that takes a minimum action and applies it to a world state.
+    We treat $\hat{*}$ as a part of $\mathscr{W}$.
+    \item Reasons for developing this algorithm
+    \begin{compactitem}
+    \item It's common for algorithms to be built around a single starting world states (give examples).
+    \item A method that does this might make more sense for an agent since it starts at a known state and iterates out rather than having to know all states at once (which might not even be possible if $W$ is infinite.
+    Can we derive a way that the algorithm can work without the agent returning to its initial world state $w^{*}$ ?
+    \item This algorithm attempts to build the algebra as it goes, and so better reflect the experience of an agent.
+    \end{compactitem}
+    \item Naming issue with $l_{row}$ and $l_{col}$ - used (in different functions) for row labels and states Cayley table row - check this is correct.
+\end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pseudocode}
+
+\begin{table}[H]
 	\centering
 	\begin{tabularx}{\textwidth}{@{}lX@{}}
 		\toprule
@@ -22,174 +52,7 @@
 		\bottomrule
 	\end{tabularx}
 	\caption{Key for pseudocode.}
-	\label{tab:pseudocode_key}
-\end{table*}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation}
-\whendraft{
-	\begin{enumerate}
-		\item Why create the algorithm ?
-		      \begin{itemize}
-			      \item We wanted a way to explore structures.
-		      \end{itemize}
-
-	\end{enumerate}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Description [/preliminaries?]}
-\whendraft{
-	\textbf{Include in algorithm description:}
-	\begin{enumerate}
-		\item Make up of $\mathcal{E}$.
-		\item We store actions as their unique sequences of minimum actions.
-		\item All we need from $\mathscr{W}$ is the set $W$ of world states and the map $\hat{*}: \hat{A} \times W \to W$.
-		      We treat $\hat{*}$ as a part of $\mathscr{W}$.
-		\item How we use the $\operatorname{Combine}$ operator to evaluate $\circ$.
-		\item What each of elements of $\mathcal{E}$ are at the termination of the algorithm.
-		\item $\operatorname{Seq} : \hat{A}^* \to (\hat{A})^n, \quad \operatorname{Seq}(a) = (\hat{a}_{n}, \hat{a}_{n-1}, \dots, \hat{a}_{1})$
-		\item Explain how assignment to $\mathcal{E}$ works - assignment occurs for each of the constituents of $\mathcal{E}$.
-		\item What is states Cayley table?
-		\item What is actions Cayley table?
-		\item Mention that the only bit of information needed from $\mathscr{W}$ is the mapping: $\hat{*}: \hat{A} \times W \to W$ that takes a minimum action and applies it to a world state.
-
-		\item Change name of `states Cayley table' and `actions Cayley table` ?
-          \begin{itemize}
-              \item Cayley table is already a thing.
-          \end{itemize}
-
-    \item Reasons for developing this algorithm
-    \begin{compactitem}
-        \item It's common for algorithms to be built around a single starting world states (give examples).
-        \item A method that does this might make more sense for an agent since it starts at a known state and iterates out rather than having to know all states at once (which might not even be possible if $W$ is infinite.
-        Can we derive a way that the algorithm can work without the agent returning to its initial world state $w^{*}$ ?
-        \item This algorithm attempts to build the algebra as it goes, and so better reflect the experience of an agent.
-    \end{compactitem}
-
-    \item Naming issue with $l_{row}$ and $l_{col}$ - used (in different functions) for row labels and states Cayley table row.
-    
-\end{enumerate}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The initial}
-
-
-The definition of $\sim$ is ...
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Mathematical preliminaries}
-\whendraft{
-	\begin{enumerate}
-		\item Definition of Cayley table. - put this in motivation section ?
-	\end{enumerate}
-}
-
-
-\paragraph{What is an actions Cayley table?}
-
-
-\paragraph{What is a states Cayley table?}
-
-
-\paragraph{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Design decisions}
-
-\paragraph{Problem:}
-Assessing equality between two actions.
-\\\textit{Solution:}
-When assessing equality between two actions, we use the fact that every action can be expressed as a unique composition of minimum actions.
-When we store actions in $E$ or $L$ we store them as a tuple of their minimum actions: if $a = \hat{a}_{n} \circ \hat{a}_{n-1} \circ \dots \circ \hat{a}_{1}$ then we store action $a$ as $(\hat{a}_{n}, \; \hat{a}_{n-1}, \; \dots, \; \hat{a}_{1})$ when $a$ is stored in $E$ and $L$.
-Then, when we need to assess if two actions are the same, we can compare their minimum action tuples.
-
-\paragraph{Problem:}
-Calculating the result of the $\circ$ operator.
-\\\textit{Solution:}
-The $\circ$ operator finds the result of composing two actions.
-We define an operator $\operatorname{Combine}$ which combines two minimum action tuples into a single minimum action tuple as:
-\begin{equation}
-	\begin{aligned}
-		 & \operatorname{Combine}: \hat{A}^{k} \times \hat{A}^{p} \to \hat{A}^{k+p}, \text{ such that}                                                                                                     \\
-		 & \operatorname{Combine}((\hat{a}_{k}, \; \dots, \; \hat{a}_{1}), \; (\hat{b}_{p}, \; \dots, \; \hat{b}_{1})) = (\hat{a}_{k}, \; \dots, \; \hat{a}_{1}, \; \hat{b}_{p}, \; \dots, \; \hat{b}_{1})
-	\end{aligned}
-\end{equation}
-Due to the associativity of $\circ$
-\begin{equation}
-	a \circ a' = \operatorname{Seq}^{-1}(\;\operatorname{Combine}(\;\operatorname{Seq}(a), \; \operatorname{Seq}(a')\;)\;)
-\end{equation}
-\footnote{
-	Recall $\operatorname{Seq}: \hat{A}^{*} \to (\hat{A}^{*})^{n}$ such that $\operatorname{Seq}(a) = (\hat{a}_{n}, \; \dots, \; \hat{a}_{1})$ if $a = \hat{a}_{n} \circ \dots \circ \hat{a}_{1}$.
-}
-But since we're representing the elements of $\hat{A}^{*}$ that we come across as minimum action tuples, in our algorithm
-\begin{equation}
-	a \circ a' = \operatorname{Combine}(a, \; a')
-\end{equation}
-
-\paragraph{Problem:}
-Calculating the effect of an action on the initial world state.
-\\\textit{Solution:}
-In algorithm \ref{alg:GenerateActionOutcome}, we need to calculate the effect of applying any action in $\hat{A}^{*}$ that we come across.
-But how can we do this without programming the (indefinitely many) labelled transformations into our construction of the world $\mathscr{W}$?
-Once again, we can use that any action $a$ can be represented by a minimum action tuple.
-We apply each minimum action in order (moving from the RHS to the LHS of the tuple) to get the resulting world state of applying $a$ directly to the world state:
-\begin{equation}
-	\begin{aligned}
-		a * w = & \; (\hat{a}_{n} \circ \dots \circ \hat{a}_{2} \circ \hat{a}_{1}) * w \\
-		= & \; \hat{a}_{n} * ( \dots (\hat{a}_{2} * (\hat{a}_{1} * w)) \dots)
-	\end{aligned}
-\end{equation}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\paragraph{Problem:}
-How do we know if the algebra produced is complete?
-\\\textit{Solution:}
-\begin{itemize}
-	\item
-\end{itemize}
-
-
-\paragraph{Problem:}
-Dealing with undefined actions.
-\\\textit{Solution:}
-\begin{itemize}
-	\item Describe how we implemented the undefined state.
-\end{itemize}
-
-\paragraph{Problem:}
-[Something where the solution requires equivalence class breaking]
-What if two actions appeared to be equivalent under $\sim$ at one point in the algorithm but are not actually equivalent under $\sim$ ?
-\\\textit{Solution:}
-\begin{itemize}
-	\item
-\end{itemize}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Pseudocode}
-\whendraft{
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item [visual] Span algorithms across entire page.
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
-}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Generating states Cayley table and equivalence classes}
@@ -469,22 +332,3 @@ What if two actions appeared to be equivalent under $\sim$ at one point in the a
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\whendraft{
-	\section{Example [\textbf{To do}]}
-	\begin{enumerate}
-		\item Go through code step-by-step.
-	\end{enumerate}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\whendraft{
-	\section{Mathematical justification}
-	\noindent\rule{\textwidth}{1mm}
-	\textbf{To do:}
-	\begin{enumerate}
-		\item Proof that algorithm halts when it has all necessary elements and not before.
-	\end{enumerate}
-	\noindent\rule{\textwidth}{1mm}
-}

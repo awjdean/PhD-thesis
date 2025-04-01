@@ -1,6 +1,6 @@
 \chapter{
 Beyond SBDRL II: local algebras
-(V1.1)
+\draftnote{blue}{V1.5}{}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -352,7 +352,7 @@ The number of elements in $\hat{A}^{*}/\sim_{w}$ is the number of world states t
     Let $b$ be the shortest action such that $b \ast w^{*}$ is not represented in $L$ (i.e., $b$ is the shortest distinct action under $\sim_{w}$).
 
     \item \textbf{Decomposition of $b$.}
-    We can write $b$ as $b = \hat{a} \circ b'$ where $\hat{a} \in \hat{A}/\sim_{w}$ and $b' \in \hat{A}^{\ast}$.
+    We can write $b$ as $b = \hat{a} \circ b'$ where $\hat{a} \in \hat{A}/\sim_{w}$ and $b' \in \hat{A}^{*}$.
     Since $b$ is the shortest undiscovered distinct action under $\sim_{w}$, either $b'$ must have been discovered and be represented in $L$ or $b'$ is not discovered and $b$ is not the shortest undiscovered distinct action under $\sim_{w}$, since $b'$ is shorter than $b$, which is a contradiction.
 
     \item \textbf{Contradiction.}
@@ -1008,7 +1008,7 @@ This is similar to the Heisenberg Picture of QM ?
 It is possible for local equivalence classes can split when a mapping $\xi_{(w, a \ast w)}$ is applied.
 For example
 \begin{figure}[H]
-    \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/local_equiv_classes_can_split_when_action_performed.jpeg}
+    \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/local_equiv_classes_can_split_when_action_performed.png}
     \caption{
     \draftnote{blue}{Caption}{}
     }
@@ -1126,7 +1126,7 @@ Therefore, the $[a]_{\sim_{w}}$ equivalence class splits when $\xi_{(w, u)}$ is 
     Consider the world:
     \begin{figure}[H]
         % \centering
-        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/circ_sim_w_defined_does_not_mean_algebra_is_constant.jpeg}
+        \includegraphics[width=0.5\linewidth]{6BeyondSBDRLLocalAlgebras/Images/circ_sim_w_defined_does_not_mean_algebra_is_constant.png}
         \caption{\draftnote{blue}{To do}{}}
     \end{figure}
     In this world we have
@@ -3089,6 +3089,9 @@ Define $D_{A}^{\hat{A}\to}(w)$ in reachable subworld definition.
 \begin{propositionE}
     \label{prp:action_homogeneous_means_properties_for_w_hold_for_all_reachable_subworld}
     A world $\mathscr{W}$ is action-homogeneous from a world state $w \in W$ $\implies$ [ property $P(a, a', w')$ holds for a world state $w' \in W^{\hat{A}\to}(w)$ $\implies$ $P(a, a', w')$ holds for all world states $w' \in W^{\hat{A}\to}(w)$ ], where $P(a, a', w')$ is a property of the form $b_{2} \ast (b_{1} \ast w') = b'_{2} \ast (b'_{1} \ast w')$ with $b_{1}, b'_{1}, b_{2}, b'_{2} \in \{a, a'\}^{*}$, and $a, a' \in \hat{A}^{*}$.
+    \draftnote{blue}{Consider}{
+    Isn't $a \ast w = a' \ast w$ for all $w \in W$ enough for the property since $\hat{A}^{*}$ contains all strings of $\hat{A}$.
+    }
 \end{propositionE}
 \begin{proofE}
 \draftnote{blue}{To do}{Reverse direction could be possible but I think the wording would need changing.}

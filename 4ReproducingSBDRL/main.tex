@@ -1,9 +1,11 @@
 \chapter{
 Reproducing symmetry-based disentangled representation learning
-(V1.3)
+\draftnote{blue}{(V1.5)}{}
 }
 \draftnote{green}{To do}{
 \begin{enumerate}
+    \item \textbf{Presence of $\varepsilon$ in the agent's algebra.}
+    We need to be a little careful with $\varepsilon$ because, even though $\varepsilon$ is always in $\hat{A}^{*}$ for mathematical reasons, if none of the agent's actions are equivalent to $\varepsilon$, then we might not want to include it in our algebra of the transformations of the actions of the agent.
     \item SBDRL actually only considers the transformations of the world that have a group structure.
     However, as we see there are many scenarios when transformations so not form a group structure.
     \begin{itemize}
@@ -21,6 +23,11 @@ Reproducing symmetry-based disentangled representation learning
     % }
     % \]
 \end{enumerate}
+}
+
+\draftnote{blue}{}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
 }
 
 Our objective for this chapter is to partially validate our framework by showing it can reproduce Symmetry-based disentangled representation learning (SBDRL) \autocite{Higgins2018}, a well-establish mathematical framework for disentanglement in representation learning.
@@ -89,7 +96,7 @@ Subgroups of a group might commute with each other.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{What is SBDRL ?}
+\section{What is SBDRL?}
 
 The SBDRL framework treats agents as experiencing the world through a map $f = h \circ b: W \to Z$ made from the composition of a generative process $b: W \to O$ 
 \footnote{\draftnote{blue}{awjdean}{What actual is a 'generative process' ?}
@@ -108,7 +115,7 @@ The mathematical condition for SBDRs is:
 	f(g \cdot_{W} w) = g \cdot_{Z} f(w) \quad \text{for all $w\in W$, for all $g \in G$}
 \end{equation}
 In words, applying any action $g \cdot_{W}$ of a symmetry element $g \in G$ to any world state $w \in W$ and then applying the mapping $f$ gives the same result as first applying the mapping $f$ to $w$ to give a representation state $f(w) \in Z$ and then applying the action $g \cdot_Z$ of the same symmetry element $g \in G$ to the representation state $f(w) \in Z$.
-When equation \ref{eqn: SBRs eqn} is satisfied, then $f$ is called a \emph{group-equivariant map}.
+When \cref{eqn: SBRs eqn} is satisfied, then $f$ is called a \emph{group-equivariant map}.
 
 \paragraph{Symmetry-based disentangled representations.}
 The SBDRL framework now assumes the group $G$ of symmetries of the world states in $W$ decomposes as a direct product $G = G_1 \times \hdots \times G_i \times \hdots \times G_n$.
@@ -142,7 +149,7 @@ If $W$, $Z$, and $f$ satisfy conditions (1), (2), and (3) then the agent's repre
 }
 
 Both \autocite{Higgins2018} and \autocite{caselles2019symmetry} suggest that these group actions can be used to describe some types of real-world actions.
-However, it is important to note that they do not believe that all actions can be described by their formalism: \textit{``It is important to mention that not all actions are symmetries, for instance, the action of eating a collectible item in the environment is not part of any group of symmetries of the environment because it might be irreversible.''}
+However, it is important to note that they do not believe that all actions can be described by their formalism: \textit{``It is important to mention that not all actions are symmetries, for instance, the action of eating a collectible item in the environment is not part of any group of symmetries of the environment because it might be irreversible.''} \autocite{caselles2019symmetry}
 \draftnote{blue}{awjdean}{Need to cite pg4 of caselles2019symmetry}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -158,8 +165,8 @@ In our framework, we have the following:
     \end{enumerate}
 
     \item a set $\hat{D}_{A} \subseteq D$ of minimum action transformations and the set $D_{A}$ of transformations due to the actions of an agent;
-    \item a set $\hat{A}$ of minimum actions, which are used to generate a set $\hat{A}^{\ast}$ of actions; along with the action composition operator $\circ: \hat{A}^{*} \times \hat{A}^{*} \to \hat{A}^{*}$, we have a free monoid $(\hat{A}^{*}, \circ)$.
-    \item a labelling map $l: D_{A} \to \hat{A}^{\ast}$ that sends the transformations in $D_{A}$ to the action in $\hat{A}^{\ast}$ that caused them;
+    \item a set $\hat{A}$ of minimum actions, which are used to generate a set $\hat{A}^{*}$ of actions; along with the action composition operator $\circ: \hat{A}^{*} \times \hat{A}^{*} \to \hat{A}^{*}$, we have a free monoid $(\hat{A}^{*}, \circ)$.
+    \item a labelling map $l: D_{A} \to \hat{A}^{*}$ that sends the transformations in $D_{A}$ to the action in $\hat{A}^{*}$ that caused them;
     \item an effect operator $\ast : \hat{A}^{*} \times W \to W$ that sends an action-world state pair $(a, w)$ to the target of the transformation that is labelled by an action $a$ and has source $w$.
 \end{enumerate}
 
@@ -206,17 +213,17 @@ We will write $\ast|_{G}$ as $\ast$ where it is clear what we means.
 So far we haven't discussed what the representation of an agent will actually look like in our framework.
 We will do this now.
 
-We propose that the general structure of the agent's representation of the world should match the general structure of a world; in other words, a directed multigraph of the form $\mathscr{W}_{Z} = (Z, \hat{D}_{Z}, s_{Z}, t_{Z})$.
-This means we can construct for for $\mathscr{W}_{Z}$ everything we have already constructed for $\mathscr{W}$.
-We denote objects from the representation world using $_{Z}$ (e.g., $\hat{A}^{\ast}_{Z}$, $D_{A, Z}$, $\ast_{Z}$), except the set of representation states which is denoted by $Z$.
+We propose that the general structure of the agent's representation of the world should match the general structure of a world; in other words, a directed multigraph of the form $\mathscr{Z} = (Z, \hat{D}_{Z}, s_{Z}, t_{Z})$.
+This means we can construct for for $\mathscr{Z}$ everything we have already constructed for $\mathscr{W}$.
+We denote objects from the representation world using $_{Z}$ (e.g., $\hat{A}^{*}_{Z}$, $D_{A, Z}$, $\ast_{Z}$), except the set of representation states which is denoted by $Z$.
 
 \paragraph{The goal of learning.}
-We will predominantly focus on what we want the structure of $\mathscr{W}_{Z}$ to be at the end of the learning process without considering what happens to $\mathscr{W}_{Z}$ during the learning process \draftnote{blue}{awjdean}{Explain why.}.
-It is important to note that $\mathscr{W}_{Z}$ does not need to be identical to $\mathscr{W}$ at the end of a successful learning process; $\mathscr{W}_{Z}$ just needs to contain all the `necessary information' for the agent to complete the tasks it needs to complete.
+We will predominantly focus on what we want the structure of $\mathscr{Z}$ to be at the end of the learning process without considering what happens to $\mathscr{Z}$ during the learning process \draftnote{blue}{awjdean}{Explain why.}.
+It is important to note that $\mathscr{Z}$ does not need to be identical to $\mathscr{W}$ at the end of a successful learning process; $\mathscr{Z}$ just needs to contain all the `necessary information' for the agent to complete the tasks it needs to complete.
 For example, if we want the agent to learn the group structure of a world, we only need the transformations in $D_{A}$ that are labelled by actions that form a group in $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be replicated in $D_{A, Z}$ rather than every transformation in $D$.
 
 \draftnote{blue}{awjdean}{
-Does $\mathscr{W}_{Z}$ need to have the requirement that the $\hat{D}_{Z}$'s combine associatively to give the $D_{Z}$ ?
+Does $\mathscr{Z}$ need to have the requirement that the $\hat{D}_{Z}$'s combine associatively to give the $D_{Z}$ ?
 Yes I think so - what would it even mean to say that there was no associativity of (global) actions ?
 If yes, then does that mean minimum transformations must be mapped over correctly ?
 }
@@ -241,7 +248,7 @@ In our framework, we can make $f$ bijective using our Markov blanket agent embod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporting the group action on $W$ into the action on $Z$}
 
-Now we have our group $G$ of symmetries of our world $\mathscr{W}$ and our agent's representation of the world $\mathscr{W}_{Z}$, we can enforce the symmetries $G$ into the structure of our agent's representation $\mathscr{W}_{Z}$.
+Now we have our group $G$ of symmetries of our world $\mathscr{W}$ and our agent's representation of the world $\mathscr{Z}$, we can enforce the symmetries $G$ into the structure of our agent's representation $\mathscr{Z}$.
 In our framework, the condition for the symmetries $G$ of $\mathscr{W}$ to be present in our agent's representation is the group equivariance condition from SBDRL
 \begin{equation}
     f(g \cdot_{W} w) = g \cdot_{Z} f(w) \iff f(g \ast w) = g \ast_{Z} f(w)
@@ -261,87 +268,49 @@ The disentangling condition of SBDRL translates over easily into our framework
 \end{align}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 \subsection{Summary}
-\begin{table}[H]
-\centering
 \renewcommand{\arraystretch}{1.25}
-\begin{tabular}{p{0.24\linewidth} p{0.26\linewidth} p{0.44\linewidth}}
+% Define column types for better alignment
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Q}{>{\raggedright\arraybackslash}p{0.44\textwidth}}
+
+
+\begin{longtable}{@{}P{0.24\textwidth} P{0.26\textwidth} Q@{}}
 \toprule
 \textbf{SBDRL concept} & \textbf{Object in our framework} & \textbf{Notes} \\
 \midrule
-\textbf{World states} 
-& \(W\) 
-& In both frameworks, \(W\) is the set of all world states. \\
+\endfirsthead
 
-\textbf{Some actions being the same} & $\sim$ & Actions that produce the same source–target transitions across \emph{all} states in $W$ are equivalent under $\sim$. \\
+\multicolumn{3}{c}%
+{{\bfseries Table \thetable\ -- continued from previous page}} \\
+\toprule
+\textbf{SBDRL concept} & \textbf{Object in our framework} & \textbf{Notes} \\
+\midrule
+\endhead
 
-\textbf{Group of symmetries} 
-& \(G \,\subseteq\, \hat{A}^{\ast}/\sim\) 
-& In SBDRL, the symmetries are invertible actions.  
-In our framework, \(G\) is a subset of the quotient \(\hat{A}^{\ast}/\sim\).
-SBDRL only requires these actions to be preserved in the agent's representation.
-\\
-
-\textbf{Group composition on \(G\)} 
-& \(\circ_{\sim}\) 
-& The composition inherited from \(\hat{A}^{\ast}\) under the equivalence relation \(\sim\).  
-Hence \((G,\circ_{\sim})\) is the group in SBDRL.\\
-
-\textbf{Group action on world states} 
-& \(\cdot_{W} \equiv \ast_{\sim}\! \big\rvert_{G}\) 
-& In SBDRL, \(g \cdot_{W} w\) denotes applying symmetry \(g\) to state \(w\).
-In our framework, this is just the action effect operator $\ast_{\sim}: (\hat{A}^{*}/\sim) \times W \to W$ restricted to $G$.\\
-
-
-\textbf{Minimal action transformations} 
-& \(\hat{D}_{A}\subseteq D\) 
-& \(\hat{D}_{A}\) are the minimal transformations specifically due to actions in \(\hat{A}\).  
-They generate the set \(D_{A}\) (all action-based transformations) by composition.\\
-
-\textbf{All action-based transformations} 
-& \(D_{A}\subseteq D\) 
-& Compositions of the minimal action transformations \(\hat{D}_{A}\).  
-SBDRL focuses only on those transformations corresponding to the subgroup \(G\), but our framework can represent arbitrary actions in \(\hat{A}^{\ast}\).\\
-
-\textbf{All transformations} 
-& \(D\) 
-& All finite compositions (walks) of minimal transformations in \(\hat{D}\). 
-In SBDRL, we do not necessarily impose structure on transformations not in \(G\).\\
-
-\textbf{Representation} 
-& $\mathscr{W}_{Z}$ 
-& The agent’s internal representation.
-During the learning process, the agent constructs a directed multigraph \(\mathscr{W}_{Z} = (Z, \hat{D}_{Z}, s_{Z}, t_{Z})\), mirroring \(\mathscr{W}\).\\
-
-\textbf{Representation map} 
-& \(f: W \,\to\, Z\) 
-& A (bijective) map from world states \(W\) to representation states \(Z\).  
-In SBDRL, typically \(f\) is assumed bijective.
-In our framework, we make $f$ bijective by enforcing that the agent has ideal sensors
-\\
-
-\textbf{Equivariance condition} 
-& \(f(g \ast w) = g \cdot_{Z} f(w)\) 
-& The core SBDRL requirement:  
-applying symmetry \(g\) \emph{before} or \emph{after} the map \(f\) yields the same result.\\
-
-\textbf{Group and representation decomposition (disentangling)} 
-& \(G = G_{1} \times \cdots \times G_{n}\); 
-  \(Z = Z_{1} \times \cdots \times Z_{n}\) 
-& In SBDRL, symmetries split as a direct product.  
-A disentangled representation is one where each \(Z_i\) is affected only by the corresponding subgroup \(G_i\).  
-This corresponds to factoring \(\mathscr{W}_{Z}\) into subspaces.\\
+\midrule \multicolumn{3}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
 
 \bottomrule
-\end{tabular}
-\caption{
-A correspondence table showing how the key concepts of symmetry-based disentangled representation learning (SBDRL) align with objects from our framework.
-\draftnote{blue}{awjdean}{
-Convert to full page width table
-}
-}
-\label{tab:sbdrl-correspondence}
-\end{table}
+\caption{A correspondence table showing how the key concepts of symmetry-based disentangled representation learning (SBDRL) align with objects from our framework.}
+\label{tab:sbdrl-correspondence} \\
+\endlastfoot
+
+\textbf{World states} & \(W\) & In both frameworks, \(W\) is the set of all world states. \\
+\textbf{Some actions being the same} & \(\sim\) & Actions that produce the same source–target transitions across \emph{all} states in \(W\) are equivalent under \(\sim\). \\
+\textbf{Group of symmetries} & \(G \,\subseteq\, \hat{A}^{*}/\sim\) & In SBDRL, the symmetries are invertible actions. In our framework, \(G\) is a subset of the quotient \(\hat{A}^{*}/\sim\). SBDRL only requires these actions to be preserved in the agent's representation. \\
+\textbf{Group composition on \(G\)} & \(\circ_{\sim}\) & The composition inherited from \(\hat{A}^{*}\) under the equivalence relation \(\sim\). Hence \((G,\circ_{\sim})\) is the group in SBDRL. \\
+\textbf{Group action on world states} & \(\cdot_{W} \equiv \ast_{\sim}\! \big\rvert_{G}\) & In SBDRL, \(g \cdot_{W} w\) denotes applying symmetry \(g\) to state \(w\). In our framework, this is just the action effect operator \(\ast_{\sim}: (\hat{A}^{*}/\sim) \times W \to W\) restricted to \(G\). \\
+\textbf{Minimal action transformations} & \(\hat{D}_{A}\subseteq D\) & \(\hat{D}_{A}\) are the minimal transformations specifically due to actions in \(\hat{A}\). They generate the set \(D_{A}\) (all action-based transformations) by composition. \\
+\textbf{All action-based transformations} & \(D_{A}\subseteq D\) & Compositions of the minimal action transformations \(\hat{D}_{A}\). SBDRL focuses only on those transformations corresponding to the subgroup \(G\), but our framework can represent arbitrary actions in \(\hat{A}^{*}\). \\
+\textbf{All transformations} & \(D\) & All finite compositions (walks) of minimal transformations in \(\hat{D}\). In SBDRL, we do not necessarily impose structure on transformations not in \(G\). \\
+\textbf{Representation} & \(\mathscr{Z}\) & The agent’s internal representation. During the learning process, the agent constructs a directed multigraph \(\mathscr{Z} = (Z, \hat{D}_{Z}, s_{Z}, t_{Z})\), mirroring \(\mathscr{W}\). \\
+\textbf{Representation map} & \(f: W \,\to\, Z\) & A (bijective) map from world states \(W\) to representation states \(Z\). In SBDRL, typically \(f\) is assumed bijective. In our framework, we make \(f\) bijective by enforcing that the agent has ideal sensors. \\
+\textbf{Equivariance condition} & \(f(g \ast w) = g \cdot_{Z} f(w)\) & The core SBDRL requirement: applying symmetry \(g\) \emph{before} or \emph{after} the map \(f\) yields the same result. \\
+\textbf{Group and representation decomposition (disentangling)} & \(G = G_{1} \times \cdots \times G_{n}\); \(Z = Z_{1} \times \cdots \times Z_{n}\) & In SBDRL, symmetries split as a direct product. A disentangled representation is one where each \(Z_i\) is affected only by the corresponding subgroup \(G_i\). This corresponds to factoring \(\mathscr{Z}\) into subspaces. \\
+\end{longtable}
 
 \draftnote{blue}{awjdean}{\textbf{Induced group action on \(Z\)}; \(g \cdot_{Z} z := f(g \ast f^{-1}(z))\); Because \(f\) is invertible (ideally), each \(g\in G\) induces a symmetry on \(Z\).  Equivalently, \(\cdot_Z\) satisfies \(g \cdot_{Z} f(w) = f(g \cdot_{W} w)\).\\}
 
@@ -359,7 +328,7 @@ For an action $a \in \hat{A}^{*}/\sim$ to be able to be a member of a group $G \
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Constructing a subalgebra \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}}
+\section{Constructing subalgebras \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}}
 
 We can constructed an arbitrary subalgebra $(B, \circ_{\sim}) \subseteq (\hat{A}^{*}/\sim, \circ_{\sim})$ through the following algorithm:
 \begin{algorithm}[H]
@@ -390,7 +359,7 @@ Generate an arbitrary subalgebra $(B, \circ_{\sim})$ from $(\hat{A}^{*}/\sim, \c
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{
-Properties of any subalgebra \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}
+Properties of all subalgebras \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_{\sim})$}{}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -400,21 +369,21 @@ Any algebra $(B, \circ_{\sim}) \subseteq (\hat{A}^{*}/\sim, \circ_{\sim})$ is cl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Associative}
 Associativity is inherited from the associativity of $(\hat{A}^{*}/\sim, \circ_{\sim})$.
-\begin{proposition}\label{prp:any_subalgebra_associative}
+\begin{propositionE}\label{prp:any_subalgebra_associative}
     Any subalgebra $(B, \circ_{\sim}) \subseteq (\hat{A}^{*}/\sim, \circ_{\sim})$ is associative.
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
     Assume $B \neq \emptyset$.
     If $B$ is closed under $\circ_{\sim}$, we have $b \circ_{\sim} b' \in B$ for all $b,b' \in B$.
     Take any $b, b', b'' \in B$.
     Since $B$ is closed under $\circ_{\sim}$, $b \circ_{\sim} b' \in B$ and $b' \circ_{\sim} b'' \in B$.
-    Since $(\hat{A}^{*}/\sim, \circ_{\sim})$ is associative (see proposition \ref{prp:circ_sim_associative}), we have
+    Since $(\hat{A}^{*}/\sim, \circ_{\sim})$ is associative (see \cref{prp:circ_sim_associative}), we have
     \begin{equation}
         (b \circ_{\sim} b') \circ_{\sim} b'' = b \circ_{\sim} (b' \circ_{\sim} b'')
     \end{equation}
     in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
     Since all expressions are in $B$, this equality also holds in $(B, \circ_{\sim})$.
-\end{proof}
+\end{proofE}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{
@@ -423,8 +392,8 @@ Properties of selected subalgebras \texorpdfstring{of $(\hat{A}^{*}/\sim, \circ_
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Identity}
-The set $\hat{A}^{*}/\sim$ contains an identity element $[\epsilon]$ for any world (see \cref{prp:A_sim_identity}), and defined for any world state.
-If we construct our algebra $(B, \circ_{\sim})$ so that $[\epsilon] \in B$ then $(B, \circ_{\sim})$ will satisfy the identity property.
+The set $\hat{A}^{*}/\sim$ contains an identity element $[\varepsilon]_{\sim}$ for any world (see \cref{prp:A_sim_identity}), and defined for any world state.
+If we construct our algebra $(B, \circ_{\sim})$ so that $[\varepsilon]_{\sim} \in B$ then $(B, \circ_{\sim})$ will satisfy the identity property.
 
 \draftnote{green}{To do}{
 Explain implementation problems with the empty action as an identity.
@@ -483,7 +452,7 @@ An action $a \in \hat{A}^{*}$ is called \emph{invertible} from a world state $w 
 \end{equation}
 Such an $a'$ is called an inverse of $a$ from $w$
 \footnote{
-\draftnote{blue}{Consider}{Move or adjust the below now these definitions use $a$ instead of $[a]$.}
+\draftnote{blue}{Consider}{Move or adjust the below now these definitions use $a$ instead of $[a]_{\sim}$.}
 There's a subtle point to be made here about the uniqueness of an inverse element.
 When it is said that there is a unique inverse element for an element in an algebra $(A, \cdot)$, what is meant is that inverse elements are indistinguishable in terms of their behaviour under $\cdot$ and so are the same inverse with respect to $\cdot$.
 \draftnote{blue}{awjdean}{Give example of set that forms different algebras with different operators. Mention that this fact could be useful for those using our framework as a base to develop more complicated algebras.}
@@ -527,7 +496,7 @@ Something (in relevant section) about how non consistent invertibility affects $
 The presence of non-global left or right inverses does not translate into properties of $(\hat{A}^{*}/\sim, \circ_{\sim})$ because $\sim$ captures global behaviour.
 However, for consistently globally invertible left or right actions, we can convert \cref{eqn:global_left_inverse_def,eqn:global_right_inverse_def} into definitions about our algebra $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 
-\begin{proposition}\label{prp:global_inverse_means_inverse_in_global_algebra}
+\begin{propositionE}\label{prp:global_inverse_means_inverse_in_global_algebra}
 \begin{enumerate}
     \item An action $a \in \hat{A}^{*}$ has a global left inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is a left inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
     
@@ -535,8 +504,8 @@ However, for consistently globally invertible left or right actions, we can conv
 
     \item An action $a \in \hat{A}^{*}$ has a global inverse $a' \in \hat{A}^{*}$ $\implies$ $[a']_{\sim}$ is an inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 \end{enumerate}
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
 \begin{enumerate}
     \item For a consistently globally invertible left action $a \in \hat{A}^{*}$ with global left inverse $a' \in \hat{A}^{*}$,
     \begin{align}
@@ -545,13 +514,13 @@ However, for consistently globally invertible left or right actions, we can conv
     \end{align}
     Since
     \begin{equation}
-        \epsilon \ast w = w \quad \text{for all $w \in W$},
+        \varepsilon \ast w = w \quad \text{for all $w \in W$},
     \end{equation}
     we have
     \begin{align}
-        & (a' \circ a) \sim \epsilon \\
-        \implies & [a' \circ a]_{\sim} = [\epsilon]_{\sim} \\
-        \implies & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon]_{\sim}.
+        & (a' \circ a) \sim \varepsilon \\
+        \implies & [a' \circ a]_{\sim} = [\varepsilon]_{\sim} \\
+        \implies & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\varepsilon]_{\sim}.
     \end{align}
     This is the condition for $[a']_{\sim}$ to a left inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 
@@ -562,24 +531,24 @@ However, for consistently globally invertible left or right actions, we can conv
     \end{align}
     Since
     \begin{equation}
-        \epsilon \ast w = w \quad \text{for all $w \in W$},
+        \varepsilon \ast w = w \quad \text{for all $w \in W$},
     \end{equation}
     we have
     \begin{align}
-        & (a \circ a') \sim \epsilon \\
-        \implies & [a \circ a']_{\sim} = [\epsilon]_{\sim} \\
-        \implies & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\epsilon]_{\sim}.
+        & (a \circ a') \sim \varepsilon \\
+        \implies & [a \circ a']_{\sim} = [\varepsilon]_{\sim} \\
+        \implies & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\varepsilon]_{\sim}.
     \end{align}
     This is the condition for $[a']_{\sim}$ to a right inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 
     \item A consistently globally invertible action $a \in \hat{A}^{*}$ has a global inverse $a' \in \hat{A}^{*}$ that acts as both a global left inverse and a global right inverse, and so
     \begin{align}
-        & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\epsilon]_{\sim} \\
-        \text{and } & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\epsilon]_{\sim}
+        & [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\varepsilon]_{\sim} \\
+        \text{and } & [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\varepsilon]_{\sim}
     \end{align}
     These are the conditions for $[a']_{\sim}$ to an inverse of $[a]_{\sim}$ in $(\hat{A}^{*}/\sim, \circ_{\sim})$.
 \end{enumerate}
-\end{proof}
+\end{proofE}
 
 Therefore, for our subalgebra $(B, \circ_{\sim})$ to satisfy the inverse property, each element of $B$ must have have a global inverse\footnote{
 Confusion between global reversibility/global invertibility and global \emph{consistent} invertibility appears to be a common area of misunderstanding \draftnote{blue}{awjdean}{in the literature (get references)}.
@@ -589,27 +558,27 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Properties. \draftnote{blue}{awjdean}{Change this title.}}
 
-\begin{proposition}\label{prp:consistent_global_reversibility_necessary_for_consistent_global_inverse}
+\begin{propositionE}\label{prp:consistent_global_reversibility_necessary_for_consistent_global_inverse}
     \draftnote{blue}{To do}{
     Update this proof to match the changes made to definitions of global reversibility.
     }
     Consistent global reversibility of an action is a necessary condition for an action to have a consistent global inverse (and so satisfy the group inverse property)
     (i.e., consistent global inverse $\implies$ consistent global reversibility).
-\end{proposition}
-\begin{proof}
-    Let $[a] \in \hat{A}^{*}/\sim$ have a consistent global inverse $[a']$.
+\end{propositionE}
+\begin{proofE}
+    Let $[a]_{\sim} \in \hat{A}^{*}/\sim$ have a consistent global inverse $[a']$.
     This means
     \begin{align}
-        & ([a'] \circ_{\sim} [a]) \ast w \quad \text{for all $w \in W$} \\
-        \implies & [a'] \ast ([a] \ast w) \quad \text{for all $w \in W$}
+        & ([a']_{\sim} \circ_{\sim} [a]) \ast w \quad \text{for all $w \in W$} \\
+        \implies & [a']_{\sim} \ast ([a]_{\sim} \ast w) \quad \text{for all $w \in W$}
     \end{align}
-    which is the condition for $[a]$ having consistent global reversibility.
-\end{proof}
+    which is the condition for $[a]_{\sim}$ having consistent global reversibility.
+\end{proofE}
 
-\begin{proposition}\label{prp:undefined_action_not_globally_reversible}
+\begin{propositionE}\label{prp:undefined_action_not_globally_reversible}
     If an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ sends a world state $w \in W$ to $\bot$ (i.e., if there isn't a transformation $d \in D$ with $d: w \xrightarrow{a} t(d)$ for some $w \in W$), then $[a]_{\sim}$ is not globally reversible.
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
     Consider an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ that sends a world state $w \in W$ to $\bot$ as
     \begin{equation}
         [a]_{\sim} * w = \bot
@@ -618,24 +587,24 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
     \begin{equation}
         a' * \bot = \bot \quad \text{for all $a' \in \hat{A}^{*}$}
     \end{equation}
-    Therefore, since there can only be one transformation $d \in D$ with $l(d) = a'$ and $s(\bot)$ for any $a' \in \hat{A}^{*}$ (from action condition \ref{actcon:action_gives_single_outcome}), $a$ is not reversible from $w$ and so $a$ is not globally reversible.
+    Therefore, since there can only be one transformation $d \in D$ with $l(d) = a'$ and $s(\bot)$ for any $a' \in \hat{A}^{*}$ (from \cref{actcon:action_gives_single_outcome}), $a$ is not reversible from $w$ and so $a$ is not globally reversible.
     \draftnote{blue}{To do}{Something about this translating to the elements of $\hat{A}^{*}/\sim$}
-\end{proof}
+\end{proofE}
 
-\begin{proposition}
+\begin{propositionE}
     \draftnote{blue}{To do}{
     Update this proof to match the changes made to definitions of global reversibility.
     }
-    For a world with a finite $|W|$, an action $[a] \in \hat{A}^{*}/\sim$ that is consistently globally reversible in $\hat{A}^{*}/\sim$ has a consistent global inverse in $\hat{A}^{*}/\sim$.
+    For a world with a finite $|W|$, an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ that is consistently globally reversible in $\hat{A}^{*}/\sim$ has a consistent global inverse in $\hat{A}^{*}/\sim$.
     (i.e., For a world with a finite $|W|$, consistent global reversibility is a sufficient condition for an action to be consistently globally invertible.)
-\end{proposition}
-\begin{proof}
+\end{propositionE}
+\begin{proofE}
     \draftnote{blue}{awjdean}{Improve this write up.}
     \begin{enumerate}
     \item \textbf{Actions correspond to functions.}
-    Consider an action $[a] \in \hat{A}^{*}/\sim$ that is consistently globally reversible.
-    This means $[a]$ has a consistent global left inverse $[a']$.
-    Each action $[a], [a'] \in \hat{A}^{*}/\sim$ has a corresponding function $f_{[a]}, f_{[a']}: W \to W$ in $\mathcal{T}_{\hat{A}^{*}/\sim}$.
+    Consider an action $[a]_{\sim} \in \hat{A}^{*}/\sim$ that is consistently globally reversible.
+    This means $[a]_{\sim}$ has a consistent global left inverse $[a']$.
+    Each action $[a], [a']_{\sim} \in \hat{A}^{*}/\sim$ has a corresponding function $f_{[a]}, f_{[a']}: W \to W$ in $\mathcal{T}_{\hat{A}^{*}/\sim}$.
     Translated to these functions, the consistent global left inverse condition is written as
     \begin{equation}
         \label{eqn:consistent_global_left_inverse_functions}
@@ -662,9 +631,9 @@ This will be discussed further in section \draftnote{blue}{awjdean}{???}.
         \label{eqn:right_inverse_bijective}
     \end{align}
     $f_{[a']}$ satisfies \cref{eqn:left_inverse_bijective} and since $f_{[a]}^{-1}$ is unique, $f_{[a']}$ is our $f_{[a]}^{-1}$ and so must also satisfy \cref{eqn:right_inverse_bijective}.
-    Therefore $f_{[a']}$, and its corresponding $[a'] \in \hat{A}^{*}/\sim$, is a consistent global inverse of $[a]$.
+    Therefore $f_{[a']}$, and its corresponding $[a']_{\sim} \in \hat{A}^{*}/\sim$, is a consistent global inverse of $[a]_{\sim}$.
     \end{enumerate}
-\end{proof}
+\end{proofE}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Totality}
@@ -695,8 +664,8 @@ For a subalgebra $(B, \circ_{\sim})$ to be a group, we need the following:
     This holds for any subalgebra of $(\hat{A}^{*}/\sim, \circ_{\sim})$ (\cref{prp:any_subalgebra_associative}).
 
     \item \textbf{Identity.}
-    For $(B, \circ_{\sim})$ to satisfy the identity property we need $[\epsilon] \in B$ (\cref{prp:A_sim_identity}).
-    The smallest possible $(B, \circ_{\sim})$ that is a group is $B = \{ [\epsilon] \}$.
+    For $(B, \circ_{\sim})$ to satisfy the identity property we need $[\varepsilon]_{\sim} \in B$ (\cref{prp:A_sim_identity}).
+    The smallest possible $(B, \circ_{\sim})$ that is a group is $B = \{ [\varepsilon]_{\sim} \}$.
 
     \item \textbf{Inverse.}
     This is the most restrictive of the group properties.
@@ -722,7 +691,7 @@ Assuming that all actions that can form a group are symmetries of the world, the
 \section{Worlds where all actions form a group}
 
 In this section, we will identify what conditions a world $\mathscr{W}$ must satisfy for $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be a group (and therefore for $\ast: (\hat{A}^{*}/\sim) \times W \to W$ to be a group action\footnote{
-\draftnote{blue}{Proof}{if $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then $\ast$ is a group action.
+\draftnote{blue}{proofE}{if $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then $\ast$ is a group action.
 Use proof of $\ast|_{B}$ group action then say that when $B = \hat{A}^{*}/\sim$, $\ast|_{B} = \ast$.
 }
 }).
@@ -733,72 +702,72 @@ For any world, $(\hat{A}^{*}/\sim, \circ_{\sim})$ satisfies the group properties
 \begin{enumerate}
     \item closure (from closure of $(\hat{A}^{*}, \circ)$);
     \item associativity (\cref{prp:circ_sim_associative}); and
-    \item identity (\cref{prp:A_sim_identity} and presence of $[\epsilon]$).
+    \item identity (\cref{prp:A_sim_identity} and presence of $[\varepsilon]_{\sim}$).
 \end{enumerate}
 
 Therefore, we only need our world $\mathscr{W}$ to satisfy the inverse property.
 
-\begin{proposition}
+\begin{propositionE}
     Consider an agent with minimum actions $\hat{A}$ in a world $\mathscr{W}$.
-    $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\iff$ all $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$.
-\end{proposition}
-\begin{proof}
+    $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\iff$ all $[a]_{\sim} \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$.
+\end{propositionE}
+\begin{proofE}
 \begin{enumerate}
-    \item \textbf{Necessary condition: $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\implies$ all $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$}.
-    If $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then for every $[a] \in \hat{A}^{*}/\sim$ there is an inverse $[a]^{-1}$ that satisfies
+    \item \textbf{Necessary condition: $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group $\implies$ all $[a]_{\sim} \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$}.
+    If $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group, then for every $[a]_{\sim} \in \hat{A}^{*}/\sim$ there is an inverse $[a]^{-1}_{\sim}$ that satisfies
     \begin{align}
-        & [a]^{-1} \circ_{\sim} [a] = [\epsilon]
+        & [a]^{-1}_{\sim} \circ_{\sim} [a]_{\sim} = [\varepsilon]_{\sim}
         \label{eqn:left_inverse_group}\\
-        & [a] \circ_{\sim} [a]^{-1} = [\epsilon]
+        & [a]_{\sim} \circ_{\sim} [a]^{-1}_{\sim} = [\varepsilon]_{\sim}
         \label{eqn:right_inverse_group}
     \end{align}
     Now let's translating these conditions back to the effect on a world state.
     
     For \cref{eqn:left_inverse_group} we get
     \begin{align}
-        & ([a]^{-1} \circ_{\sim} [a]) \ast w = [\epsilon] \ast w = w \quad \text{for all $w \in W$} \\
-        & ([a]^{-1} \circ_{\sim} [a]) \ast w = [a]^{-1} \ast ([a] \ast w) \quad \text{for all $w \in W$} \\
-        \implies & [a]^{-1} \ast ([a] \ast w) = w \quad \text{for all $w \in W$}
+        & ([a]^{-1}_{\sim} \circ_{\sim} [a]) \ast w = [\varepsilon]_{\sim} \ast w = w \quad \text{for all $w \in W$} \\
+        & ([a]^{-1}_{\sim} \circ_{\sim} [a]) \ast w = [a]^{-1}_{\sim} \ast ([a]_{\sim} \ast w) \quad \text{for all $w \in W$} \\
+        \implies & [a]^{-1}_{\sim} \ast ([a]_{\sim} \ast w) = w \quad \text{for all $w \in W$}
     \end{align}
-    which is the condition for $[a]^{-1}$ being the consistent global left inverse of $[a]$.
+    which is the condition for $[a]^{-1}_{\sim}$ being the consistent global left inverse of $[a]_{\sim}$.
     
     Similarly, for \cref{eqn:right_inverse_group} we get
     \begin{align}
-        & ([a] \circ_{\sim} [a]^{-1}) \ast w = [\epsilon] \ast w = w \quad \text{for all $w \in W$} \\
-        & ([a] \circ_{\sim} [a]^{-1}) \ast w = [a] \ast ([a]^{-1} \ast w) \quad \text{for all $w \in W$} \\
-        \implies & [a] \ast ([a]^{-1} \ast w) = w \quad \text{for all $w \in W$}
+        & ([a]_{\sim} \circ_{\sim} [a]^{-1}_{\sim}) \ast w = [\varepsilon]_{\sim} \ast w = w \quad \text{for all $w \in W$} \\
+        & ([a]_{\sim} \circ_{\sim} [a]^{-1}_{\sim}) \ast w = [a]_{\sim} \ast ([a]^{-1}_{\sim} \ast w) \quad \text{for all $w \in W$} \\
+        \implies & [a]_{\sim} \ast ([a]^{-1}_{\sim} \ast w) = w \quad \text{for all $w \in W$}
     \end{align}
-    which is the condition for $[a]^{-1}$ being the consistent global right inverse of $[a]$.
+    which is the condition for $[a]^{-1}_{\sim}$ being the consistent global right inverse of $[a]_{\sim}$.
 
-    Since $[a]^{-1}$ is both the consistent global left inverse and the consistent global right inverse of $[a]$, $[a]^{-1}$ is the consistent global inverse of $[a]$.
+    Since $[a]^{-1}_{\sim}$ is both the consistent global left inverse and the consistent global right inverse of $[a]_{\sim}$, $[a]^{-1}_{\sim}$ is the consistent global inverse of $[a]_{\sim}$.
 
 
-    \item \textbf{Sufficient condition: all $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$ $\implies$ $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group}.
-    For any world, $(\hat{A}^{*}/\sim, \circ_{\sim})$ satisfies the group properties of closure (from closure of $(\hat{A}^{*}, \circ)$), associativity (\cref{prp:circ_sim_associative}), and identity (\cref{prp:A_sim_identity} and presence of $[\epsilon]$).
+    \item \textbf{Sufficient condition: all $[a]_{\sim} \in (\hat{A}^{*}/\sim, \circ_{\sim})$ have consistent global inverses in $\hat{A}^{*}/\sim$ $\implies$ $(\hat{A}^{*}/\sim, \circ_{\sim})$ is a group}.
+    For any world, $(\hat{A}^{*}/\sim, \circ_{\sim})$ satisfies the group properties of closure (from closure of $(\hat{A}^{*}, \circ)$), associativity (\cref{prp:circ_sim_associative}), and identity (\cref{prp:A_sim_identity} and presence of $[\varepsilon]_{\sim}$).
     Therefore, only the group inverse property must be satisfied.
     
-    Every $[a] \in \hat{A}^{*}/\sim$ has a global consistent inverse, so for every $[a]$ there exists a $[a'] \in \hat{A}^{*}/\sim$ such that
+    Every $[a]_{\sim} \in \hat{A}^{*}/\sim$ has a global consistent inverse, so for every $[a]_{\sim}$ there exists a $[a']_{\sim} \in \hat{A}^{*}/\sim$ such that
     \begin{align}
-        [a'] \circ_{\sim} [a] = [\epsilon] \quad \text{from \cref{eqn:consistent_global_left_inverse_def}}
+        [a']_{\sim} \circ_{\sim} [a]_{\sim} = [\varepsilon]_{\sim} \quad \text{from \cref{eqn:consistent_global_left_inverse_def}}
         \label{eqn:left_inverse_group2} \\
-        [a] \circ_{\sim} [a'] = [\epsilon] \quad \text{from \cref{eqn:consistent_global_right_inverse_def}}
+        [a]_{\sim} \circ_{\sim} [a']_{\sim} = [\varepsilon]_{\sim} \quad \text{from \cref{eqn:consistent_global_right_inverse_def}}
         \label{eqn:right_inverse_group2}
     \end{align}
-    \cref{eqn:left_inverse_group2,eqn:right_inverse_group2} are the conditions for $[a']$ to be a group inverse of $[a]$.
+    \cref{eqn:left_inverse_group2,eqn:right_inverse_group2} are the conditions for $[a']$ to be a group inverse of $[a]_{\sim}$.
 \end{enumerate}
-\end{proof}
+\end{proofE}
 
 
 
 
-\begin{proposition}
+\begin{propositionE}
     Consider an agent with minimum actions $\hat{A}$ in a world $\mathscr{W}$.
-    All $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ are defined on every $w \in W$ (i.e., no actions send an element of $w$ to $\bot$) is a necessary condition for $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be a group.
-\end{proposition}
-\begin{proof}
-    If any $[a] \in (\hat{A}^{*}/\sim, \circ_{\sim})$ sends an element to $\bot$, then $[a]$ is not globally reversible (\cref{prp:undefined_action_not_globally_reversible}), and therefore not consistently globally reversible.
+    All $[a]_{\sim} \in (\hat{A}^{*}/\sim, \circ_{\sim})$ are defined on every $w \in W$ (i.e., no actions send an element of $w$ to $\bot$) is a necessary condition for $(\hat{A}^{*}/\sim, \circ_{\sim})$ to be a group.
+\end{propositionE}
+\begin{proofE}
+    If any $[a]_{\sim} \in (\hat{A}^{*}/\sim, \circ_{\sim})$ sends an element to $\bot$, then $[a]_{\sim}$ is not globally reversible (\cref{prp:undefined_action_not_globally_reversible}), and therefore not consistently globally reversible.
     Consistent global reversibility of an action is necessary for that action to have a consistent global inverse (\cref{prp:consistent_global_reversibility_necessary_for_consistent_global_inverse}), and therefore satisfy the group inverse property.
-\end{proof}
+\end{proofE}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{
@@ -848,7 +817,7 @@ Since the action transformation algebra of $\mathscr{W}_{\alpha}$ for our agent 
 
 
 There are four elements in the $(\hat{A}^{*}/\sim, \circ_{\sim})$ algebra, therefore, if the agent learns the relations between these four elements, and then it has complete knowledge of the transformations of our example world \draftnote{blue}{To do}{rewrite this.}.
-The order of each element is given by Table \ref{tab:example_1_element_orders}.
+The order of each element is given by \cref{tab:example_1_element_orders}.
 
 \begin{table}
     \centering

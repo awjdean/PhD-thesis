@@ -1,18 +1,81 @@
 \chapter{
-Category theory
-(V0.0)
+Categorification of our framework
+\draftnote{blue}{V0.5}{}
 }
-\draftnote{red}{Consider}{
+
+\draftnote{purple}{(PS) Consider}{
 \begin{enumerate}
-    \item Is $l$ actually a collection of maps $l_{w}$ for each $w \in W$ ? --> endomorphism viewpoint ?
+    \item Put pushout symbols in category theory diagrams.
+    \item Decide on standardised way of defining categories (put in a different box type ?).
+    \item Decide on a standardised way of defining functors (put in a different box type ?).
+    \item Example for simple two world state systems with actions $a, a^{-1}$.
+    \item Change arrows for faithful functors to be hooked in equations and diagrams.
+    \item Decide on a symbol convention for morphisms, functors, natural transforms, categories.
+    \item Talk about how faithfulness is essential for determinism (i.e., not stochastic transformations).
+    \item Can we use the adjunction between $\cat{Quiv}$ and $\cat{Cat}$ to prove that it's impossible to go from $\hat{\mathscr{W}}$ to $\hat{\mathscr{W}}_{A}$ directly ?
+    \begin{enumerate}
+        \item We can show this process as $\hat{\mathscr{W}} \in \cat{Quiv}$ to 
+        \item \textbf{Process:}
+        We start with a quiver $Q$, then generate its free category using the free category functor $F(Q)$, then take the quiver of that free category using the forgetful functor $U(F(Q))$, then take the subset $Q_{A}$ of $U(F(Q))$ which is labelled by some labelling map $l: U(F(Q)) \to U(\text{B}A)$ (i.e., filter $U(F(Q))$ via $l$), then generate the free category $F(Q_{A})$
+        \item Can we use this process to construct a morphism in Cat from $F(Q)$ to $F(Q_{A})$ ?
+    \end{enumerate}
+    \item Something about how working in $\cat{Quiv}$ is like we're working with the atomic multigraphs, and that the adjunction between $\cat{Quiv}$ and $\cat{Cat}$ means we can work in $\cat{Quiv}$ (for some stuff).
+    \item The minimal quiver that generates $\mathcal{F}(Q)$
+    \begin{enumerate}
+        \item Can multiple quivers generate the same free category or do those quivers only become identified when $\sim$ is applied ?
+        \item Is there a property that shows if the quiver $Q$ is the smallest necessary quiver that generates $\mathcal{F}(Q)$ ?
+        Perhaps something like $\eta_{Q}$ being the identity morphism ?
+    \end{enumerate}
+    \item Convert the totalisation pushout to be done in $\cat{Quiv}$ and then lifted into $\cat{Cat}$ using the free-forgetful adjunction.
+    \begin{enumerate}
+        \item I think this should be much more elegant.
+        \item No need to include identities in the quivers.
+        \item Watch out with the use of $\hat{A}$ vs $\hat{A}^{*}$ in the quiver.
+        \item Footnote about how the lifted labelling maps gain the ability to label empty paths with $\varepsilon$ even though the atomic labelling map $\hat{l}$ does not do so.
+        \item Show all the diagrams.
+    \end{enumerate}
+    \item Change "action functor" to "action representation functor" ?
+    \item Create a more involved proof that $L^{\bot}$ inherits faithfulness from $L$ and $L_{\mathcal{S}}$.
+    \item Explicitly define the kernel category used for the equivalence.
+    \item Reachable subworld as the connected component of an object ?
 \end{enumerate}
 }
 
-\draftnote{blue}{Consider}{
-Action of a category
+\draftnote{red}{Explore}{
+\begin{enumerate}
+    \item Extensions to not using $\cat{Set}$ or $\cat{Set}_{\bot}$:
+    \begin{enumerate}
+        \item Representations of quivers as a natural model for describing the world using vector spaces (the world states) and linear maps between them (the transformations).
+        \item Generalising the objects of the category away from sets to other things (e.g., vector spaces - quiver representations, local algebras etc...). Can put any property and the category will have the same structure (possibly with added redundancy).
+        \item Action on a general category instead of $\cat{Set}$.
+    \end{enumerate}
+    \item Is the category $\mathscr{W}$ with the labelling map/functor $l$/$L$ an enriched category ?
+    \item Category of worlds ?
+    \begin{enumerate}
+        \item Do worlds have any extra structure ?
+        \item Is this the category of enriched categories with labelling maps ?
+    \end{enumerate}
+    \item Action-homogeneous condition is a condition for the world states to be deemed to be identical in category theory (from the Yoneda lemma we can work out all info from the morphisms of objects) and therefore we can "glue together" the objects of the groupoid to form a group.
+\end{enumerate}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{7CategoryTheoryI/intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{7CategoryTheoryI/preliminaries}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{7CategoryTheoryI/Old/main}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{7CategoryTheoryI/categorifying_framework}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \input{7CategoryTheoryI/other}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Category theory (OLD)}
+\input{7CategoryTheoryI/old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

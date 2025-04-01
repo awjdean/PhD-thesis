@@ -1,0 +1,426 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Further category theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Action labelling map}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Action labelling maps as a pushout}
+
+Can we view the gluing of the world states in $\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})$ through the action labelling functor $L^{\bot}$ as a coequalizer.
+The universal property of the coequalizer states that, for any category $\mathcal{C}$ and any functor $H: \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \to \mathcal{C}$ that identifies all objects (i.e., $H \circ F = H \circ G$), there is a unique functor $H': \textbf{B}\hat{A}^{*} \to \mathcal{C}$ with
+\begin{equation}
+    H' \circ q = H.
+\end{equation}
+The labelling functor $L^{\bot}$ is exactly such a functor $H$ since it sends every object in $\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})$ to the unique object $\bullet$ of $\textbf{B}\hat{A}^{*}$, and so we can identify $\textbf{B}\hat{A}^{*}$ as the coequalizer (i.e., the quotient) of $\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})$ by the equivalence that identifies all objects (i.e., $w \sim w'$ for all $w,w' \in W^{\bot}$ and relates morphisms accord to their labels (i.e., $f \sim g \iff L^{\bot}(f) = L^{\bot}(g)$).
+As a diagram:
+\begin{equation}
+    % https://q.uiver.app/#q=WzAsOSxbMCwwLCJcXG1hdGhjYWx7SX0iXSxbMiwwLCJcXG1hdGhjYWx7Rn0oXFxoYXR7XFxtYXRoc2Nye1d9fV97XFxtYXRoc2Nye0F9fV57XFxib3R9KSJdLFszLDFdLFs0LDFdLFswLDIsIlxcbWF0aGNhbHtGfShcXGhhdHtcXG1hdGhzY3J7V319X3tcXG1hdGhzY3J7QX19XntcXGJvdH0pIl0sWzUsMiwiXFxtYXRoY2Fse0Z9KFxcaGF0e1xcbWF0aHNjcntXfX1fe1xcbWF0aHNjcntBfX1ee1xcYm90fSkiXSxbNSwwLCJcXG1hdGhjYWx7SX0iXSxbNywwLCJcXG1hdGhjYWx7Rn0oXFxoYXR7XFxtYXRoc2Nye1d9fV97XFxtYXRoc2Nye0F9fV57XFxib3R9KSJdLFs3LDIsIlxcdGV4dGJme0J9XFxoYXR7QX1eeyp9Il0sWzAsMSwicF8xIiwwLHsib2Zmc2V0IjotMX1dLFsyLDMsIlxcdGV4dHtwdXNob3V0fSJdLFswLDQsInBfezJ9IiwyLHsib2Zmc2V0IjoxfV0sWzYsNSwicF97Mn0iLDJdLFs2LDcsInBfezF9Il0sWzcsOCwiTF57XFxib3R9Il0sWzUsOCwiTF57XFxib3R9IiwyXV0=
+\begin{tikzcd}[ampersand replacement=\&]
+    {\mathcal{I}} \&\& {\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})} \&\&\& {\mathcal{I}} \&\& {\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})} \\
+    \&\&\& {} \& {} \\
+    {\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})} \&\&\&\&\& {\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})} \&\& {\textbf{B}\hat{A}^{*}}
+    \arrow["{p_1}", shift left, from=1-1, to=1-3]
+    \arrow["{p_{2}}"', shift right, from=1-1, to=3-1]
+    \arrow["{p_{1}}", from=1-6, to=1-8]
+    \arrow["{p_{2}}"', from=1-6, to=3-6]
+    \arrow["{L^{\bot}}", from=1-8, to=3-8]
+    \arrow["{\text{pushout}}", from=2-4, to=2-5]
+    \arrow["{L^{\bot}}"', from=3-6, to=3-8]
+\end{tikzcd}
+\end{equation}
+\draftnote{blue}{Consider}{Does this perspective mean that we can construct $A^{\bot}$ as a universal map from $\textbf{B}\hat{A}^{*}$ to $\mathcal{D}$ from the universal property of the coequalizer.}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pullback Diagram for Recovering $\ast^{\bot}$:}
+
+\begin{equation}
+\begin{tikzcd}[row sep=large, column sep=large]
+\mathcal{P} \ar[r, "p_2"] \ar[d, "p_1"'] \ar[dr, phantom, "\lrcorner", very near start] & \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \ar[d, "L^{\bot}"] \\
+\mathbf{B}\hat{A}^* \times \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \ar[r, "\pi_2"'] & \mathbf{B}\hat{A}^*
+\end{tikzcd}
+\end{equation}
+This is saying that the totalised action effect $\ast^{\bot}$ can be recovered by pulling back along the labelling functor $L^{\bot}$.
+The pullback object $\mathcal{P}$ collects exactly those pairs $(a,d)$ where $a$ is the label of $d$ (i.e., $l(d) = a$).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Translating from the world to the agent's representation (category theory)}
+\draftnote{blue}{Include}{
+\begin{enumerate}
+    \item Can we build an adjunction from the category of worlds (not the category of world states) to the category of representations ?
+    \item What structures can we bring through the adjunction and what structures can we not ?
+    \item What happens to the adjunction when we add noise to the sensors ?
+    \begin{enumerate}
+        \item I think a random "vector" gets added to the components of the $\eta$ and $\epsilon$ natural transformations.
+    \end{enumerate}
+\end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Translating between different representations}
+\draftnote{blue}{Consider}{
+Can we use adjunctions to transfer between different representations ?
+\begin{enumerate}
+    \item Transfer between different types of representations of the same world with the same learning algorithm (e.g., vector space vs set).
+    \item Transfer between different representations that are of the same type (e.g., representations in $\cat{Vect}$) and are learning the same world but using different inference processes.
+\end{enumerate}
+}
+Any category $\mathcal{D}$ with the required structure of products and a basepoint-like object (e.g., $\cat{Set}_{\bot}$) can be used in the following diagram
+\begin{equation}
+\begin{tikzcd}[row sep=large, column sep=large]
+\mathbf{B}\hat{A}^* \times \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \ar[r, "\mathcal{A}^\bot"] \ar[d, "U \times U"'] & \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \ar[d, "U"] \\
+\mathbf{B}\hat{A}^* \times \mathcal{D} \ar[r, "A^\bot"] & \mathcal{D}
+\end{tikzcd}
+\end{equation}
+where
+\begin{equation}
+    \mathcal{A}^{\bot}: \mathbf{B}\hat{A}^* \times \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \to \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})
+\end{equation}
+is the internal action of the free monoid on the world, $U$ is a forgetful functor that forgets the extra structure in $\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})$ to give $\mathcal{D}$, and
+\begin{equation}
+    A^{\bot}: \mathbf{B}\hat{A}^* \times \mathcal{D} \to \mathcal{D}
+\end{equation}
+is the $\mathcal{D}$-level interpretation of the action.
+
+\draftnote{purple}{(PS) Consider}{
+If $\mathcal{D}$ has enough "free" objects (such as when $\mathcal{D}$ is chosen to be something like $\cat{Set}_{\bot}$), we can define a left adjoint function $F$ so that $U$ is part of an adjunction.
+}
+
+What we really want to know is whether it is possible to build an adjunction so we can transfer between different representations of the internal action $\mathcal{A}^{\bot}: \mathbf{B}\hat{A}^* \times \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \to \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot})$ (e.g., can we construct an adjunction so that we can move between action functors $A^{\bot}: \mathbf{B}\hat{A}^* \times \mathcal{D} \to \mathcal{D}$ where, for example, $\mathcal{D} = \cat{Set}$ and $\mathcal{D} = \cat{Vect}$)?
+
+Consider the internal action
+\begin{equation}
+    \mathcal{A}^{\bot}: \mathbf{B}\hat{A}^* \times \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}) \to \mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}}^{\bot}).
+\end{equation}
+Suppose we have an action functor
+\begin{equation}
+    A^{\bot}_{\mathcal{D}}: \textbf{B}\hat{A}^{*} \times \mathcal{D} \to \mathcal{D},
+\end{equation}
+where $\mathcal{D}$ hosts a representation of the internal action $\mathcal{A}^{\bot}$, and an action functor
+\begin{equation}
+    A^{\bot}_{\mathcal{E}}: \textbf{B}\hat{A}^{*} \times \mathcal{E} \to \mathcal{E},
+\end{equation}
+where $\mathcal{E}$ hosts a representation of the action $\mathcal{A}^{\bot}$.
+
+If there exists a free-forgetful adjunction
+\begin{equation}
+    F: \mathcal{D} \leftrightarrows \mathcal{E} :U,
+\end{equation}
+then we can often transfer the action from $\mathcal{D}$ to $\mathcal{E}$:
+\begin{equation}
+    % https://q.uiver.app/#q=WzAsNixbMiwwLCJcXHRleHR7SW4gfSBcXG1hdGhjYWx7RX06Il0sWzIsMSwieCJdLFswLDAsIlxcdGV4dHtJbiB9IFxcbWF0aGNhbHtEfToiXSxbMCwxLCJVKHgpIl0sWzAsMywiQV57XFxib3R9X3tcXG1hdGhjYWx7RH19KGEsIFUoeCkpIl0sWzIsMywiRihBXntcXGJvdH1fe1xcbWF0aGNhbHtEfX0oYSwgVSh4KSkpIl0sWzEsMywiVSIsMSx7ImNvbG91ciI6WzEyMCw2MCw2MF19LFsxMjAsNjAsNjAsMV1dLFszLDQsIkFee1xcYm90fV97XFxtYXRoY2Fse0R9fShhLCB4KSJdLFs0LDUsIkYiLDEseyJjb2xvdXIiOlswLDYwLDYwXX0sWzAsNjAsNjAsMV1dLFs1LDEsIlxcZXBzaWxvbl97eH0iXSxbMSw1LCJBXntcXGJvdH1fe1xcbWF0aGNhbHtFfX0oYSx4KSIsMCx7Im9mZnNldCI6LTMsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\begin{tikzcd}[ampersand replacement=\&]
+    {\text{In } \mathcal{D}:} \&\& {\text{In } \mathcal{E}:} \\
+    {U(x)} \&\& x \\
+    \\
+    {A^{\bot}_{\mathcal{D}}(a, U(x))} \&\& {F(A^{\bot}_{\mathcal{D}}(a, U(x)))}
+    \arrow["{A^{\bot}_{\mathcal{D}}(a, x)}", from=2-1, to=4-1]
+    \arrow["U"{description}, color={rgb,255:red,92;green,214;blue,92}, from=2-3, to=2-1]
+    \arrow["{A^{\bot}_{\mathcal{E}}(a,x)}", shift left=3, dashed, from=2-3, to=4-3]
+    \arrow["F"{description}, color={rgb,255:red,214;green,92;blue,92}, from=4-1, to=4-3]
+    \arrow["{\epsilon_{x}}", from=4-3, to=2-3]
+\end{tikzcd}
+\end{equation}
+where we have derived the new functor
+\begin{equation}
+\begin{aligned}
+    & A^{\bot}_{\mathcal{E}}: \textbf{B}\hat{A}^{*} \times \mathcal{E} \to \mathcal{E} \quad \text{such that} \\
+    & A^{\bot}_{\mathcal{E}}(a,x) := F\big(A^{\bot}_{\mathcal{D}}(a, U(x))\big)
+\end{aligned}
+\end{equation}
+Because $F$ is left adjoint to $U$, this procedure preserves the algebraic structure of the action \draftnote{purple}{(PS) To do}{Explain this.}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Enriched category theory stuff - come back to this}
+% https://chat.deepseek.com/a/chat/s/0197bb5e-6c47-4c1e-9899-bec91faa1ff2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monoidal categories}
+
+
+\paragraph{Delooping of a monoid $M$.}
+A category with one object whose morphisms form the monoid $M$.
+This is the category version of the monoid $M$; in other words, $M$ is encoded as the morphisms of a one-object category.
+Formally, consider a monoid $(M, \cdot, e)$.
+The category $\textbf{B}M$ consists of
+\begin{enumerate}
+    \item \textbf{Objects:}
+    A single object $\bullet$.
+    \begin{equation}
+        \text{Ob}(\textbf{B}M) = \{ \bullet \}
+    \end{equation}
+
+    \item \textbf{Morphisms:}
+    \begin{equation}
+        \text{Hom}_{\textbf{B}M}(\bullet, \bullet) = M.
+    \end{equation}
+    Composition of morphisms is given by the monoid operation $\cdot$ in $M$.
+\end{enumerate}
+
+
+\paragraph{Monoidal category.}
+A category $\mathcal{C}$ with an internal tensor product (binary operations on objects and morphisms), a unit object, associativity constraints etc...
+This is a category equipped with monoid-like structure.
+Formally a monoidal category $(\mathcal{C}, \otimes, I)$ is a category where
+\begin{enumerate}
+    \item \textbf{Objects:}
+    There is, in general, more than one object.
+
+    \item A bifunctor call the tensor product
+    \begin{equation}
+        \otimes: \mathcal{C} \times \mathcal{C} \to \mathcal{C}
+    \end{equation}
+    which acts on objects and morphisms
+    \begin{enumerate}
+        \item \textbf{Objects:}
+        \begin{equation}
+            A,B \mapsto A \otimes B
+        \end{equation}
+        \item \textbf{Morphisms:}
+        \begin{equation}
+            \big(f:A \to A', g: B \to B' \big) \mapsto \big(f \otimes g: A \otimes B \to A' \otimes B' \big).
+        \end{equation}
+        NB: not necessarily the Cartesian product (it's the Cartesian product when the objects are sets).
+    \end{enumerate}
+
+    \item A unit object
+    \begin{equation}
+        I \in \mathcal{C}.
+    \end{equation}
+    which is the identity for the tensor product.
+    The following natural isomorphisms (unitors) exist:
+    \begin{align}
+        & \lambda_{A}: I \otimes A \to A \\
+        & \rho_{A}: A \otimes I \to A
+    \end{align}
+
+    \item \textbf{Associator.}
+    Since $\otimes$ is not required to be strictly associative, we add a natural isomorphism
+    \begin{equation}
+        \alpha_{A,B,C}: (A \otimes B) \otimes C \xrightarrow{\cong} A \otimes (B \otimes C)
+    \end{equation}
+    i.e., different bracketing gives canonically isomorphic objects, but not necessarily equal objects.
+
+    \item Mac Lane's coherence theorem - pentagon identity, and triangle identity.
+\end{enumerate}
+
+For a strict monoidal category, the associativity and unit conditions are equally equal not just isomorphic (no unitors or associator isomorphisms needed).
+
+Mac Lane’s strictification theorem: Every (weak) monoidal category is monoidally equivalent to a strict one.
+Therefore we can assume strictness for the purposes of reasoning.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Delooped monoid}
+For $a, b \in \hat{A}^{*}$, the monoid multiplication in $\textbf{B}\hat{A}^{*}$ satisfies
+\begin{center}  
+\begin{tikzcd}
+    \bullet \ar[r, "a"] \ar[rr, "a \circ b", bend right=30] & \bullet \ar[r, "b"] & \bullet
+\end{tikzcd}
+\end{center}
+
+
+\paragraph{Horizontal composition.}
+\draftnote{red}{To do}{
+\begin{enumerate}
+    \item I think $\mathcal{A}(a): C^{\bot} \to C^{\bot}$ basically shifts the structure around making some world states closer and some further away.
+    For an action $a \in \hat{A}^{*}$, $\mathcal{A}(a)$ shifts $w \mapsto a \ast w$ for all $w \in W$.
+    \item Does horizontal composition do something with the labels too ?
+\end{enumerate}
+}
+
+
+For an action $a \in \hat{A}^{*}$ as an endofunctor $\mathcal{A}(a): C^{\bot} \to C^{\bot}$, and a transformation $d \in C^{\bot}$ in $d: w \to w'$, the horizontal composition $a \ast d$ is the morphism $a \ast w \xrightarrow{a \ast d} a \ast w'$:
+\begin{equation}
+    \mathcal{A}(a): (w \xrightarrow{d} w') \mapsto (a \ast w \xrightarrow{a \ast d} a \ast w')
+\end{equation}
+OR
+\begin{equation}
+    \mathcal{A}(a): (d: w \to w') \mapsto (a \ast d: a \ast w \to a \ast w')
+\end{equation}
+\begin{equation}
+    \mathcal{A}(a): \Big( w \xrightarrow{d} w' \Big) \mapsto \Big( a \ast w \xrightarrow{a \ast d} a \ast w' \Big).
+\end{equation}
+
+
+Horizontal composition is the application of $\mathcal{A}(a)$ to the morphism $d$.
+The $\ast$ in $a \ast d$ is the horizontal composition (i.e., the functorial action on morphisms), while $a \ast w$ is the functorial action on objects.
+This is analogous to the "whiskering" operation in 2-category theory.
+
+
+\paragraph{Action functor.}
+We have a functor
+\begin{equation}
+    \mathcal{A}: \textbf{B}\hat{A}^{*} \to \textbf{End}(C^{\bot})
+\end{equation}
+that acts as follows
+\begin{enumerate}
+    \item \textbf{Objects:}
+    The single object of $\textbf{B}\hat{A}^{*}$ is mapped to the identity endofunctor
+    \begin{equation}
+        \mathcal{A}(\bullet) = \text{Id}_{C}
+    \end{equation}
+
+    \item \textbf{Morphisms:}
+    Each $a \in \hat{A}^{*}$ maps to an endofunctor $\mathcal{A}(a): C \to C$ satisfying the properties
+    \begin{enumerate}
+        \item \textbf{Identity.}
+        \begin{equation}
+            \mathcal{A}(\varepsilon) = \mathrm{Id}_{\mathcal{C}^{\bot}}
+        \end{equation}
+        \item \textbf{Composition.}
+        \begin{equation}
+            \mathcal{A}(a' \circ a) = \mathcal{A}(a') \circ \mathcal{A}(a)
+        \end{equation}
+    \end{enumerate}
+\end{enumerate}
+
+
+The category $\textbf{End}(C^{\bot})$ consists of
+\begin{enumerate}
+    \item \textbf{Objects:}
+    The endofunctors
+    \begin{equation}
+        F : C^{\bot} \to C^{\bot}
+    \end{equation}
+    For example $\mathcal{A}(a)$ for $a \in \hat{A}^{*}$.
+
+    \item \textbf{Morphisms:}
+    Natural transformations
+    \begin{equation}
+        \eta: F \Rightarrow G
+    \end{equation}
+    between endofunctors $F$ and $G$.
+    For example, the identity natural transformation $\text{Id}_{C} \Rightarrow \text{Id}_{C}$.
+\end{enumerate}
+
+
+Each of the endofunctors $\mathcal{A}(a): C \to C$ act as follows:
+\begin{enumerate}
+    \item \textbf{Objects:}
+    For $a \in \hat{A}^{*}$, $\mathcal{A}(a)$ maps objects in $C^{\bot}$ via
+    \begin{equation}
+        \mathcal{A}(a)(w) = a \ast w \quad \text{and} \quad \mathcal{A}(a)(\bot) = \bot
+    \end{equation}
+
+    \item \textbf{Morphisms:}
+    For $d: w \to w'$ in $C^{\bot}$, $\mathcal{A}(a)(d) = a \ast d$ is defined by
+    \begin{center}
+    \begin{tikzcd}
+        w \ar[r, "d"] \ar[d, "a \ast (-)"'] & w' \ar[d, "a \ast (-)"] \\
+        a \ast w \ar[r, "a \ast d"] & a \ast w'
+    \end{tikzcd}
+    \end{center}
+    This diagram commutes by the definition of horizontal composition.
+\end{enumerate}
+
+
+
+\draftnote{red}{DIVIDER}{}
+
+
+\begin{equation}
+\mathcal{A}(a)(w) = a \ast w.
+\end{equation}
+
+So the morphisms $\mathcal{A}(a)(w)$ act as $\mathcal{A}(a)(w) = a \ast w$.
+
+
+
+
+
+\begin{equation}
+\mathcal{A}(a)(w) = a \ast w \quad \text{and} \quad \mathcal{A}(a)(\bot) = \bot.
+\end{equation}
+
+\begin{equation}
+    \mathcal{A}(a)(d) = a \ast d \quad \text{for all $d: w \to w'$ in $C$}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+\paragraph{Natural transformations from labelling.}
+The labelling system induces natural transformations (for each $a \in \hat{A}^{*}$?)
+\begin{equation}
+    \alpha_{a}: \text{Id}_{\mathcal{C}^{\bot}} \Rightarrow \mathcal{A}(a)
+\end{equation}
+with components
+\begin{equation}
+    \alpha_{a}(w): w \to a \ast w.
+\end{equation}
+The naturality condition requires the following diagram to commute for all $d: w \to w'$
+\begin{center}
+\begin{tikzcd}
+    w \ar[r, "\alpha_a(w)"] \ar[d, "d"'] & a \ast w \ar[d, "a \ast d"] \\
+    w' \ar[r, "\alpha_a(w')"'] & a \ast w'
+\end{tikzcd}
+\end{center}
+where $\alpha_{a}(w)$ is the morphism labelled by $a$ from $w$ to $a \ast w$.
+
+
+For each $w \in C$, $\alpha_{a}(w)$ is the unique morphism $d_{a} \in D_{A}$ labelled by $a$ such that
+\begin{equation}
+    d_a: w \to a \ast w \quad \text{with} \quad l(d_a) = a.
+\end{equation}
+
+The naturality condition ensures compatibility: for any $d: w \to w'$, the diagram
+\begin{center}
+\begin{tikzcd}
+w \ar[r, "d_a"] \ar[d, "d"'] & a \ast w \ar[d, "a \ast d"] \\
+w' \ar[r, "d_a'"'] & a \ast w'
+\end{tikzcd}
+\end{center}
+commutes; in other words
+\begin{equation}
+    (a \ast d) \circ d_{a} = d'_{a} \circ d.
+\end{equation}
+
+
+The natural transformation $\alpha_{a}$ encodes the deterministic effect of the action $a \in \hat{A}^{*}$ across all world states; each component $\alpha_{a}(w)$ of $\alpha_{a}$ encodes the effect of $a$ on the world state $w \in W$.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Other}
+\draftnote{red}{}{
+\begin{enumerate}
+    \item \textbf{Category theory on reachable subworlds.}
+    \begin{enumerate}
+        \item Reachable subworld is an object in the category of categories (or category of worlds (which is a subcategory of the category of categories)?).
+        \item Possible construction:
+        \begin{enumerate}
+            \item Strict endofunctors on reachable subworld categories for reversible actions.
+            \item Non-strict endofunctors on (infinite) reachable subworld categories that are action-homogeneous - does this mean we can tell if a world is action-homogeneous by just looking at its reachable subworld category ?
+            \item Functors for irreversible actions.
+        \end{enumerate}
+        \item How to deal with reachability in a disjoint world ?
+    \end{enumerate}
+\end{enumerate}
+}
+
+
+\draftnote{red}{Consider}{
+\begin{enumerate}
+    \item Would taking the dual give us anything ?
+    \begin{enumerate}
+        \item Doesn't make sense to take the dual of worlds $\mathcal{F}(\hat{\mathscr{W}}_{\mathscr{A}})$.
+    \end{enumerate}
+    \item Other equivalences
+    \begin{enumerate}
+        \item A congruence relation $\sim$ on a category $\mathcal{C}$ is a relation on the morphism of $\mathcal{C}$ that respects domain and codomain (only compares morphisms with the same source and target), and is compatible with composition:
+        \begin{equation}
+            f \sim f' \text{ and } g \sim g' \implies g \circ f \sim g' \circ f'.
+        \end{equation}
+    \end{enumerate}
+\end{enumerate}
+}
